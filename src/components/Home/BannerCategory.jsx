@@ -2,7 +2,7 @@ import { category } from "../../utils/constants";
 const BannerCategory = () => {
   console.log(category);
   return (
-    <div className=" bg-white rounded-2xl px-6 text-md pt-4">
+    <div className=" bg-white rounded-2xl px-6 text-md pt-4 border-[1px] border-gray-400">
       {category.map((cat) => (
         <>
           <div
