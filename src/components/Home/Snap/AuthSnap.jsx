@@ -5,7 +5,7 @@ import { AiFillTwitterCircle } from "react-icons/ai";
 import { BiLogoApple } from "react-icons/bi";
 const AuthSnap = () => {
   return (
-    <div className="px-4 bg-[#F5F5F5] py-4 flex items-center justify-center w-80 rounded-2xl">
+    <div className="px-4 bg-info py-5 flex items-center justify-center w-80 rounded-2xl">
       <div>
         <div className="flex gap-3">
           <button className="px-4 text-lg font-bold tracking-wider transition duration-300 bg-secondary text-white hover:bg-transparent hover:text-secondary py-3 rounded-full border-[1px] border-secondary">

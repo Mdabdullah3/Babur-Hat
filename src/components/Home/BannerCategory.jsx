@@ -1,7 +1,7 @@
 import { category } from "../../utils/constants";
 const BannerCategory = () => {
   return (
-    <div className=" bg-white rounded-2xl px-6 text-md pt-4 border-[1px] border-gray-300 shadow-md">
+    <div className=" bg-white rounded-2xl px-6 text-md pb-2 border-[1px] border-gray-300 shadow-md">
       {category.map((cat) => (
         <>
           <div

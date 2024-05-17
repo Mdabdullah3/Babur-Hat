@@ -7,7 +7,7 @@ import Image from "next/image";
 import { BestDell } from "../../../utils/constants";
 const DellSnap = () => {
   return (
-    <div className="bg-[#FFF5EF] px-4 py-4  rounded-2xl w-80 mt-4">
+    <div className="bg-[#FFF5EF] px-4 py-6  rounded-2xl w-80 mt-4">
       <h1 className="text-2xl font-bold text-primary">Welcome Dell</h1>
       <p className="my-2">Your Exclusive Price</p>
       <div className="mt-5">

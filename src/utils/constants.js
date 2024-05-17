@@ -101,3 +101,24 @@ export const BestDell = [
         price: 150
     }
 ]
+
+export const newProducts = [
+    {
+        id: 1,
+        img: "https://ae01.alicdn.com/kf/Sc12a586e070d42cc809a1d6305d39136Y.jpg_480x480.jpg_.webp",
+        price: 250.3,
+        discount: 45
+    },
+    {
+        id: 2,
+        img: "https://ae01.alicdn.com/kf/S824c8b4bf1d84a2e85b7ccbb707a6c97U.jpg_480x480.jpg_.webp",
+        price: 243.3,
+        discount: 55
+    },
+    {
+        id: 3,
+        img: "https://ae01.alicdn.com/kf/Sc12a586e070d42cc809a1d6305d39136Y.jpg_480x480.jpg_.webp",
+        price: 324.3,
+        discount: 35
+    },
+]
