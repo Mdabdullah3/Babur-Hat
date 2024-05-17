@@ -5,6 +5,7 @@ const nextConfig = {
         domains: [
             'maraviyainfotech.com',
             'images.pexels.com',
+            'ae01.alicdn.com',
             'tf.quomodosoft.com',
             'i.ibb.co'
         ],

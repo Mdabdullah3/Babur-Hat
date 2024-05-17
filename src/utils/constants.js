@@ -83,3 +83,21 @@ export const category = [
         icon: <MdBikeScooter />
     }
 ]
+
+export const BestDell = [
+    {
+        id: 1,
+        img: "https://ae01.alicdn.com/kf/S8faec5719293415492647b14c8316ff8o.jpg_480x480.jpg_.webp",
+        price: 250
+    },
+    {
+        id: 2,
+        img: "https://ae01.alicdn.com/kf/S64ea16e8d1e84033a10cbd57200af0eeL.jpg_480x480.jpg_.webp",
+        price: 123,
+    },
+    {
+        id: 3,
+        img: "https://ae01.alicdn.com/kf/S2a3f33da4c184df884e8e0f13e98c189p.jpg_480x480.jpg_.webp",
+        price: 150
+    }
+]
