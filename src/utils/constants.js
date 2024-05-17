@@ -43,7 +43,7 @@ export const category = [
         icon: <PiShirtFolded />
     },
     {
-        id: 4,
+        id: 14,
         name: "Mother & Baby",
         icon: <FaBaby />
     },
@@ -126,47 +126,92 @@ export const newProducts = [
 export const ProductCategory = [
     {
         id: 1,
-        name: "Men",
+        name: "Men & Boy Fashion",
         img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/tshirt.jpg",
     },
     {
         id: 2,
-        name: "Women",
+        name: "Women & Girls Fashion",
         img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/jacket.jpg",
     },
     {
         id: 3,
-        name: "Begs",
+        name: "Begs Accessories",
         img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/bag-3.jpg",
     },
     {
         id: 4,
-        name: "Shoes",
+        name: "Shoes & Hills Accessories",
         img: "https://minimog-4437.kxcdn.com/robust/wp-content/uploads/sites/7/2022/11/coachella-cat-all-180x180.jpg",
     },
     {
         id: 5,
-        name: "OuterWear",
+        name: "OuterWear & Coats",
         img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/coats-2.jpg",
     },
     {
         id: 6,
-        name: "Trouser",
+        name: "Trouser & Shorts",
         img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/pants-2.jpg",
     },
     {
         id: 8,
-        name: "Jewelry",
+        name: "Jewelry & Bracelets",
         img: "https://minimog-4437.kxcdn.com/wp-content/uploads/2021/12/product_jewelry_13_2-570x760.jpg",
     },
     {
         id: 9,
-        name: "Sunglasse",
+        name: "Sunglasse & Frames",
         img: "https://minimog-4437.kxcdn.com/wp-content/uploads/2021/12/product_fashion_29_b_1-570x760.jpg",
     },
     {
         id: 10,
-        name: "Accessories",
+        name: "Accessories & Home Decoration",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/accessories.jpg",
+    },
+    {
+        id: 169,
+        name: "Men & Boy Fashion",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/tshirt.jpg",
+    },
+    {
+        id: 692,
+        name: "Women & Girls Fashion",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/jacket.jpg",
+    },
+    {
+        id: 367,
+        name: "Begs Accessories",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/bag-3.jpg",
+    },
+    {
+        id: 441,
+        name: "Shoes & Hills Accessories",
+        img: "https://minimog-4437.kxcdn.com/robust/wp-content/uploads/sites/7/2022/11/coachella-cat-all-180x180.jpg",
+    },
+    {
+        id: 1241,
+        name: "OuterWear & Coats",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/coats-2.jpg",
+    },
+    {
+        id: 6121,
+        name: "Trouser & Shorts",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/pants-2.jpg",
+    },
+    {
+        id: 2418,
+        name: "Jewelry & Bracelets",
+        img: "https://minimog-4437.kxcdn.com/wp-content/uploads/2021/12/product_jewelry_13_2-570x760.jpg",
+    },
+    {
+        id: 141,
+        name: "Sunglasse & Frames",
+        img: "https://minimog-4437.kxcdn.com/wp-content/uploads/2021/12/product_fashion_29_b_1-570x760.jpg",
+    },
+    {
+        id: 241,
+        name: "Accessories & Home Decoration",
         img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/accessories.jpg",
     },
 ];
