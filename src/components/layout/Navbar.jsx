@@ -1,32 +1,75 @@
-
+import { FiSearch } from "react-icons/fi";
+import { FaRegUser } from "react-icons/fa6";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { PiShoppingCartSimpleBold } from "react-icons/pi";
 const Navbar = () => {
   return (
     <nav>
-      <div className="bg-black text-white">
+      <div className="bg-black text-white py-4">
         <div className="w-11/12 mx-auto">
           <div className="flex items-center justify-between">
             <h1 className="text-3xl font-bold">Babur Hut</h1>
             <div>
-              <label className="input input-bordered flex items-center gap-2">
-                <input type="text" className="grow w-96" placeholder="Search" />
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  className="w-4 h-4 opacity-70"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+              <label className="input input-bordered rounded-full flex items-center gap-2 h-[57px] mx-auto">
+                <input
+                  type="text"
+                  className="grow w-[23rem]"
+                  placeholder="Bluethooth Headphones"
+                />
+                <div className="bg-black px-6 py-2 rounded-full">
+                  <FiSearch className="text-white" size={29} />
+                </div>
               </label>
             </div>
-            <div>
-              <div></div>
+            <div className="flex items-center gap-8">
+              <div className="flex items-center gap-4">
+                <div>
+                  <FaRegUser size={30} />
+                </div>
+                <div className=" tracking-wider">
+                  <h1 className="text-[13px]">Welcome</h1>
+                  <div className="dropdown dropdown-hover">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      className="flex items-center  text-sm font-bold"
+                    >
+                      Sign In / Register <MdKeyboardArrowDown size={20} />
+                    </div>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-auto"
+                    >
+                      <li>
+                        <a>Item 1</a>
+                      </li>
+                      <li>
+                        <a>Item 2</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <PiShoppingCartSimpleBold size={32} />
+                <div>
+                  <h1 className="bg-white px-3 rounded-full py-0 text-black">
+                    {12}
+                  </h1>
+                  <h1>Cart</h1>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+        <div className="flex items-center justify-center mt-4">
+          <ul className="flex items-center gap-8 text-md tracking-wider font-bold -ml-28">
+            <li className="text-[#E92769]">Recent Events</li>
+            <li>New Arrival</li>
+            <li>Top Rated</li>
+            <li>Best Deals</li>
+            <li>Top Rated</li>
+          </ul>
         </div>
       </div>
     </nav>
