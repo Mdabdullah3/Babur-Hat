@@ -10,7 +10,7 @@ import BannerCategory from "./BannerCategory";
 import "../style.css";
 const Banner = () => {
   return (
-    <div className="grid grid-cols-4 bg-gray-200 px-5 py-4 gap-4">
+    <div className="grid grid-cols-4 bg-[#F5F5F5] px-5 py-4 gap-4">
       <BannerCategory />
       <div className=" col-span-3">
         <Swiper

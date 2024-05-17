@@ -10,7 +10,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between">
             <h1 className="text-3xl font-bold">Babur Hut</h1>
             <div>
-              <label className="input input-bordered rounded-full flex items-center gap-2 h-[57px] mx-auto">
+              <label className="input input-bordered rounded-full flex items-center gap-2 h-[52px] mx-auto">
                 <input
                   type="text"
                   className="grow w-[23rem]"
@@ -38,14 +38,10 @@ const Navbar = () => {
                     </div>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-auto"
+                      className="dropdown-content z-50 menu shadow bg-black text-white rounded-box w-auto py-4 px-6 text-end"
                     >
-                      <li>
-                        <a>Item 1</a>
-                      </li>
-                      <li>
-                        <a>Item 2</a>
-                      </li>
+                      <li>Login</li>
+                      <li className="mt-4">Register</li>
                     </ul>
                   </div>
                 </div>
