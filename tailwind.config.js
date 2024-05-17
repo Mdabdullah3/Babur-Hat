@@ -1,18 +1,20 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  theme: {
-    extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  daisyui: {
+    themes: [
+      {
+        light: {
+          primary: "#231F20",
+          secondary: "#141618",
+          neutral: "#F3F4F6",
+          "base-100": "#ffff",
+          info: "#ECF0F3",
+          success: "#521647",
+          warning: "#DF7E07",
+          error: "#FA5C5C",
+        },
       },
-    },
+    ],
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };
