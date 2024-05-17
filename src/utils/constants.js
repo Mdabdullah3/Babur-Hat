@@ -122,3 +122,51 @@ export const newProducts = [
         discount: 35
     },
 ]
+
+export const ProductCategory = [
+    {
+        id: 1,
+        name: "Men",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/tshirt.jpg",
+    },
+    {
+        id: 2,
+        name: "Women",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/jacket.jpg",
+    },
+    {
+        id: 3,
+        name: "Begs",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/bag-3.jpg",
+    },
+    {
+        id: 4,
+        name: "Shoes",
+        img: "https://minimog-4437.kxcdn.com/robust/wp-content/uploads/sites/7/2022/11/coachella-cat-all-180x180.jpg",
+    },
+    {
+        id: 5,
+        name: "OuterWear",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/coats-2.jpg",
+    },
+    {
+        id: 6,
+        name: "Trouser",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/pants-2.jpg",
+    },
+    {
+        id: 8,
+        name: "Jewelry",
+        img: "https://minimog-4437.kxcdn.com/wp-content/uploads/2021/12/product_jewelry_13_2-570x760.jpg",
+    },
+    {
+        id: 9,
+        name: "Sunglasse",
+        img: "https://minimog-4437.kxcdn.com/wp-content/uploads/2021/12/product_fashion_29_b_1-570x760.jpg",
+    },
+    {
+        id: 10,
+        name: "Accessories",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/accessories.jpg",
+    },
+];
