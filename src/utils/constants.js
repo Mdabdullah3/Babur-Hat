@@ -8,6 +8,8 @@ import { CiShoppingBasket } from "react-icons/ci";
 import { IoBedOutline } from "react-icons/io5";
 import { IoIosBasketball } from "react-icons/io";
 import { MdBikeScooter } from "react-icons/md";
+import { PiShirtFolded } from "react-icons/pi";
+import { TbToolsOff } from "react-icons/tb";
 export const bannerImage = [
     {
         id: 1,
@@ -37,6 +39,11 @@ export const category = [
     },
     {
         id: 4,
+        name: "Men's & Boy Fashion",
+        icon: <PiShirtFolded />
+    },
+    {
+        id: 4,
         name: "Mother & Baby",
         icon: <FaBaby />
     },
@@ -51,6 +58,11 @@ export const category = [
         icon: <GiWashingMachine />
     },
     {
+        id: 12,
+        name: "Electronics Accessories",
+        icon: <TbToolsOff />
+    },
+    {
         id: 7,
         name: "Groceries",
         icon: <CiShoppingBasket />
@@ -61,7 +73,7 @@ export const category = [
         icon: <IoBedOutline />
     },
     {
-        id:9,
+        id: 9,
         name: "Sports & Outdoor",
         icon: <IoIosBasketball />
     },

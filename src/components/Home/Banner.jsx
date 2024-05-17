@@ -10,9 +10,9 @@ import BannerCategory from "./BannerCategory";
 import "../style.css";
 const Banner = () => {
   return (
-    <div className="grid grid-cols-3 bg-gray-200">
+    <div className="grid grid-cols-4 bg-gray-200 px-5 py-4 gap-4">
       <BannerCategory />
-      <div className=" col-span-2">
+      <div className=" col-span-3">
         <Swiper
           centeredSlides={true}
           autoplay={{
@@ -31,10 +31,11 @@ const Banner = () => {
               <div className="">
                 <Image
                   src={item.img}
+                  className="rounded-2xl"
                   alt="banner"
-                  width={1920}
-                  height={1080}
-                  layout="responsive"
+                  width={1500}
+                  height={800}
+                  layout="banner image"
                 />
               </div>
             </SwiperSlide>
