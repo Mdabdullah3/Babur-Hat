@@ -14,7 +14,7 @@ const SuperDells = () => {
         />
         <h1 className="text-primary text-md text-center">
           BDT <span className="text-2xl font-bold">23.00</span>
-          <span className="bg-primary text-white px-1 py-1 text-lg rounded">
+          <span className="bg-primary text-white px-1 py-1 text-lg rounded ml-1 ml-1">
             -20%
           </span>
         </h1>
@@ -27,7 +27,7 @@ const SuperDells = () => {
             />
             <h1 className="text-primary text-md text-center">
               BDT <span className="text-2xl font-bold">23.00</span>
-              <span className="bg-primary text-white px-1 py-1 text-lg rounded">
+              <span className="bg-primary text-white px-1 py-1 text-lg rounded ml-1">
                 -20%
               </span>
             </h1>
