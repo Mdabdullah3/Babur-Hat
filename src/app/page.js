@@ -5,6 +5,7 @@ import Snap from "../components/Home/Snap/Snap"
 import Category from "../components/Home/Category"
 import RecomendedProducts from "../components/Home/RecomendedProducts"
 import BestDeal from "../components/Home/BestDeal"
+import DeafultProducts from "../components/Home/DeafultProducts"
 const Home = () => {
   return (
     <div>
@@ -14,6 +15,7 @@ const Home = () => {
       <Category />
       <RecomendedProducts />
       <BestDeal />
+      <DeafultProducts />
     </div>
   );
 };
