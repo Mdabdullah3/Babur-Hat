@@ -3,6 +3,7 @@ import Navbar from '../components/layout/Navbar';
 import Banner from '../components/Home/Banner';
 import Snap from "../components/Home/Snap/Snap"
 import Category from "../components/Home/Category"
+import RecomendedProducts from "../components/Home/RecomendedProducts"
 const Home = () => {
   return (
     <div>
@@ -10,6 +11,7 @@ const Home = () => {
       <Banner />
       <Snap />
       <Category />
+      <RecomendedProducts />
     </div>
   );
 };
