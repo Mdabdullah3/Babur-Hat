@@ -37,7 +37,9 @@ const Category = () => {
                 className="rounded-full w-40 h-40 mx-auto"
                 alt="Category image"
               />
-              <h1 className="mt-5 text-center tracking-wider">{item.name}</h1>
+              <h1 className="mt-5 text-center tracking-wider font-[500]">
+                {item.name}
+              </h1>
             </div>
           </SwiperSlide>
         ))}

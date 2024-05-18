@@ -4,6 +4,7 @@ import Banner from '../components/Home/Banner';
 import Snap from "../components/Home/Snap/Snap"
 import Category from "../components/Home/Category"
 import RecomendedProducts from "../components/Home/RecomendedProducts"
+import { BestDell } from '../utils/constants';
 const Home = () => {
   return (
     <div>
@@ -12,6 +13,7 @@ const Home = () => {
       <Snap />
       <Category />
       <RecomendedProducts />
+      <BestDell />
     </div>
   );
 };
