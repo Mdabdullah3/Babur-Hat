@@ -6,7 +6,7 @@ const ProductCard = ({ product }) => {
   return (
     <div className="mb-4 hover:bg-white hover:shadow-md transition duration-300 px-4 py-4 cursor-pointer rounded-2xl">
       <div className="relative">
-        <img className="w-56 h-60 " src={product.topimg} alt="" />
+        <img className="w-64 h-52 " src={product.topimg} alt="" />
         <h1
           className="absolute bottom-3 right-5 px-3 py-3 rounded-full bg-black text-white tooltip tooltip-left"
           data-tip="Add To Cart"
