@@ -8,7 +8,7 @@ import { topBrands } from "../../utils/constants";
 import { FaStar } from "react-icons/fa6";
 const TopRated = () => {
   return (
-    <div className="w-11/12 mx-auto mt-20">
+    <div className="w-11/12 mx-auto mt-12">
       <h1 className="text-2xl font-bold mb-10">Top Rated Brands</h1>
       <div>
         <Swiper
@@ -32,10 +32,17 @@ const TopRated = () => {
                   className="rounded-2xl w-full cursor-pointer bg-white shadow-lg border border-gray-400 "
                   alt="Brand Image"
                 />
-                <h1 className="text-center text-xl my-2 text-gray-500">
+                <h1 className="text-center text-xl my-2 text-gray-500 h-12">
                   {item?.name}
                 </h1>
-                <h1> <FaStar /><FaStar /><FaStar /><FaStar /><FaStar /></h1>
+                <h1 className="flex items-center text-lg my-2 gap-1 text-orange-400 justify-center">
+                  <FaStar />
+                  <FaStar />
+                  <FaStar />
+                  <FaStar />
+                  <FaStar />
+                  <span className="text-gray-500 ml-4">(34k)</span>
+                </h1>
               </div>
             </SwiperSlide>
           ))}
