@@ -215,3 +215,46 @@ export const ProductCategory = [
         img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/accessories.jpg",
     },
 ];
+
+export const topBrands = [
+    {
+        id: 1,
+        img: "https://i.ibb.co/khYMDzp/Jacobs-Engineering-Group-Logo-wine.png",
+        name: "Jacobs Engineering Group"
+    },
+    {
+        id: 2,
+        img: "https://i.ibb.co/3vz7qTb/Kiewit-Corporation-Logo-wine.png",
+        name: "Kiewit Corporation"
+    },
+    {
+        id: 3,
+        img: "https://i.ibb.co/M515czp/Nestl-Logo-wine.png",
+        name: "Nestle"
+    },
+    {
+        id: 4,
+        img: "https://i.ibb.co/72hv3Pz/Pizza-Hut-Logo-wine.png",
+        name: "Pizza Hut"
+    },
+    {
+        id: 5,
+        img: "https://i.ibb.co/d27gpT9/SNC-Lavalin-Logo-wine.png",
+        name: "SNC-Lavalin"
+    },
+    {
+        id: 6,
+        img: "https://i.ibb.co/xs7dmgz/The-Cheesecake-Factory-Logo-wine.png",
+        name: "The Cheesecake Factory"
+    },
+    {
+        id: 7,
+        img: "https://i.ibb.co/7brwm52/Domino-s-Pizza-Logo-wine.png",
+        name: "Domino's Pizza"
+    },
+    {
+        id: 8,
+        img: "https://i.ibb.co/pRddpsm/Kayak-com-Logo-wine.png",
+        name: "Kayak.com"
+    }
+]

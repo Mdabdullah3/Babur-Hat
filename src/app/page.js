@@ -6,6 +6,8 @@ import Category from "../components/Home/Category"
 import RecomendedProducts from "../components/Home/RecomendedProducts"
 import BestDeal from "../components/Home/BestDeal"
 import DeafultProducts from "../components/Home/DeafultProducts"
+import TopRated from "../components/Home/TopRated"
+import Footer from "../components/layout/Footer"
 const Home = () => {
   return (
     <div>
@@ -16,6 +18,8 @@ const Home = () => {
       <RecomendedProducts />
       <BestDeal />
       <DeafultProducts />
+      <TopRated />
+      <Footer />
     </div>
   );
 };

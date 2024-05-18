@@ -34,7 +34,7 @@ const Category = () => {
             <div className="p-2 py-4">
               <img
                 src={item.img}
-                className="rounded-full w-40 h-40 mx-auto"
+                className="rounded-full w-32 h-32 mx-auto"
                 alt="Category image"
               />
               <h1 className="mt-5 text-center tracking-wider font-[500]">
