@@ -1,6 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 import { FaRegStar, FaStar, FaStarHalfAlt, FaEye } from "react-icons/fa";
 import ProductSizeSelector from "../../components/ProductDetails/ProductSizeSelector";
 import { useState } from "react";
+import { LiaShippingFastSolid } from "react-icons/lia";
+
 const ProductInfo = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState("");
 
@@ -42,37 +45,25 @@ const ProductInfo = ({ product }) => {
         selectedSize={selectedSize}
         onSizeClick={handleSizeClick}
       />
-      <label htmlFor="" className="w-full text-md font-semibold">
-        Quantity :
-      </label>
-      <div className="grid items-center grid-cols-4 mt-2 w-full gap-6">
-        <div className="">
-          <div className="relative flex flex-row w-full h-12 bg-transparent rounded-lg">
-            <button className="w-20 h-full  bg-gray-200 rounded-l outline-none cursor-pointer hover:text-gray-700  hover:bg-gray-400">
-              <span className="m-auto text-2xl font-thin">-</span>
-            </button>
-
-            <input
-              type="number"
-              className="flex items-center placeholder-black w-full font-semibold text-center   bg-gray-200 outline-none  text-md "
-              placeholder="1"
-            />
-
-            <button className="w-20 h-full  bg-gray-200 rounded-r outline-none cursor-pointer  hover:text-gray-700 hover:bg-gray-400">
-              <span className="m-auto text-2xl font-thin">+</span>
-            </button>
-          </div>
+      <div>
+        <h1 className="flex items-center text-md font-[500] mt-5 tracking-wider mb-4">
+          <span className="mr-4">
+            <LiaShippingFastSolid size={20} />
+          </span>
+          Free Shipping & Returns:
+          <span className="text-gray-500 ml-3 font-normal">
+            On all orders over <span className="text-black">$200.00</span>
+          </span>
+        </h1>
+        <div className="bg-gray-200 mt-4 px-5 py-3 flex flex-col items-center justify-center rounded-md">
+          <img
+            src="https://minimog-4437.kxcdn.com/robust/wp-content/themes/minimog/assets/woocommerce/product-trust-badge.png"
+            alt=""
+          />
+          <h1 className="mt-1 tracking-wider">
+            Guaranteed safe & secure checkout
+          </h1>
         </div>
-        <div className="col-span-3">
-          <button className="w-full px-24 py-3 rounded-md border-[1px] hover:border-black border-primary bg-primary text-white tracking-wider uppercase hover:bg-black hover:text-white transition duration-500">
-            Add To Cart
-          </button>
-        </div>
-      </div>
-      <div className="mt-5 mb-7">
-        <button className="w-full py-3 rounded-md border-[1px] hover:border-primary border-black text-black tracking-wider uppercase hover:bg-primary hover:text-white transition duration-500">
-          Buy Now
-        </button>
       </div>
     </div>
   );
