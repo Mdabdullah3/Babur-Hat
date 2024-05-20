@@ -278,3 +278,22 @@ export const productInformation = [
         Questions: [],
     },
 ];
+
+export const cart = [
+    {
+      name: "Remix Pants",
+      quantity: 2,
+      size: "xl",
+      image:
+        "https://minimog-4437.kxcdn.com/wp-content/uploads/2021/12/product_fashion_17_a_1-570x760.jpg",
+      price: 342,
+    },
+    {
+      name: "T-shirts Vibes New Trai",
+      quantity: 4,
+      size: "L",
+      image:
+        "https://minimog-4437.kxcdn.com/wp-content/uploads/2021/12/product_fashion_15_a_6-570x760.jpg",
+      price: 342,
+    },
+  ];
