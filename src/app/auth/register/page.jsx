@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import InputField from "../../../components/common/InputField";
 import PrimaryButton from "../../../components/common/PrimaryButton";
+import { FcGoogle } from "react-icons/fc";
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -30,12 +31,23 @@ const Register = () => {
 
           <div class="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12 lg:w-3/5 shadow-xl rounded-tr-2xl rounded-br-2xl">
             <div class="w-full">
-              <h1 class="text-2xl font-semibold  text-gray-800 capitalize">
-                Create your Babut Hut Account.
-              </h1>
-              <form class="grid grid-cols-1 gap-4 mt-8 md:grid-cols-2">
+              <a
+                href="#"
+                className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
+              >
+                <div className="px-4 py-3">
+                  <FcGoogle size={24} />
+                </div>
+                <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">
+                  Sign in with Google
+                </h1>
+              </a>
+              <div className="divider text-gray-500 mt-4 text-sm uppercase">
+                Or
+              </div>
+              <form class="grid grid-cols-1 gap-4 mt-4 md:grid-cols-2">
                 <InputField
-                  label="first Name"
+                  label="First Name"
                   placeholder="First Name"
                   id="firstName"
                   required

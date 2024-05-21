@@ -35,30 +35,32 @@ const Login = () => {
             </a>
             <span className="border-b w-1/5 lg:w-1/4"></span>
           </div>
-          <div className="mt-4">
-            <InputField
-              label="Email"
-              placeholder="Enter Email"
-              id="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="mt-4">
-            <InputField
-              label="Password"
-              placeholder="Enter Password"
-              id="password"
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div className="mt-8">
-            <PrimaryButton value={"Login"} />
-          </div>
+          <form>
+            <div className="mt-4">
+              <InputField
+                label="Email"
+                placeholder="Enter Email"
+                id="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="mt-4">
+              <InputField
+                label="Password"
+                placeholder="Enter Password"
+                id="password"
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="mt-8">
+              <PrimaryButton value={"Login"} />
+            </div>
+          </form>
           <div className="divider text-gray-500 mt-4 text-sm uppercase">
             Or <span className="underline cursor-pointer">Register</span>
           </div>
