@@ -11,6 +11,7 @@ const Login = () => {
     <div className="py-16 w-10/12 mx-auto">
       <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto ">
         <img
+          className="lg:block hidden"
           src="https://images.unsplash.com/photo-1546514714-df0ccc50d7bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80"
           alt=""
         />

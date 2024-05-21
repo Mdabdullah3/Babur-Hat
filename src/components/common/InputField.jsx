@@ -12,11 +12,8 @@ const InputField = ({
 }) => {
   return (
     <div className="w-full">
-      <label
-        htmlFor={id}
-        className="block text-gray-600 font-semibold mb-1 tracking-wider"
-      >
-        {label} {required && "*"}
+      <label htmlFor={id} className="block text-gray-600 font-semibold mb-1">
+        {label} <span className="text-primary">{required && "*"}</span>
       </label>
       <input
         type={type}
@@ -24,7 +21,7 @@ const InputField = ({
         name={name}
         value={value}
         onChange={onChange}
-        className="input input-bordered w-full tracking-wider focus:outline-none my-2 bg-transparent"
+        className="input input-bordered w-full focus:outline-none my-2 bg-transparent"
         required={required}
         placeholder={placeholder}
       />
