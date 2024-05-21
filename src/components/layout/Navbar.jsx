@@ -38,7 +38,7 @@ const Navbar = () => {
                     </div>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content z-50 menu shadow bg-black text-white rounded-box w-auto py-4 px-6 text-end"
+                      className="dropdown-content z-50 menu shadow bg-black text-white rounded-box w-auto py-4 px-6"
                     >
                       <li>Login</li>
                       <li className="mt-4">Register</li>

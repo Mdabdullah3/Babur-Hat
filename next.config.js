@@ -5,6 +5,7 @@ const nextConfig = {
         domains: [
             'maraviyainfotech.com',
             'images.pexels.com',
+            'images.unsplash.com',
             '754969b0.rocketcdn.me',
             'minimog.thememove.com',
             'secure.gravatar.com',
