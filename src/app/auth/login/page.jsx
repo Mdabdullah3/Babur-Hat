@@ -11,12 +11,12 @@ const Login = () => {
     <div className="py-16 w-10/12 mx-auto">
       <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto ">
         <img
-          className="lg:block hidden"
-          src="https://images.unsplash.com/photo-1546514714-df0ccc50d7bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80"
+          className="lg:block hidden w-full"
+          src="https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           alt=""
         />
-        <div className="w-full p-8 lg:w-1/2 shadow-lg">
-          <p className="text-xl text-gray-600 text-center">Welcome back!</p>
+        <div className="w-full p-8 shadow-lg">
+          <p className="text-xl text-gray-600 text-center">Welcome Back</p>
           <a
             href="#"
             className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
