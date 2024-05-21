@@ -97,7 +97,7 @@ const shop = () => {
 
         <div className="lg:col-span-3">
           <div className="grid grid-cols-4 mx-auto">
-            {Products?.products?.map((product) => (
+            {Products?.products?.slice(0, 20).map((product) => (
               <>
                 <ProductCard key={product._id} product={product}></ProductCard>
               </>
