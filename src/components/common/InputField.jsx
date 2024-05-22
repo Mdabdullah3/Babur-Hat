@@ -21,7 +21,7 @@ const InputField = ({
         name={name}
         value={value}
         onChange={onChange}
-        className="input input-bordered w-full focus:outline-none my-2 bg-transparent"
+        className="input input-bordered w-full my-2 bg-transparent focus:outline-none focus:ring focus:ring-blue-300"
         required={required}
         placeholder={placeholder}
       />
