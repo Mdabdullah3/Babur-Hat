@@ -7,13 +7,13 @@ const Sidebar = () => {
       <nav>
         <ul>
           <li>
-            <Link href="/dashboard">
-              <a className="block py-2">Dashboard Home</a>
+            <Link href="/admin/dashboard">
+              <a className="block py-2">Babur Hut</a>
             </Link>
           </li>
           <li>
-            <Link href="/dashboard/settings">
-              <a className="block py-2">Settings</a>
+            <Link href="/admin/dashboard/products">
+              <a className="block py-2">Products</a>
             </Link>
           </li>
           <li>
