@@ -1,12 +1,15 @@
 import React from "react";
 import ProductSummery from "../../components/Shipping/ProductSummery";
 import ShippingForm from "../../components/Shipping/ShippingForm";
+import Navbar from "../../components/layout/Navbar";
+import Footer from "../../components/layout/Footer";
 export const metadata = {
   title: "Shipping",
 };
 const Shipping = () => {
   return (
     <div>
+      <Navbar />
       <section className="w-11/12 mx-auto mt-10">
         <h1 className="text-3xl font-bold tracking-widest ">Checkout</h1>
         <div>
@@ -22,6 +25,7 @@ const Shipping = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };
