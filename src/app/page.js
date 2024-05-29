@@ -6,9 +6,12 @@ import RecomendedProducts from "../components/Home/RecomendedProducts"
 import BestDeal from "../components/Home/BestDeal"
 import DeafultProducts from "../components/Home/DeafultProducts"
 import TopRated from "../components/Home/TopRated"
+import Navbar from "../components/layout/Navbar"
+import Footer from "../components/layout/Footer"
 const Home = () => {
   return (
     <div>
+      <Navbar />
       <Banner />
       <Snap />
       <Category />
@@ -16,6 +19,7 @@ const Home = () => {
       <BestDeal />
       <DeafultProducts />
       <TopRated />
+      <Footer />
     </div>
   );
 };

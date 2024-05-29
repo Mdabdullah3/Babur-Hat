@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import RegisterForm from "../../../components/auth/Register";
+import Footer from "../../../components/layout/Footer";
+import Navbar from "../../../components/layout/Navbar";
 export const metadata = {
   title: "Register - Babur Hat",
   description: "Register section of Babur Hat",
@@ -7,6 +9,7 @@ export const metadata = {
 const Register = () => {
   return (
     <div>
+      <Navbar />
       <section class="bg-white w-10/12 mx-auto my-14">
         <div class="flex item-center justify-center">
           <img
@@ -20,6 +23,7 @@ const Register = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };
