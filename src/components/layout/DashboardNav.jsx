@@ -4,24 +4,14 @@ import { FiSearch, FiAlignJustify } from "react-icons/fi";
 
 const DashboardNav = () => {
   return (
-    <nav className="sticky top-3 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl  p-2 backdrop-blur-lg bg-white/5">
+    <nav className="sticky top-2 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl  p-2 backdrop-blur-lg bg-white/5">
       <div className="ml-[6px]">
         <div className="h-6 w-[224px] pt-1 flex items-center">
-          <a
-            className="text-sm font-normal text-gray-700 hover:underline "
-            href=" "
-          >
-            Pages
-            <span className="mx-1 text-sm text-gray-700 hover:text-gray-700 ">
-              {" "}
-              /{" "}
-            </span>
-          </a>
           <h1
             className="text-sm font-normal capitalize text-gray-700 hover:underline "
             to="#"
           >
-            Dashboard
+            Welcome Back
           </h1>
         </div>
         <p className="shrink text-[33px] capitalize text-gray-700 ">
