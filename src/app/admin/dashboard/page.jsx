@@ -3,9 +3,10 @@ import React from "react";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import PieChart from "../../../components/Dashboard/Chart/PieChart";
 import BarChart from "../../../components/Dashboard/Chart/BarChart";
+import AreaLineChart from "../../../components/Dashboard/Chart/AreaLineChart";
 const page = () => {
   return (
-    <section className="grid grid-cols-4 gap-5 rounded-xl">
+    <section className="grid grid-cols-4 gap-5 rounded-xl items-center">
       <div>
         <div className="mt-4 shadow-lg pl-2 h-64">
           <h1 className="text-gray-500 text-lg flex items-center font-bold pt-3">
@@ -98,6 +99,22 @@ const page = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="col-span-2 shadow-lg rounded-xl p-4">
+        <h1 className="text-lg font-bold">Sale This Month</h1>
+        <p>User of all chanel</p>
+        <div className="mt-16">
+          <h1 className="text-gray-500 text-lg flex items-center font-bold pt-3">
+            $ <span className="text-3xl text-black mr-2">56,9923</span>
+            <span className="flex items-center bg-green-200 text-sm rounded-lg px-2 py-1 text-green-600">
+              <AiOutlineArrowUp /> <span>+20%</span>
+            </span>
+          </h1>
+          <h1>Another $4232,992 to Goal</h1>
+        </div>
+        <div className="">
+          <AreaLineChart />
         </div>
       </div>
     </section>

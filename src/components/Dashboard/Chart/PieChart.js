@@ -66,7 +66,9 @@ const PieChart = () => {
         },
     };
 
-    return <Pie data={data} options={options} />;
+    return <div style={{ width: '90%', margin: '0 auto', padding: '20px' }}>
+        <Pie data={data} options={options} />
+    </div>;
 };
 
 export default PieChart;
