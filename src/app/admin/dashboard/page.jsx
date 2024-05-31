@@ -50,7 +50,7 @@ const page = () => {
             </span>
           </h1>
           <h2 className="text-md text-gray-500">Average Daily Sale</h2>
-          <div className="mt-10">
+          <div className="mt-6">
             <BarChart />
           </div>
         </div>
@@ -59,7 +59,7 @@ const page = () => {
             <span className="text-3xl text-black mr-2">354K</span>
           </h1>
           <h2 className="text-md text-gray-500">New Customer This Month</h2>
-          <div className="pt-10">
+          <div className="pt-14">
             <h1>Todays Hero</h1>
             <div>
               <div className="avatar-group -space-x-6 rtl:space-x-reverse">
