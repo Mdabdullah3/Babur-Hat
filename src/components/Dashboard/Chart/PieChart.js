@@ -41,11 +41,9 @@ const PieChart = () => {
                     generateLabels: (chart) => {
                         const originalLabels = chart.data.labels;
                         const dataset = chart.data.datasets[0];
-
                         return originalLabels.map((label, index) => {
                             const value = dataset.data[index];
                             const info = additionalInfo[index];
-
                             return {
                                 text: `${label} ${info}`,
                                 fillStyle: dataset.backgroundColor[index],
