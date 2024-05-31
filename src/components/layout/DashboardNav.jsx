@@ -14,11 +14,11 @@ const DashboardNav = () => {
             Welcome Back
           </h1>
         </div>
-        <p className="shrink text-[33px] capitalize text-gray-700 ">
+        <div className="shrink text-[33px] capitalize text-gray-700 ">
           <h1 to="#" className="font-bold capitalize hover:text-gray-700 ">
             Dashboard
           </h1>
-        </p>
+        </div>
       </div>
       <span className="flex cursor-pointer text-xl text-gray-600 xl:hidden">
         <FiAlignJustify className="h-5 w-5" />
