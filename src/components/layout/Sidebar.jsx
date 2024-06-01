@@ -18,19 +18,19 @@ const Sidebar = () => {
       id: 1,
       name: "Vendor",
       icon: <FaUser />,
-      route: "/",
+      route: "/admin/dashboard/vendor",
     },
     {
       id: 2,
       name: "Customer",
       icon: <BiSolidUserRectangle />,
-      route: "/",
+      route: "/admin/dashboard",
     },
     {
       id: 3,
       name: "Categories",
       icon: <BiSolidCategoryAlt />,
-      route: "/",
+      route: "/admin/dashboard",
     },
     {
       id: 4,
@@ -42,49 +42,49 @@ const Sidebar = () => {
       id: 5,
       name: "Order & Review",
       icon: <CiShoppingBasket />,
-      route: "/",
+      route: "/admin/dashboard",
     },
     {
       id: 6,
       name: "Finance",
       icon: <FaMoneyCheck />,
-      route: "/",
+      route: "/admin/dashboard",
     },
     {
       id: 7,
       name: "Shipment",
       icon: <ImLocation />,
-      route: "/",
+      route: "/admin/dashboard",
     },
     {
       id: 8,
       name: "Add Manager",
       icon: <IoIosRocket />,
-      route: "/",
+      route: "/admin/dashboard",
     },
     {
       id: 9,
       name: "Vouchers",
       icon: <BsTicketDetailed />,
-      route: "/",
+      route: "/admin/dashboard",
     },
     {
       id: 10,
       name: "Event Manager",
       icon: <BsFillHandIndexFill />,
-      route: "/",
+      route: "/admin/dashboard",
     },
     {
       id: 11,
       name: "Message Center",
       icon: <FaRocketchat />,
-      route: "/",
+      route: "/admin/dashboard",
     },
     {
       id: 12,
       name: "Support",
       icon: <BiSupport />,
-      route: "/",
+      route: "/admin/dashboard",
     },
   ];
   return (
@@ -100,13 +100,15 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="px-4 ">
-        <ul className="text-xl font-semibold space-y-5 mt-5">
+        <ul className="text-xl flex-col flex font-semibold cursor-pointer space-y-5 mt-5">
           {menu.map((item) => (
             <>
-              <li className="flex items-center gap-5" key={item?.id}>
-                <h1>{item?.icon}</h1>
-                <h1 className="text-lg">{item?.name}</h1>
-              </li>
+              <Link href={item?.route}>
+                <li className="flex items-center gap-5" key={item?.id}>
+                  <h1>{item?.icon}</h1>
+                  <h1 className="text-lg">{item?.name}</h1>
+                </li>
+              </Link>
             </>
           ))}
         </ul>
