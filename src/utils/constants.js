@@ -299,3 +299,55 @@ export const cart = [
 ];
 
 export const size = ["S", "XL", "L", "X", "2XL", "40", "42", "44", "46", "48"];
+
+export const reacentOrder = [
+    {
+        id: 1,
+        name: "Men & Boy Fashion",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/tshirt.jpg",
+        customerNumber: 3423,
+        productId: 'M001',
+        quantity: 100,
+    },
+    {
+        id: 2,
+        name: "Women & Girls Fashion",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/jacket.jpg",
+        customerNumber: 4567,
+        productId: 'W001',
+        quantity: 150,
+    },
+    {
+        id: 3,
+        name: "Bags Accessories",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/bag-3.jpg",
+        customerNumber: 7890,
+        productId: 'B001',
+        quantity: 200,
+    },
+    {
+        id: 4,
+        name: "Shoes & Heels Accessories",
+        img: "https://minimog-4437.kxcdn.com/robust/wp-content/uploads/sites/7/2022/11/coachella-cat-all-180x180.jpg",
+        customerNumber: 2345,
+        productId: 'S001',
+        quantity: 120,
+    },
+    {
+        id: 5,
+        name: "OuterWear & Coats",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/coats-2.jpg",
+        customerNumber: 6789,
+        productId: 'O001',
+        quantity: 80,
+    },
+    {
+        id: 6,
+        name: "Trousers & Shorts",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/pants-2.jpg",
+        customerNumber: 1234,
+        productId: 'T001',
+        quantity: 110,
+    },
+];
+
