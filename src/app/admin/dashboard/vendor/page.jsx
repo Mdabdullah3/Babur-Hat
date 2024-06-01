@@ -12,13 +12,14 @@ const Vendor = () => {
     <div>
       <h1 className="text-3xl text-gray-700 font-bold">Vendor</h1>
       <div className="w-10/12 mx-auto py-6 flex items-center justify-between">
-        <InputSearch
-          
-          placeholder="Search For Vendor.."
-          value={searchTerm}
-          onChange={(value) => setSearchTerm(value)}
-          onSearch={handleSearch}
-        />
+        <div className="flex-1">
+          <InputSearch
+            placeholder="Search For Vendor.."
+            value={searchTerm}
+            onChange={(value) => setSearchTerm(value)}
+            onSearch={handleSearch}
+          />
+        </div>
         <PrimaryButton value="Pending Request" />
       </div>
     </div>

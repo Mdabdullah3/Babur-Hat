@@ -19,7 +19,7 @@ const InputSearch = ({ placeholder, value, onChange, onSearch, width }) => {
   };
 
   return (
-    <div className="w-96">
+    <div>
       <label className="input input-bordered flex items-center gap-2 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
         <input
           type="text"
