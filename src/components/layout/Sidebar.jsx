@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Sidebar = () => {
   return (
-    <div className="w-64 bg-gray-800 text-white h-full p-4">
+    <div className="w-64 shadow-xl bg-white text-black h-full p-4">
       <div>
         <ul>
           <li>
