@@ -351,3 +351,77 @@ export const reacentOrder = [
     },
 ];
 
+export const vendor = [
+    {
+        "id": 1,
+        "img": "https://i.ibb.co/khYMDzp/Jacobs-Engineering-Group-Logo-wine.png",
+        "name": "Jacobs Engineering Group",
+        "quantity": 100,
+        "activeOrder": 50,
+        "completeOrder": 40,
+        "review": 4.5
+    },
+    {
+        "id": 2,
+        "img": "https://i.ibb.co/3vz7qTb/Kiewit-Corporation-Logo-wine.png",
+        "name": "Kiewit Corporation",
+        "quantity": 200,
+        "activeOrder": 80,
+        "completeOrder": 100,
+        "review": 4.7
+    },
+    {
+        "id": 3,
+        "img": "https://i.ibb.co/M515czp/Nestl-Logo-wine.png",
+        "name": "Nestle",
+        "quantity": 150,
+        "activeOrder": 70,
+        "completeOrder": 60,
+        "review": 4.6
+    },
+    {
+        "id": 4,
+        "img": "https://i.ibb.co/72hv3Pz/Pizza-Hut-Logo-wine.png",
+        "name": "Pizza Hut",
+        "quantity": 300,
+        "activeOrder": 120,
+        "completeOrder": 150,
+        "review": 4.8
+    },
+    {
+        "id": 5,
+        "img": "https://i.ibb.co/d27gpT9/SNC-Lavalin-Logo-wine.png",
+        "name": "SNC-Lavalin",
+        "quantity": 250,
+        "activeOrder": 100,
+        "completeOrder": 120,
+        "review": 4.4
+    },
+    {
+        "id": 6,
+        "img": "https://i.ibb.co/xs7dmgz/The-Cheesecake-Factory-Logo-wine.png",
+        "name": "The Cheesecake Factory",
+        "quantity": 180,
+        "activeOrder": 90,
+        "completeOrder": 70,
+        "review": 4.9
+    },
+    {
+        "id": 7,
+        "img": "https://i.ibb.co/7brwm52/Domino-s-Pizza-Logo-wine.png",
+        "name": "Domino's Pizza",
+        "quantity": 320,
+        "activeOrder": 130,
+        "completeOrder": 150,
+        "review": 4.3
+    },
+    {
+        "id": 8,
+        "img": "https://i.ibb.co/pRddpsm/Kayak-com-Logo-wine.png",
+        "name": "Kayak.com",
+        "quantity": 210,
+        "activeOrder": 110,
+        "completeOrder": 80,
+        "review": 4.5
+    }
+]
