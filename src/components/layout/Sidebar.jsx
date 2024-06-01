@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
-import { BiSolidUserRectangle } from "react-icons/bi";
+import { BiSolidCategoryAlt, BiSolidUserRectangle } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
+import { FaCartFlatbed } from "react-icons/fa6";
 import { MdMenu } from "react-icons/md";
 
 const Sidebar = () => {
@@ -25,15 +26,18 @@ const Sidebar = () => {
             <BiSolidUserRectangle />
             <h1>Customer</h1>
           </li>
-          <Link href="/admin/dashboard/products" className="flex items-center gap-5">
-            <BiSolidUserRectangle />
-            <h1>Product</h1>
+          <Link
+            href="/admin/dashboard/products"
+            className="flex items-center gap-5"
+          >
+            <FaCartFlatbed /> <h1>Product</h1>
           </Link>
-          <li>
-            <Link href="/admin/dashboard/products">
-              <h1 className="block py-2">Products</h1>
-            </Link>
-          </li>
+          <Link
+            href="/admin/dashboard/products"
+            className="flex items-center gap-5"
+          >
+            <BiSolidCategoryAlt /> <h1>Categories</h1>
+          </Link>
         </ul>
       </div>
     </div>
