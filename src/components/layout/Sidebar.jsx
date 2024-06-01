@@ -1,10 +1,12 @@
 "use client";
 import Link from "next/link";
 import { BiSolidCategoryAlt, BiSolidUserRectangle } from "react-icons/bi";
-import { FaUser } from "react-icons/fa";
+import { CiShoppingBasket } from "react-icons/ci";
+import { FaMoneyCheck, FaUser } from "react-icons/fa";
 import { FaCartFlatbed } from "react-icons/fa6";
 import { MdMenu } from "react-icons/md";
-
+import { ImLocation } from "react-icons/im";
+import { IoIosRocket } from "react-icons/io";
 const Sidebar = () => {
   const menu = [
     {
@@ -33,6 +35,36 @@ const Sidebar = () => {
     },
     {
       id: 5, 
+      name: "Order & Review",
+      icon: <CiShoppingBasket  />,
+      route: "/"
+    },
+    {
+      id: 6,
+      name: "Finance",
+      icon: <FaMoneyCheck />,
+      route: "/"
+    },
+    {
+      id:7,
+      name:"Shipment",
+      icon: <ImLocation />,
+      route: "/"
+    },
+    {
+      id:8,
+      name: "Add Manager",
+      icon: <IoIosRocket />,
+      route: "/"
+    },
+    {
+      id:8,
+      name: "Add Manager",
+      icon: <IoIosRocket />,
+      route: "/"
+    },
+    {
+      id: 9,
       name: ""
     }
   ];
