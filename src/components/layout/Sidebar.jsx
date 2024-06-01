@@ -88,7 +88,7 @@ const Sidebar = () => {
     },
   ];
   return (
-    <div className="w-64 shadow-xl bg-white text-black h-full sticky">
+    <div className="w-64 shadow-xl bg-white text-black sticky top-0 h-screen">
       <div className="bg-orange-400 text-white">
         <div className="flex items-center justify-between px-2">
           <Link href="/admin/dashboard">
