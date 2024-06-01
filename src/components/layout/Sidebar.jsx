@@ -63,12 +63,6 @@ const Sidebar = () => {
       route: "/",
     },
     {
-      id: 8,
-      name: "Add Manager",
-      icon: <IoIosRocket />,
-      route: "/",
-    },
-    {
       id: 9,
       name: "Vouchers",
       icon: <BsTicketDetailed />,
@@ -94,7 +88,7 @@ const Sidebar = () => {
     },
   ];
   return (
-    <div className="w-64 shadow-xl bg-white text-black h-full">
+    <div className="w-64 shadow-xl bg-white text-black h-full sticky">
       <div className="bg-orange-400 text-white">
         <div className="flex items-center justify-between px-2">
           <Link href="/admin/dashboard">
@@ -106,12 +100,12 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="px-4 ">
-        <ul className="text-xl font-semibold space-y-4">
+        <ul className="text-xl font-semibold space-y-5 mt-5">
           {menu.map((item) => (
             <>
               <li className="flex items-center gap-5" key={item?.id}>
                 <h1>{item?.icon}</h1>
-                <h1>{item?.name}</h1>
+                <h1 className="text-lg">{item?.name}</h1>
               </li>
             </>
           ))}
