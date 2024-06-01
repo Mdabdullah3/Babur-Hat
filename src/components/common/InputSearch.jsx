@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const InputSearch = ({ placeholder, value, onChange, onSearch }) => {
+const InputSearch = ({ placeholder, value, onChange, onSearch, width }) => {
   const [inputValue, setInputValue] = useState(value || "");
 
   const handleInputChange = (e) => {
@@ -19,7 +19,7 @@ const InputSearch = ({ placeholder, value, onChange, onSearch }) => {
   };
 
   return (
-    <div>
+    <div className="w-96">
       <label className="input input-bordered flex items-center gap-2 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
         <input
           type="text"
