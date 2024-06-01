@@ -95,13 +95,15 @@ const Sidebar = () => {
   ];
   return (
     <div className="w-64 shadow-xl bg-white text-black h-full">
-      <div className="flex items-center justify-between">
-        <Link href="/admin/dashboard">
-          <h1 className="block pl-4 py-4 text-xl bg-orange-400 w-54 text-white px-2 font-semibold">
-            Dashboard
-          </h1>
-          <MdMenu size={30} className="text-white" />
-        </Link>
+      <div className="bg-orange-400 text-white">
+        <div className="flex items-center justify-between">
+          <Link href="/admin/dashboard">
+            <h1 className="block pl-4 py-4 text-xl  px-2 font-semibold">
+              Dashboard
+            </h1>
+            <MdMenu size={30} className="text-white" />
+          </Link>
+        </div>
       </div>
       <div className="px-4 ">
         <ul className="text-xl font-semibold space-y-4">
