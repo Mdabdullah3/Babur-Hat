@@ -96,13 +96,13 @@ const Sidebar = () => {
   return (
     <div className="w-64 shadow-xl bg-white text-black h-full">
       <div className="bg-orange-400 text-white">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between px-2">
           <Link href="/admin/dashboard">
-            <h1 className="block pl-4 py-4 text-xl  px-2 font-semibold">
+            <h1 className="block pl-4 py-4 text-xl   font-semibold">
               Dashboard
             </h1>
-            <MdMenu size={30} className="text-white" />
           </Link>
+          <MdMenu size={30} className="text-white" />
         </div>
       </div>
       <div className="px-4 ">
