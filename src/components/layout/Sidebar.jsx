@@ -1,12 +1,17 @@
 "use client";
 import Link from "next/link";
-import { BiSolidCategoryAlt, BiSolidUserRectangle } from "react-icons/bi";
+import {
+  BiSolidCategoryAlt,
+  BiSolidUserRectangle,
+  BiSupport,
+} from "react-icons/bi";
 import { CiShoppingBasket } from "react-icons/ci";
-import { FaMoneyCheck, FaUser } from "react-icons/fa";
+import { FaMoneyCheck, FaRocketchat, FaUser } from "react-icons/fa";
 import { FaCartFlatbed } from "react-icons/fa6";
 import { MdMenu } from "react-icons/md";
 import { ImLocation } from "react-icons/im";
 import { IoIosRocket } from "react-icons/io";
+import { BsFillHandIndexFill, BsTicketDetailed } from "react-icons/bs";
 const Sidebar = () => {
   const menu = [
     {
@@ -34,39 +39,59 @@ const Sidebar = () => {
       route: "/admin/dashboard/products",
     },
     {
-      id: 5, 
+      id: 5,
       name: "Order & Review",
-      icon: <CiShoppingBasket  />,
-      route: "/"
+      icon: <CiShoppingBasket />,
+      route: "/",
     },
     {
       id: 6,
       name: "Finance",
       icon: <FaMoneyCheck />,
-      route: "/"
+      route: "/",
     },
     {
-      id:7,
-      name:"Shipment",
+      id: 7,
+      name: "Shipment",
       icon: <ImLocation />,
-      route: "/"
+      route: "/",
     },
     {
-      id:8,
+      id: 8,
       name: "Add Manager",
       icon: <IoIosRocket />,
-      route: "/"
+      route: "/",
     },
     {
-      id:8,
+      id: 8,
       name: "Add Manager",
       icon: <IoIosRocket />,
-      route: "/"
+      route: "/",
     },
     {
       id: 9,
-      name: ""
-    }
+      name: "Vouchers",
+      icon: <BsTicketDetailed />,
+      route: "/",
+    },
+    {
+      id: 10,
+      name: "Event Manager",
+      icon: <BsFillHandIndexFill />,
+      route: "/",
+    },
+    {
+      id: 11,
+      name: "Message Center",
+      icon: <FaRocketchat />,
+      route: "/",
+    },
+    {
+      id: 12,
+      name: "Support",
+      icon: <BiSupport />,
+      route: "/",
+    },
   ];
   return (
     <div className="w-64 shadow-xl bg-white text-black h-full">
@@ -79,33 +104,15 @@ const Sidebar = () => {
         </Link>
       </div>
       <div className="px-4 ">
-        <ul className="text-xl font-semibold">
-          <li className="flex items-center gap-5">
-            <FaUser />
-            <h1>Vendor</h1>
-          </li>
-          <li className="flex items-center gap-5">
-            <BiSolidUserRectangle />
-            <h1>Customer</h1>
-          </li>
-          <Link
-            href="/admin/dashboard/products"
-            className="flex items-center gap-5"
-          >
-            <FaCartFlatbed /> <h1>Product</h1>
-          </Link>
-          <Link
-            href="/admin/dashboard/products"
-            className="flex items-center gap-5"
-          >
-            <BiSolidCategoryAlt /> <h1>Categories</h1>
-          </Link>
-          <Link
-            href="/admin/dashboard/products"
-            className="flex items-center gap-5"
-          >
-            <BiSolidCategoryAlt /> <h1>Categories</h1>
-          </Link>
+        <ul className="text-xl font-semibold space-y-4">
+          {menu.map((item) => (
+            <>
+              <li className="flex items-center gap-5" key={item?.id}>
+                <h1>{item?.icon}</h1>
+                <h1>{item?.name}</h1>
+              </li>
+            </>
+          ))}
         </ul>
       </div>
     </div>
