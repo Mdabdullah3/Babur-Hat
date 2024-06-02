@@ -1,91 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { reacentOrder } from "../../utils/constants";
+import TableHead from "../../components/common/TableHead";
 const RecentOrder = () => {
+  const header = [
+    "Image",
+    "Product Name",
+    "Customer",
+    "Product ID",
+    "Quantity",
+  ];
   return (
     <div>
       <table className="table-auto w-full overflow-auto">
-        <thead>
-          <tr className="bg-primary/40 text-center font-mono ">
-            <th
-              className="
-                               w-1/6
-                               min-w-[160px]
-                              text-sm
-                               font-semibold
-                               text-secondary
-                               py-4
-                               lg:py-4
-                               px-3
-                               lg:px-4
-                               border-l border-transparent
-                               font-mono
-                               "
-            >
-              Product
-            </th>
-            <th
-              className="
-                               w-1/6
-                               min-w-[160px]
-                              text-sm
-                               font-semibold
-                               text-secondary
-                               py-4
-                               lg:py-4
-                               px-3
-                               lg:px-4
-                               "
-            >
-              Name
-            </th>
-            <th
-              className="
-                               w-1/6
-                               min-w-[160px]
-                              text-sm
-                               font-semibold
-                               text-secondary
-                               py-4
-                               lg:py-4
-                               px-3
-                               lg:px-4
-                               "
-            >
-              Customer
-            </th>
-            <th
-              className="
-                               w-1/6
-                               min-w-[160px]
-                              text-sm
-                               font-semibold
-                               text-secondary
-                               py-4
-                               lg:py-4
-                               px-3
-                               lg:px-4
-                               "
-            >
-              Product ID
-            </th>
-            <th
-              className="
-                               w-1/6
-                               min-w-[160px]
-                              text-sm
-                               font-semibold
-                               text-secondary
-                               py-4
-                               lg:py-4
-                               px-3
-                               lg:px-4
-                               "
-            >
-              Quantity
-            </th>
-          </tr>
-        </thead>
+        <TableHead header={header} />
         {reacentOrder?.map((item) => (
           <tbody key={item?._id}>
             <tr className="border-r border-l border-gray-300 border-b">

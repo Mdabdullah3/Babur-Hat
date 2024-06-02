@@ -1,270 +1,151 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InputSearch from "../../common/InputSearch";
 import { vendorProducts } from "../../../utils/constants";
+import TableHead from "../../../components/common/TableHead";
+
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeMenu, setActiveMenu] = useState(1);
-  const handleSearch = (value) => {
-    console.log("Search term:", value);
+  const [filteredProducts, setFilteredProducts] = useState(vendorProducts);
+
+  const handleMenuClick = (id) => {
+    setActiveMenu(id);
   };
-  const approvedProduct = vendorProducts?.filter(
-    (product) => product.status === "approved"
-  );
-  const pendingProduct = vendorProducts?.filter(
-    (product) => product.status === "pending"
-  );
-  const deletedProduct = vendorProducts?.filter(
-    (product) => product.status === "deleted"
-  );
-  const suspendedProduct = vendorProducts?.filter(
-    (product) => product.status === "suspended"
-  );
+
+  const handleSearch = (value) => {
+    setSearchTerm(value);
+  };
+
+  useEffect(() => {
+    const filterProducts = () => {
+      let filtered = vendorProducts;
+
+      switch (activeMenu) {
+        case 2:
+          filtered = filtered.filter(
+            (product) => product.status === "approved"
+          );
+          break;
+        case 3:
+          filtered = filtered.filter((product) => product.status === "pending");
+          break;
+        case 4:
+          filtered = filtered.filter((product) => product.status === "suspend");
+          break;
+        case 5:
+          filtered = filtered.filter((product) => product.status === "delete");
+          break;
+        default:
+          break;
+      }
+
+      if (searchTerm) {
+        filtered = filtered.filter((product) =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+
+      return filtered;
+    };
+
+    setFilteredProducts(filterProducts());
+  }, [activeMenu, searchTerm]);
+
+  const header = [
+    "Image",
+    "Product Name",
+    "Sku",
+    "Price",
+    "Status",
+    "Date",
+    "Action",
+  ];
+
   const menu = [
-    {
-      id: 1,
-      name: "All",
-      items: vendorProducts.length,
-    },
+    { id: 1, name: "All", items: vendorProducts.length },
     {
       id: 2,
       name: "Online",
-      items: approvedProduct.length,
+      items: vendorProducts.filter((product) => product.status === "approved")
+        .length,
     },
     {
       id: 3,
       name: "Pending",
-      items: pendingProduct.length,
+      items: vendorProducts.filter((product) => product.status === "pending")
+        .length,
     },
     {
       id: 4,
       name: "Suspended",
-      items: suspendedProduct.length,
+      items: vendorProducts.filter((product) => product.status === "suspend")
+        .length,
     },
     {
       id: 5,
       name: "Deleted",
-      items: deletedProduct.length,
+      items: vendorProducts.filter((product) => product.status === "delete")
+        .length,
     },
   ];
+
   return (
     <section className="py-10">
       <InputSearch
         placeholder="Search For Product.."
         value={searchTerm}
-        onChange={(value) => setSearchTerm(value)}
+        onChange={(value) => handleSearch(value)}
         onSearch={handleSearch}
       />
       <div className="flex items-center justify-center border-b-2 gap-10 mt-10">
         {menu.map((item) => (
-          <>
-            <button
-              className={`font-bold pb-2 ${
-                activeMenu === item.id
-                  ? "text-primary border-b-2 border-primary"
-                  : ""
-              }`}
-            >
-              {item.name}
-            </button>
-          </>
+          <button
+            key={item.id}
+            onClick={() => handleMenuClick(item.id)}
+            className={`font-bold pb-2 ${
+              activeMenu === item.id
+                ? "text-primary border-b-2 border-primary"
+                : ""
+            }`}
+          >
+            {item.name} ({item.items})
+          </button>
         ))}
       </div>
       <div>
         <table className="table-auto w-full overflow-auto mt-10">
-          <thead>
-            <tr className="bg-primary/40 text-center font-mono ">
-              <th
-                className="
-                               w-1/6
-                               min-w-[160px]
-                              text-sm
-                               font-semibold
-                               text-secondary
-                               py-4
-                               lg:py-4
-                               px-3
-                               lg:px-4
-                               border-l border-transparent
-                               font-mono
-                               "
-              >
-                Image
-              </th>
-              <th
-                className="
-                               w-1/6
-                               min-w-[160px]
-                              text-sm
-                               font-semibold
-                               text-secondary
-                               py-4
-                               lg:py-4
-                               px-3
-                               lg:px-4
-                               "
-              >
-                Product Name
-              </th>
-              <th
-                className="
-                               w-1/6
-                               min-w-[160px]
-                              text-sm
-                               font-semibold
-                               text-secondary
-                               py-4
-                               lg:py-4
-                               px-3
-                               lg:px-4
-                               "
-              >
-                Sku
-              </th>
-              <th
-                className="
-                               w-1/6
-                               min-w-[160px]
-                              text-sm
-                               font-semibold
-                               text-secondary
-                               py-4
-                               lg:py-4
-                               px-3
-                               lg:px-4
-                               "
-              >
-                Price
-              </th>
-              <th
-                className="
-                               w-1/6
-                               min-w-[160px]
-                              text-sm
-                               font-semibold
-                               text-secondary
-                               py-4
-                               lg:py-4
-                               px-3
-                               lg:px-4
-                               "
-              >
-                status
-              </th>
-              <th
-                className="
-                               w-1/6
-                               min-w-[160px]
-                              text-sm
-                               font-semibold
-                               text-secondary
-                               py-4
-                               lg:py-4
-                               px-3
-                               lg:px-4
-                               "
-              >
-                Date
-              </th>
-              <th
-                className="
-                               w-1/6
-                               min-w-[160px]
-                              text-sm
-                               font-semibold
-                               text-secondary
-                               py-4
-                               lg:py-4
-                               px-3
-                               lg:px-4
-                               "
-              >
-                Action
-              </th>
-            </tr>
-          </thead>
-          {vendorProducts?.map((item) => (
-            <tbody key={item?.id}>
+          <TableHead header={header} />
+          {filteredProducts.map((item) => (
+            <tbody key={item.id}>
               <tr className="border-r border-l border-gray-300 border-b">
                 <td>
-                  <img className="w-20 h-20 mx-auto" src={item?.img} alt="" />
+                  <img
+                    className="w-20 h-20 mx-auto"
+                    src={item.img}
+                    alt={item.name}
+                  />
                 </td>
-                <td
-                  className="
-                               text-center text-dark
-                               font-medium
-                               text-secondary
-                               py-5 text-sm
-                                bg-transparent
-                               border-b border-l border-r border-gray-300
-                               "
-                >
-                  {item?.name}
+                <td className="text-center text-dark font-medium text-secondary py-5 text-sm bg-transparent border-b border-l border-r border-gray-300">
+                  {item.name}
                 </td>
-
-                <td
-                  className="
-                               text-center text-dark
-                               font-medium
-                               text-secondary
-                               py-5
-                               px-2 bg-transparent
-                               border-b border-r border-gray-300
-                               "
-                >
-                  {item?.sku}
+                <td className="text-center text-dark font-medium text-secondary py-5 px-2 bg-transparent border-b border-r border-gray-300">
+                  {item.sku}
                 </td>
-                <td
-                  className="
-                               text-center text-dark
-                               font-medium
-                               text-secondary
-                               py-5
-                               px-2 bg-transparent
-                               border-b border-r border-gray-300
-                               "
-                >
-                  {item?.price}
+                <td className="text-center text-dark font-medium text-secondary py-5 px-2 bg-transparent border-b border-r border-gray-300">
+                  {item.price}
                 </td>
-                <td
-                  className="
-                               text-center text-dark
-                               font-medium
-                               text-secondary
-                               py-5
-                               px-2 cursor-pointer
-                               bg-transparent
-                               border-b border-r border-gray-300
-                               "
-                >
-                  {item?.status}
+                <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
+                  {item.status}
                 </td>
-                <td
-                  className="
-                               text-center text-dark
-                               font-medium
-                               text-secondary
-                               py-5
-                               px-2 cursor-pointer
-                               bg-transparent
-                               border-b border-r border-gray-300
-                               "
-                >
-                  {item?.date}
+                <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
+                  {item.date}
                 </td>
-                <td
-                  className="
-                               text-center text-dark
-                               font-medium
-                               text-secondary
-                               py-5
-                               px-2 cursor-pointer
-                               bg-transparent
-                               border-b border-r border-gray-300
-                               "
-                >
-                  Edit
+                <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
+                  <button className="bg-primary text-white px-5 py-1.5 rounded-lg">
+                    Edit
+                  </button>
                 </td>
               </tr>
             </tbody>
