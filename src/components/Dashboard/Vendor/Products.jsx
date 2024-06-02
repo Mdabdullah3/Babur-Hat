@@ -54,10 +54,18 @@ const Products = () => {
         onChange={(value) => setSearchTerm(value)}
         onSearch={handleSearch}
       />
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center border-b-2">
         {menu.map((item) => (
           <>
-            <button>{item.name}</button>
+            <button
+              className={`font-bold pb-2 ${
+                activeMenu === item.id
+                  ? "text-primary border-b-2 border-primary"
+                  : ""
+              }`}
+            >
+              {item.name}
+            </button>
           </>
         ))}
       </div>
