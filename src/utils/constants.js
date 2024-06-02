@@ -425,3 +425,85 @@ export const vendor = [
         "review": 4.5
     }
 ]
+export const vendorProducts = [
+    {
+        "id": 1,
+        "img": "https://i.ibb.co/khYMDzp/Jacobs-Engineering-Group-Logo-wine.png",
+        "name": "Jacobs Engineering Group",
+        "quantity": 100,
+        "sku": "JEG-001",
+        "price": 500,
+        "status": "approved",
+        "date": "2023-06-01"
+    },
+    {
+        "id": 2,
+        "img": "https://i.ibb.co/3vz7qTb/Kiewit-Corporation-Logo-wine.png",
+        "name": "Kiewit Corporation",
+        "quantity": 200,
+        "sku": "KC-002",
+        "price": 750,
+        "status": "pending",
+        "date": "2023-05-15"
+    },
+    {
+        "id": 3,
+        "img": "https://i.ibb.co/M515czp/Nestl-Logo-wine.png",
+        "name": "Nestle",
+        "quantity": 150,
+        "sku": "NST-003",
+        "price": 300,
+        "status": "suspend",
+        "date": "2023-04-25"
+    },
+    {
+        "id": 4,
+        "img": "https://i.ibb.co/72hv3Pz/Pizza-Hut-Logo-wine.png",
+        "name": "Pizza Hut",
+        "quantity": 300,
+        "sku": "PH-004",
+        "price": 400,
+        "status": "approved",
+        "date": "2023-03-10"
+    },
+    {
+        "id": 5,
+        "img": "https://i.ibb.co/d27gpT9/SNC-Lavalin-Logo-wine.png",
+        "name": "SNC-Lavalin",
+        "quantity": 250,
+        "sku": "SL-005",
+        "price": 600,
+        "status": "delete",
+        "date": "2023-02-20"
+    },
+    {
+        "id": 6,
+        "img": "https://i.ibb.co/xs7dmgz/The-Cheesecake-Factory-Logo-wine.png",
+        "name": "The Cheesecake Factory",
+        "quantity": 180,
+        "sku": "TCF-006",
+        "price": 350,
+        "status": "approved",
+        "date": "2023-01-30"
+    },
+    {
+        "id": 7,
+        "img": "https://i.ibb.co/7brwm52/Domino-s-Pizza-Logo-wine.png",
+        "name": "Domino's Pizza",
+        "quantity": 320,
+        "sku": "DP-007",
+        "price": 450,
+        "status": "pending",
+        "date": "2022-12-15"
+    },
+    {
+        "id": 8,
+        "img": "https://i.ibb.co/pRddpsm/Kayak-com-Logo-wine.png",
+        "name": "Kayak.com",
+        "quantity": 210,
+        "sku": "KAY-008",
+        "price": 800,
+        "status": "suspend",
+        "date": "2022-11-10"
+    }
+];

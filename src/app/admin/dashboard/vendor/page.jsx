@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import InputSearch from "../../../../components/common/InputSearch";
 import PrimaryButton from "../../../../components/common/PrimaryButton";
 import { vendor } from "../../../../utils/constants";
-import VendorCard from "../../../../components/Dashboard/VendorCard";
+import VendorCard from "../../../../components/Dashboard/Vendor/VendorCard";
 const Vendor = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
