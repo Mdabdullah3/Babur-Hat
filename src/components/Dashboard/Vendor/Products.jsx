@@ -115,42 +115,52 @@ const Products = () => {
         ))}
       </div>
       <div>
-        <table className="table-auto w-full overflow-auto mt-10">
-          <TableHead header={header} />
-          {filteredProducts.map((item) => (
-            <tbody key={item.id}>
-              <tr className="border-r border-l border-gray-300 border-b">
-                <td>
-                  <img
-                    className="w-20 h-20 mx-auto"
-                    src={item.img}
-                    alt={item.name}
-                  />
-                </td>
-                <td className="text-center text-dark font-medium text-secondary py-5 text-sm bg-transparent border-b border-l border-r border-gray-300">
-                  {item.name}
-                </td>
-                <td className="text-center text-dark font-medium text-secondary py-5 px-2 bg-transparent border-b border-r border-gray-300">
-                  {item.sku}
-                </td>
-                <td className="text-center text-dark font-medium text-secondary py-5 px-2 bg-transparent border-b border-r border-gray-300">
-                  {item.price}
-                </td>
-                <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
-                  {item.status}
-                </td>
-                <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
-                  {item.date}
-                </td>
-                <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
-                  <button className="bg-primary text-white px-5 py-1.5 rounded-lg">
-                    Edit
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          ))}
-        </table>
+        {filteredProducts.length === 0 ? (
+          <>
+            <h1 className="text-center text-red-600 py-4 text-2xl">
+              No Products Found
+            </h1>
+          </>
+        ) : (
+          <>
+            <table className="table-auto w-full overflow-auto mt-10">
+              <TableHead header={header} />
+              {filteredProducts.map((item) => (
+                <tbody key={item.id}>
+                  <tr className="border-r border-l border-gray-300 border-b">
+                    <td>
+                      <img
+                        className="w-20 h-20 mx-auto"
+                        src={item.img}
+                        alt={item.name}
+                      />
+                    </td>
+                    <td className="text-center text-dark font-medium text-secondary py-5 text-sm bg-transparent border-b border-l border-r border-gray-300">
+                      {item.name}
+                    </td>
+                    <td className="text-center text-dark font-medium text-secondary py-5 px-2 bg-transparent border-b border-r border-gray-300">
+                      {item.sku}
+                    </td>
+                    <td className="text-center text-dark font-medium text-secondary py-5 px-2 bg-transparent border-b border-r border-gray-300">
+                      {item.price}
+                    </td>
+                    <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
+                      {item.status}
+                    </td>
+                    <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
+                      {item.date}
+                    </td>
+                    <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
+                      <button className="bg-primary text-white px-5 py-1.5 rounded-lg">
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </>
+        )}
       </div>
     </section>
   );
