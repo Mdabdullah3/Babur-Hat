@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { vendorOrder } from "../../../utils/constants";
 import InputSearch from "../../common/InputSearch";
 import TableHead from "../../common/TableHead";
@@ -7,12 +7,67 @@ import TableHead from "../../common/TableHead";
 const VendorOrders = () => {
   const [activeMenu, setActiveMenu] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredOrders, setFilteredOrders] = useState(vendorOrder);
+
   const handleMenuClick = (id) => {
     setActiveMenu(id);
   };
+
   const handleSearch = (value) => {
     setSearchTerm(value);
   };
+
+  useEffect(() => {
+    const filterOrders = () => {
+      let orders = vendorOrder;
+
+      switch (activeMenu) {
+        case 2:
+          orders = orders.filter((order) => order.status === "pending");
+          break;
+        case 3:
+          orders = orders.filter((order) => order.status === "way");
+          break;
+        case 4:
+          orders = orders.filter((order) => order.status === "Shipping");
+          break;
+        case 5:
+          orders = orders.filter((order) => order.status === "delivered");
+          break;
+        case 6:
+          orders = orders.filter((order) => order.status === "cancel");
+          break;
+        case 7:
+          orders = orders.filter((order) => order.status === "return");
+          break;
+        case 8:
+          orders = orders.filter((order) => order.status === "failed");
+          break;
+        default:
+          break;
+      }
+
+      if (searchTerm) {
+        orders = orders.filter((order) =>
+          order.orderId.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+
+      setFilteredOrders(orders);
+    };
+
+    filterOrders();
+  }, [activeMenu, searchTerm]);
+
+  const header = [
+    "Order ID",
+    "Order Date",
+    "Payment Method",
+    "Price",
+    "Status",
+    "Action",
+  ];
+
   const menu = [
     { id: 1, name: "All", items: vendorOrder.length },
     {
@@ -57,14 +112,7 @@ const VendorOrders = () => {
         .length,
     },
   ];
-  const header = [
-    "Order ID",
-    "Order Date",
-    "Payment Method",
-    "Price",
-    "Status",
-    "Action",
-  ];
+
   return (
     <section>
       <InputSearch
@@ -88,42 +136,38 @@ const VendorOrders = () => {
           </button>
         ))}
       </div>
-      {vendorOrder.length === 0 ? (
-        <>
-          <p className="text-center font-bold text-2xl">No Orders Found</p>
-        </>
+      {filteredOrders.length === 0 ? (
+        <p className="text-center font-bold text-2xl">No Orders Found</p>
       ) : (
-        <>
-          <table className="table-auto w-full overflow-auto mt-10">
-            <TableHead header={header} />
-            {vendorOrder.map((item) => (
-              <tbody key={item.id}>
-                <tr className="border-r border-l border-gray-300 border-b">
-                  <td className="text-center text-dark font-medium text-secondary py-5 text-sm bg-transparent border-b border-l border-r border-gray-300">
-                    {item.orderId}
-                  </td>
-                  <td className="text-center text-dark font-medium text-secondary py-5 px-2 bg-transparent border-b border-r border-gray-300">
-                    {item.date}
-                  </td>
-                  <td className="text-center text-dark font-medium text-secondary py-5 px-2 bg-transparent border-b border-r border-gray-300">
-                    {item.paymentMethod}
-                  </td>
-                  <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
-                    {item.total}
-                  </td>
-                  <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
-                    {item.status}
-                  </td>
-                  <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
-                    <button className="bg-primary text-white px-5 py-1.5 rounded-lg">
-                      Edit
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            ))}
-          </table>
-        </>
+        <table className="table-auto w-full overflow-auto mt-10">
+          <TableHead header={header} />
+          {filteredOrders.map((item) => (
+            <tbody key={item.id}>
+              <tr className="border-r border-l border-gray-300 border-b">
+                <td className="text-center text-dark font-medium text-secondary py-5 text-sm bg-transparent border-b border-l border-r border-gray-300">
+                  {item.orderId}
+                </td>
+                <td className="text-center text-dark font-medium text-secondary py-5 px-2 bg-transparent border-b border-r border-gray-300">
+                  {item.date}
+                </td>
+                <td className="text-center text-dark font-medium text-secondary py-5 px-2 bg-transparent border-b border-r border-gray-300">
+                  {item.paymentMethod}
+                </td>
+                <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
+                  {item.total}
+                </td>
+                <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
+                  {item.status}
+                </td>
+                <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
+                  <button className="bg-primary text-white px-5 py-1.5 rounded-lg">
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
       )}
     </section>
   );
