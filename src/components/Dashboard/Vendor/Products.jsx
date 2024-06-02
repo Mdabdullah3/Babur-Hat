@@ -72,7 +72,7 @@ const Products = () => {
         ))}
       </div>
       <div>
-        <table className="table-auto w-full overflow-auto">
+        <table className="table-auto w-full overflow-auto mt-10">
           <thead>
             <tr className="bg-primary/40 text-center font-mono ">
               <th
@@ -239,6 +239,32 @@ const Products = () => {
                                "
                 >
                   {item?.status}
+                </td>
+                <td
+                  className="
+                               text-center text-dark
+                               font-medium
+                               text-secondary
+                               py-5
+                               px-2 cursor-pointer
+                               bg-transparent
+                               border-b border-r border-gray-300
+                               "
+                >
+                  {item?.date}
+                </td>
+                <td
+                  className="
+                               text-center text-dark
+                               font-medium
+                               text-secondary
+                               py-5
+                               px-2 cursor-pointer
+                               bg-transparent
+                               border-b border-r border-gray-300
+                               "
+                >
+                  Edit
                 </td>
               </tr>
             </tbody>
