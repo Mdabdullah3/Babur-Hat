@@ -92,7 +92,7 @@ const Products = () => {
   ];
 
   return (
-    <section className="py-10">
+    <section className="py-5">
       <InputSearch
         placeholder="Search For Product.."
         value={searchTerm}

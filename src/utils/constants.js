@@ -559,3 +559,24 @@ export const vendorOrder = [
     }
 
 ]
+
+export const vendorVouchers = [
+    {
+        id: 1,
+        voucherId: 'VOU-001',
+        date: '2023-06-01',
+        expirDate: '2023-07-01',
+        discount: "10%",
+        status: 'active',
+        shipped: "Free Shipping",
+    },
+    {
+        id: 2,
+        voucherId: 'VOU-002',
+        date: '2023-06-02',
+        expirDate: '2023-07-02',
+        discount: "20%",
+        status: 'stoped',
+        shipped: "N/A",
+    }
+]

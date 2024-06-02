@@ -114,7 +114,7 @@ const VendorOrders = () => {
   ];
 
   return (
-    <section>
+    <section className="py-5">
       <InputSearch
         placeholder="Search For Product.."
         value={searchTerm}
@@ -137,7 +137,9 @@ const VendorOrders = () => {
         ))}
       </div>
       {filteredOrders.length === 0 ? (
-        <p className="text-center font-bold text-2xl">No Orders Found</p>
+        <h1 className="text-center text-red-600 py-4 text-2xl">
+          No Orders Found
+        </h1>
       ) : (
         <table className="table-auto w-full overflow-auto mt-10">
           <TableHead header={header} />
@@ -161,7 +163,7 @@ const VendorOrders = () => {
                 </td>
                 <td className="text-center text-dark font-medium text-secondary py-5 px-2 cursor-pointer bg-transparent border-b border-r border-gray-300">
                   <button className="bg-primary text-white px-5 py-1.5 rounded-lg">
-                    Edit
+                    Shipping
                   </button>
                 </td>
               </tr>
