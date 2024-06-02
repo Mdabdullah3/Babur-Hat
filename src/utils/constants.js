@@ -507,3 +507,55 @@ export const vendorProducts = [
         "date": "2022-11-10"
     }
 ];
+
+export const vendorOrder = [
+    {
+        id: 1,
+        orderId: 'ORD-001',
+        date: '2023-06-01',
+        total: 500,
+        status: 'return',
+        paymentMethod: 'Credit Card',
+    },
+    {
+        id: 2,
+        orderId: 'ORD-002',
+        date: '2023-06-02',
+        total: 750,
+        status: 'pending',
+        paymentMethod: 'COD',
+    },
+    {
+        id: 3,
+        orderId: 'ORD-003',
+        date: '2023-06-03',
+        total: 300,
+        status: 'cancel',
+        paymentMethod: 'PayPal',
+    },
+    {
+        id: 4,
+        orderId: 'ORD-004',
+        date: '2023-06-04',
+        total: 400,
+        status: 'delivered',
+        paymentMethod: 'COD',
+    },
+    {
+        id: 5,
+        orderId: 'ORD-005',
+        date: '2023-06-05',
+        total: 600,
+        status: 'cancel',
+        paymentMethod: 'Credit Card',
+    },
+    {
+        id: 6,
+        orderId: 'ORD-006',
+        date: '2023-06-06',
+        total: 350,
+        status: 'Shipping',
+        paymentMethod: 'Bkash',
+    }
+
+]

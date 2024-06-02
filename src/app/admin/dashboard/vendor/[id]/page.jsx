@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { vendor } from "../../../../../utils/constants";
 import PrimaryButton from "../../../../../components/common/PrimaryButton";
 import VendorProducts from "../../../../../components/Dashboard/Vendor/Products";
+import VendorOrders from "../../../../../components/Dashboard/Vendor/VendorOrders";
 const SingleVendor = () => {
   const [activeMenu, setActiveMenu] = useState(1);
   const handleMenuClick = (id) => {
@@ -80,6 +81,7 @@ const SingleVendor = () => {
         ))}
       </div>
       <div>{activeMenu === 1 && <VendorProducts />}</div>
+      <div>{activeMenu === 2 && <VendorOrders />}</div>
     </section>
   );
 };
