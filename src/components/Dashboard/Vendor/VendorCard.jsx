@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import PrimaryButton from "../common/PrimaryButton";
 import { FaStar } from "react-icons/fa";
 
 const VendorCard = ({ item }) => {
