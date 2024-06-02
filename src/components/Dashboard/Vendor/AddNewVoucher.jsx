@@ -11,9 +11,9 @@ const AddNewVoucher = () => {
     status: "",
   });
   return (
-    <section>
+    <section className="mt-5">
       <form action="">
-        <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <InputField
             label="Voucher ID"
             value={form.voucherId}
