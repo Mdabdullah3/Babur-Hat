@@ -601,3 +601,24 @@ export const vendorEvents = [
         discount: "20%",
     }
 ]
+
+export const vendorAds = [
+    {
+        id: 1,
+        adsId: "Bhsdkj121",
+        payment: "Online",
+        invest: "200",
+        status: "Running",
+        strDate: "2023-06-01",
+        endDate: "2023-07-01",
+    },
+    {
+        id: 2,
+        adsId: "Bhsdkj122",
+        payment: "Online",
+        invest: "300",
+        status: "Closed",
+        strDate: "2023-06-02",
+        endDate: "2023-07-02",
+    }
+]
