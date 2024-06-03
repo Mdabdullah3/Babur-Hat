@@ -6,6 +6,7 @@ import PrimaryButton from "../../../../../components/common/PrimaryButton";
 import VendorProducts from "../../../../../components/Dashboard/Vendor/Products";
 import VendorOrders from "../../../../../components/Dashboard/Vendor/VendorOrders";
 import VendorVouchers from "../../../../../components/Dashboard/Vendor/VendorVouchers";
+import VendorCampaign from "../../../../../components/Dashboard/Vendor/VendorCampaign";
 const SingleVendor = () => {
   const [activeMenu, setActiveMenu] = useState(1);
   const handleMenuClick = (id) => {
@@ -84,6 +85,7 @@ const SingleVendor = () => {
       <div>{activeMenu === 1 && <VendorProducts />}</div>
       <div>{activeMenu === 2 && <VendorOrders />}</div>
       <div>{activeMenu === 3 && <VendorVouchers />}</div>
+      <div>{activeMenu === 4 && <VendorCampaign />}</div>
     </section>
   );
 };
