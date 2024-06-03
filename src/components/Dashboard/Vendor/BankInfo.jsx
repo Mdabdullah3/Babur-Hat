@@ -10,7 +10,7 @@ const BankInfo = () => {
     chequeImg: "",
   });
   return (
-    <form>
+    <form className="grid grid-cols-1 md:grid-cols-2 gap-5">
       <InputField
         label={"Bank Name"}
         placeholder={"Bank Name"}
@@ -46,6 +46,7 @@ const BankInfo = () => {
         onChange={(e) => setForm({ ...form, chequeImg: e.target.value })}
         required
       />
+      <div></div>
 
       <PrimaryButton value="Update" />
     </form>

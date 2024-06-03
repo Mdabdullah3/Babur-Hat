@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import OwnerForm from "./OwnerForm";
 import BusinessInfo from "./BusinessInfoForm";
+import BankInfoForm from "./BankInfo";
 const VendorSetting = () => {
   const [activeMenu, setActiveMenu] = useState(1);
   const handleMenuClick = (id) => {
@@ -49,6 +50,7 @@ const VendorSetting = () => {
       </div>
       <div>{activeMenu === 1 && <OwnerForm />}</div>
       <div>{activeMenu === 2 && <BusinessInfo />}</div>
+      <div>{activeMenu === 3 && <BankInfoForm />}</div>
     </section>
   );
 };
