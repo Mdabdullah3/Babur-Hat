@@ -24,13 +24,13 @@ const Sidebar = () => {
       id: 2,
       name: "Customer",
       icon: <BiSolidUserRectangle />,
-      route: "/admin/dashboard",
+      route: "/admin/dashboard/customer",
     },
     {
       id: 3,
       name: "Categories",
       icon: <BiSolidCategoryAlt />,
-      route: "/admin/dashboard",
+      route: "/admin/dashboard/categories",
     },
     {
       id: 4,
