@@ -9,6 +9,7 @@ import VendorVouchers from "../../../../../components/Dashboard/Vendor/VendorVou
 import VendorCampaign from "../../../../../components/Dashboard/Vendor/VendorCampaign";
 import VendorAds from "../../../../../components/Dashboard/Vendor/VendorAds";
 import VendorReview from "../../../../../components/Dashboard/Vendor/VendorReview";
+import VendorSetting from "../../../../../components/Dashboard/Vendor/VendorSetting"
 const SingleVendor = () => {
   const [activeMenu, setActiveMenu] = useState(1);
   const handleMenuClick = (id) => {
@@ -90,6 +91,7 @@ const SingleVendor = () => {
       <div>{activeMenu === 4 && <VendorCampaign />}</div>
       <div>{activeMenu === 5 && <VendorAds />}</div>
       <div>{activeMenu === 6 && <VendorReview />}</div>
+      <div>{activeMenu === 7 && <VendorSetting />}</div>
     </section>
   );
 };
