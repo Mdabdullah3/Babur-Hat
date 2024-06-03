@@ -622,3 +622,46 @@ export const vendorAds = [
         endDate: "2023-07-02",
     }
 ]
+
+export const vendorReviews = [
+    {
+        id: 1,
+        name: "John Doe",
+        rating: 4.5,
+        date: "2023-06-01",
+        review: "I love this product!",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/tshirt.jpg",
+    },
+    {
+        id: 2,
+        name: "Jane Smith",
+        rating: 4.0,
+        date: "2023-06-02",
+        review: "I really like this product!",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/tshirt.jpg",
+    },
+    {
+        id: 3,
+        name: "Bob Johnson",
+        rating: 3.5,
+        date: "2023-06-03",
+        review: "I don't like this product.",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/tshirt.jpg",
+    },
+    {
+        id: 4,
+        name: "Alice Brown",
+        rating: 5.0,
+        date: "2023-06-04",
+        review: "I love this product!",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/tshirt.jpg",
+    },
+    {
+        id: 5,
+        name: "Mike Davis",
+        rating: 4.0,
+        date: "2023-06-05",
+        review: "I really like this product!",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/tshirt.jpg",
+    },
+]
