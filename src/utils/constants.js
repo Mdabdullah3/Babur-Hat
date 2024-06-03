@@ -580,3 +580,24 @@ export const vendorVouchers = [
         shipped: "N/A",
     }
 ]
+
+export const vendorEvents = [
+    {
+        id: 1,
+        eventId: "Bhq912812",
+        joinDate: "2023-06-01",
+        closeDate: "2023-07-01",
+        status: "Running",
+        payment: "Free",
+        discount: "10%",
+    },
+    {
+        id: 2,
+        eventId: "Bhq912813",
+        joinDate: "2023-06-02",
+        closeDate: "2023-07-02",
+        status: "Closed",
+        payment: "online",
+        discount: "20%",
+    }
+]
