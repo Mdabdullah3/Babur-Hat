@@ -734,3 +734,18 @@ export const customerData = [
         totalOrder: 110,
     },
 ]
+
+export const categoriesData = [
+    {
+        id: 1,
+        categoryName: "Men",
+        subcategory: ["T-Shirt", "Shirt", "Pant", "Shoes"],
+        status: "active",
+    },
+    {
+        id: 2,
+        categoryName: "Women",
+        subcategory: ["T-Shirt", "Shirt", "Pant", "Shoes"],
+        status: "active",
+    }
+]

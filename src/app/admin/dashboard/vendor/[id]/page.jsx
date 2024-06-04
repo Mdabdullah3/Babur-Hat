@@ -9,7 +9,7 @@ import VendorVouchers from "../../../../../components/Dashboard/Vendor/VendorVou
 import VendorCampaign from "../../../../../components/Dashboard/Vendor/VendorCampaign";
 import VendorAds from "../../../../../components/Dashboard/Vendor/VendorAds";
 import VendorReview from "../../../../../components/Dashboard/Vendor/VendorReview";
-import VendorSetting from "../../../../../components/Dashboard/Vendor/VendorSetting"
+import VendorSetting from "../../../../../components/Dashboard/Vendor/VendorSetting";
 const SingleVendor = () => {
   const [activeMenu, setActiveMenu] = useState(1);
   const handleMenuClick = (id) => {
@@ -73,6 +73,7 @@ const SingleVendor = () => {
         {menu.map((item) => (
           <>
             <button
+              key={item.id}
               onClick={() => handleMenuClick(item.id)}
               className={`font-bold pb-2 ${
                 activeMenu === item.id
