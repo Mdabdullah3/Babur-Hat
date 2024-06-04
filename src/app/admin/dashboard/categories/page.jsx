@@ -14,7 +14,7 @@ const Categories = () => {
   const header = ["Category Name", "Sub Category Name", "status", "Action"];
   const menu = ["All", "Add Main Category", "Add Sub Category"];
   return (
-    <section>
+    <section className="w-11/12 mx-auto">
       <h1 className="text-3xl font-bold my-4">Categories</h1>
       <div className="flex mt-8 items-center justify-center gap-10 w-10/12 mx-auto my-4 border-b-2 ">
         {menu.map((item, index) => (

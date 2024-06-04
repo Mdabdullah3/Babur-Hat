@@ -41,6 +41,7 @@ const AddSubCategory = () => {
         options={category}
         onChange={(e) => setForm({ ...form, category: e.target.value })}
         value={form.category}
+        required
       />
       <InputField
         label="Shipping Charge"
@@ -50,6 +51,7 @@ const AddSubCategory = () => {
         onChange={(e) => setForm({ ...form, shippingCharge: e.target.value })}
       />
       <SelectField
+        required
         label="Status"
         options={status}
         onChange={(e) => setForm({ ...form, status: e.target.value })}

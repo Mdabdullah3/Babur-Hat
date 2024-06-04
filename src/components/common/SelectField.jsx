@@ -12,7 +12,7 @@ const SelectField = ({
     <div className="">
       <label
         htmlFor={id}
-        className="block text-gray-600 font-semibold mb-2 tracking-wider"
+        className="block text-gray-600 font-semibold  tracking-wider"
       >
         {label} {required && "*"}
       </label>
@@ -22,7 +22,7 @@ const SelectField = ({
         name={name}
         value={value}
         onChange={onChange}
-        placeholder={placeholder}
+        placeholder={options[0].label}
         required={required}
       >
         <option className=" bg-transparent w-full" value="">
