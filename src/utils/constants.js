@@ -666,7 +666,7 @@ export const vendorReviews = [
     },
 ]
 
-export const vendorCustomer = [
+export const customerData = [
     {
         id: 1,
         name: "Dihan",

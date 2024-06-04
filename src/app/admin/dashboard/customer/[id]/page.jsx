@@ -1,5 +1,7 @@
 "use client";
 import React, { useState } from "react";
+import VendorOrders from "../../../../../components/Dashboard/Vendor/VendorOrders";
+import CustomerSettings from "../../../../../components/Dashboard/CustomerSettings";
 const SingleCustomer = () => {
   const [activeMenu, setActiveMenu] = useState(1);
   const handleMenuClick = (id) => {
@@ -35,7 +37,18 @@ const SingleCustomer = () => {
           </>
         ))}
       </div>
-      <div>{activeMenu === 1 && <div>Orders</div>}</div>
+      <div>
+        {activeMenu === 1 && (
+          <div>
+            <VendorOrders />
+          </div>
+        )}
+        {activeMenu === 2 && (
+          <div>
+            <CustomerSettings />
+          </div>
+        )}
+      </div>
     </section>
   );
 };
