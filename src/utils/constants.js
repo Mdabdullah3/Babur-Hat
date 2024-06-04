@@ -665,3 +665,72 @@ export const vendorReviews = [
         img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/tshirt.jpg",
     },
 ]
+
+export const vendorCustomer = [
+    {
+        id: 1,
+        name: "Dihan",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/coats-2.jpg",
+        customerId: 6789,
+        activeOrder: 50,
+        totalOrder: 110,
+        order: [
+            {
+                id: 1,
+                orderId: 'ORD-001',
+                date: '2023-06-01',
+                total: 500,
+                status: 'return',
+                paymentMethod: 'Credit Card',
+            },
+            {
+                id: 2,
+                orderId: 'ORD-002',
+                date: '2023-06-02',
+                total: 750,
+                status: 'pending',
+                paymentMethod: 'COD',
+            },
+            {
+                id: 3,
+                orderId: 'ORD-003',
+                date: '2023-06-03',
+                total: 300,
+                status: 'cancel',
+                paymentMethod: 'PayPal',
+            },
+            {
+                id: 4,
+                orderId: 'ORD-004',
+                date: '2023-06-04',
+                total: 400,
+                status: 'delivered',
+                paymentMethod: 'COD',
+            },
+            {
+                id: 5,
+                orderId: 'ORD-005',
+                date: '2023-06-05',
+                total: 600,
+                status: 'cancel',
+                paymentMethod: 'Credit Card',
+            },
+            {
+                id: 6,
+                orderId: 'ORD-006',
+                date: '2023-06-06',
+                total: 350,
+                status: 'Shipping',
+                paymentMethod: 'Bkash',
+            }
+        ]
+    },
+    {
+        id: 1,
+        name: "Hasan",
+        img: "https://754969b0.rocketcdn.me/clotya/wp-content/uploads/2022/04/pants-2.jpg",
+        customerId: 1234,
+        activeOrder: 50,
+        totalOrder: 110,
+    },
+]
