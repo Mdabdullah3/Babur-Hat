@@ -1,5 +1,5 @@
 import React from "react";
-
+import PrimaryButton from "../common/PrimaryButton";
 const Profile = () => {
   return (
     <section>
@@ -25,6 +25,9 @@ const Profile = () => {
           <h1 className="font-bold mb-1">Gender</h1>
           <h2>Male</h2>
         </div>
+      </div>
+      <div>
+        <PrimaryButton className="w-40 mt-5" title="Edit Profile" />
       </div>
     </section>
   );
