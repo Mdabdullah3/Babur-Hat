@@ -26,8 +26,8 @@ const Profile = () => {
           <h2>Male</h2>
         </div>
       </div>
-      <div>
-        <PrimaryButton className="w-40 mt-5" title="Edit Profile" />
+      <div className="mt-10 w-48">
+        <PrimaryButton value="Edit Profile" />
       </div>
     </section>
   );
