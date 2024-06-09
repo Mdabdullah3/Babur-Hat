@@ -1,3 +1,5 @@
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 export const metadata = {
   title: "Babur Hat",
@@ -9,6 +11,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="">
         <main>{children}</main>
+        <ToastContainer />
       </body>
     </html>
   );

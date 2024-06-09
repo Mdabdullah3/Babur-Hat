@@ -2,6 +2,7 @@ import { FiSearch } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa6";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
+import Link from "next/link";
 const Navbar = () => {
   return (
     <nav>
@@ -38,10 +39,10 @@ const Navbar = () => {
                     </div>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content z-50 menu shadow bg-black text-white rounded-box w-auto py-4 px-6"
+                      className="dropdown-content z-50 menu shadow bg-black cursor-pointer text-white rounded-box w-auto py-4 px-6"
                     >
-                      <li>Login</li>
-                      <li className="mt-4">Register</li>
+                      <Link href="/auth/login">Login</Link>
+                      <Link href="/auth/register" className="mt-4">Register</Link>
                     </ul>
                   </div>
                 </div>
