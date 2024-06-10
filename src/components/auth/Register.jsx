@@ -1,13 +1,13 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useState } from "react";
-import FileUpload from "../common/FileUpload";
 import InputField from "../common/InputField";
 import PrimaryButton from "../common/PrimaryButton";
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
   const router = useRouter();
@@ -17,7 +17,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
     phone: "",
-    avatar: null, 
+    avatar: "",
   });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
@@ -25,13 +25,20 @@ const Register = () => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" }); 
+    setErrors({ ...errors, [e.target.name]: "" }); // clear error for this field
   };
 
-  const handleAvatarChange = (file) => {
-    if (file) {
-      setForm({ ...form, avatar: file });
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("Image size should be less than 2MB.");
+      return;
     }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setForm({ ...form, avatar: reader.result });
+    };
+    reader.readAsDataURL(file);
   };
 
   const validateForm = () => {
@@ -64,24 +71,14 @@ const Register = () => {
     }
     return true;
   };
-
+  const handleRemoveAvatar = () => {
+    setForm({ ...form, avatar: null });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
     try {
-      const formData = new FormData();
-      formData.append("name", form.name);
-      formData.append("email", form.email);
-      formData.append("password", form.password);
-      formData.append("confirmPassword", form.confirmPassword);
-      formData.append("phone", form.phone);
-      formData.append("avatar", form.avatar);
-
-      await axios.post("http://localhost:8000/api/auth/register", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.post("http://localhost:8000/api/auth/register", form);
       toast.success(
         "Registration successful! Please check your email for verification."
       );
@@ -198,11 +195,32 @@ const Register = () => {
             )}
           </div>
         </div>
-        <FileUpload
-          label="Avatar"
-          name="avatar"
-          onChange={handleAvatarChange}
-        />
+        {form.avatar && (
+          <div className="relative">
+            <img
+              src={form.avatar}
+              alt="Avatar"
+              className="w-32 h-32 rounded-md"
+            />
+            <button
+              onClick={handleRemoveAvatar}
+              className="absolute top-0 right-0 m-2 text-red-600 font-bold rounded-full p-1"
+            >
+              ×
+            </button>
+          </div>
+        )}
+        {!form.avatar && (
+          <div>
+            <label className="block font-mono text-secondary">Avatar</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleAvatarChange}
+              className="block mt-1 file-input file-input-bordered file-input-primary w-full max-w-xs"
+            />
+          </div>
+        )}
         <PrimaryButton value={"Register"} />
       </form>
     </div>
