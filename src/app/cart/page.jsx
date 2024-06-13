@@ -129,7 +129,7 @@ const Cart = () => {
                   </span>
                 </h1>
                 <div className="mt-10">
-                  <h1 className="border-b-[0.5px]  border-white"> </h1>
+                  <div className="border-b-[0.5px]  border-white"> </div>
                   <h1 className="font-bold tracking-widest text-md uppercase mt-4 flex justify-between items-center">
                     Total{" "}
                     <span className="text-xl">

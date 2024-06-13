@@ -33,7 +33,6 @@ const ProductCard = ({ product }) => {
           <span className="text-gray-500 text-sm ml-3">1000+ Sold</span>
         </h1>
         <h1 className="text-xl font-bold">
-          {" "}
           <span className="text-sm">BDT</span> {product.sellPrice}.00{" "}
           <del className="font-normal text-sm text-gray-400">BDT 535.00</del>
         </h1>
