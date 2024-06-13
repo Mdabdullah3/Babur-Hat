@@ -27,7 +27,7 @@ const Cart = () => {
     <div>
       <Navbar />
       <div className="w-11/12 mx-auto mt-14 tracking-wider">
-        <h1 className="text-3xl font-bold">Shopping Cart ({cart.length})</h1>
+        <h1 className="text-3xl font-bold">Shopping Cart ({cart?.length})</h1>
         {cart?.length !== 0 ? (
           <div className="grid grid-cols-3 mt-8 px-4 w-full">
             <div className=" col-span-2">
