@@ -3,7 +3,18 @@ import { GoHeart } from "react-icons/go";
 import { CiLocationOn } from "react-icons/ci";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { FiShare2 } from "react-icons/fi";
-const ProductShipInfo = () => {
+import useCartStore from "../../store/cartStore";
+import { toast } from "react-toastify";
+const ProductShipInfo = ({ product }) => {
+  const { addToCart } = useCartStore();
+  const handleAddToCart = () => {
+    const result = addToCart(product);
+    if (result?.error) {
+      toast.error(result.error);
+    } else {
+      toast.success("Product added to cart");
+    }
+  };
   return (
     <div className="shadow-lg px-5 py-4 bg-white col-span-2 rounded-2xl border border-gray-300">
       <h1 className="flex items-center justify-between font-bold">
@@ -37,7 +48,10 @@ const ProductShipInfo = () => {
           +
         </button>
       </div>
-      <button className="w-full my-2 py-3 rounded-full border hover:border-black border-primary bg-primary text-white tracking-wider  hover:bg-black hover:text-white transition duration-500 text-sm font-bold">
+      <button
+        onClick={handleAddToCart}
+        className="w-full my-2 py-3 rounded-full border hover:border-black border-primary bg-primary text-white tracking-wider  hover:bg-black hover:text-white transition duration-500 text-sm font-bold"
+      >
         Add To Cart
       </button>
       <button className="w-full py-3 rounded-full my-2 border-[1px] hover:border-primary border-black text-black tracking-wider  hover:bg-primary hover:text-white transition duration-500 font-bold">

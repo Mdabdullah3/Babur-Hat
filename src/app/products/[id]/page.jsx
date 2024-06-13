@@ -6,14 +6,12 @@ import ProductShipInfo from "../../../components/ProductDetails/ProductShipInfo"
 import DeafultProduct from "../../../components/Home/DeafultProducts";
 import ProductInfoTab from "../../../components/ProductDetails/ProductInfoTab";
 import { productInformation } from "../../../utils/constants";
-import useCartStore from "../../../store/cartStore";
 
 const ProductDetails = ({ params }) => {
   const [singleProduct, setSingleProduct] = useState([]);
   const [openDetails, setOpenDetails] = useState(
     productInformation[0]?.Description
   );
-  const { addToCart, cart } = useCartStore();
 
   const handleDetailClick = (details) => {
     setOpenDetails(details);
@@ -26,14 +24,7 @@ const ProductDetails = ({ params }) => {
       .then((data) => setSingleProduct(data));
   }, [params.id]);
 
-  const handleAddToCart = () => {
-    const result = addToCart(singleProduct);
-    if (result?.error) {
-      alert(result.error);
-    } else {
-      alert("Product added to cart");
-    }
-  };
+  
 
   return (
     <div>
@@ -45,11 +36,8 @@ const ProductDetails = ({ params }) => {
               topImage={singleProduct.topimg}
             />
             <ProductInfo product={singleProduct} />
-            <ProductShipInfo />
+            <ProductShipInfo product={singleProduct} />
           </div>
-          <button onClick={handleAddToCart} className="btn btn-primary">
-            Add to Cart
-          </button>
           <hr className="mt-4" />
           <h1 className="text-2xl font-bold mt-10">Related Products</h1>
         </div>
