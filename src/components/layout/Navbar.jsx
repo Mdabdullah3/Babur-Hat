@@ -6,19 +6,19 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import useCartStore from "../../store/cartStore";
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
+  const { cart } = useCartStore();
   const router = useRouter();
-  console.log(user);
   useEffect(() => {
     try {
       const userData = localStorage.getItem("user");
       if (userData) {
-        setUser(JSON.parse(userData));
+        setUser(JSON?.parse(userData));
       }
     } catch (error) {
-      console.error("Failed to parse user data from localStorage:", error);
       localStorage.removeItem("user");
     }
   }, []);
@@ -95,7 +95,7 @@ const Navbar = () => {
                 <PiShoppingCartSimpleBold size={32} />
                 <div>
                   <h1 className="bg-white px-3 rounded-full py-0 text-black">
-                    {12}
+                    {cart?.length || 0}
                   </h1>
                   <h1>Cart</h1>
                 </div>
