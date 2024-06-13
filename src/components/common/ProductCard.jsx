@@ -1,10 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
 import React from "react";
 import { FaStar } from "react-icons/fa";
 import { LiaCartPlusSolid } from "react-icons/lia";
 const ProductCard = ({ product }) => {
   return (
-    <div className="mb-4 hover:bg-white hover:shadow-md transition duration-300 px-4 py-4 cursor-pointer rounded-2xl">
+    <Link
+      href={`/products/${product._id}`}
+      className="mb-4 hover:bg-white hover:shadow-md transition duration-300 px-4 py-4 cursor-pointer rounded-2xl"
+    >
       <div className="relative">
         <img className="w-64 h-52 " src={product.topimg} alt="" />
         <h1
@@ -27,7 +31,7 @@ const ProductCard = ({ product }) => {
         <span className="text-sm">BDT</span> {product.sellPrice}.00{" "}
         <del className="font-normal text-sm text-gray-400">BDT 535.00</del>
       </h1>
-    </div>
+    </Link>
   );
 };
 

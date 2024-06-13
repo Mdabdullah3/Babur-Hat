@@ -3,10 +3,9 @@ import React, { useEffect, useState } from "react";
 import ProductImages from "../../../components/ProductDetails/ProductImages";
 import ProductInfo from "../../../components/ProductDetails/ProductInfo";
 import ProductShipInfo from "../../../components/ProductDetails/ProductShipInfo";
-import DeafultProduct from "../../../components/Home/DeafultProducts";
 import ProductInfoTab from "../../../components/ProductDetails/ProductInfoTab";
 import { productInformation } from "../../../utils/constants";
-
+import Navbar from "../../../components/layout/Navbar";
 const ProductDetails = ({ params }) => {
   const [singleProduct, setSingleProduct] = useState([]);
   const [openDetails, setOpenDetails] = useState(
@@ -24,10 +23,9 @@ const ProductDetails = ({ params }) => {
       .then((data) => setSingleProduct(data));
   }, [params.id]);
 
-  
-
   return (
-    <div>
+    <section>
+      <Navbar />
       <div className="">
         <div className="w-11/12 mt-20 mx-auto">
           <div className="grid grid-cols-8 gap-6 ">
@@ -41,7 +39,6 @@ const ProductDetails = ({ params }) => {
           <hr className="mt-4" />
           <h1 className="text-2xl font-bold mt-10">Related Products</h1>
         </div>
-        <DeafultProduct />
       </div>
       <div>
         <ProductInfoTab
@@ -50,7 +47,7 @@ const ProductDetails = ({ params }) => {
           handleDetailClick={handleDetailClick}
         />
       </div>
-    </div>
+    </section>
   );
 };
 
