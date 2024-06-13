@@ -1,16 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
-import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import InputField from "../../../components/common/InputField";
-import PrimaryButton from "../../../components/common/PrimaryButton";
 import Navbar from "../../../components/layout/Navbar";
 import Footer from "../../../components/layout/Footer";
+import LoginForm from "../../../components/auth/LoginForm";
+export const metadata = {
+  title: "Login - Babur Hat",
+  description: "Login section of Babur Hat",
+};
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   return (
-    <div>
+    <section>
       <Navbar />
       <div className="py-16 w-10/12 mx-auto">
         <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto ">
@@ -42,32 +41,7 @@ const Login = () => {
               </a>
               <span className="border-b w-1/5 lg:w-1/4"></span>
             </div>
-            <form>
-              <div className="mt-4">
-                <InputField
-                  label="Email"
-                  placeholder="Enter Email"
-                  id="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="mt-4">
-                <InputField
-                  label="Password"
-                  placeholder="Enter Password"
-                  id="password"
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="mt-8">
-                <PrimaryButton value={"Login"} />
-              </div>
-            </form>
+            <LoginForm />
             <div className="divider text-gray-500 mt-4 text-sm uppercase">
               Or <span className="underline cursor-pointer">Register</span>
             </div>
@@ -75,7 +49,7 @@ const Login = () => {
         </div>
       </div>
       <Footer />
-    </div>
+    </section>
   );
 };
 
