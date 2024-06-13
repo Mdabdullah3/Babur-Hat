@@ -10,7 +10,7 @@ import useCartStore from "../../store/cartStore";
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart } = useCartStore();
-
+  console.log(cart);
   const handleRemove = (id) => {
     removeFromCart(id);
   };
@@ -37,7 +37,10 @@ const Cart = () => {
                     {index !== 0 && (
                       <hr className="border-t border-gray-300 mt-6 w-[95%]" />
                     )}
-                    <div className="flex items-center w-11/12 justify-between mt-6" key={index}>
+                    <div
+                      className="flex items-center w-11/12 justify-between mt-6"
+                      key={index}
+                    >
                       <div className=" relative">
                         <img
                           src={item.topimg}
