@@ -34,7 +34,9 @@ const Navbar = () => {
       <div className="bg-black text-white py-4">
         <div className="w-11/12 mx-auto">
           <div className="flex items-center justify-between">
-            <h1 className="text-3xl font-bold">Babur Hut</h1>
+            <Link href="/" className="text-3xl font-bold cursor-pointer">
+              <h1 className="text-3xl font-bold cursor-pointer">Babur Hut</h1>
+            </Link>
             <div>
               <label className="input input-bordered rounded-full flex items-center gap-2 h-[52px] mx-auto">
                 <input
@@ -86,7 +88,10 @@ const Navbar = () => {
                   </div>
                 )}
               </div>
-              <div className="flex items-center gap-4">
+              <Link
+                href="/cart"
+                className="flex items-center gap-4 cursor-pointer"
+              >
                 <PiShoppingCartSimpleBold size={32} />
                 <div>
                   <h1 className="bg-white px-3 rounded-full py-0 text-black">
@@ -94,7 +99,7 @@ const Navbar = () => {
                   </h1>
                   <h1>Cart</h1>
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
