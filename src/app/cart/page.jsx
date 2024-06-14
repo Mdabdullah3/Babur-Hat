@@ -11,6 +11,7 @@ import useCartStore from "../../store/cartStore";
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart } = useCartStore();
   console.log(cart);
+
   const handleRemove = (id) => {
     removeFromCart(id);
   };
@@ -39,9 +40,9 @@ const Cart = () => {
                     )}
                     <div
                       className="flex items-center w-11/12 justify-between mt-6"
-                      key={index}
+                      key={item._id}
                     >
-                      <div className=" relative">
+                      <div className="relative">
                         <img
                           src={item.topimg}
                           className="w-24 h-28 rounded-sm"
@@ -50,18 +51,18 @@ const Cart = () => {
                         <h1
                           className="tooltip tooltip-top text-primary cursor-pointer font-bold absolute top-1/3 -left-5"
                           data-tip="Remove"
-                          onClick={() => handleRemove(item.id)}
+                          onClick={() => handleRemove(item._id)}
                         >
                           <RiDeleteBin6Line size={14} />
                         </h1>
                       </div>
                       <div className="flex-col items-center w-52">
-                        <h1 className="font-bold  tracking-wider">
+                        <h1 className="font-bold tracking-wider">
                           {item?.productName?.slice(0, 20)}...
                         </h1>
                       </div>
                       <div className="flex-col items-center w-52">
-                        <h1 className="font-bold  tracking-wider">
+                        <h1 className="font-bold tracking-wider">
                           {item?.quantity} pcs
                         </h1>
                       </div>
@@ -71,7 +72,7 @@ const Cart = () => {
                       <div className="w-28 mt-2">
                         <div className="relative flex flex-row w-36 h-12 bg-transparent rounded-lg">
                           <button
-                            className="w-20 h-full  bg-gray-200  cursor-pointer hover:text-gray-700  hover:bg-gray-400"
+                            className="w-20 h-full bg-gray-200 cursor-pointer hover:text-gray-700 hover:bg-gray-400"
                             onClick={() =>
                               handleUpdateQuantity(item._id, item.quantity - 1)
                             }
@@ -81,15 +82,15 @@ const Cart = () => {
 
                           <input
                             type="number"
-                            className="flex items-center placeholder-black w-full font-semibold text-center   bg-gray-200 outline-none  text-md "
+                            className="flex items-center placeholder-black w-full font-semibold text-center bg-gray-200 outline-none text-md"
                             value={item.quantity}
                             readOnly
                           />
 
                           <button
-                            className="w-20 h-full  bg-gray-200  cursor-pointer  hover:text-gray-700 hover:bg-gray-400"
+                            className="w-20 h-full bg-gray-200 cursor-pointer hover:text-gray-700 hover:bg-gray-400"
                             onClick={() =>
-                              handleUpdateQuantity(item.id, item.quantity + 1)
+                              handleUpdateQuantity(item._id, item.quantity + 1)
                             }
                           >
                             <span className="m-auto text-xl">+</span>
@@ -129,7 +130,7 @@ const Cart = () => {
                   </span>
                 </h1>
                 <div className="mt-10">
-                  <div className="border-b-[0.5px]  border-white"> </div>
+                  <div className="border-b-[0.5px] border-white"> </div>
                   <h1 className="font-bold tracking-widest text-md uppercase mt-4 flex justify-between items-center">
                     Total{" "}
                     <span className="text-xl">
@@ -141,12 +142,12 @@ const Cart = () => {
                       .00
                     </span>
                   </h1>
-                  <button className="text-[14px] font-bold uppercase  border-white border-[1px] text-primary w-full mt-8 py-4 bg-white rounded-full hover:bg-transparent hover:text-white transition duration-500">
+                  <button className="text-[14px] font-bold uppercase border-white border-[1px] text-primary w-full mt-8 py-4 bg-white rounded-full hover:bg-transparent hover:text-white transition duration-500">
                     Proceed to Checkout
                   </button>
                   <button
                     onClick={handleClearCart}
-                    className="text-[14px] font-bold uppercase  border-white border-[1px] text-primary w-full mt-4 py-2 bg-white rounded-full hover:bg-transparent hover:text-white transition duration-500"
+                    className="text-[14px] font-bold uppercase border-white border-[1px] text-primary w-full mt-4 py-2 bg-white rounded-full hover:bg-transparent hover:text-white transition duration-500"
                   >
                     Clear Cart
                   </button>
