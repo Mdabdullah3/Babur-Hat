@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
+// pages/cart/index.js
 "use client";
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import { LuMoveLeft } from "react-icons/lu";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -10,7 +12,13 @@ import useCartStore from "../../store/cartStore";
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart } = useCartStore();
-  console.log(cart);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
 
   const handleRemove = (id) => {
     removeFromCart(id);
@@ -31,22 +39,19 @@ const Cart = () => {
         <h1 className="text-3xl font-bold">Shopping Cart ({cart?.length})</h1>
         {cart?.length !== 0 ? (
           <div className="grid grid-cols-3 mt-8 px-4 w-full">
-            <div className=" col-span-2">
+            <div className="col-span-2">
               <div>
                 {cart?.map((item, index) => (
-                  <>
+                  <React.Fragment key={item._id}>
                     {index !== 0 && (
                       <hr className="border-t border-gray-300 mt-6 w-[95%]" />
                     )}
-                    <div
-                      className="flex items-center w-11/12 justify-between mt-6"
-                      key={item._id}
-                    >
+                    <div className="flex items-center w-11/12 justify-between mt-6">
                       <div className="relative">
                         <img
                           src={item.topimg}
                           className="w-24 h-28 rounded-sm"
-                          alt=""
+                          alt={item.productName}
                         />
                         <h1
                           className="tooltip tooltip-top text-primary cursor-pointer font-bold absolute top-1/3 -left-5"
@@ -79,14 +84,12 @@ const Cart = () => {
                           >
                             <span className="m-auto text-2xl">-</span>
                           </button>
-
                           <input
                             type="number"
                             className="flex items-center placeholder-black w-full font-semibold text-center bg-gray-200 outline-none text-md"
                             value={item.quantity}
                             readOnly
                           />
-
                           <button
                             className="w-20 h-full bg-gray-200 cursor-pointer hover:text-gray-700 hover:bg-gray-400"
                             onClick={() =>
@@ -98,7 +101,7 @@ const Cart = () => {
                         </div>
                       </div>
                     </div>
-                  </>
+                  </React.Fragment>
                 ))}
                 <div>
                   <button className="flex items-center gap-2 mt-10 cursor-pointer tracking-wider">
@@ -114,8 +117,7 @@ const Cart = () => {
                 <h1 className="text-sm tracking-wider mt-5 uppercase flex items-center">
                   SubTotal :
                   <span className="ml-10 flex font-[500] text-lg items-center">
-                    {" "}
-                    <FaBangladeshiTakaSign />{" "}
+                    <FaBangladeshiTakaSign />
                     {cart.reduce(
                       (total, item) => total + item.sellPrice * item.quantity,
                       0
@@ -172,7 +174,7 @@ const Cart = () => {
               <img
                 src="https://minimog.thememove.com/robust/wp-content/themes/minimog/assets/woocommerce/empty-cart.png"
                 className="w-3/12 mx-auto"
-                alt=""
+                alt="empty cart"
               />
               <div className="text-center mt-1 mb-4">
                 <h1 className="font-bold tracking-wider text-xl">

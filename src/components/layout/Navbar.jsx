@@ -1,4 +1,6 @@
+// components/layout/Navbar.js
 "use client";
+
 import { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa6";
@@ -12,7 +14,10 @@ const Navbar = () => {
   const [user, setUser] = useState(null);
   const { cart } = useCartStore();
   const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
+    setIsClient(true);
     try {
       const userData = localStorage.getItem("user");
       if (userData) {
@@ -22,6 +27,8 @@ const Navbar = () => {
       localStorage.removeItem("user");
     }
   }, []);
+
+  if (!isClient) return null;
 
   const handleLogout = () => {
     localStorage.removeItem("user");
