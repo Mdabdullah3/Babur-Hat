@@ -19,7 +19,7 @@ const ProductInfo = ({ product }) => {
           {product?.productName}
         </h1>
         <h1
-          className="tooltip tooltip-top text-primary cursor-pointer"
+          className="tooltip tooltip-left text-primary cursor-pointer"
           data-tip="Add To Wishlist"
         >
           <FaRegStar size={22} />
