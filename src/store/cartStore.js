@@ -9,7 +9,11 @@ const useCartStore = create(
             addToCart: (product) => set((state) => {
                 const productExists = state.cart.find((item) => item._id === product._id);
                 if (productExists) {
-                    return { error: 'Product already in cart' };
+                    return {
+                        cart: state.cart.map(item =>
+                            item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
+                        )
+                    };
                 }
                 const newCart = [...state.cart, { ...product, quantity: 1 }];
                 return { cart: newCart };
@@ -28,7 +32,7 @@ const useCartStore = create(
         }),
         {
             name: 'cart-storage',
-            getStorage: () => localStorage,
+            getStorage: () => (typeof window !== 'undefined' ? localStorage : undefined),
         }
     )
 );

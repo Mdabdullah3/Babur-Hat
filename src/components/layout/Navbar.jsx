@@ -93,12 +93,10 @@ const Navbar = () => {
                 className="flex items-center gap-4 cursor-pointer"
               >
                 <PiShoppingCartSimpleBold size={32} />
-                <div>
-                  <h1 className="bg-white px-3 rounded-full py-0 text-black">
-                    {cart?.length || 0}
-                  </h1>
-                  <h1>Cart</h1>
-                </div>
+                <h1 className="bg-white px-3 rounded-full py-0 text-black">
+                  {cart?.length || 0}
+                </h1>
+                <h1>Cart</h1>
               </Link>
             </div>
           </div>
