@@ -15,7 +15,7 @@ const Navbar = () => {
   const { cart } = useCartStore();
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
-
+  console.log(user);
   useEffect(() => {
     setIsClient(true);
     try {
@@ -63,18 +63,35 @@ const Navbar = () => {
                 </div>
                 {user ? (
                   <div className="tracking-wider">
-                    <h1 className="text-[13px]">Welcome, {user?.data.name}</h1>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center text-sm font-bold"
-                    >
-                      Logout <MdKeyboardArrowDown size={20} />
-                    </button>
+                    <h1 className="text-[13px]">Welcome</h1>
+                    <div className="dropdown dropdown-hover">
+                      <div
+                        tabIndex={0}
+                        role="button"
+                        className="flex items-center text-sm font-bold"
+                      >
+                        <h1 className="capitalize tracking-wider flex items-center">
+                          {user?.data?.name} <MdKeyboardArrowDown size={20} />
+                        </h1>
+                      </div>
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content z-50 menu shadow bg-black cursor-pointer text-white rounded-box w-52 flex flex-col gap-3 text-md tracking-wider py-4 px-6"
+                      >
+                        <Link href="/myProfile">My Profile</Link>
+                        <hr />
+                        <Link href="/wishlist">Wishlist</Link>
+                        <hr />
+                        <button onClick={handleLogout} className="text-start">
+                          Log Out
+                        </button>
+                      </ul>
+                    </div>
                   </div>
                 ) : (
                   <div className="tracking-wider">
                     <h1 className="text-[13px]">Welcome</h1>
-                    <div className="dropdown dropdown-hover">
+                    <div className="dropdown dropdown-hover relative">
                       <div
                         tabIndex={0}
                         role="button"
@@ -84,7 +101,7 @@ const Navbar = () => {
                       </div>
                       <ul
                         tabIndex={0}
-                        className="dropdown-content z-50 menu shadow bg-black cursor-pointer text-white rounded-box w-auto py-4 px-6"
+                        className="dropdown-content z-50 menu absolute top=0 shadow bg-black cursor-pointer text-white rounded-box w-auto py-4 px-6"
                       >
                         <Link href="/auth/login">Login</Link>
                         <Link href="/auth/register" className="mt-4">
@@ -100,10 +117,12 @@ const Navbar = () => {
                 className="flex items-center gap-4 cursor-pointer"
               >
                 <PiShoppingCartSimpleBold size={32} />
-                <h1 className="bg-white px-3 rounded-full py-0 text-black">
-                  {cart?.length || 0}
-                </h1>
-                <h1>Cart</h1>
+                <div>
+                  <h1 className="bg-white px-3 rounded-full py-0 text-black">
+                    {cart?.length || 0}
+                  </h1>
+                  <h1>Cart</h1>
+                </div>
               </Link>
             </div>
           </div>

@@ -18,7 +18,12 @@ const ProductInfo = ({ product }) => {
         <h1 className="text-2xl font-bold capitalize tracking-wider">
           {product?.productName}
         </h1>
-        <FaRegStar size={22} />
+        <h1
+          className="tooltip tooltip-top text-primary cursor-pointer"
+          data-tip="Add To Wishlist"
+        >
+          <FaRegStar size={22} />
+        </h1>
       </div>
       <h2 className="text-md text-orange-500 flex items-center mt-2">
         <FaStar /> <FaStar /> <FaStar /> <FaStar />

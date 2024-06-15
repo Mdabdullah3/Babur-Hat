@@ -11,7 +11,7 @@ const page = () => {
       <div className="mt-12 relative">
         <div className="w-11/12 mx-auto mt-6 tracking-wider">
           <h1 className="text-3xl font-bold">Wishlist</h1>
-          {cart.length !== 0 ? (
+          {whislist.length !== 0 ? (
             <div className="mt-10 px-4 mx-auto">
               <div className=" col-span-2">
                 <div>
