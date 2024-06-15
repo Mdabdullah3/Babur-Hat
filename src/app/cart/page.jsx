@@ -9,6 +9,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import useCartStore from "../../store/cartStore";
+import Link from "next/link";
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart } = useCartStore();
@@ -184,9 +185,11 @@ const Cart = () => {
                   You may check out all the available products and buy some in
                   the shop.
                 </p>
-                <button className="px-12 py-4 rounded-sm border-primary border-[1px] bg-primary mt-4 uppercase text-[14px] font-[500] tracking-widest text-white">
-                  Return To Shop
-                </button>
+                <Link href="/">
+                  <button className="px-12 py-4 rounded-sm border-primary border-[1px] bg-primary mt-4 uppercase text-[14px] font-[500] tracking-widest text-white">
+                    Return To Shop
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

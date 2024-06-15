@@ -7,10 +7,11 @@ import useCartStore from "../../store/cartStore";
 import { toast } from "react-toastify";
 const ProductCard = ({ product }) => {
   const { addToCart } = useCartStore();
+
   const handleAddToCart = () => {
-    const result = addToCart(product);
-    if (result?.error) {
-      toast.error(result.error);
+    const productAdded = addToCart(product);
+    if (!productAdded) {
+      toast.error("Product already in cart");
     } else {
       toast.success("Product added to cart");
     }
