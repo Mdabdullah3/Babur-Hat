@@ -16,7 +16,7 @@ const ProductCard = ({ product }) => {
     }
   };
   return (
-    <section className="relative">
+    <section className="relative" key={product._id}>
       <Link
         href={`/products/${product._id}`}
         className="mb-4 hover:bg-white hover:shadow-md transition duration-300 px-4 py-4 cursor-pointer rounded-2xl"
