@@ -32,8 +32,8 @@ const BestDeal = () => {
           modules={[Autoplay, Navigation]}
           className="mySwiper"
         >
-          {bestDeal?.map((item) => (
-            <SwiperSlide key={item?.id}>
+          {bestDeal?.map((item, index) => (
+            <SwiperSlide key={index}>
               <div className="slide-content bg-white mx-3 rounded-2xl h-[360px]">
                 <img
                   src={item?.image}
