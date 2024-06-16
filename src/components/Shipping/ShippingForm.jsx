@@ -173,7 +173,6 @@ const ShippingForm = () => {
             name="phone"
           />
         </div>
-        {/* Checkbox for shipping to different address */}
         <div className="my-3">
           <label className="cursor-pointer flex items-center gap-4">
             <input
