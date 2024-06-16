@@ -1,13 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
 import { FcGoogle } from "react-icons/fc";
 import Navbar from "../../../components/layout/Navbar";
 import Footer from "../../../components/layout/Footer";
 import LoginForm from "../../../components/auth/LoginForm";
-export const metadata = {
-  title: "Login - Babur Hat",
-  description: "Login section of Babur Hat",
-};
+import { signIn } from "next-auth/react";
+
 const Login = () => {
+  console.log("GOOGLE_ID:", process.env.GOOGLE_ID);
+  console.log("GOOGLE_SECRET:", process.env.GOOGLE_SECRET);
+  console.log("NEXTAUTH_SECRET:", process.env.NEXTAUTH_SECRET);
+  console.log("NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
+
   return (
     <section>
       <Navbar />
@@ -20,7 +24,10 @@ const Login = () => {
           />
           <div className="w-full p-8 shadow-lg">
             <p className="text-xl text-gray-600 text-center">Welcome Back</p>
-            <button className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
+            <button
+              className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
+              onClick={() => signIn("google")}
+            >
               <div className="px-4 py-3">
                 <FcGoogle size={24} />
               </div>
