@@ -1,19 +1,24 @@
+// components/ShippingForm.js
 "use client";
 import { useEffect, useState } from "react";
 import InputField from "../common/InputField";
 import SelectField from "../common/SelectField";
 import PrimaryButton from "../common/PrimaryButton";
+import axios from "axios";
+
 const ShippingForm = () => {
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState(false);
-  const [country, setCountry] = useState("");
-  const [countries, setCountries] = useState([]);
-  const [cities, setCities] = useState([]);
+  const [division, setDivision] = useState("");
+  const [district, setDistrict] = useState("");
+  const [upazila, setUpazila] = useState("");
+  const [divisions, setDivisions] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [upazilas, setUpazilas] = useState([]);
+  console.log(upazilas?.upazillas);
   const [form, setForm] = useState({
     fullName: "",
     email: "",
-    country: country,
     address: "",
-    city: cities,
     postalCode: "",
     phone: "",
     shippingFullName: "",
@@ -25,18 +30,43 @@ const ShippingForm = () => {
     const { name, value } = e.target;
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
+
   useEffect(() => {
-    // Fetch list of countries
-    fetch("https://countriesnow.space/api/v0.1/countries").then((response) => {
-      setCountries(response.data.data);
-      const selectedCountry = response.data.data.find(
-        (c) => c.country === country
-      );
-      if (selectedCountry) {
-        setCities(selectedCountry.cities);
-      }
+    axios.get("https://bdapis.com/api/v1.2/divisions").then((response) => {
+      setDivisions(response.data.data);
     });
-  }, [country]);
+  }, []);
+
+  useEffect(() => {
+    if (division) {
+      axios
+        .get(`https://bdapis.com/api/v1.2/division/${division}`)
+        .then((response) => {
+          setDistricts(response.data.data);
+        });
+    } else {
+      setDistricts([]);
+      setUpazilas([]);
+    }
+  }, [division]);
+
+  useEffect(() => {
+    if (district) {
+      axios
+        .get(`https://bdapis.com/api/v1.2/district/${district}`)
+        .then((response) => {
+          setUpazilas(response.data.data);
+        });
+    } else {
+      setUpazilas([]);
+    }
+  }, [district]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission
+  };
+
   return (
     <div className="w-full">
       <h1 className="font-bold capitalize text-2xl tracking-wider">
@@ -66,32 +96,50 @@ const ShippingForm = () => {
         </div>
         <div className="flex items-center gap-5 mb-3">
           <SelectField
-            label="Country"
-            id="country"
-            name="country"
+            label="Division"
+            id="division"
+            name="division"
             required
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
-            options={countries.map((country, index) => ({
-              value: country?.country || "Unknown country",
-              label: country?.country || "Unknown country",
+            value={division}
+            onChange={(e) => setDivision(e.target.value)}
+            options={divisions.map((div, index) => ({
+              value: div.division,
+              label: div.division,
               key: index,
             }))}
-            placeholder="Select a country"
+            placeholder="Select a division"
           />
           <SelectField
-            label="City"
-            id="city"
-            name="city"
+            label="District"
+            id="district"
+            name="district"
             required
-            value={form.city}
-            onChange={(e) => setForm({ ...form, city: e.target.value })}
-            options={cities?.map((city, index) => ({
-              value: city || "Unknown city",
-              label: city || "Unknown city",
+            value={district}
+            onChange={(e) => setDistrict(e.target.value)}
+            options={districts.map((dist, index) => ({
+              value: dist.district,
+              label: dist.district,
               key: index,
             }))}
-            placeholder="Select a city"
+            placeholder="Select a district"
+            disabled={!division}
+          />
+          <SelectField
+            label="Upazila"
+            id="upazila"
+            name="upazila"
+            required
+            value={upazila}
+            onChange={(e) => setUpazila(e.target.value)}
+            options={
+              upazilas?.upazillas?.map((upz, index) => ({
+                value: upz,
+                label: upz,
+                key: index,
+              })) || []
+            }
+            placeholder="Select an upazila"
+            disabled={!district}
           />
         </div>
         <div className="mb-3">
@@ -108,8 +156,8 @@ const ShippingForm = () => {
         <div className="flex items-center gap-5 mb-3">
           <InputField
             label="Post code"
-            name="postcode"
-            id="postcode"
+            name="postalCode"
+            id="postalCode"
             placeholder="Postcode"
             required
             value={form.postalCode}
@@ -136,9 +184,7 @@ const ShippingForm = () => {
                 setShipToDifferentAddress(!shipToDifferentAddress)
               }
             />
-            <span className=" tracking-wider">
-              Ship to a Different Address?
-            </span>
+            <span className="tracking-wider">Ship to a Different Address?</span>
           </label>
         </div>
         {/* Shipping input fields */}
@@ -170,7 +216,7 @@ const ShippingForm = () => {
               placeholder="House Number and Street name"
               value={form.shippingAddress}
               onChange={handleInputChange}
-              name="shippingStreetAddress"
+              name="shippingAddress"
               required
             />
           </div>

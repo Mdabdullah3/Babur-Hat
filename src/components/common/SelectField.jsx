@@ -1,3 +1,6 @@
+import React from "react";
+import Select from "react-select";
+
 const SelectField = ({
   label,
   id,
@@ -7,33 +10,39 @@ const SelectField = ({
   options,
   placeholder,
   required = false,
+  isDisabled = false,
 }) => {
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      boxShadow: "none",
+      "&:hover": {
+        borderColor: "black",
+      },
+    }),
+  };
+
   return (
-    <div className="">
+    <div className="mb-3 w-full">
       <label
         htmlFor={id}
-        className="block text-gray-600 font-semibold  tracking-wider"
+        className="block text-gray-600 font-semibold tracking-wider mb-1"
       >
-        {label} {required && "*"}
+        {label} <span className="text-red-500">{required && "*"}</span>
       </label>
-      <select
-        className="select select-bordered my-2 tracking-wider w-full focus:outline-none bg-transparent text-[16px]"
+      <Select
         id={id}
         name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={options[0].label}
-        required={required}
-      >
-        <option className=" bg-transparent w-full" value="">
-          {placeholder}
-        </option>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+        value={options.find((option) => option.value === value)}
+        onChange={(selectedOption) =>
+          onChange({ target: { name, value: selectedOption.value } })
+        }
+        options={options}
+        placeholder={placeholder}
+        styles={customStyles}
+        isDisabled={isDisabled}
+        isSearchable
+      />
     </div>
   );
 };
