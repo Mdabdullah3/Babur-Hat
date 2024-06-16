@@ -1,6 +1,4 @@
-// components/layout/Navbar.js
 "use client";
-
 import { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa6";
@@ -9,32 +7,37 @@ import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import useCartStore from "../../store/cartStore";
+import { signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
+  const { data: session, status } = useSession();
   const [user, setUser] = useState(null);
   const { cart } = useCartStore();
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
-  console.log(user);
+
   useEffect(() => {
     setIsClient(true);
     try {
       const userData = localStorage.getItem("user");
       if (userData) {
-        setUser(JSON?.parse(userData));
+        setUser(JSON.parse(userData));
       }
     } catch (error) {
       localStorage.removeItem("user");
     }
-  }, []);
+  }, [session]);
 
   if (!isClient) return null;
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
+    signOut(); // Logout from NextAuth
     router.push("/auth/login");
   };
+
+  const displayUser = session?.user || user?.data;
 
   return (
     <nav>
@@ -61,7 +64,7 @@ const Navbar = () => {
                 <div>
                   <FaRegUser size={30} />
                 </div>
-                {user ? (
+                {displayUser ? (
                   <div className="tracking-wider">
                     <h1 className="text-[13px]">Welcome</h1>
                     <div className="dropdown dropdown-hover">
@@ -71,7 +74,7 @@ const Navbar = () => {
                         className="flex items-center text-sm font-bold"
                       >
                         <h1 className="capitalize tracking-wider flex items-center">
-                          {user?.data?.name} <MdKeyboardArrowDown size={20} />
+                          {displayUser.name} <MdKeyboardArrowDown size={20} />
                         </h1>
                       </div>
                       <ul

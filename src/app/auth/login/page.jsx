@@ -4,14 +4,11 @@ import { FcGoogle } from "react-icons/fc";
 import Navbar from "../../../components/layout/Navbar";
 import Footer from "../../../components/layout/Footer";
 import LoginForm from "../../../components/auth/LoginForm";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 const Login = () => {
-  console.log("GOOGLE_ID:", process.env.GOOGLE_ID);
-  console.log("GOOGLE_SECRET:", process.env.GOOGLE_SECRET);
-  console.log("NEXTAUTH_SECRET:", process.env.NEXTAUTH_SECRET);
-  console.log("NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
-
+  const { data: session, status } = useSession();
+  console.log(session);
   return (
     <section>
       <Navbar />
