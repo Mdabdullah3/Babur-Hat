@@ -3,11 +3,23 @@ import { FaRegStar, FaStar, FaStarHalfAlt, FaEye } from "react-icons/fa";
 import ProductSizeSelector from "../../components/ProductDetails/ProductSizeSelector";
 import { useState } from "react";
 import { LiaShippingFastSolid } from "react-icons/lia";
+import { toast } from "react-toastify";
+import useWishlistStore from "../../store/wishlistStore";
 
 const ProductInfo = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState("");
+  const { addToWishlist } = useWishlistStore();
 
   const handleSizeClick = (size) => setSelectedSize(size);
+
+  const handleAddToWishlist = () => {
+    const productAdded = addToWishlist(product);
+    if (!productAdded) {
+      toast.error("Product already in wishlist");
+    } else {
+      toast.success("Product added to wishlist");
+    }
+  };
 
   return (
     <div className="col-span-3">
@@ -19,6 +31,7 @@ const ProductInfo = ({ product }) => {
           {product?.productName}
         </h1>
         <h1
+          onClick={handleAddToWishlist}
           className="tooltip tooltip-left text-primary cursor-pointer"
           data-tip="Add To Wishlist"
         >
