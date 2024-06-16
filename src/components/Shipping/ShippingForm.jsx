@@ -174,11 +174,11 @@ const ShippingForm = () => {
           />
         </div>
         {/* Checkbox for shipping to different address */}
-        <div className="mt-2">
+        <div className="my-3">
           <label className="cursor-pointer flex items-center gap-4">
             <input
               type="checkbox"
-              className="checkbox checkbox-secondary"
+              className="checkbox checkbox-secondary checkbox-sm"
               checked={shipToDifferentAddress}
               onChange={() =>
                 setShipToDifferentAddress(!shipToDifferentAddress)
