@@ -21,9 +21,9 @@ const ShippingForm = () => {
     shippingAddress: "",
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
   useEffect(() => {
     // Fetch list of countries
@@ -51,7 +51,7 @@ const ShippingForm = () => {
             name="fullName"
             required
             value={form.fullName}
-            onChange={handleSubmit}
+            onChange={handleInputChange}
             placeholder="Full Name"
           />
           <InputField
@@ -60,7 +60,7 @@ const ShippingForm = () => {
             name="email"
             required
             value={form.email}
-            onChange={handleSubmit}
+            onChange={handleInputChange}
             placeholder="Email"
           />
         </div>
@@ -71,10 +71,10 @@ const ShippingForm = () => {
             name="country"
             required
             value={country}
-            onChange={handleSubmit}
+            onChange={(e) => setCountry(e.target.value)}
             options={countries.map((country, index) => ({
-              value: country?.country,
-              label: country?.country ? country?.country : "No country",
+              value: country?.country || "Unknown country",
+              label: country?.country || "Unknown country",
               key: index,
             }))}
             placeholder="Select a country"
@@ -85,10 +85,10 @@ const ShippingForm = () => {
             name="city"
             required
             value={form.city}
-            onChange={handleSubmit}
+            onChange={(e) => setForm({ ...form, city: e.target.value })}
             options={cities?.map((city, index) => ({
-              value: city,
-              label: city ? city : "No city",
+              value: city || "Unknown city",
+              label: city || "Unknown city",
               key: index,
             }))}
             placeholder="Select a city"
@@ -102,7 +102,7 @@ const ShippingForm = () => {
             required
             placeholder="House Number and Street name"
             value={form.streetAddress}
-            onChange={handleSubmit}
+            onChange={handleInputChange}
           />
         </div>
         <div className="flex items-center gap-5 mb-3">
@@ -112,8 +112,8 @@ const ShippingForm = () => {
             id="postcode"
             placeholder="Postcode"
             required
-            value={form.postcode}
-            onChange={handleSubmit}
+            value={form.postalCode}
+            onChange={handleInputChange}
           />
           <InputField
             label="Phone"
@@ -121,7 +121,7 @@ const ShippingForm = () => {
             placeholder="Phone Number"
             required
             value={form.phone}
-            onChange={handleSubmit}
+            onChange={handleInputChange}
             name="phone"
           />
         </div>
@@ -150,7 +150,7 @@ const ShippingForm = () => {
                 id="shippingFullName"
                 name="shippingFullName"
                 value={form.shippingFullName}
-                onChange={handleSubmit}
+                onChange={handleInputChange}
                 placeholder="Full Name"
                 required
               />
@@ -159,7 +159,7 @@ const ShippingForm = () => {
                 id="shippingPhone"
                 placeholder="Phone Number"
                 value={form.shippingPhone}
-                onChange={handleSubmit}
+                onChange={handleInputChange}
                 name="shippingPhone"
                 required
               />
@@ -169,7 +169,7 @@ const ShippingForm = () => {
               id="shippingStreetAddress"
               placeholder="House Number and Street name"
               value={form.shippingAddress}
-              onChange={handleSubmit}
+              onChange={handleInputChange}
               name="shippingStreetAddress"
               required
             />
