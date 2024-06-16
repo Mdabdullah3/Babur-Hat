@@ -20,17 +20,14 @@ const Login = () => {
           />
           <div className="w-full p-8 shadow-lg">
             <p className="text-xl text-gray-600 text-center">Welcome Back</p>
-            <a
-              href="#"
-              className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
-            >
+            <button className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
               <div className="px-4 py-3">
                 <FcGoogle size={24} />
               </div>
               <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">
                 Sign in with Google
               </h1>
-            </a>
+            </button>
             <div className="mt-4 flex items-center justify-between">
               <span className="border-b w-1/5 lg:w-1/4"></span>
               <a
