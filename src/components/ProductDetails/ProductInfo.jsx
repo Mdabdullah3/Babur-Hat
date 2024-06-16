@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
 import { FaRegStar, FaStar, FaStarHalfAlt, FaEye } from "react-icons/fa";
 import ProductSizeSelector from "../../components/ProductDetails/ProductSizeSelector";
 import { useState } from "react";
@@ -8,7 +9,7 @@ import useWishlistStore from "../../store/wishlistStore";
 
 const ProductInfo = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState("");
-  const { addToWishlist } = useWishlistStore();
+  const { addToWishlist, wishlist, removeFromWishlist } = useWishlistStore();
 
   const handleSizeClick = (size) => setSelectedSize(size);
 
@@ -20,6 +21,10 @@ const ProductInfo = ({ product }) => {
       toast.success("Product added to wishlist");
     }
   };
+  const handleRemoveFromWishlist = (id) => {
+    removeFromWishlist(id);
+    toast.success("Product removed from wishlist");
+  };
 
   return (
     <div className="col-span-3">
@@ -30,13 +35,23 @@ const ProductInfo = ({ product }) => {
         <h1 className="text-2xl font-bold capitalize tracking-wider">
           {product?.productName}
         </h1>
-        <h1
-          onClick={handleAddToWishlist}
-          className="tooltip tooltip-left text-primary cursor-pointer"
-          data-tip="Add To Wishlist"
-        >
-          <FaRegStar size={22} />
-        </h1>
+        {wishlist?.find((item) => item._id === product._id) ? (
+          <h1
+            onClick={() => handleRemoveFromWishlist(product._id)}
+            className="tooltip tooltip-left text-primary cursor-pointer"
+            data-tip="Remove From Wishlist"
+          >
+            <FaStar size={22} />
+          </h1>
+        ) : (
+          <h1
+            onClick={handleAddToWishlist}
+            className="tooltip tooltip-left text-primary cursor-pointer"
+            data-tip="Add To Wishlist"
+          >
+            <FaRegStar size={22} />
+          </h1>
+        )}
       </div>
       <h2 className="text-md text-orange-500 flex items-center mt-2">
         <FaStar /> <FaStar /> <FaStar /> <FaStar />

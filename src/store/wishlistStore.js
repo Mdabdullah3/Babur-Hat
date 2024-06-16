@@ -1,5 +1,3 @@
-// src/store/wishlistStore.js
-'use client';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 

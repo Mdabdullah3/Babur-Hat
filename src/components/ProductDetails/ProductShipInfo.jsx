@@ -9,8 +9,8 @@ const ProductShipInfo = ({ product }) => {
   const { addToCart } = useCartStore();
   const handleAddToCart = () => {
     const result = addToCart(product);
-    if (result?.error) {
-      toast.error(result.error);
+    if (!result) {
+      toast.error("Product already in cart");
     } else {
       toast.success("Product added to cart");
     }

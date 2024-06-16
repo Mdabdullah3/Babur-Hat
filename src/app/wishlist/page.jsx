@@ -1,14 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { MdArrowForwardIos } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import { LuMoveLeft } from "react-icons/lu";
 import DeafultProducts from "../../components/Home/DeafultProducts";
-import useWishlistStore from "../../store/wishlistStore";
 import { toast } from "react-toastify";
+import useWishlistStore from "../../store/wishlistStore";
+import useCartStore from "../../store/cartStore";
+import Navbar from "../../components/layout/Navbar";
 
 const WishlistPage = () => {
-  const { wishlist, removeFromWishlist, addToWishlist } = useWishlistStore();
+  const { wishlist, removeFromWishlist } = useWishlistStore();
+  const { addToCart } = useCartStore();
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   const handleRemoveFromWishlist = (id) => {
     removeFromWishlist(id);
@@ -16,27 +25,38 @@ const WishlistPage = () => {
   };
 
   const handleAddToCart = (product) => {
-    toast.success("Product added to cart");
+    const productAdded = addToCart(product);
+    if (!productAdded) {
+      toast.error("Product already in cart");
+    } else {
+      toast.success("Product added to cart");
+    }
   };
 
+  if (!hydrated) {
+    // Return null or a loading indicator to avoid mismatched HTML
+    return null;
+  }
+
   return (
-    <div>
+    <section>
+      <Navbar />
       <div className="mt-12 relative">
         <div className="w-11/12 mx-auto mt-6 tracking-wider">
-          <h1 className="text-3xl font-bold">Wishlist</h1>
+          <h1 className="text-3xl font-bold">Wishlist ({wishlist.length})</h1>
           {wishlist.length !== 0 ? (
             <div className="mt-10 px-4 mx-auto">
               <div className=" col-span-2">
                 <div>
                   {wishlist.map((item, index) => (
-                    <>
+                    <div key={index}>
                       {index !== 0 && (
                         <hr className="border-t border-gray-300 mt-6 w-[95%]" />
                       )}
                       <div className="flex items-center w-11/12 justify-between mt-6">
                         <div className=" relative">
                           <img
-                            src={item?.image}
+                            src={item?.topimg}
                             className="w-24 h-28 rounded-sm"
                             alt=""
                           />
@@ -50,7 +70,7 @@ const WishlistPage = () => {
                         </div>
                         <div className="flex-col items-center w-52">
                           <h1 className="font-bold uppercase tracking-wider">
-                            {item.prodcutName}
+                            {item.productName}
                           </h1>
                         </div>
                         <div>
@@ -68,7 +88,7 @@ const WishlistPage = () => {
                           </button>
                         </div>
                       </div>
-                    </>
+                    </div>
                   ))}
 
                   <div>
@@ -107,7 +127,7 @@ const WishlistPage = () => {
         </div>
       </div>
       <DeafultProducts />
-    </div>
+    </section>
   );
 };
 
