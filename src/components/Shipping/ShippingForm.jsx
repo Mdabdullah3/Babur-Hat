@@ -188,7 +188,7 @@ const ShippingForm = () => {
         </div>
         {/* Shipping input fields */}
         {shipToDifferentAddress && (
-          <div className="mt-5">
+          <div className="my-5">
             <div className="flex items-center gap-5 mb-3">
               <InputField
                 label="Shipping Full Name"
