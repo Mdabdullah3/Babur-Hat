@@ -55,7 +55,7 @@ const ProductSummery = () => {
             />
             <div>
               <button className="px-5 py-3 bg-primary w-full text-white tracking-wider rounded-lg">
-                Apply Code
+                Apply
               </button>
             </div>
           </div>
