@@ -145,9 +145,9 @@ const Cart = () => {
                       .00
                     </span>
                   </h1>
-                  <button className="text-[14px] font-bold uppercase border-white border-[1px] text-primary w-full mt-8 py-4 bg-white rounded-full hover:bg-transparent hover:text-white transition duration-500">
+                  <Link><button className="text-[14px] font-bold uppercase border-white border-[1px] text-primary w-full mt-8 py-4 bg-white rounded-full hover:bg-transparent hover:text-white transition duration-500">
                     Proceed to Checkout
-                  </button>
+                  </button></Link>
                   <button
                     onClick={handleClearCart}
                     className="text-[14px] font-bold uppercase border-white border-[1px] text-primary w-full mt-4 py-2 bg-white rounded-full hover:bg-transparent hover:text-white transition duration-500"
