@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import { cart } from "../../utils/constants";
 import { RxCross2 } from "react-icons/rx";
+import useCartStore from "../../store/cartStore";
 const ProductSummery = () => {
+  const { cart } = useCartStore();
   return (
     <div className="w-full">
       <h1 className="font-bold capitalize text-2xl tracking-wider mb-10">
@@ -15,25 +16,22 @@ const ProductSummery = () => {
             <div className="mt-5 flex justify-between items-center">
               <div className="flex items-center gap-3">
                 <img
-                  src={order?.image}
+                  src={order?.topimg}
                   className="w-16 h-20 rounded-sm"
                   alt=""
                 />
                 <div className=" tracking-wider">
                   <h1 className="text-md font-[500] flex gap-4 items-center">
-                    {order?.name}
+                    {order?.productName}
                     <span className=" text-md text-gray-500 flex items-center font-bold gap-1">
                       <RxCross2 size={13} /> {order?.quantity}
                     </span>
-                  </h1>
-                  <h1 className="font-[500] capitalize my-1 text-[15px]">
-                    Size : <span className="font-normal">{order?.size}</span>
                   </h1>
                 </div>
               </div>
               <div>
                 <h1 className=" tracking-wider font-[500]">
-                  ${order?.price}.00
+                  ${order?.sellPrice}.00
                 </h1>
               </div>
             </div>
