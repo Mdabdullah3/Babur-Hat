@@ -51,7 +51,7 @@ const ProductSummery = () => {
           <label htmlFor="Coupon" className="tracking-wider">
             Coupon Code
           </label>
-          <div className="flex items-center gap-4 justify-between">
+          <div className="flex items-center gap-2 justify-between">
             <input
               className="input input-bordered w-9/12 tracking-wider focus:outline-none my-2"
               type="text"
