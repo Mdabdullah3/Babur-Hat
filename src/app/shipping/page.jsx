@@ -4,7 +4,8 @@ import ShippingForm from "../../components/Shipping/ShippingForm";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 export const metadata = {
-  title: "Shipping",
+  title: "Shipping - Babur Hat",
+  description: "Shipping section of Babur Hat",
 };
 const Shipping = () => {
   return (
