@@ -1,10 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import useCartStore from "../../store/cartStore";
 const ProductSummery = () => {
   const { cart } = useCartStore();
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
   return (
     <div className="w-full">
       <h1 className="font-bold capitalize text-2xl tracking-wider mb-10">
