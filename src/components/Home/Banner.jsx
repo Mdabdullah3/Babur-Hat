@@ -12,7 +12,9 @@ const Banner = () => {
   return (
     <div className="bg-info flex items-center justify-center">
       <div className="grid grid-cols-4 w-11/12 mx-auto  py-4 gap-4">
-        <BannerCategory />
+        <div className="hidden lg:block">
+          <BannerCategory />
+        </div>
         <div className=" col-span-3">
           <Swiper
             centeredSlides={true}
