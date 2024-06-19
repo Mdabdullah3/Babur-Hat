@@ -4,7 +4,7 @@ import DellSnap from "./DellSnap";
 import SuperDells from "./SuperDells";
 import NewProductSnap from "./NewProductSnap";
 import PlusSnap from "./PlusSnap";
-const Snap = () => {
+const Event = () => {
   return (
     <div className="flex gap-5 py-8 w-11/12 mx-auto items-center justify-center">
       <div className="flex-col spcace-y-4">
@@ -22,4 +22,4 @@ const Snap = () => {
   );
 };
 
-export default Snap;
+export default Event;

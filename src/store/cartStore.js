@@ -1,4 +1,3 @@
-// src/store/cartStore.js
 'use client';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -35,7 +34,7 @@ const useCartStore = create(
         }),
         {
             name: 'cart-storage',
-            getStorage: () => (typeof window !== 'undefined' ? localStorage : undefined),
+            storage: typeof window !== 'undefined' ? localStorage : undefined,
         }
     )
 );

@@ -14,9 +14,7 @@ const RecomendedProducts = () => {
       <h1 className="text-2xl mb-10 font-bold">Recomended Products</h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
         {Products?.products?.slice(0, 12).map((product) => (
-          <>
-            <ProductCard product={product}  />
-          </>
+          <ProductCard product={product} key={product._id} />
         ))}
       </div>
     </div>

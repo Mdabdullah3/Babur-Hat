@@ -1,6 +1,6 @@
 import React from 'react';
 import Banner from '../components/Home/Banner';
-import Snap from "../components/Home/Snap/Snap"
+import Event from "../components/Home/Snap/Event"
 import Category from "../components/Home/Category"
 import RecomendedProducts from "../components/Home/RecomendedProducts"
 import BestDeal from "../components/Home/BestDeal"
@@ -13,7 +13,7 @@ const Home = () => {
     <div>
       <Navbar />
       <Banner />
-      <Snap />
+      <Event />
       <Category />
       <RecomendedProducts />
       <BestDeal />
