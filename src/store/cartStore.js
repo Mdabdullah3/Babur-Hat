@@ -34,7 +34,7 @@ const useCartStore = create(
         }),
         {
             name: 'cart-storage',
-            storage: typeof window !== 'undefined' ? localStorage : undefined,
+            getStorage: () => (typeof window !== 'undefined' ? localStorage : undefined),
         }
     )
 );
