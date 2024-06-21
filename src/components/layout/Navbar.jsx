@@ -39,7 +39,7 @@ const Navbar = () => {
   return (
     <nav className="relative">
       <div className="bg-black text-white py-4">
-        <div className="w-11/12 mx-auto flex items-center justify-between">
+        <div className="lg:w-11/12 w-[95%] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <label htmlFor="my-drawer" className="md:hidden cursor-pointer">
               <MdMenu size={32} />
@@ -141,7 +141,7 @@ const Navbar = () => {
             <li>Top Rated</li>
           </ul>
         </div>
-        <div className="block md:hidden lg:mt-4 mt-2 px-4">
+        <div className="block md:hidden lg:mt-4 px-4">
           <label className="input input-bordered rounded-full flex items-center gap-2 lg:h-[52px] h-[44px] mx-auto">
             <input
               type="text"
@@ -159,7 +159,7 @@ const Navbar = () => {
         <div className="drawer-content">{/* Page content here */}</div>
         <div className="drawer-side">
           <label htmlFor="my-drawer" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content z-50">
             {/* Sidebar content here */}
             <li>
               <a href="#">Recent Events</a>

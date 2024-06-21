@@ -12,7 +12,7 @@ import "../style.css";
 const Banner = () => {
   return (
     <div className="bg-info flex items-center justify-center">
-      <div className="lg:grid grid-cols-4 w-11/12 mx-auto  py-4 gap-4">
+      <div className="lg:grid grid-cols-4 lg:w-11/12 w-full mx-auto lg:py-4 gap-4">
         <div className="hidden lg:block">
           <BannerCategory />
         </div>
@@ -32,7 +32,7 @@ const Banner = () => {
           >
             {bannerImage.map((item, index) => (
               <SwiperSlide key={index}>
-                <div className="">
+                <div className="-z-10">
                   <img src={item.img} alt="banner image" />
                 </div>
               </SwiperSlide>

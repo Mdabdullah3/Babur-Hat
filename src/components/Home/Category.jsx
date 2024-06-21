@@ -11,7 +11,7 @@ import { ProductCategory } from "../../utils/constants";
 const Category = () => {
   return (
     <div className="w-11/12 mx-auto">
-      <h1 className="lg:text-2xl text-lg font-bold my-2 lg:my-4 mb-4 lg:mb-10">
+      <h1 className="lg:text-2xl text-lg font-bold my-2 lg:my-4 mb-3 lg:mb-10">
         Shop By Categories
       </h1>
       <Swiper
