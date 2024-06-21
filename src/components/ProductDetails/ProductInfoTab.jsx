@@ -151,8 +151,63 @@ const ProductInfoTab = ({ Details, openDetails, handleDetailClick }) => (
         )}
       </div>
     </div>
-    <div className="px-4 ">
-      <h1>Description</h1>
+    <div className="px-4 block lg:hidden">
+      <h1 className="text-md font-bold tracking-wider mb-2">Description</h1>
+      {Details[0].Description && (
+        <div>
+          <p className="">{Details[0].Description}</p>
+        </div>
+      )}
+      <h2 className="text-md font-bold tracking-wider mt-4">Reviews</h2>
+      {JSON.stringify(Details[0].reviews) && (
+        <div className="">
+          <div>
+            <div className="lg:flex items-center justify-around mb-6">
+              <div>
+                <p className="flex items-center">
+                  <CiStar size={19} />
+                  <CiStar size={19} />
+                  <CiStar size={19} />
+                  <CiStar size={19} />
+                  <CiStar size={19} />
+                  <span className="text-lg tracking-wider ml-3">
+                    Based on 0 Reviews
+                  </span>
+                </p>
+              </div>
+              <button className="font-[500] text-[12px] tracking-wider my-2 uppercase px-8 border-[1px] rounded-md  border-black py-2 hover:bg-primary hover:border-primary hover:text-white transition duration-500">
+                Write a review
+              </button>
+            </div>
+            <hr />
+          </div>
+
+          {Details[0].reviews.map((review) => (
+            <div
+              className="flex items-center gap-5 mb-8 mt-6"
+              key={review.review}
+            >
+              <img
+                className="w-16 rounded-full"
+                src="https://secure.gravatar.com/avatar/dd28514c9a8cfba334e05f21703be28e?s=120&d=mm&r=g"
+                alt=""
+              />
+              <div>
+                <h2 className="text-sm gap-1 text-orange-400 flex items-center">
+                  <FaStar /> <FaStar /> <FaStar /> <FaStar />
+                </h2>
+                <h2 className="tracking-wider font-bold text-[15px] my-1">
+                  Abir Ahmed -
+                  <span className="text-[12px] text-gray-500 ml-2 font-normal">
+                    12 Jan 2024
+                  </span>
+                </h2>
+                <h1>{review?.review}</h1>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   </section>
 );
