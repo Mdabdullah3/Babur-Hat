@@ -16,10 +16,11 @@ const Category = () => {
       </h1>
       <Swiper
         slidesPerView={3}
-        grid={{
-          rows: 2,
-          fill: "row",
-        }}
+        spaceBetween={4}
+        // grid={{
+        //   rows: 2,
+        //   fill: "row",
+        // }}
         autoplay={{
           delay: 4000,
           disableOnInteraction: false,
@@ -33,16 +34,16 @@ const Category = () => {
             spaceBetween: 20,
           },
           768: {
-            slidesPerView: 5,
+            slidesPerView: 4,
             spaceBetween: 30,
           },
           1024: {
-            slidesPerView: 4,
-            spaceBetween: 40,
+            slidesPerView: 5,
+            spaceBetween: 10,
           },
           1280: {
-            slidesPerView: 6,
-            spaceBetween: 50,
+            slidesPerView: 7,
+            spaceBetween: 10,
           },
         }}
         navigation={true}

@@ -18,16 +18,13 @@ const ProductCard = ({ product }) => {
   };
   return (
     <section
-      className="relative hover:shadow-md transition duration-300 rounded-2xl hover:bg-white"
+      className="relative hover:shadow-md px-4 py-4 transition duration-300 rounded-2xl hover:bg-white"
       key={product._id}
     >
-      <Link
-        href={`/products/${product._id}`}
-        className="mb-4   px-4 py-4 cursor-pointer "
-      >
+      <Link href={`/products/${product._id}`} className="mb-4  cursor-pointer ">
         <div className="">
           <img
-            className="md:w-64 w-52 h-44 md:h-52 "
+            className="md:w-64 w-56 h-44 md:h-52 "
             src={product.topimg}
             alt=""
           />
@@ -47,10 +44,10 @@ const ProductCard = ({ product }) => {
       </Link>
       <div
         onClick={handleAddToCart}
-        className="absolute bottom-28 right-5 px-3 py-3 rounded-full bg-black text-white tooltip tooltip-left"
+        className="absolute bottom-32 md:bottom-28 right-5 lg:px-3 px-2 py-2 lg:py-3 rounded-full bg-black text-white tooltip tooltip-left text-xl lg:text-2xl"
         data-tip="Add To Cart"
       >
-        <LiaCartPlusSolid size={28} />
+        <LiaCartPlusSolid />
       </div>
     </section>
   );
