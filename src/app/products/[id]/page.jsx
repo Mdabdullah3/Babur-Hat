@@ -30,17 +30,18 @@ const ProductDetails = ({ params }) => {
       <Navbar />
       <div className="">
         <div className="">
-          <div className="w-11/12 mt-20 mx-auto">
+          <div className="w-11/12 mt-2 lg:mt-20 mx-auto">
             <div className="lg:grid grid-cols-8 gap-6 ">
               <ProductImages
                 images={singleProduct.img}
                 topImage={singleProduct.topimg}
               />
               <ProductInfo product={singleProduct} />
-              <ProductShipInfo product={singleProduct} />
+              <div className="lg:block hidden">
+                <ProductShipInfo product={singleProduct} />
+              </div>
             </div>
-            <hr className="mt-4" />
-            <h1 className="text-2xl font-bold mt-10">Related Products</h1>
+            <hr className="mt-4 mb-2" />
           </div>
         </div>
         <div>
@@ -51,14 +52,14 @@ const ProductDetails = ({ params }) => {
           />
         </div>
       </div>
-      <div className="flex border-t border-gray-200 p-4 bg-white sticky bottom-0 w-full justify-between self-center mt-5 ">
+      <div className="flex border-t gap-4 border-gray-200 p-2 bg-white sticky bottom-0 w-full justify-between items-center ">
         <button className="w-full my-2 py-3 rounded-full border hover:border-black border-primary bg-primary text-white tracking-wider  hover:bg-black hover:text-white transition duration-500 text-sm font-bold">
           Add To Cart
         </button>
         <button className="w-full py-3 rounded-full my-2 border-[1px] hover:border-primary border-black text-black tracking-wider  hover:bg-primary hover:text-white transition duration-500 font-bold">
           Buy Now
         </button>
-        <button className="w-full py-3 border border-black rounded-full flex font-bold text-lg justify-center">
+        <button className="w-32 py-4 border border-black rounded-full flex font-bold text-lg justify-center">
           <GoHeart />
         </button>
       </div>

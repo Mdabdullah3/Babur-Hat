@@ -3,8 +3,8 @@ import React from "react";
 
 const ProductImages = ({ images, topImage }) => {
   return (
-    <div className="flex gap-4 sticky top-0 overflow-hidden col-span-3">
-      <div className="w-28 flex flex-col gap-4">
+    <div className="flex gap-4  overflow-hidden col-span-3">
+      <div className="w-28 lg:flex flex-col gap-4 mx-auto hidden ">
         {images?.slice(0, 4)?.map((img, index) => (
           <img key={index} src={img} alt="" className="h-28" />
         ))}
