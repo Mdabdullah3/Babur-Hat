@@ -20,7 +20,7 @@ const BestDeal = () => {
       <h1 className="text-2xl font-bold ml-4 mb-8 text-white">Best Deal</h1>
       <div>
         <Swiper
-          slidesPerView={6}
+          slidesPerView={2}
           autoplay={{
             delay: 10000,
             disableOnInteraction: false,
@@ -29,6 +29,24 @@ const BestDeal = () => {
             clickable: true,
           }}
           navigation={true}
+          breakpoints={{
+            640: {
+              slidesPerView: 4,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 4,
+              spaceBetween: 30,
+            },
+            1024: {
+              slidesPerView: 5,
+              spaceBetween: 10,
+            },
+            1280: {
+              slidesPerView: 6,
+              spaceBetween: 10,
+            },
+          }}
           modules={[Autoplay, Navigation]}
           className="mySwiper"
         >
