@@ -6,7 +6,7 @@ import NewProductSnap from "./NewProductSnap";
 import PlusSnap from "./PlusSnap";
 const Event = () => {
   return (
-    <div className="flex gap-5 py-8 w-11/12 mx-auto items-center justify-center">
+    <div className="lg:flex hidden gap-5 py-8 w-11/12 mx-auto items-center justify-center">
       <div className="flex-col spcace-y-4">
         <AuthSnap />
         <DellSnap />

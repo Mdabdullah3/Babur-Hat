@@ -17,13 +17,20 @@ const ProductCard = ({ product }) => {
     }
   };
   return (
-    <section className="relative" key={product._id}>
+    <section
+      className="relative hover:shadow-md transition duration-300 rounded-2xl hover:bg-white"
+      key={product._id}
+    >
       <Link
         href={`/products/${product._id}`}
-        className="mb-4 hover:bg-white hover:shadow-md transition duration-300 px-4 py-4 cursor-pointer rounded-2xl"
+        className="mb-4   px-4 py-4 cursor-pointer "
       >
         <div className="">
-          <img className="w-64 h-52 " src={product.topimg} alt="" />
+          <img
+            className="md:w-64 w-52 h-44 md:h-52 "
+            src={product.topimg}
+            alt=""
+          />
         </div>
         <h1 className="text-md">{product.productName.slice(0, 20)}...</h1>
         <h1 className="flex items-center text-sm my-2">

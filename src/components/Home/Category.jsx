@@ -11,9 +11,11 @@ import { ProductCategory } from "../../utils/constants";
 const Category = () => {
   return (
     <div className="w-11/12 mx-auto">
-      <h1 className="text-2xl font-bold my-4 mb-10">Shop By Categories</h1>
+      <h1 className="lg:text-2xl text-lg font-bold my-2 lg:my-4 mb-4 lg:mb-10">
+        Shop By Categories
+      </h1>
       <Swiper
-        slidesPerView={6}
+        slidesPerView={3}
         grid={{
           rows: 2,
           fill: "row",
@@ -25,19 +27,37 @@ const Category = () => {
         pagination={{
           clickable: true,
         }}
+        breakpoints={{
+          640: {
+            slidesPerView: 4,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 5,
+            spaceBetween: 30,
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 40,
+          },
+          1280: {
+            slidesPerView: 6,
+            spaceBetween: 50,
+          },
+        }}
         navigation={true}
         modules={[Autoplay, Grid, Pagination, Navigation]}
         className="mySwiper"
       >
         {ProductCategory.map((item) => (
           <SwiperSlide key={item.id}>
-            <div className="p-2 py-4">
+            <div className="p-2 py-4 mb-6">
               <img
                 src={item.img}
-                className="rounded-full w-32 h-32 mx-auto"
+                className="rounded-full w-24 lg:w-32 h-24 lg:h-32 mx-auto"
                 alt="Category image"
               />
-              <h1 className="mt-5 text-center tracking-wider font-[500]">
+              <h1 className="lg:mt-5 mt-3 text-sm text-center tracking-wider font-[500]">
                 {item.name}
               </h1>
             </div>
