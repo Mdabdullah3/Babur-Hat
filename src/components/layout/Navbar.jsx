@@ -7,10 +7,8 @@ import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import useCartStore from "../../store/cartStore";
-import { signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
-  const { data: session, status } = useSession();
   const [user, setUser] = useState(null);
   const { cart } = useCartStore();
   const router = useRouter();
@@ -26,18 +24,17 @@ const Navbar = () => {
     } catch (error) {
       localStorage.removeItem("user");
     }
-  }, [session]);
+  }, []);
 
   if (!isClient) return null;
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    signOut(); // Logout from NextAuth
     router.push("/auth/login");
   };
 
-  const displayUser = session?.user || user?.data;
+  const displayUser = user?.data;
 
   return (
     <nav className="relative">
@@ -45,7 +42,7 @@ const Navbar = () => {
         <div className="w-11/12 mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <label htmlFor="my-drawer" className="md:hidden cursor-pointer">
-              <MdMenu size={28} />
+              <MdMenu size={32} />
             </label>
             <Link href="/" className="text-3xl font-bold cursor-pointer">
               <h1 className="lg:text-3xl text-xl font-bold cursor-pointer">
@@ -67,7 +64,7 @@ const Navbar = () => {
           </div>
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-4">
-              <h1 className="lg:text-3xl text-xl">
+              <h1 className="lg:text-3xl text-2xl">
                 <FaRegUser />
               </h1>
               {displayUser ? (
@@ -99,7 +96,7 @@ const Navbar = () => {
                 </div>
               ) : (
                 <div className="tracking-wider hidden lg:block">
-                  <h1 className="text-[13px]">Welcome</h1>
+                  <h1 className="text-[13px">Welcome</h1>
                   <div className="dropdown dropdown-hover relative">
                     <div
                       tabIndex={0}
@@ -125,9 +122,7 @@ const Navbar = () => {
               href="/cart"
               className="flex items-center gap-4 cursor-pointer"
             >
-              <h1 className="lg:text-3xl text-xl">
-                <PiShoppingCartSimpleBold />
-              </h1>
+              <PiShoppingCartSimpleBold size={32} />
               <div className="hidden md:block">
                 <h1 className="bg-white px-3 rounded-full py-0 text-black">
                   {cart?.length || 0}
