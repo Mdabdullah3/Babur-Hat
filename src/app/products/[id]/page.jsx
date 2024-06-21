@@ -6,8 +6,10 @@ import ProductShipInfo from "../../../components/ProductDetails/ProductShipInfo"
 import ProductInfoTab from "../../../components/ProductDetails/ProductInfoTab";
 import { productInformation } from "../../../utils/constants";
 import Navbar from "../../../components/layout/Navbar";
-import { FaStar } from "react-icons/fa";
+import { FaRegStar, FaStar } from "react-icons/fa";
 import { GoHeart } from "react-icons/go";
+import useWishlistStore from "../../../store/wishlistStore";
+import { toast } from "react-toastify";
 const ProductDetails = ({ params }) => {
   const [singleProduct, setSingleProduct] = useState([]);
   const [openDetails, setOpenDetails] = useState(
@@ -25,6 +27,20 @@ const ProductDetails = ({ params }) => {
       .then((data) => setSingleProduct(data));
   }, [params.id]);
 
+  const { addToWishlist, wishlist, removeFromWishlist } = useWishlistStore();
+
+  const handleAddToWishlist = () => {
+    const productAdded = addToWishlist(singleProduct);
+    if (!productAdded) {
+      toast.error("Product already in wishlist");
+    } else {
+      toast.success("Product added to wishlist");
+    }
+  };
+  const handleRemoveFromWishlist = (id) => {
+    removeFromWishlist(id);
+    toast.success("Product removed from wishlist");
+  };
   return (
     <section className="">
       <Navbar />
@@ -36,7 +52,12 @@ const ProductDetails = ({ params }) => {
                 images={singleProduct.img}
                 topImage={singleProduct.topimg}
               />
-              <ProductInfo product={singleProduct} />
+              <ProductInfo
+                product={singleProduct}
+                handleAddToWishlist={handleAddToWishlist}
+                handleRemoveFromWishlist={handleRemoveFromWishlist}
+                wishlist={wishlist}
+              />
               <div className="lg:block hidden">
                 <ProductShipInfo product={singleProduct} />
               </div>
@@ -60,7 +81,23 @@ const ProductDetails = ({ params }) => {
           Buy Now
         </button>
         <button className="w-32 py-4 border border-black rounded-full flex font-bold text-lg justify-center">
-          <GoHeart />
+          {wishlist?.find((item) => item._id === singleProduct._id) ? (
+            <h1
+              onClick={() => handleRemoveFromWishlist(singleProduct._id)}
+              className="tooltip tooltip-left text-primary cursor-pointer"
+              data-tip="Remove From Wishlist"
+            >
+              <FaStar size={22} />
+            </h1>
+          ) : (
+            <h1
+              onClick={handleAddToWishlist}
+              className="tooltip tooltip-left text-primary cursor-pointer"
+              data-tip="Add To Wishlist"
+            >
+              <FaRegStar size={22} />
+            </h1>
+          )}
         </button>
       </div>
     </section>

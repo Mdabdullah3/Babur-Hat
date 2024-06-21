@@ -7,24 +7,15 @@ import { LiaShippingFastSolid } from "react-icons/lia";
 import { toast } from "react-toastify";
 import useWishlistStore from "../../store/wishlistStore";
 
-const ProductInfo = ({ product }) => {
+const ProductInfo = ({
+  product,
+  handleAddToWishlist,
+  wishlist,
+  handleRemoveFromWishlist,
+}) => {
   const [selectedSize, setSelectedSize] = useState("");
-  const { addToWishlist, wishlist, removeFromWishlist } = useWishlistStore();
 
   const handleSizeClick = (size) => setSelectedSize(size);
-
-  const handleAddToWishlist = () => {
-    const productAdded = addToWishlist(product);
-    if (!productAdded) {
-      toast.error("Product already in wishlist");
-    } else {
-      toast.success("Product added to wishlist");
-    }
-  };
-  const handleRemoveFromWishlist = (id) => {
-    removeFromWishlist(id);
-    toast.success("Product removed from wishlist");
-  };
 
   return (
     <div className="col-span-3">
