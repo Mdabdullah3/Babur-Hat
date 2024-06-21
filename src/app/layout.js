@@ -1,7 +1,5 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SessionProvider from '../components/SessionProvider';
-import { getServerSession } from "next-auth";
 import "./globals.css";
 
 export const metadata = {
@@ -10,7 +8,6 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const session = await getServerSession();
 
   return (
     <html lang="en">
@@ -21,9 +18,7 @@ export default async function RootLayout({ children }) {
         <meta name="description" content={metadata.description} />
       </head>
       <body>
-        <SessionProvider session={session}>
-          {children}
-        </SessionProvider>
+        {children}
         <ToastContainer position="top-center" autoClose={2000} theme="dark" />
       </body>
     </html>

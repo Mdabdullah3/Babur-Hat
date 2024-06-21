@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -32,14 +33,7 @@ const Banner = () => {
             {bannerImage.map((item, index) => (
               <SwiperSlide key={index}>
                 <div className="">
-                  <Image
-                    src={item.img}
-                    className="rounded-2xl"
-                    alt="banner"
-                    width={1500}
-                    height={900}
-                    priority={index === 0}
-                  />
+                  <img src={item.img} alt="banner image" />
                 </div>
               </SwiperSlide>
             ))}
