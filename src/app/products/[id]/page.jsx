@@ -6,7 +6,7 @@ import ProductShipInfo from "../../../components/ProductDetails/ProductShipInfo"
 import ProductInfoTab from "../../../components/ProductDetails/ProductInfoTab";
 import { productInformation } from "../../../utils/constants";
 import Navbar from "../../../components/layout/Navbar";
-import { FaRegStar, FaStar } from "react-icons/fa";
+import { FaHeart, FaRegStar } from "react-icons/fa";
 import { GoHeart } from "react-icons/go";
 import useWishlistStore from "../../../store/wishlistStore";
 import { toast } from "react-toastify";
@@ -58,9 +58,7 @@ const ProductDetails = ({ params }) => {
                 handleRemoveFromWishlist={handleRemoveFromWishlist}
                 wishlist={wishlist}
               />
-              <div className="lg:block hidden">
-                <ProductShipInfo product={singleProduct} />
-              </div>
+              <ProductShipInfo product={singleProduct} />
             </div>
             <hr className="mt-4 mb-2" />
           </div>
@@ -73,7 +71,7 @@ const ProductDetails = ({ params }) => {
           />
         </div>
       </div>
-      <div className="flex border-t gap-4 border-gray-200 p-2 bg-white sticky bottom-0 w-full justify-between items-center ">
+      <div className="flex lg:hidden border-t gap-4 border-gray-200 p-2 bg-white sticky bottom-0 w-full justify-between items-center ">
         <button className="w-full my-2 py-3 rounded-full border hover:border-black border-primary bg-primary text-white tracking-wider  hover:bg-black hover:text-white transition duration-500 text-sm font-bold">
           Add To Cart
         </button>
@@ -84,18 +82,16 @@ const ProductDetails = ({ params }) => {
           {wishlist?.find((item) => item._id === singleProduct._id) ? (
             <h1
               onClick={() => handleRemoveFromWishlist(singleProduct._id)}
-              className="tooltip tooltip-left text-primary cursor-pointer"
-              data-tip="Remove From Wishlist"
+              className="text-primary cursor-pointer"
             >
-              <FaStar size={22} />
+              <FaHeart size={22} />
             </h1>
           ) : (
             <h1
               onClick={handleAddToWishlist}
-              className="tooltip tooltip-left text-primary cursor-pointer"
-              data-tip="Add To Wishlist"
+              className="text-primary cursor-pointer"
             >
-              <FaRegStar size={22} />
+              <GoHeart size={22} />
             </h1>
           )}
         </button>

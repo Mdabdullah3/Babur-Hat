@@ -16,7 +16,7 @@ const ProductShipInfo = ({ product }) => {
     }
   };
   return (
-    <div className="shadow-lg px-5 py-4 bg-white col-span-2 rounded-2xl border border-gray-300">
+    <div className="shadow-lg hidden lg:block px-5 py-4 bg-white col-span-2 rounded-2xl border border-gray-300">
       <h1 className="flex items-center justify-between font-bold">
         Ship to{" "}
         <span className="flex items-center gap-1 font-normal">

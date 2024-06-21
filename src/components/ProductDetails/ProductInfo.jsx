@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { FaRegStar, FaStar, FaStarHalfAlt, FaEye } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt, FaEye, FaHeart } from "react-icons/fa";
 import ProductSizeSelector from "../../components/ProductDetails/ProductSizeSelector";
 import { useState } from "react";
 import { LiaShippingFastSolid } from "react-icons/lia";
-import { toast } from "react-toastify";
-import useWishlistStore from "../../store/wishlistStore";
+import { GoHeart } from "react-icons/go";
 
 const ProductInfo = ({
   product,
@@ -33,7 +32,7 @@ const ProductInfo = ({
               className="tooltip tooltip-left text-primary cursor-pointer"
               data-tip="Remove From Wishlist"
             >
-              <FaStar size={22} />
+              <FaHeart size={22} />
             </h1>
           ) : (
             <h1
@@ -41,7 +40,7 @@ const ProductInfo = ({
               className="tooltip tooltip-left text-primary cursor-pointer"
               data-tip="Add To Wishlist"
             >
-              <FaRegStar size={22} />
+              <GoHeart size={22} />
             </h1>
           )}
         </div>
