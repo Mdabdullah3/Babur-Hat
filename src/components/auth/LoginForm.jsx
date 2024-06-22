@@ -91,7 +91,10 @@ const LoginForm = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="mt-8">
+        <div className="mt-2 flex justify-end">
+          <h1 className="text-sm underline">Forgot Password?</h1>
+        </div>
+        <div className="mt-5">
           <PrimaryButton type="submit" value="Login" />
         </div>
       </form>

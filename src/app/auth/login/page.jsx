@@ -11,7 +11,7 @@ const Login = () => {
   return (
     <section>
       <Navbar />
-      <div className="py-16 w-10/12 mx-auto">
+      <div className="lg:py-16 py-4 lg:w-10/12 w-11/12 mx-auto">
         <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto ">
           <img
             className="lg:block hidden w-full"

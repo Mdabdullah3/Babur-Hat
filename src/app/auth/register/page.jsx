@@ -10,11 +10,11 @@ const Register = () => {
   return (
     <div>
       <Navbar />
-      <section class="bg-white w-10/12 mx-auto my-14">
+      <section class="bg-white lg:w-10/12 w-11/12 mx-auto lg:my-14 my-4">
         <div class="flex item-center justify-center">
           <img
             src="https://images.pexels.com/photos/135620/pexels-photo-135620.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            className="w-8/12 rounded-tl-2xl rounded-bl-2xl"
+            className="w-8/12 rounded-tl-2xl rounded-bl-2xl hidden lg:block"
             alt=""
           />
 
