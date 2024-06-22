@@ -1,23 +1,28 @@
 import React from "react";
 import Navbar from "../../components/layout/Navbar";
 import DeafultProducts from "../../components/Home/DeafultProducts";
-import Whishlist from "../../components/Wishlist/Wishlist";
+import WhishlistCard from "../../components/Wishlist/WishlistCard";
 export const metadata = {
-  title: "Wishlist - Babur Hat",
-  description: "Wishlist section of Babur Hat",
+  title: "wishlist ",
+  description: "wishlist section of Babur Hat",
 };
-const WishlistPage = () => {
+const Wishlist = () => {
   return (
     <div>
       <Navbar />
       <section>
-        <Whishlist />
+        <WhishlistCard />
       </section>
       <section>
+        <div className="w-11/12 mx-auto">
+          <h1 className="text-md lg:text-2xl my-4 font-bold">
+            Related Products
+          </h1>
+        </div>
         <DeafultProducts />
       </section>
     </div>
   );
 };
 
-export default WishlistPage;
+export default Wishlist;

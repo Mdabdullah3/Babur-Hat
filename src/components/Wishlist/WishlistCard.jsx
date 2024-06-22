@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import useWishlistStore from "../../store/wishlistStore";
 import useCartStore from "../../store/cartStore";
 
-const Wishlist = () => {
+const WishlistCard = () => {
   const { wishlist, removeFromWishlist } = useWishlistStore();
   const { addToCart } = useCartStore();
   const [hydrated, setHydrated] = useState(false);
@@ -35,24 +35,26 @@ const Wishlist = () => {
   }
 
   return (
-    <div className="mt-12 relative">
+    <div className="lg:mt-12 mt-4 relative">
       <div className="w-11/12 mx-auto mt-6 tracking-wider">
-        <h1 className="text-3xl font-bold">Wishlist ({wishlist.length})</h1>
+        <h1 className="lg:text-3xl text-lg font-bold">
+          Wishlist ({wishlist.length})
+        </h1>
         {wishlist.length !== 0 ? (
-          <div className="mt-10 px-4 mx-auto">
+          <div className="lg:mt-10 mt-4 lg:px-4 px-1 mx-auto">
             <div className=" col-span-2">
               <div>
                 {wishlist.map((item, index) => (
                   <div key={index}>
                     {index !== 0 && (
-                      <hr className="border-t border-gray-300 mt-6 w-[95%]" />
+                      <hr className="border-t border-gray-300 mt-4 lg:mt-6 w-[95%]" />
                     )}
-                    <div className="flex items-center w-11/12 justify-between mt-6">
-                      <div className=" relative">
+                    <div className="lg:flex items-center w-11/12 justify-between mt-6">
+                      <div className=" relative flex items-center">
                         <img
                           src={item?.topimg}
-                          className="w-24 h-28 rounded-sm"
-                          alt=""
+                          className="w-24 h-24 rounded-sm"
+                          alt="whislist image"
                         />
                         <h1
                           onClick={() => handleRemoveFromWishlist(item._id)}
@@ -61,19 +63,40 @@ const Wishlist = () => {
                         >
                           <RxCross1 size={14} />
                         </h1>
+                        <div className="lg:hidden block">
+                          <h1 className="lg:font-bold  tracking-wider">
+                            {item.productName.slice(0, 30)}...
+                          </h1>
+
+                          <div className="flex items-center justify-between lg:hidden mt-2">
+                            <div>
+                              <h1>${item.sellPrice}.00</h1>
+                            </div>
+
+                            <div className="">
+                              <button
+                                onClick={() => handleAddToCart(item)}
+                                className="bg-primary text-white px-4 lg:px-10 lg:py-3 py-2 rounded-sm font-[500] tracking-wider border-[1px] border-primary hover:bg-transparent hover:text-primary text-[12px] lg:text-sm transition duration-500"
+                              >
+                                Add To Cart
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex-col items-center w-52">
+                      <div className="flex-col items-center w-52 lg:block hidden">
                         <h1 className="font-bold uppercase tracking-wider">
                           {item.productName}
                         </h1>
                       </div>
-                      <div>
+
+                      <div className="lg:block hidden">
                         <h1>${item.sellPrice}.00</h1>
                       </div>
-                      <div>
+                      <div className="lg:block hidden">
                         <h1>In Stock</h1>
                       </div>
-                      <div className="">
+                      <div className=" lg:block hidden">
                         <button
                           onClick={() => handleAddToCart(item)}
                           className="bg-primary text-white px-10 py-3 rounded-sm font-[500] tracking-wider border-[1px] border-primary hover:bg-transparent hover:text-primary transition duration-500"
@@ -86,7 +109,7 @@ const Wishlist = () => {
                 ))}
 
                 <div>
-                  <button className="flex items-center gap-2 mt-10 cursor-pointer tracking-wider">
+                  <button className="lg:flex items-center gap-2 mt-10 cursor-pointer tracking-wider hidden">
                     <LuMoveLeft />
                     Go Back Shopping
                   </button>
@@ -123,4 +146,4 @@ const Wishlist = () => {
   );
 };
 
-export default Wishlist;
+export default WishlistCard;
