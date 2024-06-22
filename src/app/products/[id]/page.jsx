@@ -72,13 +72,13 @@ const ProductDetails = ({ params }) => {
         </div>
       </div>
       <div className="flex lg:hidden border-t gap-4 border-gray-200 p-2 bg-white sticky bottom-0 w-full justify-between items-center ">
-        <button className="w-full my-2 py-3 rounded-full border hover:border-black border-primary bg-primary text-white tracking-wider  hover:bg-black hover:text-white transition duration-500 text-sm font-bold">
+        <button className="w-full  py-2 rounded-full border hover:border-black border-primary bg-primary text-white tracking-wider  hover:bg-black hover:text-white transition duration-500 text-sm font-bold">
           Add To Cart
         </button>
-        <button className="w-full py-3 rounded-full my-2 border-[1px] hover:border-primary border-black text-black tracking-wider  hover:bg-primary hover:text-white transition duration-500 font-bold">
+        <button className="w-full py-2 rounded-full  border-[1px] hover:border-primary border-black text-black tracking-wider  hover:bg-primary hover:text-white transition duration-500 font-bold">
           Buy Now
         </button>
-        <button className="w-32 py-4 border border-black rounded-full flex font-bold text-lg justify-center">
+        <button className="w-32 py-3 border border-black rounded-full flex font-bold text-lg justify-center">
           {wishlist?.find((item) => item._id === singleProduct._id) ? (
             <h1
               onClick={() => handleRemoveFromWishlist(singleProduct._id)}

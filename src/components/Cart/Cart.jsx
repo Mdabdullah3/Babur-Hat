@@ -30,12 +30,12 @@ const Cart = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto lg:mt-14 mt-4 tracking-wider">
-      <h1 className="lg:text-3xl text-xl font-bold">
+    <div className="w-11/12 mx-auto lg:mt-10 mt-4 tracking-wider">
+      <h1 className="lg:text-3xl text-lg font-bold">
         Shopping Cart ({cart?.length})
       </h1>
       {cart?.length !== 0 ? (
-        <div className="lg:grid grid-cols-3 lg:mt-8 mt-4 px-4 w-full">
+        <div className="lg:grid grid-cols-3 lg:mt-8 mt-4 px-1 lg:px-4 w-full">
           <div className="col-span-2">
             <div>
               {cart?.map((item, index) => (
@@ -48,7 +48,7 @@ const Cart = () => {
                       <div className="relative">
                         <img
                           src={item.topimg}
-                          className="w-24 h-28 rounded-sm"
+                          className="lg:w-24 lg:h-28 h-20 rounded-sm"
                           alt="cart image"
                         />
                         <h1
@@ -63,7 +63,7 @@ const Cart = () => {
                         <h1 className="font-bold tracking-wider">
                           {item?.productName?.slice(0, 20)}...
                         </h1>
-                        <div className="flex items-center w-full justify-between lg:hidden mt-3">
+                        <div className="flex items-center w-full justify-between lg:hidden mt-1">
                           <div className="">
                             <h1 className="md:font-bold tracking-wider">
                               {item?.quantity} pcs
@@ -144,6 +144,53 @@ const Cart = () => {
                   </div>
                 </React.Fragment>
               ))}
+              <div className="flex lg:hidden justify-center my-3 bg-red-500 px-2 text-white py-3 rounded-xl">
+                <div className="">
+                  <h1 className="text-sm  font-bold">Cart Totals</h1>
+                  <h1 className="text-sm tracking-wider mt-1 flex items-center">
+                    SubTotal :
+                    <span className="ml-10 flex font-[500] text-sm items-center">
+                      <FaBangladeshiTakaSign />
+                      {cart.reduce(
+                        (total, item) => total + item.sellPrice * item.quantity,
+                        0
+                      )}
+                      .00
+                    </span>
+                  </h1>
+                  <h1 className="mt-1 tracking-wider  text-sm flex gap-10 items-start">
+                    Shipping Fee:
+                    <span className="flex items-center">
+                      <FaBangladeshiTakaSign /> 60
+                    </span>
+                  </h1>
+                  <div className="mt-2">
+                    <div className="border-b-[0.5px] border-white"> </div>
+                    <h1 className="font-bold tracking-widest text-sm uppercase mt-1 flex justify-between items-center">
+                      Total{" "}
+                      <span className="text-lg">
+                        $
+                        {cart.reduce(
+                          (total, item) =>
+                            total + item.sellPrice * item.quantity,
+                          0
+                        ) + 60}
+                        .00
+                      </span>
+                    </h1>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-center flex-col lg:hidden">
+                <img
+                  src="https://minimog-4437.kxcdn.com/robust/wp-content/themes/minimog/assets/woocommerce/product-trust-badge.png"
+                  alt="payment image"
+                  className="w-9/12 mt-4 mx-auto"
+                />
+                <h1 className="my-2 text-center">
+                  Guaranteed safe & secure checkout
+                </h1>
+              </div>
               <div>
                 <button className="lg:flex items-center gap-2 mt-10 cursor-pointer  hidden tracking-wider">
                   <LuMoveLeft />
@@ -213,7 +260,7 @@ const Cart = () => {
         </div>
       ) : (
         <div>
-          <div className="text-center">
+          <div className="text-center mt-4">
             <img
               src="https://minimog.thememove.com/robust/wp-content/themes/minimog/assets/woocommerce/empty-cart.png"
               className="w-3/12 mx-auto"
