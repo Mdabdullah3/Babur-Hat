@@ -10,7 +10,7 @@ const RecomendedProducts = () => {
       .then((data) => setProducts(data));
   }, []);
   return (
-    <div className="lg:w-11/12 w-[95%] mx-auto mt-2 lg:mt-10">
+    <div className="lg:w-11/12 w-[95%] mx-auto mt-2 lg:mt-6">
       <h1 className="text-lg lg:text-2xl lg:mb-10 mb-4 font-bold">
         Recomended Products
       </h1>

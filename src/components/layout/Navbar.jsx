@@ -42,7 +42,7 @@ const Navbar = () => {
         <div className="lg:w-11/12 w-[95%] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <label htmlFor="my-drawer" className="md:hidden cursor-pointer">
-              <MdMenu size={32} />
+              <MdMenu size={28} />
             </label>
             <Link href="/" className="text-3xl font-bold cursor-pointer">
               <h1 className="lg:text-3xl text-xl font-bold cursor-pointer">
@@ -64,7 +64,7 @@ const Navbar = () => {
           </div>
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-4">
-              <h1 className="lg:text-3xl text-2xl">
+              <h1 className="lg:text-3xl text-xl">
                 <FaRegUser />
               </h1>
               {displayUser ? (
@@ -122,7 +122,9 @@ const Navbar = () => {
               href="/cart"
               className="flex items-center gap-4 cursor-pointer"
             >
-              <PiShoppingCartSimpleBold size={32} />
+              <h1 className="lg:text-3xl text-2xl">
+                <PiShoppingCartSimpleBold />
+              </h1>
               <div className="hidden md:block">
                 <h1 className="bg-white px-3 rounded-full py-0 text-black">
                   {cart?.length || 0}
