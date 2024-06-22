@@ -50,7 +50,7 @@ const WishlistCard = () => {
                       <hr className="border-t border-gray-300 mt-4 lg:mt-6 w-[95%]" />
                     )}
                     <div className="lg:flex items-center w-11/12 justify-between mt-6">
-                      <div className=" relative flex items-center">
+                      <div className=" relative flex items-center justify-between">
                         <img
                           src={item?.topimg}
                           className="w-24 h-24 rounded-sm"
@@ -64,13 +64,15 @@ const WishlistCard = () => {
                           <RxCross1 size={14} />
                         </h1>
                         <div className="lg:hidden block">
-                          <h1 className="lg:font-bold  tracking-wider">
+                          <h1 className="  tracking-wider text-[14px]">
                             {item.productName.slice(0, 30)}...
                           </h1>
 
                           <div className="flex items-center justify-between lg:hidden mt-2">
                             <div>
-                              <h1>${item.sellPrice}.00</h1>
+                              <h1 className="text-[14px]">
+                                ${item.sellPrice}.00
+                              </h1>
                             </div>
 
                             <div className="">
