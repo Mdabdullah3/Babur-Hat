@@ -17,9 +17,39 @@ const shop = () => {
   return (
     <div>
       <Navbar />
+      <div className="z-50">
+        <div className="drawer">
+          <input id="my-drawer2" type="checkbox" className="drawer-toggle" />
+          <div className="drawer-content">
+            {/* Page content here */}
+            <label
+              htmlFor="my-drawer2"
+              className="btn btn-primary drawer-button"
+            >
+              Open drawer
+            </label>
+          </div>
+          <div className="drawer-side">
+            <label
+              htmlFor="my-drawer2"
+              aria-label="close sidebar"
+              className="drawer-overlay"
+            ></label>
+            <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+              {/* Sidebar content here */}
+              <li>
+                <a>Sidebar Item 1</a>
+              </li>
+              <li>
+                <a>Sidebar Item 2</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
       <section className="w-11/12 mx-auto mt-24">
         <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-10">
-          <div className="hidden space-y-4 lg:block">
+          <div className="space-y-4 hidden">
             <div>
               <p className="text-3xl tracking-wider mb-6 font-medium">
                 Filters
