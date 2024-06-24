@@ -47,13 +47,13 @@ const shop = () => {
           </div>
         </div>
       </div>
-      <section className="w-11/12 mx-auto mt-24">
+      <section className="w-11/12 mx-auto mt-24 -z-20">
         <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-10">
           <div className="space-y-4 hidden">
             <div>
-              <p className="text-3xl tracking-wider mb-6 font-medium">
+              <h1 className="text-3xl tracking-wider mb-6 font-medium">
                 Filters
-              </p>
+              </h1>
 
               <div className="space-y-5">
                 <ShopMenu title="Categories">
@@ -98,13 +98,11 @@ const shop = () => {
                 <ShopMenu title="Size">
                   <div className="grid grid-cols-5 gap-3 mt-6 w-11/12">
                     {size?.map((item, index) => (
-                      <>
-                        <div key={index} className="mx-auto w-12 text-center">
-                          <h1 className="px-2 py-2 rounded-lg border-[1px] border-gray-400 text-md font-[500]">
-                            {item}
-                          </h1>
-                        </div>
-                      </>
+                      <div key={index} className="mx-auto w-12 text-center">
+                        <h1 className="px-2 py-2 rounded-lg border-[1px] border-gray-400 text-md font-[500]">
+                          {item}
+                        </h1>
+                      </div>
                     ))}
                   </div>
                 </ShopMenu>
@@ -133,13 +131,8 @@ const shop = () => {
 
           <div className="lg:col-span-3">
             <div className="grid grid-cols-4 mx-auto">
-              {Products?.products?.slice(0, 20).map((product) => (
-                <>
-                  <ProductCard
-                    key={product._id}
-                    product={product}
-                  ></ProductCard>
-                </>
+              {Products?.products?.slice(0, 20).map((product, index) => (
+                <ProductCard key={index} product={product}></ProductCard>
               ))}
             </div>
           </div>
