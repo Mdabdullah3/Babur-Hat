@@ -114,7 +114,7 @@ const shop = () => {
           </div>
         </div>
       </div>
-      <section className="md:w-11/12 w-[95%] mx-auto mt-6 lg:mt-20">
+      <section className="md:w-11/12 w-[95%] mx-auto mt-6 lg:mt-16">
         <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-10">
           <div className="hidden lg:block space-y-4">
             <div>
