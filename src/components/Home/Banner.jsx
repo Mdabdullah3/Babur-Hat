@@ -12,7 +12,6 @@ import useAuthStore from "../../store/authStore";
 
 const Banner = () => {
   const { user } = useAuthStore();
-  console.log(user);
   return (
     <div className="bg-info flex items-center justify-center">
       <div className="lg:grid grid-cols-4 lg:w-11/12 w-full mx-auto lg:py-4 gap-4">

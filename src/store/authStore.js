@@ -11,6 +11,7 @@ const useAuthStore = create((set) => {
     return {
         user: storedUser,
         isLoading: false,
+        
         login: async (email, password) => {
             set({ isLoading: true });
             try {

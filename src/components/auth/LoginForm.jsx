@@ -6,15 +6,21 @@ import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
 import useAuthStore from "../../store/authStore";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, isLoading } = useAuthStore();
-
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login(email, password);
+    try {
+      await login(email, password);
+      router.push("/");
+    } catch (error) {
+      toast.error("Failed to login. Please try again.");
+    }
   };
 
   return (
