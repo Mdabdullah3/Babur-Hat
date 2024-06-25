@@ -2,47 +2,19 @@
 import React, { useState } from "react";
 import InputField from "../common/InputField";
 import PrimaryButton from "../common/PrimaryButton";
-import axios from "axios";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
+import useAuthStore from "../../store/authStore";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
+  const { login, isLoading } = useAuthStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/api/auth/login",
-        { email, password }
-      );
-      if (response.status === 200) {
-        const userData = response.data;
-        if (userData) {
-          localStorage.setItem("user", JSON.stringify(userData));
-          router.push("/");
-          toast.success("Login successful");
-        } else {
-          toast.error("Login failed. User data not found.");
-        }
-      } else {
-        toast.error("Login failed. Please try again.");
-      }
-    } catch (error) {
-      if (error.response && error.response.data) {
-        toast.error(
-          error.response.data.message || "Login failed. Please try again."
-        );
-      } else {
-        toast.error("Login failed. Please try again.");
-      }
-      console.error("Login error:", error);
-    }
+    await login(email, password);
   };
 
   return (
@@ -95,7 +67,7 @@ const LoginForm = () => {
           <h1 className="text-sm underline">Forgot Password?</h1>
         </div>
         <div className="mt-5">
-          <PrimaryButton type="submit" value="Login" />
+          <PrimaryButton type="submit" value="Login" disabled={isLoading} />
         </div>
       </form>
     </section>

@@ -1,36 +1,25 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
-import { FaRegUser } from "react-icons/fa6";
-import { MdKeyboardArrowDown, MdMenu, MdClose } from "react-icons/md";
-import { PiShoppingCartSimpleBold } from "react-icons/pi";
+import { FaRegUser } from "react-icons/fa";
+import { MdKeyboardArrowDown, MdMenu } from "react-icons/md";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import useAuthStore from "../../store/authStore";
 import useCartStore from "../../store/cartStore";
+import { PiShoppingCartSimpleBold } from "react-icons/pi";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
-  const [user, setUser] = useState(null);
+  const { user, logout } = useAuthStore((state) => ({
+    user: state.user,
+    logout: state.logout,
+  }));
+
   const { cart } = useCartStore();
   const router = useRouter();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-    try {
-      const userData = localStorage.getItem("user");
-      if (userData) {
-        setUser(JSON.parse(userData));
-      }
-    } catch (error) {
-      localStorage.removeItem("user");
-    }
-  }, []);
-
-  if (!isClient) return null;
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
+    logout();
     router.push("/auth/login");
   };
 
@@ -44,10 +33,12 @@ const Navbar = () => {
             <label htmlFor="my-drawer" className="md:hidden cursor-pointer">
               <MdMenu size={28} />
             </label>
-            <Link href="/" className="text-3xl font-bold cursor-pointer">
-              <h1 className="lg:text-3xl text-xl font-bold cursor-pointer">
-                Babur Hut
-              </h1>
+            <Link href="/" >
+              <div className="text-3xl font-bold cursor-pointer">
+                <h1 className="lg:text-3xl text-xl font-bold cursor-pointer">
+                  Babur Hut
+                </h1>
+              </div>
             </Link>
           </div>
           <div className="hidden md:block">
@@ -76,17 +67,21 @@ const Navbar = () => {
                       role="button"
                       className="flex items-center text-sm font-bold"
                     >
-                      <h1 className="capitalize tracking-wider flex items-center">
+                      <div className="capitalize tracking-wider flex items-center">
                         {displayUser.name} <MdKeyboardArrowDown size={20} />
-                      </h1>
+                      </div>
                     </div>
                     <ul
                       tabIndex={0}
                       className="dropdown-content z-50 menu shadow bg-black cursor-pointer text-white rounded-box w-52 flex flex-col gap-3 text-md tracking-wider py-4 px-6"
                     >
-                      <Link href="/myProfile">My Profile</Link>
+                      <Link href="/myProfile" >
+                        <h1 className="block">My Profile</h1>
+                      </Link>
                       <hr />
-                      <Link href="/wishlist">Wishlist</Link>
+                      <Link href="/wishlist" >
+                        <h1 className="block">Wishlist</h1>
+                      </Link>
                       <hr />
                       <button onClick={handleLogout} className="text-start">
                         Log Out
@@ -96,7 +91,7 @@ const Navbar = () => {
                 </div>
               ) : (
                 <div className="tracking-wider hidden lg:block">
-                  <h1 className="text-[13px">Welcome</h1>
+                  <h1 className="text-[13px]">Welcome</h1>
                   <div className="dropdown dropdown-hover relative">
                     <div
                       tabIndex={0}
@@ -107,29 +102,30 @@ const Navbar = () => {
                     </div>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content z-50 menu absolute top=0 shadow bg-black cursor-pointer text-white rounded-box w-auto py-4 px-6"
+                      className="dropdown-content z-50 menu absolute top-0 shadow bg-black cursor-pointer text-white rounded-box w-auto py-4 px-6"
                     >
-                      <Link href="/auth/login">Login</Link>
-                      <Link href="/auth/register" className="mt-4">
-                        Register
+                      <Link href="/auth/login" >
+                        <h1 className="block">Login</h1>
+                      </Link>
+                      <Link href="/auth/register" >
+                        <h1 className="mt-4 block">Register</h1>
                       </Link>
                     </ul>
                   </div>
                 </div>
               )}
             </div>
-            <Link
-              href="/cart"
-              className="flex items-center gap-4 cursor-pointer"
-            >
-              <h1 className="lg:text-3xl text-2xl">
-                <PiShoppingCartSimpleBold />
-              </h1>
-              <div className="hidden md:block">
-                <h1 className="bg-white px-3 rounded-full py-0 text-black">
-                  {cart?.length || 0}
+            <Link href="/cart" >
+              <div className="flex items-center gap-4 cursor-pointer">
+                <h1 className="lg:text-3xl text-2xl">
+                  <PiShoppingCartSimpleBold />
                 </h1>
-                <h1>Cart</h1>
+                <div className="hidden md:block">
+                  <h1 className="bg-white px-3 rounded-full py-0 text-black">
+                    {cart?.length || 0}
+                  </h1>
+                  <h1>Cart</h1>
+                </div>
               </div>
             </Link>
           </div>

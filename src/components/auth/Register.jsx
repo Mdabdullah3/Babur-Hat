@@ -5,12 +5,13 @@ import InputField from "../common/InputField";
 import PrimaryButton from "../common/PrimaryButton";
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import useAuthStore from "../../store/authStore";
 
 const Register = () => {
   const router = useRouter();
+  const { register, googleLogin, isLoading } = useAuthStore();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -25,7 +26,7 @@ const Register = () => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" }); // clear error for this field
+    setErrors({ ...errors, [e.target.name]: "" });
   };
 
   const handleAvatarChange = (e) => {
@@ -71,37 +72,25 @@ const Register = () => {
     }
     return true;
   };
+
   const handleRemoveAvatar = () => {
     setForm({ ...form, avatar: null });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    try {
-      await axios.post("http://localhost:8000/api/auth/register", form);
-      toast.success(
-        "Registration successful! Please check your email for verification."
-      );
+    await register(form);
+    if (!isLoading) {
       router.push("/auth/login");
-    } catch (error) {
-      const errorData = error.response?.data;
-      if (errorData.errors) {
-        const fieldErrors = Object.keys(errorData.errors).reduce((acc, key) => {
-          acc[key] = errorData.errors[key].message;
-          return acc;
-        }, {});
-        setErrors(fieldErrors);
-      }
-      toast.error(
-        errorData.message || "Registration failed. Please try again."
-      );
     }
+    router.push("/");
   };
 
   return (
     <div className="w-full">
-      <a
-        href="#"
+      <button
+        onClick={googleLogin}
         className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
       >
         <div className="px-4 py-3">
@@ -110,7 +99,7 @@ const Register = () => {
         <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">
           Sign in with Google
         </h1>
-      </a>
+      </button>
       <div className="divider text-gray-500 mt-4 text-sm uppercase">Or</div>
       <form
         className="grid grid-cols-1 gap-4 mt-4 md:grid-cols-2"
@@ -195,7 +184,7 @@ const Register = () => {
             )}
           </div>
         </div>
-        {form.avatar && (
+        {form?.avatar ? (
           <div className="relative">
             <img
               src={form.avatar}
@@ -209,19 +198,24 @@ const Register = () => {
               ×
             </button>
           </div>
+        ) : (
+          <InputField
+            label="Avatar"
+            type="file"
+            name="avatar"
+            onChange={handleAvatarChange}
+            accept="image/*"
+            required
+            error={errors.avatar}
+          />
         )}
-        {!form.avatar && (
-          <div>
-            <label className="block font-mono text-secondary">Avatar</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleAvatarChange}
-              className="block mt-1 file-input file-input-bordered file-input-primary w-full max-w-xs"
-            />
-          </div>
-        )}
-        <PrimaryButton value={"Register"} />
+
+        <PrimaryButton
+          type="submit"
+          className="mt-4"
+          disabled={isLoading}
+          value={`${isLoading ? "Loading..." : "Register"}`}
+        />
       </form>
     </div>
   );
