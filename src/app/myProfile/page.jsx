@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Navbar from "../../components/layout/Navbar";
 import Profile from "../../components/MyProfile/Profile";
+import MyOrder from "../../components/MyProfile/MyOrder";
 const MyProfile = () => {
   const [activeMenu, setActiveMenu] = useState("My Profile");
   const menu = [
@@ -19,7 +20,7 @@ const MyProfile = () => {
           {menu.map((item) => (
             <>
               <h1
-                className={`font-bold pb-2 ${
+                className={`font-bold pb-2 cursor-pointer ${
                   activeMenu === item ? "text-primary" : ""
                 }`}
                 onClick={() => setActiveMenu(item)}
@@ -32,6 +33,11 @@ const MyProfile = () => {
         {activeMenu === "My Profile" && (
           <div className="col-span-4">
             <Profile />
+          </div>
+        )}
+        {activeMenu === "My Orders" && (
+          <div className="col-span-4">
+            <MyOrder />
           </div>
         )}
       </div>

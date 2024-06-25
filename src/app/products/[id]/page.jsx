@@ -9,23 +9,34 @@ import Navbar from "../../../components/layout/Navbar";
 import { FaHeart, FaRegStar } from "react-icons/fa";
 import { GoHeart } from "react-icons/go";
 import useWishlistStore from "../../../store/wishlistStore";
+import useRecentlyViewedStore from "../../../store/RecentViewProduct";
 import { toast } from "react-toastify";
+import ProductCard from "../../../components/common/ProductCard";
+
 const ProductDetails = ({ params }) => {
-  const [singleProduct, setSingleProduct] = useState([]);
+  const [singleProduct, setSingleProduct] = useState({});
   const [openDetails, setOpenDetails] = useState(
     productInformation[0]?.Description
   );
+
+  const { recentlyViewed, addRecentlyViewed, initializeRecentlyViewed } =
+    useRecentlyViewedStore();
 
   const handleDetailClick = (details) => {
     setOpenDetails(details);
   };
 
   useEffect(() => {
-    const url = `https://api.rebzigo.com/products/${params?.id}`;
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => setSingleProduct(data));
-  }, [params.id]);
+    const fetchProduct = async () => {
+      const url = `https://api.rebzigo.com/products/${params?.id}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      setSingleProduct(data);
+      addRecentlyViewed(data);
+    };
+    fetchProduct();
+    initializeRecentlyViewed();
+  }, [params.id, addRecentlyViewed, initializeRecentlyViewed]);
 
   const { addToWishlist, wishlist, removeFromWishlist } = useWishlistStore();
 
@@ -37,10 +48,12 @@ const ProductDetails = ({ params }) => {
       toast.success("Product added to wishlist");
     }
   };
+
   const handleRemoveFromWishlist = (id) => {
     removeFromWishlist(id);
     toast.success("Product removed from wishlist");
   };
+
   return (
     <section className="">
       <Navbar />
@@ -69,6 +82,16 @@ const ProductDetails = ({ params }) => {
             openDetails={openDetails}
             handleDetailClick={handleDetailClick}
           />
+        </div>
+        <div className="w-11/12 mx-auto mt-8">
+          <h2 className="text-2xl font-semibold mb-4">
+            Recently Viewed Products
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {recentlyViewed.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </div>
         </div>
       </div>
       <div className="flex lg:hidden border-t gap-4 border-gray-200 p-2 bg-white sticky bottom-0 w-full justify-between items-center ">

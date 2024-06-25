@@ -749,3 +749,78 @@ export const categoriesData = [
         status: "active",
     }
 ]
+
+const LatestOrders = [
+    {
+      id: 1,
+      status: "Paid",
+      discountedTotal: 5000,
+      orderedProducts: [
+        {
+          id: 101,
+          name: "Product 1",
+          img: "https://via.placeholder.com/150",
+          sellPrice: 2000,
+          quantity: 2,
+          size: "M"
+        },
+        {
+          id: 102,
+          name: "Product 2",
+          img: "https://via.placeholder.com/150",
+          sellPrice: 1000,
+          quantity: 1,
+          size: "L"
+        }
+      ]
+    },
+    {
+      id: 2,
+      status: "Shipping",
+      discountedTotal: 3000,
+      orderedProducts: [
+        {
+          id: 103,
+          name: "Product 3",
+          img: "https://via.placeholder.com/150",
+          sellPrice: 1500,
+          quantity: 1,
+          size: "S"
+        },
+        {
+          id: 104,
+          name: "Product 4",
+          img: "https://via.placeholder.com/150",
+          sellPrice: 1500,
+          quantity: 1,
+          size: "M"
+        }
+      ]
+    },
+    {
+      id: 3,
+      status: "Received",
+      discountedTotal: 4000,
+      orderedProducts: [
+        {
+          id: 105,
+          name: "Product 5",
+          img: "https://via.placeholder.com/150",
+          sellPrice: 2000,
+          quantity: 1,
+          size: "L"
+        },
+        {
+          id: 106,
+          name: "Product 6",
+          img: "https://via.placeholder.com/150",
+          sellPrice: 2000,
+          quantity: 1,
+          size: "XL"
+        }
+      ]
+    }
+  ];
+  
+  export default LatestOrders;
+  
