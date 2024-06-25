@@ -265,12 +265,14 @@ export const productInformation = [
             "Quisque varius diam vel metus mattis, id aliquam diam rhoncus. Proin vitae magna in dui finibus malesuada et at nulla. Morbi elit ex, viverra vitae ante vel, blandit feugiat ligula. Fusce fermentum iaculis nibh, at sodales leo maximus a. Nullam ultricies sodales nunc, in pellentesque lorem mattis quis. Cras imperdiet est in nunc tristique lacinia. Nullam aliquam mauris eu accumsan tincidunt. Suspendisse velit ex, aliquet vel ornare vel, dignissim a tortor. //n Morbi ut sapien vitae odio accumsan gravida. Morbi vitae erat auctor, eleifend nunc a, lobortis neque. Praesent aliquam dignissim viverra. Maecenas lacus odio, feugiat eu nunc sit amet, maximus sagittis dolor. Vivamus nisi sapien, elementum sit amet eros sit amet, ultricies cursus ipsum. Sed consequat luctus ligula. Curabitur laoreet rhoncus blandit. Aenean vel diam ut arcu pharetra dignissim ut sed leo. Vivamus faucibus, ipsum in vestibulum vulputate, lorem orci convallis quam, sit amet consequat nulla felis pharetra lacus. Duis semper erat mauris, sed egestas purus commodo vel.",
         reviews: [
             {
+                id: 1,
                 email: "james@example.com",
                 review: "Very Good Product, I love this Product ",
             },
             {
+                id: 2,
                 email: "jamets@example.com",
-                review: "Very Good Product, I love this Product ",
+                review: "Very Good Product, I love this ",
             },
         ],
         color: ["black", "white", "red", "green", "yellow"],
@@ -752,75 +754,74 @@ export const categoriesData = [
 
 const LatestOrders = [
     {
-      id: 1,
-      status: "Paid",
-      discountedTotal: 5000,
-      orderedProducts: [
-        {
-          id: 101,
-          name: "Product 1",
-          img: "https://via.placeholder.com/150",
-          sellPrice: 2000,
-          quantity: 2,
-          size: "M"
-        },
-        {
-          id: 102,
-          name: "Product 2",
-          img: "https://via.placeholder.com/150",
-          sellPrice: 1000,
-          quantity: 1,
-          size: "L"
-        }
-      ]
+        id: 1,
+        status: "Paid",
+        discountedTotal: 5000,
+        orderedProducts: [
+            {
+                id: 101,
+                name: "Product 1",
+                img: "https://via.placeholder.com/150",
+                sellPrice: 2000,
+                quantity: 2,
+                size: "M"
+            },
+            {
+                id: 102,
+                name: "Product 2",
+                img: "https://via.placeholder.com/150",
+                sellPrice: 1000,
+                quantity: 1,
+                size: "L"
+            }
+        ]
     },
     {
-      id: 2,
-      status: "Shipping",
-      discountedTotal: 3000,
-      orderedProducts: [
-        {
-          id: 103,
-          name: "Product 3",
-          img: "https://via.placeholder.com/150",
-          sellPrice: 1500,
-          quantity: 1,
-          size: "S"
-        },
-        {
-          id: 104,
-          name: "Product 4",
-          img: "https://via.placeholder.com/150",
-          sellPrice: 1500,
-          quantity: 1,
-          size: "M"
-        }
-      ]
+        id: 2,
+        status: "Shipping",
+        discountedTotal: 3000,
+        orderedProducts: [
+            {
+                id: 103,
+                name: "Product 3",
+                img: "https://via.placeholder.com/150",
+                sellPrice: 1500,
+                quantity: 1,
+                size: "S"
+            },
+            {
+                id: 104,
+                name: "Product 4",
+                img: "https://via.placeholder.com/150",
+                sellPrice: 1500,
+                quantity: 1,
+                size: "M"
+            }
+        ]
     },
     {
-      id: 3,
-      status: "Received",
-      discountedTotal: 4000,
-      orderedProducts: [
-        {
-          id: 105,
-          name: "Product 5",
-          img: "https://via.placeholder.com/150",
-          sellPrice: 2000,
-          quantity: 1,
-          size: "L"
-        },
-        {
-          id: 106,
-          name: "Product 6",
-          img: "https://via.placeholder.com/150",
-          sellPrice: 2000,
-          quantity: 1,
-          size: "XL"
-        }
-      ]
+        id: 3,
+        status: "Received",
+        discountedTotal: 4000,
+        orderedProducts: [
+            {
+                id: 105,
+                name: "Product 5",
+                img: "https://via.placeholder.com/150",
+                sellPrice: 2000,
+                quantity: 1,
+                size: "L"
+            },
+            {
+                id: 106,
+                name: "Product 6",
+                img: "https://via.placeholder.com/150",
+                sellPrice: 2000,
+                quantity: 1,
+                size: "XL"
+            }
+        ]
     }
-  ];
-  
-  export default LatestOrders;
-  
+];
+
+export default LatestOrders;

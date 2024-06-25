@@ -6,7 +6,7 @@ import ProductShipInfo from "../../../components/ProductDetails/ProductShipInfo"
 import ProductInfoTab from "../../../components/ProductDetails/ProductInfoTab";
 import { productInformation } from "../../../utils/constants";
 import Navbar from "../../../components/layout/Navbar";
-import { FaHeart, FaRegStar } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { GoHeart } from "react-icons/go";
 import useWishlistStore from "../../../store/wishlistStore";
 import useRecentlyViewedStore from "../../../store/RecentViewProduct";
@@ -30,7 +30,7 @@ const ProductDetails = ({ params }) => {
     const fetchProduct = async () => {
       const url = `https://api.rebzigo.com/products/${params?.id}`;
       const res = await fetch(url);
-      const data = await res.json();
+      const data = await res?.json();
       setSingleProduct(data);
       addRecentlyViewed(data);
     };
@@ -82,16 +82,6 @@ const ProductDetails = ({ params }) => {
             openDetails={openDetails}
             handleDetailClick={handleDetailClick}
           />
-        </div>
-        <div className="w-11/12 mx-auto mt-8">
-          <h2 className="text-2xl font-semibold mb-4">
-            Recently Viewed Products
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {recentlyViewed.map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
-          </div>
         </div>
       </div>
       <div className="flex lg:hidden border-t gap-4 border-gray-200 p-2 bg-white sticky bottom-0 w-full justify-between items-center ">

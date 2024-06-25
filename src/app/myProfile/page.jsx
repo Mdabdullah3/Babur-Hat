@@ -1,47 +1,17 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "../../components/layout/Navbar";
-import Profile from "../../components/MyProfile/Profile";
-import MyOrder from "../../components/MyProfile/MyOrder";
+import ProfileMenu from "../../components/MyProfile/ProfileMenu";
+export const metadata = {
+  title: "Profile - Babur-Hat",
+  description: "My Profile Page",
+  keywords: "My Profile Page, Babur-Hat",
+};
 const MyProfile = () => {
-  const [activeMenu, setActiveMenu] = useState("My Profile");
-  const menu = [
-    "My Profile",
-    "My Orders",
-    "My Reviews",
-    "Recent Product",
-    "Logout",
-  ];
   return (
-    <section className="">
+    <div>
       <Navbar />
-      <div className="grid w-11/12 mx-auto grid-cols-5 pt-10">
-        <div className="flex-col flex gap-5">
-          {menu.map((item) => (
-            <>
-              <h1
-                className={`font-bold pb-2 cursor-pointer ${
-                  activeMenu === item ? "text-primary" : ""
-                }`}
-                onClick={() => setActiveMenu(item)}
-              >
-                {item}
-              </h1>
-            </>
-          ))}
-        </div>
-        {activeMenu === "My Profile" && (
-          <div className="col-span-4">
-            <Profile />
-          </div>
-        )}
-        {activeMenu === "My Orders" && (
-          <div className="col-span-4">
-            <MyOrder />
-          </div>
-        )}
-      </div>
-    </section>
+      <ProfileMenu />
+    </div>
   );
 };
 

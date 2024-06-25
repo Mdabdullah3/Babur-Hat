@@ -101,8 +101,8 @@ const ProductInfoTab = ({ Details, openDetails, handleDetailClick }) => (
               <hr />
             </div>
 
-            {Details[0].reviews.map((review, index) => (
-              <div key={index} className="flex items-center gap-5 mb-8 mt-6">
+            {Details[0].reviews.map((review) => (
+              <div key={review.id} className="flex items-center gap-5 mb-8 mt-6">
                 <img
                   className="w-16 rounded-full"
                   src="https://secure.gravatar.com/avatar/dd28514c9a8cfba334e05f21703be28e?s=120&d=mm&r=g"
