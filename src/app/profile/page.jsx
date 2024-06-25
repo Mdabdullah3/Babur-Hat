@@ -2,11 +2,10 @@ import React from "react";
 import Navbar from "../../components/layout/Navbar";
 import ProfileMenu from "../../components/MyProfile/ProfileMenu";
 export const metadata = {
-  title: "Profile - Babur-Hat",
-  description: "My Profile Page",
-  keywords: "My Profile Page, Babur-Hat",
+  title: "Profile - Babur Hat",
+  description: "Profile section of Babur Hat",
 };
-const MyProfile = () => {
+const ProfilePage = () => {
   return (
     <div>
       <Navbar />
@@ -15,4 +14,4 @@ const MyProfile = () => {
   );
 };
 
-export default MyProfile;
+export default ProfilePage;
