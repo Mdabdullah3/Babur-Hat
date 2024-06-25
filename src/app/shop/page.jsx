@@ -22,10 +22,10 @@ const shop = () => {
     <div>
       <Navbar />
       <div className="relative z-50">
-        <div className="drawer drawer-start">
+        <div className="drawer drawer-start lg:hidden block">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content">
-            <label htmlFor="my-drawer-2" className="">
+          <div className="drawer-content mt-2 mx-4">
+            <label htmlFor="my-drawer-2" className="text-2xl font-bold">
               <CiMenuBurger />
             </label>
           </div>
@@ -114,7 +114,7 @@ const shop = () => {
           </div>
         </div>
       </div>
-      <section className="w-11/12 mx-auto mt-24">
+      <section className="md:w-11/12 w-[95%] mx-auto mt-6 lg:mt-20">
         <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-10">
           <div className="hidden lg:block space-y-4">
             <div>
@@ -192,7 +192,7 @@ const shop = () => {
             </div>
           </div>
           <div className="lg:col-span-3">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 md:gap-4 gap-2">
               {Products?.products?.slice(0, 20).map((product) => (
                 <ProductCard key={product._id} product={product}></ProductCard>
               ))}
