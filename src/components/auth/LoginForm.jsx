@@ -4,7 +4,6 @@ import InputField from "../common/InputField";
 import PrimaryButton from "../common/PrimaryButton";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
-import { signIn } from "next-auth/react";
 import useAuthStore from "../../store/authStore";
 import { useRouter } from "next/navigation";
 
@@ -13,11 +12,11 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const { login, isLoading, googleLogin } = useAuthStore();
   const router = useRouter();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(email, password);
-      router.push("/");
+      await login(email, password, router);
     } catch (error) {
       toast.error("Failed to login. Please try again.");
     }

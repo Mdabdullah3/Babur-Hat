@@ -84,7 +84,7 @@ const Register = () => {
     if (!isLoading) {
       router.push("/auth/login");
     }
-    router.push("/");
+    router.push("/auth/login");
   };
 
   return (

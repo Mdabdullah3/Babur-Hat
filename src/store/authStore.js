@@ -12,7 +12,7 @@ const useAuthStore = create((set) => {
         user: storedUser,
         isLoading: false,
 
-        login: async (email, password) => {
+        login: async (email, password, router) => {
             set({ isLoading: true });
             try {
                 const response = await axios.post(`${API_URL}/auth/login`, { email, password });
@@ -20,6 +20,7 @@ const useAuthStore = create((set) => {
                     const userData = response.data;
                     localStorage.setItem('user', JSON.stringify(userData));
                     set({ user: userData, isLoading: false });
+                    router.push('/');
                     toast.success('Login successful');
                 } else {
                     toast.error('Login failed. Please try again.');
