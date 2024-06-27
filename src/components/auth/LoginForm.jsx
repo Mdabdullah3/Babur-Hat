@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, isLoading } = useAuthStore();
+  const { login, isLoading, googleLogin } = useAuthStore();
   const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +29,7 @@ const LoginForm = () => {
       <div className="flex justify-center">
         <button
           className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
-          onClick={() => signIn("google")}
+          onClick={googleLogin}
         >
           <div className="px-4 py-3">
             <FcGoogle size={24} />
