@@ -16,17 +16,16 @@ const ProfileMenu = () => {
     <section className="">
       <div className="grid w-11/12 mx-auto grid-cols-5 pt-10">
         <div className="flex-col flex gap-5">
-          {menu.map((item) => (
-            <>
-              <h1
-                className={`font-bold pb-2 cursor-pointer ${
-                  activeMenu === item ? "text-primary" : ""
-                }`}
-                onClick={() => setActiveMenu(item)}
-              >
-                {item}
-              </h1>
-            </>
+          {menu.map((item, index) => (
+            <button
+              key={index}
+              className={`font-bold pb-2 cursor-pointer ${
+                activeMenu === item ? "text-primary" : ""
+              }`}
+              onClick={() => setActiveMenu(item)}
+            >
+              {item}
+            </button>
           ))}
         </div>
         {activeMenu === "My Profile" && (

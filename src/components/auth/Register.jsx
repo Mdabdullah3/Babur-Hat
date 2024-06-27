@@ -17,7 +17,6 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    phone: "",
     avatar: "",
   });
   const [errors, setErrors] = useState({});
@@ -43,9 +42,8 @@ const Register = () => {
   };
 
   const validateForm = () => {
-    const { name, email, password, confirmPassword, phone, avatar } = form;
+    const { name, email, password, confirmPassword, avatar } = form;
     const newErrors = {};
-    const phoneRegex = /^(?:\+88|01)?\d{11}$/;
 
     if (!name) newErrors.name = "Name is required.";
     if (!email) newErrors.email = "Email is required.";
@@ -54,8 +52,7 @@ const Register = () => {
       newErrors.confirmPassword = "Confirm Password is required.";
     if (password !== confirmPassword)
       newErrors.confirmPassword = "Passwords do not match.";
-    if (!phoneRegex.test(phone))
-      newErrors.phone = "Invalid phone number format for Bangladesh.";
+    
     if (!avatar) newErrors.avatar = "Avatar is required.";
 
     setErrors(newErrors);
@@ -65,7 +62,6 @@ const Register = () => {
           newErrors.email ||
           newErrors.password ||
           newErrors.confirmPassword ||
-          newErrors.phone ||
           newErrors.avatar
       );
       return false;
@@ -123,15 +119,6 @@ const Register = () => {
           name="email"
           onChange={handleChange}
           error={errors.email}
-        />
-        <InputField
-          label="Phone Number"
-          required
-          placeholder="01XXXXXXXXX"
-          value={form.phone}
-          name="phone"
-          onChange={handleChange}
-          error={errors.phone}
         />
         <div className="relative">
           <InputField
