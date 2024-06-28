@@ -72,9 +72,6 @@ const BestDeal = () => {
                       value="80"
                       max="100"
                     ></progress>
-                    <h1 className="g:text-sm hidden md:block text-gray-500">
-                      50 Pc Left
-                    </h1>
                   </div>
                 </div>
               </div>
