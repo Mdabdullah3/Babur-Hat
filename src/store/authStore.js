@@ -51,24 +51,9 @@ const useAuthStore = create((set) => {
                 set({ isLoading: false });
             }
         },
-        googleLogin: async () => {
-            set({ isLoading: true });
-            try {
-                const response = await axios.get(`${API_URL}/auth/google`);
-                if (response.status === 200) {
-                    const userData = response.data;
-                    localStorage.setItem('user', JSON.stringify(userData));
-                    set({ user: userData, isLoading: false });
-                    toast.success('Google login successful');
-                } else {
-                    toast.error('Google login failed. Please try again.');
-                    set({ isLoading: false });
-                }
-            } catch (error) {
-                toast.error('Google login failed. Please try again.');
-                set({ isLoading: false });
-            }
-        },
+        googleLogin: () => {
+            window.location.href = `http://103.148.15.24:5000/auth/google`;
+        }
     };
 });
 
