@@ -37,7 +37,7 @@ const Footer = () => {
           <div className="sm:w-1/3 w-full mb-[10px]">
             <div className="footer-top-data flex items-center justify-center">
               <img
-                src="/public/newsletter.png
+                src="/newsletter.png
               "
                 alt="news letter"
               />
@@ -126,7 +126,7 @@ const Footer = () => {
           </p>
           <div className=" flex items-center justify-center">
             <img
-              src="/public/playstore.png"
+              src="/pngegg.png"
               className="h-[100px] cursor-pointer "
               alt=""
             />
