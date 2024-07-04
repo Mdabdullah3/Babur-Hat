@@ -1,16 +1,19 @@
 import Link from 'next/link';
 import React from 'react';
-
+export const metadata = {
+    title: "Not Found - Babur Hat",
+    description: "Not Found section of Babur Hat",
+}
 const NotFound = () => {
     return (
         <div>
-            <main class="h-screen w-full flex flex-col justify-center items-center bg-[#1A2238]">
+            <section class="h-screen w-full flex flex-col justify-center items-center bg-[#1A2238]">
                 <h1 class="text-9xl font-extrabold text-white tracking-widest">404</h1>
-                <div class="bg-[#FF6A3D] px-2 text-sm rounded rotate-12 absolute">
+                <h1 class="bg-[#FF6A3D] px-2 text-sm rounded rotate-12 absolute">
                     Page Not Found
-                </div>
+                </h1>
                 <button class="mt-5">
-                    <a
+                    <div
                         class="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500 focus:outline-none focus:ring"
                     >
                         <span
@@ -20,9 +23,9 @@ const NotFound = () => {
                         <span class="relative block px-8 py-3 bg-[#1A2238] border border-current">
                             <Link href="/">Go Home</Link>
                         </span>
-                    </a>
+                    </div>
                 </button>
-            </main>
+            </section>
         </div>
     );
 };
