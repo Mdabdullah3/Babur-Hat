@@ -6,6 +6,7 @@ import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import useCartStore from "../../store/cartStore";
 import Link from "next/link";
+import withAuth from "../../utils/withAuth";
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart } = useCartStore();
@@ -287,4 +288,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default withAuth(Cart);
