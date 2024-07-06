@@ -20,7 +20,7 @@ const ForgotPasswordForm = () => {
         email,
       });
       toast.success("Success! Check your email for further instructions.");
-      router.push(`/reset-password?token=${response.data.resetToken}`);
+      router.push(`/auth/reset-password?token=${response.data.resetToken}`);
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {

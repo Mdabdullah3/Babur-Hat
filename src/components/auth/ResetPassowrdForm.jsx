@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -26,7 +26,7 @@ const ResetPasswordForm = () => {
       toast.success(
         "Password reset successfully. You can now log in with your new password."
       );
-      router.push("/login");
+      router.push("/auth/login");
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
