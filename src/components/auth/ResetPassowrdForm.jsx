@@ -2,9 +2,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useRouter } from "next/router";
 import InputField from "../common/InputField";
 import { API_URL } from "../../config";
+import { useRouter } from "next/navigation";
 
 const ResetPasswordForm = () => {
   const [password, setPassword] = useState("");
