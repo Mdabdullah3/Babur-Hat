@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import useAuthStore from "../../store/authStore";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -69,7 +70,9 @@ const LoginForm = () => {
           />
         </div>
         <div className="mt-2 flex justify-end">
-          <h1 className="text-sm underline">Forgot Password?</h1>
+          <Link href="/auth/forget-password" className="text-sm underline">
+            Forgot Password?
+          </Link>
         </div>
         <div className="mt-5">
           <PrimaryButton type="submit" value="Login" disabled={isLoading} />
