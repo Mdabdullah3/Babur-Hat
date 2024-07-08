@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
@@ -8,6 +9,7 @@ import useAuthStore from "../../store/authStore";
 import useCartStore from "../../store/cartStore";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { useRouter } from "next/navigation";
+import { SERVER } from "../../config";
 
 const Navbar = () => {
   const { user, logout } = useAuthStore((state) => ({
@@ -24,7 +26,7 @@ const Navbar = () => {
   };
 
   const displayUser = user?.data;
-
+  console.log(displayUser);
   return (
     <nav className="relative">
       <div className="bg-black text-white py-4">
@@ -33,7 +35,7 @@ const Navbar = () => {
             <label htmlFor="my-drawer" className="md:hidden cursor-pointer">
               <MdMenu size={28} />
             </label>
-            <Link href="/" >
+            <Link href="/">
               <div className="text-3xl font-bold cursor-pointer">
                 <h1 className="lg:text-3xl text-xl font-bold cursor-pointer">
                   Babur Hut
@@ -55,9 +57,17 @@ const Navbar = () => {
           </div>
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-4">
-              <h1 className="lg:text-3xl text-xl">
-                <FaRegUser />
-              </h1>
+              {displayUser ? (
+                <img
+                  src={`${SERVER}${displayUser?.avatar.secure_url}`}
+                  alt="User Avatar"
+                  className="w-12 h-12 rounded-full"
+                />
+              ) : (
+                <h1 className="lg:text-3xl text-xl">
+                  <FaRegUser />
+                </h1>
+              )}
               {displayUser ? (
                 <div className="tracking-wider hidden lg:block">
                   <h1 className="text-[13px]">Welcome</h1>
@@ -75,11 +85,11 @@ const Navbar = () => {
                       tabIndex={0}
                       className="dropdown-content z-50 menu shadow bg-black cursor-pointer text-white rounded-box w-52 flex flex-col gap-3 text-md tracking-wider py-4 px-6"
                     >
-                      <Link href="/myProfile" >
+                      <Link href="/profile">
                         <h1 className="block">My Profile</h1>
                       </Link>
                       <hr />
-                      <Link href="/wishlist" >
+                      <Link href="/wishlist">
                         <h1 className="block">Wishlist</h1>
                       </Link>
                       <hr />
@@ -104,10 +114,10 @@ const Navbar = () => {
                       tabIndex={0}
                       className="dropdown-content z-50 menu absolute top-0 shadow bg-black cursor-pointer text-white rounded-box w-auto py-4 px-6"
                     >
-                      <Link href="/auth/login" >
+                      <Link href="/auth/login">
                         <h1 className="block">Login</h1>
                       </Link>
-                      <Link href="/auth/register" >
+                      <Link href="/auth/register">
                         <h1 className="mt-4 block">Register</h1>
                       </Link>
                     </ul>
@@ -115,7 +125,7 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-            <Link href="/cart" >
+            <Link href="/cart">
               <div className="flex items-center gap-4 cursor-pointer">
                 <h1 className="lg:text-3xl text-2xl">
                   <PiShoppingCartSimpleBold />
