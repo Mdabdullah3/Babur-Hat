@@ -10,6 +10,7 @@ const ProfileMenu = () => {
     "My Orders",
     "My Reviews",
     "Recent Product",
+    "Update Password",
     "Logout",
   ];
   return (

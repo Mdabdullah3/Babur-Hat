@@ -2,7 +2,10 @@
 import create from 'zustand';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { API_URL } from '../config';
+import { API_URL, SERVER } from '../config';
+
+// Set axios defaults globally
+axios.defaults.withCredentials = true;
 
 const useAuthStore = create((set) => {
     // Initialize user from localStorage when store is created
@@ -15,12 +18,13 @@ const useAuthStore = create((set) => {
         login: async (email, password, router) => {
             set({ isLoading: true });
             try {
-                const response = await axios.post(`${API_URL}/auth/login`, { email, password });
+                const response = await axios.post(`${API_URL}/auth/login`, { email, password }, { withCredentials: true });
+                console.log(response);
                 if (response.status === 200) {
                     const userData = response.data;
                     localStorage.setItem('user', JSON.stringify(userData));
                     set({ user: userData, isLoading: false });
-                    router.push('/');
+                    // router.push('/');
                     toast.success('Login successful');
                 } else {
                     toast.error('Login failed. Please try again.');
@@ -31,11 +35,13 @@ const useAuthStore = create((set) => {
                 set({ isLoading: false });
             }
         },
+
         logout: () => {
             localStorage.removeItem('user');
             set({ user: null });
             toast.success('Logout successful');
         },
+
         register: async (formData) => {
             set({ isLoading: true });
             try {
@@ -51,8 +57,9 @@ const useAuthStore = create((set) => {
                 set({ isLoading: false });
             }
         },
+
         googleLogin: () => {
-            window.location.href = `http://103.148.15.24:5000/auth/google`;
+            window.location.href = `${SERVER}/auth/google`;
         }
     };
 });

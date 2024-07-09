@@ -14,7 +14,7 @@ const Register = () => {
         <div className="flex item-center justify-center">
           <img
             src="https://images.pexels.com/photos/135620/pexels-photo-135620.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            className="w-8/12 rounded-tl-2xl rounded-bl-2xl hidden lg:block"
+            className="w-6/12 rounded-tl-2xl rounded-bl-2xl hidden lg:block"
             alt=""
           />
 
