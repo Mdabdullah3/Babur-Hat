@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Profile from "./Profile";
 import MyOrder from "./MyOrder";
 import RecentProducts from "./RecentProducts";
+import UpdatePassword from "./UpdatePassword";
 const ProfileMenu = () => {
   const [activeMenu, setActiveMenu] = useState("My Profile");
   const menu = [
@@ -42,6 +43,11 @@ const ProfileMenu = () => {
         {activeMenu === "Recent Product" && (
           <div className="col-span-4">
             <RecentProducts />
+          </div>
+        )}
+        {activeMenu === "Update Password" && (
+          <div className="col-span-4">
+            <UpdatePassword />
           </div>
         )}
       </div>
