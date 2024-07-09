@@ -10,7 +10,7 @@ const useUserStore = create((set) => ({
     fetchUser: async () => {
         set({ loading: true, error: null });
         try {
-            const response = await axios.get(`${API_URL}/api/users/me`);
+            const response = await axios.get(`${API_URL}/users/me`);
             set({ user: response.data.data, loading: false });
         } catch (error) {
             set({ error: error.message, loading: false });
@@ -20,7 +20,7 @@ const useUserStore = create((set) => ({
     updateUser: async (userData) => {
         set({ loading: true, error: null });
         try {
-            const response = await axios.patch(`${API_URL}/api/users/me`, userData);
+            const response = await axios.patch(`${API_URL}/users/me`, userData);
             set({ user: response.data.data, loading: false });
         } catch (error) {
             set({ error: error.message, loading: false });
