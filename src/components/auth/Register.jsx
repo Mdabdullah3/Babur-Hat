@@ -18,14 +18,6 @@ const Register = () => {
     password: "",
     confirmPassword: "",
     avatar: "",
-    location: {
-      address1: "sfdsdfsdfsfdsfdssfdsfs", // Default to an empty string
-      address2: "sfdsdfsdfsfsfsdfsdfsdfs",
-      city: "Dhaka", // Default city
-      state: "Dhaka", // Default state
-      postcode: 1212, // Default postcode
-      country: "Bangladesh", // Default country
-    },
   });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
