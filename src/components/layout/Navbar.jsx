@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdMenu } from "react-icons/md";
@@ -16,6 +16,7 @@ const Navbar = () => {
     user: state.user,
     logout: state.logout,
   }));
+  console.log(user);
 
   const { cart } = useCartStore();
   const router = useRouter();
@@ -26,7 +27,13 @@ const Navbar = () => {
   };
 
   const displayUser = user?.data;
-  console.log(displayUser);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
   return (
     <nav className="relative">
       <div className="bg-black text-white py-4">
