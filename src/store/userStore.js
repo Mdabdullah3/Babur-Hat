@@ -20,7 +20,9 @@ const useUserStore = create((set) => ({
     updateUser: async (userData) => {
         set({ loading: true, error: null });
         try {
-            const response = await axios.patch(`${API_URL}/users/me`, userData);
+            const response = await axios.patch(`${API_URL}/users/me`, userData, {
+                withCredentials: true,
+            });
             set({ user: response.data.data, loading: false });
         } catch (error) {
             set({ error: error.message, loading: false });

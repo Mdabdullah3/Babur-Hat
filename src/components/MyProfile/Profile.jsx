@@ -4,6 +4,7 @@ import PrimaryButton from "../common/PrimaryButton";
 import useUserStore from "../../store/userStore";
 import InputField from "../common/InputField";
 import InputFileUpload from "../common/InputFileUpload";
+import { SERVER } from "../../config";
 const Profile = () => {
   const { user, loading, error, fetchUser, updateUser } = useUserStore();
   const [formData, setFormData] = useState({
@@ -71,69 +72,78 @@ const Profile = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputField
-        label="Name"
-        id="name"
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        required
-      />
-      <InputField
-        label="Email"
-        id="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-      />
-      <InputField
-        label="Address 1"
-        id="address1"
-        name="address1"
-        value={formData.location.address1}
-        onChange={handleLocationChange}
-      />
-      <InputField
-        label="Address 2"
-        id="address2"
-        name="address2"
-        value={formData.location.address2}
-        onChange={handleLocationChange}
-      />
-      <InputField
-        label="City"
-        id="city"
-        name="city"
-        value={formData.location.city}
-        onChange={handleLocationChange}
-      />
-      <InputField
-        label="State"
-        id="state"
-        name="state"
-        value={formData.location.state}
-        onChange={handleLocationChange}
-      />
-      <InputField
-        label="Postcode"
-        id="postcode"
-        name="postcode"
-        value={formData.location.postcode}
-        onChange={handleLocationChange}
-      />
-      <InputField
-        label="Country"
-        id="country"
-        name="country"
-        value={formData.location.country}
-        onChange={handleLocationChange}
-      />
       <InputFileUpload
-        setSelectedFile={handleFileChange}
         label="Profile Picture"
-        image={formData.avatar ? formData.avatar.secure_url : null}
+        setSelectedFile={handleFileChange}
+        image={
+          formData.avatar ? `${SERVER}/${formData.avatar.secure_url}` : null
+        }
       />
+      <div className="grid grid-cols-2 gap-4 my-6">
+        <div>
+          <InputField
+            label="Name"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+          <InputField
+            label="Email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <InputField
+            label="Address 1"
+            id="address1"
+            name="address1"
+            value={formData.location.address1}
+            onChange={handleLocationChange}
+          />
+          <InputField
+            label="Address 2"
+            id="address2"
+            name="address2"
+            value={formData.location.address2}
+            onChange={handleLocationChange}
+          />
+        </div>
+        <div>
+          <InputField
+            label="City"
+            id="city"
+            name="city"
+            value={formData.location.city}
+            onChange={handleLocationChange}
+          />
+          <InputField
+            label="State"
+            id="state"
+            name="state"
+            value={formData.location.state}
+            onChange={handleLocationChange}
+          />
+          <InputField
+            label="Postcode"
+            id="postcode"
+            name="postcode"
+            value={formData.location.postcode}
+            onChange={handleLocationChange}
+          />
+          <InputField
+            label="Country"
+            id="country"
+            name="country"
+            value={formData.location.country}
+            onChange={handleLocationChange}
+          />
+        </div>
+      </div>
+
       <PrimaryButton type="submit" value="Update Profile" />
     </form>
   );
