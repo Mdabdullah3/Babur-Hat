@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import InputField from "../common/InputField";
@@ -72,4 +73,12 @@ const ResetPasswordForm = () => {
   );
 };
 
-export default ResetPasswordForm;
+const ResetPasswordPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResetPasswordForm />
+    </Suspense>
+  );
+};
+
+export default ResetPasswordPage;
