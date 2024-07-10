@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "../../components/common/ProductCard";
 const Products = () => {
   const [Products, setProducts] = useState([]);
+ ;
   useEffect(() => {
     const url = "https://api.rebzigo.com/products";
     fetch(url)

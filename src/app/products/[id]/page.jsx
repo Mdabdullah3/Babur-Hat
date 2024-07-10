@@ -11,10 +11,9 @@ import { GoHeart } from "react-icons/go";
 import useWishlistStore from "../../../store/wishlistStore";
 import useRecentlyViewedStore from "../../../store/RecentViewProduct";
 import { toast } from "react-toastify";
-import ProductCard from "../../../components/common/ProductCard";
+import useProductStore from "../../../store/ProductStore";
 
 const ProductDetails = ({ params }) => {
-  const [singleProduct, setSingleProduct] = useState({});
   const [openDetails, setOpenDetails] = useState(
     productInformation[0]?.Description
   );
@@ -25,23 +24,18 @@ const ProductDetails = ({ params }) => {
   const handleDetailClick = (details) => {
     setOpenDetails(details);
   };
-
+  const { product, loading, fetchProductByIdOrSlug } = useProductStore();
   useEffect(() => {
-    const fetchProduct = async () => {
-      const url = `https://api.rebzigo.com/products/${params?.id}`;
-      const res = await fetch(url);
-      const data = await res?.json();
-      setSingleProduct(data);
-      addRecentlyViewed(data);
-    };
-    fetchProduct();
-    initializeRecentlyViewed();
-  }, [params.id, addRecentlyViewed, initializeRecentlyViewed]);
+    fetchProductByIdOrSlug(params?.id);
+    setSingleProduct(product)
+  }, [params?.id]);
+  console.log(product);
+
 
   const { addToWishlist, wishlist, removeFromWishlist } = useWishlistStore();
 
   const handleAddToWishlist = () => {
-    const productAdded = addToWishlist(singleProduct);
+    const productAdded = addToWishlist(product);
     if (!productAdded) {
       toast.error("Product already in wishlist");
     } else {
@@ -62,16 +56,15 @@ const ProductDetails = ({ params }) => {
           <div className="w-11/12 mt-2 lg:mt-20 mx-auto">
             <div className="lg:grid grid-cols-8 gap-6 ">
               <ProductImages
-                images={singleProduct.img}
-                topImage={singleProduct.topimg}
+               product={product}
               />
               <ProductInfo
-                product={singleProduct}
+                product={product}
                 handleAddToWishlist={handleAddToWishlist}
                 handleRemoveFromWishlist={handleRemoveFromWishlist}
                 wishlist={wishlist}
               />
-              <ProductShipInfo product={singleProduct} />
+              <ProductShipInfo product={product} />
             </div>
             <hr className="mt-4 mb-2" />
           </div>
@@ -92,9 +85,9 @@ const ProductDetails = ({ params }) => {
           Buy Now
         </button>
         <button className="w-32 py-3 border border-black rounded-full flex font-bold text-lg justify-center">
-          {wishlist?.find((item) => item._id === singleProduct._id) ? (
+          {wishlist?.find((item) => item._id === product._id) ? (
             <h1
-              onClick={() => handleRemoveFromWishlist(singleProduct._id)}
+              onClick={() => handleRemoveFromWishlist(product._id)}
               className="text-primary cursor-pointer"
             >
               <FaHeart size={22} />

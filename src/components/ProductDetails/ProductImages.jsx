@@ -1,20 +1,33 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
-
-const ProductImages = ({ images, topImage }) => {
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+const ProductImages = ({ product }) => {
   return (
     <div className="flex gap-4  overflow-hidden col-span-3">
-      <div className="w-28 lg:flex flex-col gap-4 mx-auto hidden ">
-        {images?.slice(0, 4)?.map((img, index) => (
-          <img key={index} src={img} alt="" className="h-28" />
+      <Swiper
+        centeredSlides={true}
+        autoplay={{
+          delay: 10000,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="mySwiper"
+      >
+        {product?.images.map((img, index) => (
+          <SwiperSlide key={index}>
+            <div className="-z-10">
+              <img src={`${SERVER}${img.secure_url}`} alt="Product Image" />
+            </div>
+          </SwiperSlide>
         ))}
-      </div>
-      <div className="relative">
-        <img src={topImage} alt="" />
-        <h1 className="absolute top-4 left-4 text-xl font-bold text-primary">
-          -30%
-        </h1>
-      </div>
+      </Swiper>
     </div>
   );
 };
