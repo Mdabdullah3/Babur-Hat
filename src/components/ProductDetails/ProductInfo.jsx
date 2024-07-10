@@ -23,9 +23,9 @@ const ProductInfo = ({
       </h2>
       <div className="flex items-center justify-between w-full mt-2 lg:mt-5">
         <h1 className="lg:text-2xl text-lg font-bold capitalize tracking-wider">
-          {product?.productName}
+          {product?.name}
         </h1>
-        <div className="hidden lg:block">
+        {/* <div className="hidden lg:block">
           {wishlist?.find((item) => item._id === product._id) ? (
             <h1
               onClick={() => handleRemoveFromWishlist(product._id)}
@@ -43,7 +43,7 @@ const ProductInfo = ({
               <GoHeart size={22} />
             </h1>
           )}
-        </div>
+        </div> */}
       </div>
       <h2 className="text-md text-orange-500 flex items-center mt-2">
         <FaStar /> <FaStar /> <FaStar /> <FaStar />
@@ -53,7 +53,7 @@ const ProductInfo = ({
       <div className="flex items-center justify-between">
         <p className="leading-6 lg:mt-4 mt-2 text-lg font-[600] tracking-wider text-primary ">
           BDT{" "}
-          <span className="lg:text-2xl text-xl">{product?.sellPrice}.00</span>
+          <span className="lg:text-2xl text-xl">{product?.price}.00</span>
           <span className="text-red-300 line-through ml-4 text-md font-normal">
             $45.00
           </span>

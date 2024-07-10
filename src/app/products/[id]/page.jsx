@@ -27,10 +27,8 @@ const ProductDetails = ({ params }) => {
   const { product, loading, fetchProductByIdOrSlug } = useProductStore();
   useEffect(() => {
     fetchProductByIdOrSlug(params?.id);
-    setSingleProduct(product)
-  }, [params?.id]);
+  }, [params?.id, product]);
   console.log(product);
-
 
   const { addToWishlist, wishlist, removeFromWishlist } = useWishlistStore();
 
@@ -55,9 +53,7 @@ const ProductDetails = ({ params }) => {
         <div className="">
           <div className="w-11/12 mt-2 lg:mt-20 mx-auto">
             <div className="lg:grid grid-cols-8 gap-6 ">
-              <ProductImages
-               product={product}
-              />
+              <ProductImages product={product} />
               <ProductInfo
                 product={product}
                 handleAddToWishlist={handleAddToWishlist}
@@ -85,9 +81,9 @@ const ProductDetails = ({ params }) => {
           Buy Now
         </button>
         <button className="w-32 py-3 border border-black rounded-full flex font-bold text-lg justify-center">
-          {wishlist?.find((item) => item._id === product._id) ? (
+          {/* {wishlist?.find((item) => item?._id === product?._id) ? (
             <h1
-              onClick={() => handleRemoveFromWishlist(product._id)}
+              onClick={() => handleRemoveFromWishlist(product?._id)}
               className="text-primary cursor-pointer"
             >
               <FaHeart size={22} />
@@ -99,7 +95,7 @@ const ProductDetails = ({ params }) => {
             >
               <GoHeart size={22} />
             </h1>
-          )}
+          )} */}
         </button>
       </div>
     </section>
