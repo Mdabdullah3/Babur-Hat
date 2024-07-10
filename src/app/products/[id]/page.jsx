@@ -28,7 +28,6 @@ const ProductDetails = ({ params }) => {
   useEffect(() => {
     fetchProductByIdOrSlug(params?.id);
   }, [params?.id, product]);
-  console.log(product);
 
   const { addToWishlist, wishlist, removeFromWishlist } = useWishlistStore();
 
@@ -67,6 +66,7 @@ const ProductDetails = ({ params }) => {
         </div>
         <div>
           <ProductInfoTab
+            product={product}
             Details={productInformation}
             openDetails={openDetails}
             handleDetailClick={handleDetailClick}

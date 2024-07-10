@@ -16,7 +16,6 @@ const Navbar = () => {
     user: state.user,
     logout: state.logout,
   }));
-  console.log(user);
 
   const { cart } = useCartStore();
   const router = useRouter();

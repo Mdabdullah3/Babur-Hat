@@ -1,7 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa6";
-const ProductInfoTab = ({ Details, openDetails, handleDetailClick }) => (
+import ProductReview from "../../components/ProductDetails/ProductReview";
+const ProductInfoTab = ({
+  Details,
+  openDetails,
+  handleDetailClick,
+  product,
+}) => (
   <section>
     <div className="w-11/12 mx-auto mt-10 hidden lg:block">
       <div className="flex  items-center mb-3 text-xl  text-gray-500 gap-16 relative">
@@ -76,53 +82,7 @@ const ProductInfoTab = ({ Details, openDetails, handleDetailClick }) => (
           </div>
         )}
         {JSON.stringify(openDetails) === JSON.stringify(Details[0].reviews) && (
-          <div className="">
-            <div>
-              <div className="flex items-center justify-around mb-6">
-                <div>
-                  <h1 className="text-2xl mb-5 font-[500] tracking-wider">
-                    Rating & Review
-                  </h1>
-                  <p className="flex items-center">
-                    <CiStar size={19} />
-                    <CiStar size={19} />
-                    <CiStar size={19} />
-                    <CiStar size={19} />
-                    <CiStar size={19} />
-                    <span className="text-lg tracking-wider ml-3">
-                      Based on 0 Reviews
-                    </span>
-                  </p>
-                </div>
-                <button className="font-[500] text-sm tracking-wider my-2 uppercase px-8 border-[1px] rounded-md  border-black py-4 hover:bg-primary hover:border-primary hover:text-white transition duration-500">
-                  Write a review
-                </button>
-              </div>
-              <hr />
-            </div>
-
-            {Details[0].reviews.map((review) => (
-              <div key={review.id} className="flex items-center gap-5 mb-8 mt-6">
-                <img
-                  className="w-16 rounded-full"
-                  src="https://secure.gravatar.com/avatar/dd28514c9a8cfba334e05f21703be28e?s=120&d=mm&r=g"
-                  alt=""
-                />
-                <div>
-                  <h2 className="text-sm gap-1 text-orange-400 flex items-center">
-                    <FaStar /> <FaStar /> <FaStar /> <FaStar />
-                  </h2>
-                  <h2 className="tracking-wider font-bold text-[15px] my-1">
-                    Abir Ahmed -
-                    <span className="text-[12px] text-gray-500 ml-2 font-normal">
-                      12 Jan 2024
-                    </span>
-                  </h2>
-                  <h1>{review?.review}</h1>
-                </div>
-              </div>
-            ))}
-          </div>
+          <ProductReview productId={product?._id} />
         )}
         {JSON.stringify(openDetails) ===
           JSON.stringify(Details[0].Questions) && (
