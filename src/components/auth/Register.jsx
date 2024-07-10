@@ -27,7 +27,6 @@ const Register = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
   };
-
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file.size > 2 * 1024 * 1024) {
