@@ -10,13 +10,17 @@ import useCartStore from "../../store/cartStore";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { useRouter } from "next/navigation";
 import { SERVER } from "../../config";
+import useUserStore from "../../store/userStore";
 
 const Navbar = () => {
-  const { user, logout } = useAuthStore((state) => ({
-    user: state.user,
-    logout: state.logout,
-  }));
-
+  // const { user, logout } = useAuthStore((state) => ({
+  //   user: state.user,
+  //   logout: state.logout,
+  // }));
+  const { user, fetchUser, logout } = useUserStore();
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser, user]);
   const { cart } = useCartStore();
   const router = useRouter();
 
@@ -25,7 +29,7 @@ const Navbar = () => {
     router.push("/auth/login");
   };
 
-  const displayUser = user?.data;
+  // const displayUser = user?.data;
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -63,9 +67,9 @@ const Navbar = () => {
           </div>
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-4">
-              {displayUser ? (
+              {user?.avatar ? (
                 <img
-                  src={`${SERVER}${displayUser?.avatar.secure_url}`}
+                  src={`${SERVER}${user?.avatar?.secure_url}`}
                   alt="User Avatar"
                   className="w-12 h-12 rounded-full"
                 />
@@ -74,7 +78,7 @@ const Navbar = () => {
                   <FaRegUser />
                 </h1>
               )}
-              {displayUser ? (
+              {user ? (
                 <div className="tracking-wider hidden lg:block">
                   <h1 className="text-[13px]">Welcome</h1>
                   <div className="dropdown dropdown-hover">
@@ -84,7 +88,7 @@ const Navbar = () => {
                       className="flex items-center text-sm font-bold"
                     >
                       <div className="capitalize tracking-wider flex items-center">
-                        {displayUser.name} <MdKeyboardArrowDown size={20} />
+                        {user?.name} <MdKeyboardArrowDown size={20} />
                       </div>
                     </div>
                     <ul

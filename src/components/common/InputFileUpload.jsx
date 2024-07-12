@@ -54,7 +54,7 @@ const InputFileUpload = ({ setSelectedFile, label, image = null }) => {
               </label>
             </h3>
             <p className="mt-1 text-xs text-gray-500">
-              PNG, JPG, GIF up to 10MB
+              PNG, JPG, JPEG up to 2MB
             </p>
           </div>
         </div>

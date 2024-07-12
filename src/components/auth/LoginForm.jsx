@@ -4,14 +4,14 @@ import InputField from "../common/InputField";
 import PrimaryButton from "../common/PrimaryButton";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
-import useAuthStore from "../../store/authStore";
+import useUserStore from "../../store/userStore";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, isLoading, googleLogin } = useAuthStore();
+  const { login, isLoading, googleLogin } = useUserStore();
   const router = useRouter();
 
   const handleSubmit = async (e) => {

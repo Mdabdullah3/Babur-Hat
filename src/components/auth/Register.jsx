@@ -7,11 +7,11 @@ import { FcGoogle } from "react-icons/fc";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import useAuthStore from "../../store/authStore";
+import useUserStore from "../../store/userStore";
 
 const Register = () => {
   const router = useRouter();
-  const { register, googleLogin, isLoading } = useAuthStore();
+  const { register, googleLogin, isLoading } = useUserStore();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -39,7 +39,6 @@ const Register = () => {
     };
     reader.readAsDataURL(file);
   };
-
   const validateForm = () => {
     const { name, email, password, confirmPassword, avatar } = form;
     const newErrors = {};
@@ -75,7 +74,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    await register(form);
+    await register(form, router);
   };
 
   return (

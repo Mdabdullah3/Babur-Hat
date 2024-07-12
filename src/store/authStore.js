@@ -30,10 +30,7 @@ const useAuthStore = create(
                 }
             },
 
-            logout: () => {
-                set({ user: null });
-                toast.success('Logout successful');
-            },
+            
 
             register: async (formData) => {
                 set({ isLoading: true });
