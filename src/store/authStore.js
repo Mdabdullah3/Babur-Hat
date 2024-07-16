@@ -3,9 +3,7 @@ import { persist } from 'zustand/middleware';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { API_URL, SERVER } from '../config';
-
 axios.defaults.withCredentials = true;
-
 const useAuthStore = create(
     persist(
         (set) => ({

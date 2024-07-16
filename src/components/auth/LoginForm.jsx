@@ -7,7 +7,6 @@ import { FcGoogle } from "react-icons/fc";
 import useUserStore from "../../store/userStore";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
