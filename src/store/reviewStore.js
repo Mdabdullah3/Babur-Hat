@@ -13,7 +13,7 @@ const useReviewStore = create((set) => ({
         set({ loading: true, error: null });
         try {
             const response = await axios.get(`${API_URL}/reviews`);
-            set({ reviews: response.data.data, loading: false });
+            set({ reviews: response?.data, loading: false });
         } catch (error) {
             set({ error: error.message, loading: false });
         }
@@ -23,7 +23,7 @@ const useReviewStore = create((set) => ({
         set({ loading: true, error: null });
         try {
             const response = await axios.get(`${API_URL}/products/${productId}/reviews`);
-            set({ reviews: response.data.data, loading: false });
+            set({ reviews: response?.data, loading: false });
         } catch (error) {
             set({ error: error.message, loading: false });
         }

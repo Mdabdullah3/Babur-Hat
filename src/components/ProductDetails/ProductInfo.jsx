@@ -52,8 +52,7 @@ const ProductInfo = ({
       </h2>
       <div className="flex items-center justify-between">
         <p className="leading-6 lg:mt-4 mt-2 text-lg font-[600] tracking-wider text-primary ">
-          BDT{" "}
-          <span className="lg:text-2xl text-xl">{product?.price}.00</span>
+          BDT <span className="lg:text-2xl text-xl">{product?.price}.00</span>
           <span className="text-red-300 line-through ml-4 text-md font-normal">
             $45.00
           </span>
@@ -63,7 +62,7 @@ const ProductInfo = ({
         <FaEye size={18} /> <span className="font-bold">21</span> people are
         viewing this right now
       </h2>
-      <h1 className="mt-2 font-bold tracking-wider">
+      <h1 className="mt-2 font-bold flex tracking-wider">
         Size: <span className="font-normal">{selectedSize}</span>
       </h1>
       <ProductSizeSelector

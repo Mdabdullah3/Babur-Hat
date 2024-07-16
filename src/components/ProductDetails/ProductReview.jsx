@@ -8,19 +8,17 @@ import InputFileUpload from "../common/InputFileUpload";
 const ProductReview = ({ productId }) => {
   const [newReview, setNewReview] = useState("");
   const { reviews, fetchReviewsByProduct, addReview } = useReviewStore();
-  const [image, setImage] = useState(null);
 
   useEffect(() => {
     fetchReviewsByProduct(productId);
   }, [productId, fetchReviewsByProduct]);
 
+  const formdata = {
+    product: productId,
+    review: newReview,
+  };
   const handleAddReview = async () => {
-    await addReview({
-      userId: "669640e528cf6aa38c493adb",
-      product: productId,
-      image: image,
-      review: newReview,
-    });
+    await addReview(formdata);
     document.getElementById("my_modal_2").close();
     setNewReview("");
   };
@@ -28,7 +26,6 @@ const ProductReview = ({ productId }) => {
   const openModal = () => {
     document.getElementById("my_modal_2").showModal();
   };
-
   return (
     <div>
       <div className="flex items-center justify-around mb-6">
@@ -57,7 +54,7 @@ const ProductReview = ({ productId }) => {
       <hr />
       <div>
         {reviews.length > 0 ? (
-          reviews.map((review, index) => (
+          reviews?.data.map((review, index) => (
             <div key={index} className="flex items-center gap-5 mb-8 mt-6">
               <img
                 className="w-16 rounded-full"
@@ -90,11 +87,6 @@ const ProductReview = ({ productId }) => {
             placeholder="Your review"
             value={newReview}
             onChange={(e) => setNewReview(e.target.value)}
-          />
-          <InputFileUpload
-            setFile={setImage}
-            label={"Upload Image"}
-            name={"image"}
           />
           <div className="modal-action">
             <button className="btn" onClick={handleAddReview}>

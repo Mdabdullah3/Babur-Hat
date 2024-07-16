@@ -11,6 +11,7 @@ import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { useRouter } from "next/navigation";
 import { SERVER } from "../../config";
 import useUserStore from "../../store/userStore";
+import { category } from "../../utils/constants";
 
 const Navbar = () => {
   // const { user, logout } = useAuthStore((state) => ({
@@ -71,12 +72,14 @@ const Navbar = () => {
                 <img
                   src={`${SERVER}${user?.avatar?.secure_url}`}
                   alt="User Avatar"
-                  className="w-12 h-12 rounded-full"
+                  className="md::w-12 w-6 h-6 md:h-12 rounded-full"
                 />
               ) : (
-                <h1 className="lg:text-3xl text-xl">
-                  <FaRegUser />
-                </h1>
+                <Link href="/auth/login">
+                  <h1 className="lg:text-3xl text-xl">
+                    <FaRegUser />
+                  </h1>
+                </Link>
               )}
               {user ? (
                 <div className="tracking-wider hidden lg:block">
@@ -172,25 +175,24 @@ const Navbar = () => {
           </label>
         </div>
       </div>
-      <div className="drawer">
+      <div className="drawer z-50">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content">{/* Page content here */}</div>
-        <div className="drawer-side">
+        <div className="drawer-content"></div>
+        <div className="drawer-side z-50">
           <label htmlFor="my-drawer" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content z-50">
-            {/* Sidebar content here */}
-            <li>
-              <a href="#">Recent Events</a>
-            </li>
-            <li>
-              <a href="#">New Arrival</a>
-            </li>
-            <li>
-              <a href="#">Top Rated</a>
-            </li>
-            <li>
-              <a href="#">Best Deals</a>
-            </li>
+          <ul className="menu p-4  min-h-full bg-base-200 text-base-content z-50">
+            {category?.map((cat, index) => (
+              <Link
+                href="/shop"
+                key={index}
+                className="flex items-center gap-3 mt-4 tracking-wider text-gray-600"
+              >
+                <h1 className="bg-gray-200 px-1 py-1 rounded-full">
+                  {cat?.icon}
+                </h1>
+                <h1>{cat?.name}</h1>
+              </Link>
+            ))}
           </ul>
         </div>
       </div>

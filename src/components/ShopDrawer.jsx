@@ -12,7 +12,7 @@ const Drawer = ({ isOpen, toggleDrawer }) => {
           Open drawer
         </label>
       </div>
-      <div className="drawer-side">
+      <div className="drawer-side z-50">
         <label
           htmlFor="my-drawer2"
           aria-label="close sidebar"

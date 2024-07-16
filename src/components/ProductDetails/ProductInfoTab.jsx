@@ -2,6 +2,7 @@
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa6";
 import ProductReview from "../../components/ProductDetails/ProductReview";
+import ProductComment from "../../components/ProductDetails/ProductComment"
 const ProductInfoTab = ({
   Details,
   openDetails,
@@ -48,25 +49,7 @@ const ProductInfoTab = ({
         )}
         {JSON.stringify(openDetails) ===
           JSON.stringify(Details[0].Questions) && (
-          <div>
-            <div className="flex items-center justify-around my-6">
-              <div>
-                <h1 className="text-2xl font-[500] tracking-wider mb-7">
-                  Question & Answer
-                </h1>
-                <p>0 Questions</p>
-              </div>
-              <div>
-                <button className="font-[500] text-sm tracking-wider my-2 uppercase px-8 border-[1px] rounded-md  border-black py-4 hover:bg-primary hover:border-primary hover:text-white transition duration-500">
-                  Ask a Question
-                </button>
-              </div>
-            </div>
-            <hr />
-            <h1 className="mt-8 text-center text-xl tracking-wider">
-              There are no question found.
-            </h1>
-          </div>
+          <ProductComment />
         )}
       </div>
     </div>

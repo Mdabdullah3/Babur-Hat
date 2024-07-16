@@ -3,7 +3,7 @@ import React from "react";
 const ProductSizeSelector = ({ sizes, selectedSize, onSizeClick }) => {
   return (
     <div>
-      <div className="flex gap-2 text-black mt-1 mb-1 w-8/12">
+      <div className="flex gap-2 text-black mt-1 mb-1">
         <button
           key={sizes}
           onClick={() => onSizeClick(sizes)}
