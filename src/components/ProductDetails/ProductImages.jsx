@@ -30,10 +30,22 @@ const ProductImages = ({ product }) => {
             />
           </div>
         </SwiperSlide>
+        {product?.video?.secure_url && (
+          <SwiperSlide>
+            <div className="-z-10">
+              <video muted playsInline autoPlay>
+                <source
+                  src={`${SERVER}${product?.video?.secure_url}`}
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+          </SwiperSlide>
+        )}
         {product?.images.map((img, index) => (
           <SwiperSlide key={index}>
             <div className="-z-10">
-              <img src={`${SERVER}${img.secure_url}`} alt="Product Image" />
+              <img src={`${SERVER}${img?.secure_url}`} alt="Product Image" />
             </div>
           </SwiperSlide>
         ))}

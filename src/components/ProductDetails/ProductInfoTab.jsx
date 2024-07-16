@@ -19,16 +19,6 @@ const ProductInfoTab = ({
         </button>
         <button
           className={
-            JSON.stringify(openDetails) === JSON.stringify(Details[0].color)
-              ? "text-black"
-              : ""
-          }
-          onClick={() => handleDetailClick(Details[0].color)}
-        >
-          Additional information
-        </button>
-        <button
-          className={
             JSON.stringify(openDetails) === JSON.stringify(Details[0].reviews)
               ? "text-black"
               : ""
@@ -45,41 +35,13 @@ const ProductInfoTab = ({
           }
           onClick={() => handleDetailClick(Details[0].Questions)}
         >
-          Questions
+          Comment
         </button>
       </div>
       <hr />
       <div className="mt-8">
         {openDetails === Details[0].Description && (
-          <div>
-            <p className="tracking-wider">{Details[0].Description}</p>
-          </div>
-        )}
-        {JSON.stringify(openDetails) === JSON.stringify(Details[0].color) && (
-          <div>
-            <div className="tracking-wider flex gap-3">
-              <h1 className="text-gray-600">Color</h1>
-              <div className="flex items-center">
-                {Details[0].color.map((color, index) => (
-                  <div key={index}>
-                    <span className="ml-1 capitalize">{color}</span>
-                    {index < Details[0].color.length - 1 && <span>,</span>}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="tracking-wider flex gap-3 mt-2">
-              <h1 className="text-gray-600">Size</h1>
-              <div className="flex items-center">
-                {Details[0].size.map((size, index) => (
-                  <div key={index}>
-                    <span className="ml-1 capitalize">{size}</span>
-                    {index < Details[0].size.length - 1 && <span>,</span>}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <div dangerouslySetInnerHTML={{ __html: product?.description }} />
         )}
         {JSON.stringify(openDetails) === JSON.stringify(Details[0].reviews) && (
           <ProductReview productId={product?._id} />
