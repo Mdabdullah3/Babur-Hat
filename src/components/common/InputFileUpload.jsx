@@ -1,86 +1,87 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useState } from "react";
-
-const InputFileUpload = ({ setSelectedFile, label, image = null }) => {
-  const [previewUrl, setPreviewUrl] = useState(null);
-
+const InputFileUpload = ({ label, name, acceptType, setFile, file }) => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const accept = acceptType === "video" ? "video/*" : "image/*";
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    if (file && file.type.startsWith("image/")) {
-      setSelectedFile(file);
+    if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewUrl(reader.result);
+        setSelectedFile(reader.result);
+        setFile(reader.result);
       };
       reader.readAsDataURL(file);
-    } else {
-      setSelectedFile(null);
-      setPreviewUrl(null);
     }
   };
 
   const handleRemoveFile = () => {
     setSelectedFile(null);
-    setPreviewUrl(null);
+    setFile(null);
   };
 
   return (
-    <section>
-      <label htmlFor="dropzone" className="text-gray-600">
-        {label}
-      </label>
-      <div className="flex items-start gap-4 mt-2">
-        <div
-          className="w-[400px] relative border-2 border-gray-300 border-dashed rounded-lg p-6"
-          id="dropzone"
-        >
-          <input
-            type="file"
-            className="absolute inset-0 w-full h-full opacity-0 z-50 cursor-pointer"
-            onChange={handleFileChange}
-          />
-          <div className="text-center">
-            <img
-              className="mx-auto h-12 w-12"
-              src="https://www.svgrepo.com/show/357902/image-upload.svg"
-              alt="Upload Icon"
-            />
-            <h3 className="mt-2 text-sm font-medium text-gray-900">
-              <label className="relative cursor-pointer">
-                <span>Drag and drop</span>
-                <span className="text-indigo-600"> or browse</span>
-                <span> to upload</span>
-              </label>
-            </h3>
-            <p className="mt-1 text-xs text-gray-500">
-              PNG, JPG, JPEG up to 2MB
-            </p>
-          </div>
-        </div>
-        <div>
-          {previewUrl ? (
-            <div className="text-center relative">
+    <div>
+      <div>
+        <label className="block font-mono text-secondary">{label}</label>
+        {selectedFile || file ? (
+          <div className="relative">
+            {accept === "image/*" ? (
               <img
-                src={previewUrl}
-                alt="Preview"
-                className="mx-auto max-h-36"
+                src={selectedFile || file}
+                alt="Selected"
+                className="w-32 h-32 rounded-md"
               />
-              <button
-                className="px-2  bg-white text-red-500 text-lg rounded-full absolute top-0 -right-2 border border-red-500"
-                onClick={handleRemoveFile}
+            ) : accept === "video/*" ? (
+              <video
+                src={selectedFile || file}
+                controls
+                className="w-32 h-32 rounded-md"
+              />
+            ) : null}
+            <button
+              className="absolute top-0 right-0 m-2 text-red-600 font-bold rounded-full p-1"
+              onClick={handleRemoveFile}
+            >
+              ×
+            </button>
+          </div>
+        ) : (
+          <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-primary border-dashed rounded-md">
+            <div className="space-y-1 text-center">
+              <svg
+                className="mx-auto h-12 w-12 text-secondary"
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 48 48"
+                aria-hidden="true"
               >
-                x
-              </button>
+                <path
+                  d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <div className="flex">
+                <label className="relative cursor-pointer border-2 border-primary rounded-md px-2 py-2">
+                  <span className="text-secondary text-sm">Upload a file</span>
+                  <input
+                    id="file-upload"
+                    name={name}
+                    type="file"
+                    accept={accept}
+                    onChange={handleFileChange}
+                    className="sr-only"
+                  />
+                </label>
+              </div>
             </div>
-          ) : (
-            <div>
-              <img src={image} alt="" className="mx-auto max-h-36" />
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
-    </section>
+    </div>
   );
 };
 

@@ -3,19 +3,22 @@ import React, { useState, useEffect } from "react";
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import useReviewStore from "../../store/reviewStore";
+import InputFileUpload from "../common/InputFileUpload";
 
 const ProductReview = ({ productId }) => {
   const [newReview, setNewReview] = useState("");
-  const { reviews, fetchReviews, addReview } = useReviewStore();
+  const { reviews, fetchReviewsByProduct, addReview } = useReviewStore();
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
-    fetchReviews(productId);
-  }, [productId, fetchReviews]);
+    fetchReviewsByProduct(productId);
+  }, [productId, fetchReviewsByProduct]);
 
   const handleAddReview = async () => {
     await addReview({
-      user: "668d05a57abb2e4c8bf5c361",
+      userId: "669640e528cf6aa38c493adb",
       product: productId,
+      image: image,
       review: newReview,
     });
     document.getElementById("my_modal_2").close();
@@ -53,27 +56,31 @@ const ProductReview = ({ productId }) => {
       </div>
       <hr />
       <div>
-        {reviews.map((review) => (
-          <div key={review._id} className="flex items-center gap-5 mb-8 mt-6">
-            <img
-              className="w-16 rounded-full"
-              src="https://secure.gravatar.com/avatar/dd28514c9a8cfba334e05f21703be28e?s=120&d=mm&r=g"
-              alt=""
-            />
-            <div>
-              <h2 className="text-sm gap-1 text-orange-400 flex items-center">
-                <FaStar /> <FaStar /> <FaStar /> <FaStar />
-              </h2>
-              <h2 className="tracking-wider font-bold text-[15px] my-1">
-                {review.user} -
-                <span className="text-[12px] text-gray-500 ml-2 font-normal">
-                  {new Date(review.createdAt).toLocaleDateString()}
-                </span>
-              </h2>
-              <h1>{review.review}</h1>
+        {reviews.length > 0 ? (
+          reviews.map((review, index) => (
+            <div key={index} className="flex items-center gap-5 mb-8 mt-6">
+              <img
+                className="w-16 rounded-full"
+                src="https://secure.gravatar.com/avatar/dd28514c9a8cfba334e05f21703be28e?s=120&d=mm&r=g"
+                alt=""
+              />
+              <div>
+                <h2 className="text-sm gap-1 text-orange-400 flex items-center">
+                  <FaStar /> <FaStar /> <FaStar /> <FaStar />
+                </h2>
+                <h2 className="tracking-wider font-bold text-[15px] my-1">
+                  {review?.user} -
+                  <span className="text-[12px] text-gray-500 ml-2 font-normal">
+                    {new Date(review.createdAt).toLocaleDateString()}
+                  </span>
+                </h2>
+                <h1>{review.review}</h1>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <div>No reviews</div>
+        )}
       </div>
       <dialog id="my_modal_2" className="modal">
         <div className="modal-box">
@@ -83,6 +90,11 @@ const ProductReview = ({ productId }) => {
             placeholder="Your review"
             value={newReview}
             onChange={(e) => setNewReview(e.target.value)}
+          />
+          <InputFileUpload
+            setFile={setImage}
+            label={"Upload Image"}
+            name={"image"}
           />
           <div className="modal-action">
             <button className="btn" onClick={handleAddReview}>

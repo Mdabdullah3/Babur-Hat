@@ -7,6 +7,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import useCartStore from "../../store/cartStore";
 import Link from "next/link";
 import withAuth from "../../utils/withAuth";
+import { SERVER } from "../../config";
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart } = useCartStore();
@@ -29,6 +30,7 @@ const Cart = () => {
   const handleClearCart = () => {
     clearCart();
   };
+  console.log(cart);
 
   return (
     <div className="w-11/12 mx-auto lg:mt-10 mt-4 tracking-wider">
@@ -48,8 +50,8 @@ const Cart = () => {
                     <div className="flex items-center">
                       <div className="relative">
                         <img
-                          src={item.topimg}
-                          className="lg:w-24 lg:h-28 h-20 rounded-sm"
+                          src={`${SERVER}${item?.coverPhoto.secure_url}`}
+                          className="lg:w-24 lg:h-28 h-20 rounded-sm ml-2"
                           alt="cart image"
                         />
                         <h1
@@ -62,7 +64,7 @@ const Cart = () => {
                       </div>
                       <div className="flex-col items-center lg:w-52 w-full justify-between">
                         <h1 className="font-bold tracking-wider">
-                          {item?.productName?.slice(0, 20)}...
+                          {item?.name?.slice(0, 20)}...
                         </h1>
                         <div className="flex items-center w-full justify-between lg:hidden mt-1">
                           <div className="">
@@ -71,7 +73,7 @@ const Cart = () => {
                             </h1>
                           </div>
                           <div>
-                            <h1>${item.sellPrice}.00</h1>
+                            <h1>${item.price}.00</h1>
                           </div>
                           <div className="">
                             <div className="relative flex flex-row lg:w-36 w-20 lg:h-12 h-8 bg-transparent rounded-lg">
@@ -114,7 +116,7 @@ const Cart = () => {
                       </h1>
                     </div>
                     <div className="hidden lg:block">
-                      <h1>${item.sellPrice}.00</h1>
+                      <h1>${item.price}.00</h1>
                     </div>
                     <div className="w-28 mt-2 lg:block hidden">
                       <div className="relative flex flex-row w-36 h-12 bg-transparent rounded-lg">
@@ -153,7 +155,7 @@ const Cart = () => {
                     <span className="ml-10 flex font-[500] text-sm items-center">
                       <FaBangladeshiTakaSign />
                       {cart.reduce(
-                        (total, item) => total + item.sellPrice * item.quantity,
+                        (total, item) => total + item.price * item.quantity,
                         0
                       )}
                       .00
@@ -172,8 +174,7 @@ const Cart = () => {
                       <span className="text-lg">
                         $
                         {cart.reduce(
-                          (total, item) =>
-                            total + item.sellPrice * item.quantity,
+                          (total, item) => total + item.price * item.quantity,
                           0
                         ) + 60}
                         .00
@@ -208,7 +209,7 @@ const Cart = () => {
                 <span className="ml-10 flex font-[500] text-lg items-center">
                   <FaBangladeshiTakaSign />
                   {cart.reduce(
-                    (total, item) => total + item.sellPrice * item.quantity,
+                    (total, item) => total + item.price * item.quantity,
                     0
                   )}
                   .00
@@ -227,7 +228,7 @@ const Cart = () => {
                   <span className="text-xl">
                     $
                     {cart.reduce(
-                      (total, item) => total + item.sellPrice * item.quantity,
+                      (total, item) => total + item.price * item.quantity,
                       0
                     ) + 60}
                     .00
