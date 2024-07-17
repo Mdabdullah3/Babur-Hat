@@ -9,6 +9,7 @@ import { SERVER } from "../../config";
 const ProductImages = ({ product }) => {
   return (
     <div className="flex gap-4  overflow-hidden col-span-3">
+      
       <Swiper
         centeredSlides={true}
         autoplay={{

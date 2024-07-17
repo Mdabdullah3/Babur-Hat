@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useEffect, useState } from "react";
 import ProductImages from "../../../components/ProductDetails/ProductImages";
@@ -12,6 +13,7 @@ import useWishlistStore from "../../../store/wishlistStore";
 import useRecentlyViewedStore from "../../../store/RecentViewProduct";
 import { toast } from "react-toastify";
 import useProductStore from "../../../store/ProductStore";
+import Link from "next/link";
 
 const ProductDetails = ({ params }) => {
   const [openDetails, setOpenDetails] = useState(
@@ -48,9 +50,29 @@ const ProductDetails = ({ params }) => {
   return (
     <section className="">
       <Navbar />
+      <div className="mt-10 w-11/12 mx-auto">
+        {product?.user && (
+          <div className="flex items-center gap-2 cursor-pointer">
+            <Link href={`/vendor/${product?.user?._id}`}>
+              {product?.user.avatar ? (
+                <img src={`${SERVER}${user?.avatar?.secure_url}`} alt="" />
+              ) : (
+                <img
+                  src="/avatar.png"
+                  alt=""
+                  className="w-10 h-10 rounded-full"
+                />
+              )}
+              <h1 className="font-semibold capitalize">
+                {product?.user?.name}
+              </h1>
+            </Link>
+          </div>
+        )}
+      </div>
       <div className="">
         <div className="">
-          <div className="w-11/12 mt-2 lg:mt-20 mx-auto">
+          <div className="w-11/12 mt-2 lg:mt-6 mx-auto">
             <div className="lg:grid grid-cols-8 gap-6 ">
               <ProductImages product={product} />
               <ProductInfo
