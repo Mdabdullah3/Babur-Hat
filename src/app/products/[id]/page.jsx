@@ -52,8 +52,11 @@ const ProductDetails = ({ params }) => {
       <Navbar />
       <div className="mt-10 w-11/12 mx-auto">
         {product?.user && (
-          <div className="flex items-center gap-2 cursor-pointer">
-            <Link href={`/vendor/${product?.user?._id}`}>
+          <div>
+            <Link
+              href={`/vendor/${product?.user?._id}`}
+              className="flex items-center gap-2 cursor-pointer"
+            >
               {product?.user.avatar ? (
                 <img src={`${SERVER}${user?.avatar?.secure_url}`} alt="" />
               ) : (

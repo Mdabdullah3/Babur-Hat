@@ -1,9 +1,19 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
+import Navbar from "../../../components/layout/Navbar";
+import useProductStore from "../../../store/ProductStore";
 
 const SingleVendorShop = () => {
-  return <div>
-    <h1>Hello</h1>
-  </div>;
+  const { products, fetchProducts } = useProductStore();
+  console.log(products);
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 };
 
 export default SingleVendorShop;
