@@ -34,18 +34,6 @@ const Footer = () => {
     <div className="bg-primary mt-20">
       <footer className="py-4 bg-primary">
         <div className="w-full sm:justify-around sm:flex sm:items-center">
-          <div className="sm:w-1/3 w-full mb-[10px]">
-            <div className="footer-top-data flex items-center justify-center">
-              <img
-                src="/newsletter.png
-              "
-                alt="news letter"
-              />
-              <h2 className="mb-0 text-white font-bold">
-                Sign Up for NewsLetter
-              </h2>
-            </div>
-          </div>
           <div className="sm:w-1/2 w-4/5 m-auto ">
             <div className="relative">
               <input

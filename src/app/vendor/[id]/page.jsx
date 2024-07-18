@@ -1,19 +1,18 @@
-"use client";
-import React, { useEffect } from "react";
+import Footer from "../../../components/layout/Footer";
 import Navbar from "../../../components/layout/Navbar";
-import useProductStore from "../../../store/ProductStore";
-
-const SingleVendorShop = () => {
-  const { products, fetchProducts } = useProductStore();
-  console.log(products);
-  useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
+import SingleVendor from "../../../components/SingleVendor";
+export const metadata = {
+  title: "Md Abdullah - Babur Hat",
+  description: "Single Vendor section of Babur Hat",
+};
+const page = () => {
   return (
-    <div>
+    <main>
       <Navbar />
-    </div>
+      <SingleVendor />
+      <Footer />
+    </main>
   );
 };
 
-export default SingleVendorShop;
+export default page;
