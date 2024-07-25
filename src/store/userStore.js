@@ -1,7 +1,7 @@
 // store/userStore.js
 import create from 'zustand';
 import axios from 'axios';
-import { API_URL } from '../config';
+import { API_URL, SERVER } from '../config';
 import { toast } from 'react-toastify';
 
 const useUserStore = create((set, get) => ({
