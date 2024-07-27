@@ -28,7 +28,7 @@ const useAuthStore = create(
                 }
             },
 
-            
+
 
             register: async (formData) => {
                 set({ isLoading: true });
