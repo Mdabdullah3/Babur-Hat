@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PrimaryButton from "../common/PrimaryButton";
-const ProductComment = () => {
+import useReviewStore from "../../store/reviewStore";
+import useUserStore from "../../store/userStore";
+const ProductComment = ({ productId, product }) => {
+  const [newComments, setNewComments] = useState("");
+  const { addReview } = useReviewStore();
+  const { user, fetchUser } = useUserStore();
+  useEffect(() => {
+    fetchUser();
+  }, [productId, fetchUser]);
+  const formdata = {
+    product: productId,
+    userId: user?._id,
+    review: newComments,
+  };
+  const handleAddReview = async () => {
+    await addReview(formdata);
+    setNewReview("");
+  };
   return (
     <div>
       <div>
@@ -16,7 +33,9 @@ const ProductComment = () => {
         <div className="flex items-center gap-5">
           <textarea
             className="textarea textarea-bordered w-full mt-4"
-            placeholder="Your review"
+            placeholder="Write Your Comments"
+            value={newComments}
+            onChange={(e) => setNewComments(e.target.value)}
           />
           <PrimaryButton value={"Send"} />
         </div>

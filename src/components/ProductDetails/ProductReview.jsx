@@ -4,17 +4,22 @@ import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import useReviewStore from "../../store/reviewStore";
 import InputFileUpload from "../common/InputFileUpload";
+import useUserStore from "../../store/userStore";
+import { toast } from "react-toastify";
+import { SERVER } from "../../config";
 
-const ProductReview = ({ productId }) => {
+const ProductReview = ({ productId, product }) => {
   const [newReview, setNewReview] = useState("");
   const { reviews, fetchReviewsByProduct, addReview } = useReviewStore();
-
+  const { user, fetchUser } = useUserStore();
   useEffect(() => {
     fetchReviewsByProduct(productId);
-  }, [productId, fetchReviewsByProduct]);
+    fetchUser();
+  }, [productId, fetchUser, fetchReviewsByProduct]);
 
   const formdata = {
     product: productId,
+    userId: user?._id,
     review: newReview,
   };
   const handleAddReview = async () => {
@@ -24,8 +29,13 @@ const ProductReview = ({ productId }) => {
   };
 
   const openModal = () => {
-    document.getElementById("my_modal_2").showModal();
+    if (!user) {
+      toast.error("Please log in first to write a review.");
+    } else {
+      document.getElementById("my_modal_2").showModal();
+    }
   };
+  console.log(user);
   return (
     <div>
       <div className="flex items-center justify-around mb-6">
@@ -53,20 +63,31 @@ const ProductReview = ({ productId }) => {
       </div>
       <hr />
       <div>
-        {reviews.length > 0 ? (
-          reviews?.data.map((review, index) => (
-            <div key={index} className="flex items-center gap-5 mb-8 mt-6">
-              <img
-                className="w-16 rounded-full"
-                src="https://secure.gravatar.com/avatar/dd28514c9a8cfba334e05f21703be28e?s=120&d=mm&r=g"
-                alt=""
-              />
+        {product?.reviews.length > 0 ? (
+          product?.reviews?.map((review) => (
+            <div
+              key={review?._id}
+              className="flex items-center gap-5 mb-8 mt-6"
+            >
+              {review?.user?.avatar ? (
+                <img
+                  src={`${SERVER}${review?.user?.avatar?.secure_url}`}
+                  alt=""
+                  className="w-14 h-14 rounded-full"
+                />
+              ) : (
+                <img
+                  src="/avatar.png"
+                  alt=""
+                  className="w-14 h-14 rounded-full"
+                />
+              )}
               <div>
                 <h2 className="text-sm gap-1 text-orange-400 flex items-center">
                   <FaStar /> <FaStar /> <FaStar /> <FaStar />
                 </h2>
                 <h2 className="tracking-wider font-bold text-[15px] my-1">
-                  {review?.user} -
+                  {review?.user?.name} -
                   <span className="text-[12px] text-gray-500 ml-2 font-normal">
                     {new Date(review.createdAt).toLocaleDateString()}
                   </span>
@@ -76,7 +97,9 @@ const ProductReview = ({ productId }) => {
             </div>
           ))
         ) : (
-          <div>No reviews</div>
+          <div>
+            <h1 className="text-center">No reviews</h1>
+          </div>
         )}
       </div>
       <dialog id="my_modal_2" className="modal">

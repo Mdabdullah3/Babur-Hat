@@ -27,9 +27,6 @@ const useAuthStore = create(
                     set({ isLoading: false });
                 }
             },
-
-
-
             register: async (formData) => {
                 set({ isLoading: true });
                 try {
@@ -45,7 +42,6 @@ const useAuthStore = create(
                     set({ isLoading: false });
                 }
             },
-
             googleLogin: () => {
                 window.location.href = `${SERVER}/auth/google`;
             }

@@ -7,13 +7,12 @@ import ProductShipInfo from "../../../components/ProductDetails/ProductShipInfo"
 import ProductInfoTab from "../../../components/ProductDetails/ProductInfoTab";
 import { productInformation } from "../../../utils/constants";
 import Navbar from "../../../components/layout/Navbar";
-import { FaHeart } from "react-icons/fa";
-import { GoHeart } from "react-icons/go";
 import useWishlistStore from "../../../store/wishlistStore";
 import useRecentlyViewedStore from "../../../store/RecentViewProduct";
 import { toast } from "react-toastify";
 import useProductStore from "../../../store/ProductStore";
 import Link from "next/link";
+import { SERVER } from "../../../config";
 
 const ProductDetails = ({ params }) => {
   const [openDetails, setOpenDetails] = useState(
@@ -57,8 +56,12 @@ const ProductDetails = ({ params }) => {
               href={`/vendor/${product?.user?._id}`}
               className="flex items-center gap-2 cursor-pointer"
             >
-              {product?.user.avatar ? (
-                <img src={`${SERVER}${user?.avatar?.secure_url}`} alt="" />
+              {product?.user?.avatar ? (
+                <img
+                  src={`${SERVER}${product?.user?.avatar?.secure_url}`}
+                  alt=""
+                  className="w-10 h-10 rounded-full"
+                />
               ) : (
                 <img
                   src="/avatar.png"

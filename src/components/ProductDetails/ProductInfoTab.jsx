@@ -45,7 +45,7 @@ const ProductInfoTab = ({
           <div dangerouslySetInnerHTML={{ __html: product?.description }} />
         )}
         {JSON.stringify(openDetails) === JSON.stringify(Details[0].reviews) && (
-          <ProductReview productId={product?._id} />
+          <ProductReview productId={product?._id} product={product} />
         )}
         {JSON.stringify(openDetails) ===
           JSON.stringify(Details[0].Questions) && (
