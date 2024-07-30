@@ -65,7 +65,6 @@ const useReviewStore = create((set) => ({
             const response = await axios.post(`${API_URL}/reviews`, reviewData);
             if (response.data.data) {
                 toast.success('Review added successfully!');
-
             }
             console.log(response);
         } catch (error) {

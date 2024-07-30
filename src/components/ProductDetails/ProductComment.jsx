@@ -12,11 +12,11 @@ const ProductComment = ({ productId, product }) => {
   const formdata = {
     product: productId,
     userId: user?._id,
-    review: newComments,
+    comment: newComments,
   };
   const handleAddReview = async () => {
     await addReview(formdata);
-    setNewReview("");
+    setNewComments("");
   };
   return (
     <div>
@@ -37,7 +37,7 @@ const ProductComment = ({ productId, product }) => {
             value={newComments}
             onChange={(e) => setNewComments(e.target.value)}
           />
-          <PrimaryButton value={"Send"} />
+          <PrimaryButton onClick={handleAddReview} value={"Send"} />
         </div>
         <h1 className="mt-8 text-center text-xl tracking-wider">
           There are no Comment found.
