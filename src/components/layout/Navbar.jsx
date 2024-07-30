@@ -72,7 +72,7 @@ const Navbar = () => {
                 <img
                   src={`${SERVER}${user?.avatar?.secure_url}`}
                   alt="User Avatar"
-                  className="md::w-12 w-6 h-6 md:h-12 rounded-full"
+                  className="md:w-12 w-6 h-6 md:h-12 rounded-full"
                 />
               ) : (
                 <Link href="/auth/login">

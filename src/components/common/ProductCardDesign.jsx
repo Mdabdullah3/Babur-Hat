@@ -33,7 +33,7 @@ const ProductCardDesign = ({ product }) => {
             alt=""
           />
         </div>
-        <h1 className="text-[14px] md:text-md">
+        <h1 className="text-[14px]  mt-1 capitalize">
           {product.name.slice(0, 20)}...
         </h1>
         <h1 className="flex items-center  justify-between lg:text-sm text-[14px] text-yellow-500 my-2">

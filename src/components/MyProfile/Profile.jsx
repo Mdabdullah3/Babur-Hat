@@ -7,11 +7,14 @@ import InputField from "../common/InputField";
 import InputFileUpload from "../common/InputFileUpload";
 import SelectField from "../common/SelectField";
 import { SERVER } from "../../config";
-import { toast } from "react-toastify";
 
 const Profile = () => {
   const { user, loading, error, fetchUser, updateUser } = useUserStore();
   console.log("user", user);
+  const [avatar, setavatar] = useState(null);
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,15 +26,17 @@ const Profile = () => {
       postcode: "",
       country: "",
     },
-    avatar: "",
+    avatar: avatar,
     phone: "",
     gender: "",
   });
 
   useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
-
+    setFormData((prevForm) => ({
+      ...prevForm,
+      avatar: avatar,
+    }));
+  }, [avatar]);
   useEffect(() => {
     if (user) {
       setFormData({
@@ -42,6 +47,7 @@ const Profile = () => {
         phone: user.phone || "",
         gender: user.gender || "",
       });
+      setavatar(`${SERVER}${user?.avatar.secure_url}`);
     }
   }, [user]);
 
@@ -54,21 +60,6 @@ const Profile = () => {
   };
 
   const gender = ["Male", "Female", "Other"];
-  const handleAvatarChange = (e) => {
-    const file = e.target.files[0];
-    if (file.size > 2 * 1024 * 1024) {
-      toast.error("Image size should be less than 2MB.");
-      return;
-    }
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setFormData((prevData) => ({
-        ...prevData,
-        avatar: reader.result,
-      }));
-    };
-    reader.readAsDataURL(file);
-  };
   console.log(formData);
   const handleLocationChange = (e) => {
     const { name, value } = e.target;
@@ -85,17 +76,14 @@ const Profile = () => {
     e.preventDefault();
     updateUser(formData);
   };
-
-  if (error) return <p>Error: {error}</p>;
-
+  console.log(avatar);
   return (
     <form onSubmit={handleSubmit}>
       <InputFileUpload
         label="Profile Picture"
-        setSelectedFile={handleAvatarChange}
-        image={
-          formData.avatar ? `${SERVER}/${formData.avatar.secure_url}` : null
-        }
+        name="ProfileImage"
+        setFile={setavatar}
+        file={avatar}
       />
       <div className="grid grid-cols-2 gap-4 my-6">
         <div>

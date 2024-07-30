@@ -2,7 +2,7 @@
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa6";
 import ProductReview from "../../components/ProductDetails/ProductReview";
-import ProductComment from "../../components/ProductDetails/ProductComment"
+import ProductComment from "../../components/ProductDetails/ProductComment";
 const ProductInfoTab = ({
   Details,
   openDetails,
@@ -26,7 +26,7 @@ const ProductInfoTab = ({
           }
           onClick={() => handleDetailClick(Details[0].reviews)}
         >
-          Reviews (0)
+          Reviews ({product?.reviews?.length})
         </button>
         <button
           className={
@@ -49,7 +49,7 @@ const ProductInfoTab = ({
         )}
         {JSON.stringify(openDetails) ===
           JSON.stringify(Details[0].Questions) && (
-          <ProductComment />
+          <ProductComment productId={product?._id} product={product} />
         )}
       </div>
     </div>

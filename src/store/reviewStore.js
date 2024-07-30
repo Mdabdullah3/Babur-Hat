@@ -59,12 +59,12 @@ const useReviewStore = create((set) => ({
         }
     },
 
-    addReview: async (reviewData) => {
+    addReview: async (reviewData, message) => {
         set({ loading: true, error: null });
         try {
             const response = await axios.post(`${API_URL}/reviews`, reviewData);
             if (response.data.data) {
-                toast.success('Review added successfully!');
+                toast.success(message);
             }
             console.log(response);
         } catch (error) {
@@ -74,12 +74,12 @@ const useReviewStore = create((set) => ({
         }
     },
 
-    updateReview: async (reviewId, reviewData) => {
+    updateReview: async (reviewId, reviewData, message) => {
         set({ loading: true, error: null });
         try {
             const response = await axios.patch(`${API_URL}/reviews/${reviewId}`, reviewData);
             if (response.data.data) {
-                toast.success('Review updated successfully!');
+                toast.success(message);
             }
         } catch (error) {
             set({ error: error.message, loading: false });
@@ -87,11 +87,11 @@ const useReviewStore = create((set) => ({
         }
     },
 
-    deleteReview: async (reviewId) => {
+    deleteReview: async (reviewId, message) => {
         set({ loading: true, error: null });
         try {
             await axios.delete(`${API_URL}/reviews/${reviewId}`);
-            toast.success('Review deleted successfully!');
+            toast.success(message);
         } catch (error) {
             set({ error: error.message, loading: false });
             toast.error(error.message);

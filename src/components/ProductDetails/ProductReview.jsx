@@ -3,15 +3,17 @@ import React, { useState, useEffect } from "react";
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import useReviewStore from "../../store/reviewStore";
-import InputFileUpload from "../common/InputFileUpload";
 import useUserStore from "../../store/userStore";
 import { toast } from "react-toastify";
 import { SERVER } from "../../config";
 
 const ProductReview = ({ productId, product }) => {
   const [newReview, setNewReview] = useState("");
-  const { reviews, fetchReviewsByProduct, addReview } = useReviewStore();
+  const [editReview, setEditReview] = useState(null);
+  const { fetchReviewsByProduct, addReview, updateReview, deleteReview } =
+    useReviewStore();
   const { user, fetchUser } = useUserStore();
+
   useEffect(() => {
     fetchReviewsByProduct(productId);
     fetchUser();
@@ -22,10 +24,20 @@ const ProductReview = ({ productId, product }) => {
     userId: user?._id,
     review: newReview,
   };
+
   const handleAddReview = async () => {
     await addReview(formdata);
     document.getElementById("my_modal_2").close();
     setNewReview("");
+  };
+
+  const handleEditReview = async () => {
+    if (editReview) {
+      await updateReview(editReview._id, { ...editReview, review: newReview });
+      document.getElementById("edit_modal").close();
+      setEditReview(null);
+      setNewReview("");
+    }
   };
 
   const openModal = () => {
@@ -35,7 +47,27 @@ const ProductReview = ({ productId, product }) => {
       document.getElementById("my_modal_2").showModal();
     }
   };
-  console.log(user);
+
+  const openEditModal = (review) => {
+    if (user && user._id === review.user._id) {
+      setEditReview(review);
+      setNewReview(review.review);
+      document.getElementById("edit_modal").showModal();
+    } else {
+      toast.error("You are not authorized to edit this review.");
+    }
+  };
+
+  const handleDeleteReview = async (review) => {
+    if (user && user._id === review.user._id) {
+      await deleteReview(review._id);
+    } else {
+      toast.error("You are not authorized to delete this review.");
+    }
+  };
+
+  const reviews = product.reviews.filter((review) => review.review);
+
   return (
     <div>
       <div className="flex items-center justify-around mb-6">
@@ -63,8 +95,8 @@ const ProductReview = ({ productId, product }) => {
       </div>
       <hr />
       <div>
-        {product?.reviews.length > 0 ? (
-          product?.reviews?.map((review) => (
+        {reviews.length > 0 ? (
+          reviews?.map((review) => (
             <div
               key={review?._id}
               className="flex items-center gap-5 mb-8 mt-6"
@@ -93,6 +125,22 @@ const ProductReview = ({ productId, product }) => {
                   </span>
                 </h2>
                 <h1>{review.review}</h1>
+                {user && user._id === review.user._id && (
+                  <div>
+                    <button
+                      className="text-blue-500"
+                      onClick={() => openEditModal(review)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="text-red-500 ml-4"
+                      onClick={() => handleDeleteReview(review)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           ))
@@ -118,6 +166,28 @@ const ProductReview = ({ productId, product }) => {
             <button
               className="btn"
               onClick={() => document.getElementById("my_modal_2").close()}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </dialog>
+      <dialog id="edit_modal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Edit Review</h3>
+          <textarea
+            className="textarea textarea-bordered w-full mt-4"
+            placeholder="Update your review"
+            value={newReview}
+            onChange={(e) => setNewReview(e.target.value)}
+          />
+          <div className="modal-action">
+            <button className="btn" onClick={handleEditReview}>
+              Update
+            </button>
+            <button
+              className="btn"
+              onClick={() => document.getElementById("edit_modal").close()}
             >
               Close
             </button>

@@ -1,9 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
 import React, { useState } from "react";
+
 const InputFileUpload = ({ label, name, acceptType, setFile, file }) => {
   const [selectedFile, setSelectedFile] = useState(null);
+
   const accept = acceptType === "video" ? "video/*" : "image/*";
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
