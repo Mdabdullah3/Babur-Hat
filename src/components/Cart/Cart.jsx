@@ -51,7 +51,7 @@ const Cart = () => {
                       <div className="relative">
                         <img
                           src={`${SERVER}${item?.coverPhoto.secure_url}`}
-                          className="lg:w-24 lg:h-28 h-20 rounded-sm ml-2"
+                          className="lg:w-20 lg:h-18 h-20 rounded-sm mx-2"
                           alt="cart image"
                         />
                         <h1
@@ -172,7 +172,7 @@ const Cart = () => {
                     <h1 className="font-bold tracking-widest text-sm uppercase mt-1 flex justify-between items-center">
                       Total{" "}
                       <span className="text-lg">
-                        $
+                        <FaBangladeshiTakaSign />
                         {cart.reduce(
                           (total, item) => total + item.price * item.quantity,
                           0
@@ -226,7 +226,7 @@ const Cart = () => {
                 <h1 className="font-bold tracking-widest text-md uppercase mt-4 flex justify-between items-center">
                   Total{" "}
                   <span className="text-xl">
-                    $
+                    <FaBangladeshiTakaSign size={32} />
                     {cart.reduce(
                       (total, item) => total + item.price * item.quantity,
                       0

@@ -79,17 +79,19 @@ const Register = () => {
 
   return (
     <div className="w-full">
-      <button
-        onClick={googleLogin}
-        className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
-      >
-        <div className="px-4 py-3">
-          <FcGoogle size={24} />
-        </div>
-        <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">
-          Sign in with Google
-        </h1>
-      </button>
+      <div className="flex justify-center">
+        <button
+          onClick={googleLogin}
+          className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
+        >
+          <div className="px-4 py-3">
+            <FcGoogle size={24} />
+          </div>
+          <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">
+            Sign in with Google
+          </h1>
+        </button>
+      </div>
       <div className="divider text-gray-500 mt-4 text-sm uppercase">Or</div>
       <form
         className="grid grid-cols-1 gap-4 mt-4 md:grid-cols-2"
@@ -170,11 +172,11 @@ const Register = () => {
             <img
               src={form.avatar}
               alt="Avatar"
-              className="w-32 h-32 rounded-md"
+              className="w-24 h-24 rounded-md"
             />
             <button
               onClick={handleRemoveAvatar}
-              className="absolute top-0 right-0 m-2 text-red-600 font-bold rounded-full p-1"
+              className="absolute -top-7 text-lg left-20 m-2 text-red-600 font-bold rounded-full p-1"
             >
               ×
             </button>
@@ -190,7 +192,7 @@ const Register = () => {
             error={errors.avatar}
           />
         )}
-
+        <div></div>
         <PrimaryButton
           type="submit"
           className="mt-4"

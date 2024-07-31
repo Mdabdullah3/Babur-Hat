@@ -33,7 +33,7 @@ const InputField = ({
       />
       {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
       {toggleShowPassword && (
-        <div className="absolute top-10 right-0 flex items-center pr-3">
+        <div className="absolute top-[45px] right-0 flex items-center pr-3">
           {showPassword ? (
             <AiOutlineEye
               onClick={toggleShowPassword}

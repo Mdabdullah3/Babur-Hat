@@ -5,16 +5,15 @@ import InputField from "../common/InputField";
 import SelectField from "../common/SelectField";
 import PrimaryButton from "../common/PrimaryButton";
 import axios from "axios";
+import Select from "react-select";
 
 const ShippingForm = () => {
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState(false);
-  const [division, setDivision] = useState("");
-  const [district, setDistrict] = useState("");
-  const [upazila, setUpazila] = useState("");
-  const [divisions, setDivisions] = useState([]);
-  const [districts, setDistricts] = useState([]);
-  const [upazilas, setUpazilas] = useState([]);
-  console.log(upazilas?.upazillas);
+  const [selectedDistrict, setSelectedDistrict] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [bdDistricts, setBdDistricts] = useState([]);
+  const [bdCities, setBdCities] = useState([]);
+  const [cityOptions, setCityOptions] = useState([]);
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -32,35 +31,37 @@ const ShippingForm = () => {
   };
 
   useEffect(() => {
-    axios.get("https://bdapis.com/api/v1.2/divisions").then((response) => {
-      setDivisions(response.data.data);
-    });
+    const fetchDistricts = async () => {
+      const response = await fetch("bd-districts.json");
+      const data = await response.json();
+      setBdDistricts(data?.districts || []);
+    };
+
+    const fetchCities = async () => {
+      const response = await fetch("bd-upazilas.json");
+      const data = await response.json();
+      setBdCities(data?.upazilas || []);
+    };
+
+    fetchDistricts();
+    fetchCities();
   }, []);
 
   useEffect(() => {
-    if (division) {
-      axios
-        .get(`https://bdapis.com/api/v1.2/division/${division}`)
-        .then((response) => {
-          setDistricts(response.data.data);
-        });
-    } else {
-      setDistricts([]);
-      setUpazilas([]);
+    if (selectedDistrict) {
+      const filteredCities = bdCities.filter(
+        (city) => city.district_id === selectedDistrict.value
+      );
+      setCityOptions(
+        filteredCities.map((city) => ({ value: city.id, label: city.name }))
+      );
     }
-  }, [division]);
+  }, [selectedDistrict, bdCities]);
 
-  useEffect(() => {
-    if (district) {
-      axios
-        .get(`https://bdapis.com/api/v1.2/district/${district}`)
-        .then((response) => {
-          setUpazilas(response.data.data);
-        });
-    } else {
-      setUpazilas([]);
-    }
-  }, [district]);
+  const handleDistrictChange = (selectedOption) => {
+    setSelectedDistrict(selectedOption);
+    setCityOptions([]);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -94,53 +95,34 @@ const ShippingForm = () => {
             placeholder="Email"
           />
         </div>
-        <div className="flex items-center gap-5 mb-3">
-          <SelectField
-            label="Division"
-            id="division"
-            name="division"
-            required
-            value={division}
-            onChange={(e) => setDivision(e.target.value)}
-            options={divisions.map((div, index) => ({
-              value: div.division,
-              label: div.division,
-              key: index,
-            }))}
-            placeholder="Select a division"
-          />
-          <SelectField
-            label="District"
-            id="district"
-            name="district"
-            required
-            value={district}
-            onChange={(e) => setDistrict(e.target.value)}
-            options={districts.map((dist, index) => ({
-              value: dist.district,
-              label: dist.district,
-              key: index,
-            }))}
-            placeholder="Select a district"
-            disabled={!division}
-          />
-          <SelectField
-            label="Upazila"
-            id="upazila"
-            name="upazila"
-            required
-            value={upazila}
-            onChange={(e) => setUpazila(e.target.value)}
-            options={
-              upazilas?.upazillas?.map((upz, index) => ({
-                value: upz,
-                label: upz,
-                key: index,
-              })) || []
-            }
-            placeholder="Select an upazila"
-            disabled={!district}
-          />
+        <div className="mb-1">
+          <div className="my-2">
+            <label htmlFor="district" className="pb-2 font-medium">
+              District <span className="text-red-500">*</span>
+            </label>
+            <Select
+              id="district"
+              options={bdDistricts.map((district) => ({
+                value: district.id,
+                label: district.name,
+              }))}
+              value={selectedDistrict}
+              onChange={handleDistrictChange}
+              placeholder="Select District"
+            />
+          </div>
+          <div className="my-4">
+            <label htmlFor="city" className="pb-2 font-medium">
+              City <span className="text-red-500">*</span>
+            </label>
+            <Select
+              id="city"
+              options={cityOptions}
+              placeholder="Select City"
+              isDisabled={!selectedDistrict}
+              onChange={(selectedOption) => setSelectedCity(selectedOption)}
+            />
+          </div>
         </div>
         <div className="mb-3">
           <InputField

@@ -56,7 +56,7 @@ const ProductCardDesign = ({ product }) => {
       </Link>
       <div
         onClick={handleAddToCart}
-        className="absolute bottom-[105px] lg:bottom-28 right-5 lg:px-3 px-2 py-2 lg:py-3 rounded-full bg-black text-white tooltip tooltip-left text-xl lg:text-2xl"
+        className="absolute bottom-[105px] lg:bottom-28 right-5 lg:px-3 px-2 py-2 lg:py-3 cursor-pointer rounded-full bg-black text-white tooltip tooltip-left text-xl lg:text-2xl"
         data-tip="Add To Cart"
       >
         <LiaCartPlusSolid />

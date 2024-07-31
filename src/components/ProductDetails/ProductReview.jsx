@@ -6,6 +6,8 @@ import useReviewStore from "../../store/reviewStore";
 import useUserStore from "../../store/userStore";
 import { toast } from "react-toastify";
 import { SERVER } from "../../config";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FiEdit } from "react-icons/fi";
 
 const ProductReview = ({ productId, product }) => {
   const [newReview, setNewReview] = useState("");
@@ -126,18 +128,18 @@ const ProductReview = ({ productId, product }) => {
                 </h2>
                 <h1>{review.review}</h1>
                 {user && user._id === review.user._id && (
-                  <div>
+                  <div className="mt-2">
                     <button
-                      className="text-blue-500"
+                      className="text-blue-500 text-xl "
                       onClick={() => openEditModal(review)}
                     >
-                      Edit
+                      <FiEdit />
                     </button>
                     <button
-                      className="text-red-500 ml-4"
+                      className="text-red-500 ml-4 text-xl"
                       onClick={() => handleDeleteReview(review)}
                     >
-                      Delete
+                      <RiDeleteBin6Line />
                     </button>
                   </div>
                 )}

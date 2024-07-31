@@ -10,6 +10,7 @@ import Link from "next/link";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const { login, isLoading, googleLogin } = useUserStore();
   const router = useRouter();
 
@@ -62,10 +63,12 @@ const LoginForm = () => {
             label="Password"
             placeholder="Enter Password"
             id="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            showPassword={showPassword}
+            toggleShowPassword={() => setShowPassword((prev) => !prev)}
           />
         </div>
         <div className="mt-2 flex justify-end">
