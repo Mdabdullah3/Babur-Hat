@@ -3,25 +3,34 @@
 import React, { useEffect } from "react";
 import useProductStore from "../store/ProductStore";
 import ProductCardDesign from "./common/ProductCardDesign";
+import { SERVER } from "../config";
 
-const SingleVendor = () => {
-  const { products, fetchProducts } = useProductStore();
-  console.log(products);
+const SingleVendor = ({ vendorId }) => {
+  const { product, fetchProductByIdForUser } = useProductStore();
   useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
+    fetchProductByIdForUser(vendorId);
+  }, [fetchProductByIdForUser, vendorId]);
+  console.log(vendorId);
+  const user = product?.length > 0 ? product[0].user : null;
+  console.log(user);
   return (
     <section>
       <img src="/cover.jpg" alt="" />
       <div className="w-11/12 mx-auto mt-6">
         <div className="flex items-center gap-4">
           <img
-            src="/avatar.png"
+            src={
+              user?.avatar?.secure_url
+                ? `${SERVER}${user.avatar.secure_url}`
+                : "/avatar.png"
+            }
             alt="avatar"
             className="w-20 h-20 rounded-full"
           />
           <div className="">
-            <h1 className="text-lg font-medium mb-1">Md Abdullah</h1>
+            <h1 className="text-lg font-medium mb-1 capitalize">
+              {user?.name}
+            </h1>
             <p>85% Positive Seller Ratings</p>
           </div>
         </div>
@@ -30,7 +39,7 @@ const SingleVendor = () => {
           <hr />
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-8 mt-10">
-            {products?.map((product) => (
+            {product?.map((product) => (
               <ProductCardDesign product={product} key={product?._id} />
             ))}
           </div>

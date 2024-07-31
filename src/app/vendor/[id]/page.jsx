@@ -2,14 +2,15 @@ import Footer from "../../../components/layout/Footer";
 import Navbar from "../../../components/layout/Navbar";
 import SingleVendor from "../../../components/SingleVendor";
 export const metadata = {
-  title: "Md Abdullah - Babur Hat",
+  title: "Vendor Profile - Babur Hat",
   description: "Single Vendor section of Babur Hat",
 };
-const page = () => {
+const page = ({ params }) => {
+  const { id } = params;
   return (
     <main>
       <Navbar />
-      <SingleVendor />
+      <SingleVendor vendorId={id} />
       <Footer />
     </main>
   );

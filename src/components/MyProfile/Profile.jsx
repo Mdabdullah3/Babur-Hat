@@ -82,7 +82,7 @@ const Profile = () => {
       <InputFileUpload
         label="Profile Picture"
         name="avatar"
-        setFile={handleAvatarChange} // Pass the handler to update avatar
+        setFile={handleAvatarChange} 
         file={avatar}
       />
       <div className="grid grid-cols-2 gap-4 my-6">

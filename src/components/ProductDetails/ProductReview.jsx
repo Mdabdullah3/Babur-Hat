@@ -8,9 +8,11 @@ import { toast } from "react-toastify";
 import { SERVER } from "../../config";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
+import InputFileUpload from "../common/InputFileUpload";
 
 const ProductReview = ({ productId, product }) => {
   const [newReview, setNewReview] = useState("");
+  const [image, setImages] = useState(null);
   const [editReview, setEditReview] = useState(null);
   const { fetchReviewsByProduct, addReview, updateReview, deleteReview } =
     useReviewStore();
@@ -25,6 +27,7 @@ const ProductReview = ({ productId, product }) => {
     product: productId,
     userId: user?._id,
     review: newReview,
+    // image: image
   };
 
   const handleAddReview = async () => {
@@ -161,6 +164,12 @@ const ProductReview = ({ productId, product }) => {
             value={newReview}
             onChange={(e) => setNewReview(e.target.value)}
           />
+          {/* <InputFileUpload
+            label="Profile Picture"
+            name="avatar"
+            setFile={setImages}
+            file={image}
+          /> */}
           <div className="modal-action">
             <button className="btn" onClick={handleAddReview}>
               Submit

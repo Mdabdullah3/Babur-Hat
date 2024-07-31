@@ -45,6 +45,15 @@ const useProductStore = create((set) => ({
             set({ error: error.response?.data?.message || error.message, loading: false });
         }
     },
+    fetchProductByIdForUser: async (userId) => {
+        set({ loading: true });
+        try {
+            const response = await axios.get(`${API_URL}/users/${userId}/products`);
+            set({ product: response.data.data, loading: false });
+        } catch (error) {
+            set({ error: error.response?.data?.message || error.message, loading: false });
+        }
+    },
 }));
 
 export default useProductStore;
