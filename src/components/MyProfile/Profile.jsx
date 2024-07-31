@@ -6,23 +6,23 @@ import InputField from "../common/InputField";
 import SelectField from "../common/SelectField";
 import PrimaryButton from "../common/PrimaryButton";
 import { SERVER } from "../../config";
+import { toDataURL } from "../../utils/DataUrl";
+
 const Profile = () => {
   const { user, fetchUser, updateUser } = useUserStore();
-  const [avatar, setAvatar] = useState(
-    user?.avatar?.secure_url ? `${SERVER}${user?.avatar.secure_url}` : null
-  );
+  const [avatar, setAvatar] = useState(null);
   const [formData, setFormData] = useState({
     name: user?.name || "",
     email: user?.email || "",
     location: {
       address1: user?.location.address1 || "",
       address2: user?.location.address2 || "",
-      city: user?.location?.city || "",
-      state: user?.location?.state || "",
+      city: user?.location.city || "",
+      state: user?.location.state || "",
       postcode: user?.location.postcode || "",
       country: user?.location.country || "",
     },
-    avatar: avatar,
+    avatar: null,
     phone: user?.phone || "",
     gender: user?.gender || "",
   });
@@ -30,6 +30,19 @@ const Profile = () => {
   useEffect(() => {
     fetchUser();
   }, [fetchUser]);
+
+  useEffect(() => {
+    if (user?.avatar?.secure_url) {
+      const avatarUrl = `${SERVER}${user.avatar.secure_url}`;
+      toDataURL(avatarUrl).then((base64) => {
+        setAvatar(base64);
+        setFormData((prevData) => ({
+          ...prevData,
+          avatar: base64,
+        }));
+      });
+    }
+  }, [user?.avatar?.secure_url]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,18 +63,26 @@ const Profile = () => {
     }));
   };
 
+  const handleAvatarChange = (newAvatar) => {
+    setAvatar(newAvatar);
+    setFormData((prevData) => ({
+      ...prevData,
+      avatar: newAvatar,
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     updateUser(formData);
+    console.log(formData);
   };
 
-  console.log(user);
   return (
     <form onSubmit={handleSubmit}>
       <InputFileUpload
         label="Profile Picture"
         name="avatar"
-        setFile={setAvatar}
+        setFile={handleAvatarChange} // Pass the handler to update avatar
         file={avatar}
       />
       <div className="grid grid-cols-2 gap-4 my-6">

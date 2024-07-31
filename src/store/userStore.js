@@ -25,6 +25,8 @@ const useUserStore = create((set, get) => ({
             const response = await axios.patch(`${API_URL}/users/me`, userData, {
                 withCredentials: true,
             });
+            toast.success("Profile Update Successfully")
+            console.log(response);
             set({ user: response.data.data, loading: false });
         } catch (error) {
             set({ error: error.message, loading: false });
