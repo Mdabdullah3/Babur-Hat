@@ -6,6 +6,10 @@ import InputField from "../common/InputField";
 import PrimaryButton from "../common/PrimaryButton";
 
 const UpdatePassword = () => {
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [formData, setFormData] = useState({
     currentPassword: "",
     password: "",
@@ -39,7 +43,8 @@ const UpdatePassword = () => {
           withCredentials: true,
         }
       );
-      toast.success("Password updated successfully!");
+      console.log(response);
+      toast.success(response.data.message);
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -51,28 +56,34 @@ const UpdatePassword = () => {
         label="Current Password"
         id="currentPassword"
         name="currentPassword"
-        type="password"
+        type={showCurrentPassword ? "text" : "password"}
         value={formData.currentPassword}
         onChange={handleChange}
         required
+        showPassword={showCurrentPassword}
+        toggleShowPassword={() => setShowCurrentPassword((prev) => !prev)}
       />
       <InputField
         label="New Password"
         id="password"
         name="password"
-        type="password"
+        type={showNewPassword ? "text" : "password"}
         value={formData.password}
         onChange={handleChange}
         required
+        showPassword={showNewPassword}
+        toggleShowPassword={() => setShowNewPassword((prev) => !prev)}
       />
       <InputField
         label="Confirm New Password"
         id="confirmPassword"
         name="confirmPassword"
-        type="password"
+        type={showConfirmPassword ? "text" : "password"}
         value={formData.confirmPassword}
         onChange={handleChange}
         required
+        showPassword={showConfirmPassword}
+        toggleShowPassword={() => setShowConfirmPassword((prev) => !prev)}
       />
       <div className="mt-5">
         <PrimaryButton type="submit" value="Update Password" />
