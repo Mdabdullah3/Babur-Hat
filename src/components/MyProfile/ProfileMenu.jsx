@@ -5,10 +5,10 @@ import MyOrder from "./MyOrder";
 import RecentProducts from "./RecentProducts";
 import UpdatePassword from "./UpdatePassword";
 const ProfileMenu = () => {
-  const [activeMenu, setActiveMenu] = useState("My Profile");
+  const [activeMenu, setActiveMenu] = useState("My Orders");
   const menu = [
-    "My Profile",
     "My Orders",
+    "My Profile",
     "My Reviews",
     "Recent Product",
     "Update Password",

@@ -1,55 +1,35 @@
-// components/Profile.js
 "use client";
-import React, { useEffect, useState } from "react";
-import PrimaryButton from "../common/PrimaryButton";
+import { useEffect, useState } from "react";
 import useUserStore from "../../store/userStore";
-import InputField from "../common/InputField";
 import InputFileUpload from "../common/InputFileUpload";
+import InputField from "../common/InputField";
 import SelectField from "../common/SelectField";
+import PrimaryButton from "../common/PrimaryButton";
 import { SERVER } from "../../config";
-
 const Profile = () => {
-  const { user, loading, error, fetchUser, updateUser } = useUserStore();
-  console.log("user", user);
-  const [avatar, setavatar] = useState(null);
-  useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
+  const { user, fetchUser, updateUser } = useUserStore();
+  const [avatar, setAvatar] = useState(
+    user?.avatar?.secure_url ? `${SERVER}${user?.avatar.secure_url}` : null
+  );
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    name: user?.name || "",
+    email: user?.email || "",
     location: {
-      address1: "",
-      address2: "",
-      city: "",
-      state: "",
-      postcode: "",
-      country: "",
+      address1: user?.location.address1 || "",
+      address2: user?.location.address2 || "",
+      city: user?.location?.city || "",
+      state: user?.location?.state || "",
+      postcode: user?.location.postcode || "",
+      country: user?.location.country || "",
     },
     avatar: avatar,
-    phone: "",
-    gender: "",
+    phone: user?.phone || "",
+    gender: user?.gender || "",
   });
 
   useEffect(() => {
-    setFormData((prevForm) => ({
-      ...prevForm,
-      avatar: avatar,
-    }));
-  }, [avatar]);
-  useEffect(() => {
-    if (user) {
-      setFormData({
-        name: user.name,
-        email: user.email,
-        location: user.location,
-        avatar: user.avatar,
-        phone: user.phone || "",
-        gender: user.gender || "",
-      });
-      setavatar(`${SERVER}${user?.avatar.secure_url}`);
-    }
-  }, [user]);
+    fetchUser();
+  }, [fetchUser]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,8 +39,6 @@ const Profile = () => {
     }));
   };
 
-  const gender = ["Male", "Female", "Other"];
-  console.log(formData);
   const handleLocationChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -76,13 +54,14 @@ const Profile = () => {
     e.preventDefault();
     updateUser(formData);
   };
-  console.log(avatar);
+
+  console.log(user);
   return (
     <form onSubmit={handleSubmit}>
       <InputFileUpload
         label="Profile Picture"
-        name="ProfileImage"
-        setFile={setavatar}
+        name="avatar"
+        setFile={setAvatar}
         file={avatar}
       />
       <div className="grid grid-cols-2 gap-4 my-6">
@@ -111,7 +90,6 @@ const Profile = () => {
             onChange={handleChange}
             required
           />
-
           <SelectField
             label="Gender"
             id="gender"
@@ -119,11 +97,11 @@ const Profile = () => {
             required
             value={formData.gender}
             onChange={handleChange}
-            options={gender.map((div, index) => ({
-              value: div,
-              label: div,
-              key: index,
-            }))}
+            options={[
+              { value: "Male", label: "Male" },
+              { value: "Female", label: "Female" },
+              { value: "Other", label: "Other" },
+            ]}
             placeholder="Select Gender"
           />
           <InputField
@@ -172,7 +150,6 @@ const Profile = () => {
           />
         </div>
       </div>
-
       <PrimaryButton type="submit" value="Update Profile" />
     </form>
   );
