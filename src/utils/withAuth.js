@@ -1,20 +1,19 @@
 /* eslint-disable react/display-name */
+"use client";
 import { useEffect } from 'react';
-import useAuthStore from '../store/authStore';
 import { useRouter } from 'next/navigation';
+import useUserStore from '../store/userStore';
 
 const withAuth = (WrappedComponent) => {
     return (props) => {
         const router = useRouter();
-        const { user, isLoading } = useAuthStore();
-
+        const { user } = useUserStore();
         useEffect(() => {
-            if (!isLoading && !user) {
+            if (!user) {
                 router.push('/auth/login');
             }
-        }, [isLoading, user, router]);
-
-        if (isLoading || !user) {
+        }, [user, router]);
+        if (!user) {
             return <div>Loading...</div>;
         }
 

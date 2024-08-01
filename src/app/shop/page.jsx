@@ -3,20 +3,19 @@
 import React, { useEffect, useState } from "react";
 import ShopMenu from "../../components/ShopMenu";
 import { size } from "../../utils/constants";
-import ProductCard from "../../components/common/ProductCard";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import { CiMenuBurger } from "react-icons/ci";
-
+import useProductStore from "../../store/ProductStore";
+import useCategoryStore from "../../store/CategoriesStore";
+import ProductCardDesign from "../../components/common/ProductCardDesign";
 const shop = () => {
-  const [Products, setProducts] = useState([]);
-
+  const [products, fetchProducts] = useProductStore();
+  const [categories, fetchCategories] = useCategoryStore();
   useEffect(() => {
-    const url = "https://api.rebzigo.com/products";
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
+    fetchProducts();
+    fetchCategories();
+  }, [fetchProducts, fetchCategories]);
 
   return (
     <div>
@@ -193,8 +192,11 @@ const shop = () => {
           </div>
           <div className="lg:col-span-3">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 md:gap-4 gap-2">
-              {Products?.products?.slice(0, 20).map((product) => (
-                <ProductCard key={product._id} product={product}></ProductCard>
+              {products?.slice(0, 20).map((product) => (
+                <ProductCardDesign
+                  key={product._id}
+                  product={product}
+                ></ProductCardDesign>
               ))}
             </div>
           </div>

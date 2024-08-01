@@ -6,7 +6,6 @@ import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import useCartStore from "../../store/cartStore";
 import Link from "next/link";
-import withAuth from "../../utils/withAuth";
 import { SERVER } from "../../config";
 
 const Cart = () => {
@@ -225,7 +224,7 @@ const Cart = () => {
                 <div className="border-b-[0.5px] border-white"> </div>
                 <h1 className="font-bold tracking-widest text-md uppercase mt-4 flex justify-between items-center">
                   Total{" "}
-                  <span className="text-xl">
+                  <span className="text-xl flex items-center">
                     <FaBangladeshiTakaSign size={32} />
                     {cart.reduce(
                       (total, item) => total + item.price * item.quantity,
@@ -289,4 +288,4 @@ const Cart = () => {
   );
 };
 
-export default withAuth(Cart);
+export default Cart;

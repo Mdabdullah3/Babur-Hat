@@ -1,7 +1,7 @@
 import create from 'zustand';
 import axios from 'axios';
 import { API_URL } from '../config';
-import { toast } from 'react-toastify';
+
 const useProductStore = create((set) => ({
     products: [],
     product: null,
@@ -12,10 +12,12 @@ const useProductStore = create((set) => ({
     limit: 10,
     searchTerm: '',
     sort: '-createdAt,price',
+    categoryId: null, // Add this for category filtering
+    subCategoryId: null, // Add this for subcategory filtering
 
     fetchProducts: async () => {
         set({ loading: true });
-        const { page, limit, searchTerm, sort } = useProductStore.getState();
+        const { page, limit, searchTerm, sort, categoryId, subCategoryId } = useProductStore.getState();
         try {
             const response = await axios.get(`${API_URL}/products`, {
                 params: {
@@ -23,6 +25,8 @@ const useProductStore = create((set) => ({
                     _limit: limit,
                     _search: searchTerm ? `${searchTerm},name,slug,summary,description` : '',
                     _sort: sort,
+                    categoryId: categoryId || '', // Filter by category
+                    subCategoryId: subCategoryId || '', // Filter by subcategory
                 },
             });
             set({ products: response.data.data, totalProducts: response.data.total, loading: false });
@@ -35,6 +39,8 @@ const useProductStore = create((set) => ({
     setLimit: (limit) => set({ limit }),
     setSearchTerm: (searchTerm) => set({ searchTerm }),
     setSort: (sort) => set({ sort }),
+    setCategoryId: (categoryId) => set({ categoryId }), // Update this
+    setSubCategoryId: (subCategoryId) => set({ subCategoryId }), // Update this
 
     fetchProductByIdOrSlug: async (idOrSlug) => {
         set({ loading: true });

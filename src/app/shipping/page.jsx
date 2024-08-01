@@ -3,6 +3,8 @@ import ProductSummery from "../../components/Shipping/ProductSummery";
 import ShippingForm from "../../components/Shipping/ShippingForm";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
+import withAuth from "../../utils/withAuth";
+
 export const metadata = {
   title: "Shipping - Babur Hat",
   description: "Shipping section of Babur Hat",

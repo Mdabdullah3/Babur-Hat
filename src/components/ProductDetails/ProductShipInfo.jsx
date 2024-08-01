@@ -50,13 +50,13 @@ const ProductShipInfo = ({ product }) => {
       </div>
       <button
         onClick={handleAddToCart}
-        className="w-full my-2 py-3 rounded-full border hover:border-black border-primary bg-primary text-white tracking-wider  hover:bg-black hover:text-white transition duration-500 text-sm font-bold"
+        className="w-full my-2 mt-5 py-3 rounded-full border hover:border-black border-primary bg-primary text-white tracking-wider  hover:bg-black hover:text-white transition duration-500 text-sm font-bold"
       >
         Add To Cart
       </button>
-      <button className="w-full py-3 rounded-full my-2 border-[1px] hover:border-primary border-black text-black tracking-wider  hover:bg-primary hover:text-white transition duration-500 font-bold">
+      {/* <button className="w-full py-3 rounded-full my-2 border-[1px] hover:border-primary border-black text-black tracking-wider  hover:bg-primary hover:text-white transition duration-500 font-bold">
         Buy Now
-      </button>
+      </button> */}
       <div className="grid grid-cols-3 items-center gap-2">
         <button className="w-full font-bold py-3 rounded-full my-2 bg-primary/20 justify-center  hover:border-primary col-span-2 flex items-center gap-2  text-primary tracking-wider hover:bg-primary hover:text-white transition duration-500">
           <FiShare2 /> Share
