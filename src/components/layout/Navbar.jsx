@@ -63,7 +63,7 @@ const Navbar = () => {
               <label className="input input-bordered rounded-full flex items-center gap-2 h-[52px] mx-auto">
                 <input
                   type="text"
-                  className="grow w-[23rem] placeholder:text-black"
+                  className="grow w-[23rem] placeholder:text-gray-500 text-black"
                   placeholder="Search products..."
                   value={searchValue}
                   onChange={handleSearchChange}
@@ -73,11 +73,15 @@ const Navbar = () => {
                 </div>
               </label>
               {showSuggestions && (
-                <ul className="absolute top-full left-0 right-0 mt-2 bg-white shadow-lg rounded-lg overflow-hidden">
-                  {suggestions.map((suggestion) => (
+                <ul className="absolute top-full left-0 right-0 mt-2 bg-white shadow-lg rounded-lg overflow-hidden z-50 py-2">
+                  {suggestions.map((suggestion, index) => (
                     <li
-                      key={suggestion.id}
-                      className="p-2 hover:bg-gray-100 cursor-pointer"
+                      key={suggestion._id}
+                      className={`px-4 capitalize py-2 hover:bg-gray-100 cursor-pointer text-black ${
+                        index !== suggestions.length - 1
+                          ? "border-b border-gray-400"
+                          : ""
+                      }`}
                       onClick={() => {
                         router.push(`/product/${suggestion.slug}`);
                         setShowSuggestions(false);
