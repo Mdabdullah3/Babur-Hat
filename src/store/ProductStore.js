@@ -12,8 +12,9 @@ const useProductStore = create((set) => ({
     limit: 10,
     searchTerm: '',
     sort: '-createdAt,price',
-    categoryId: null, // Add this for category filtering
-    subCategoryId: null, // Add this for subcategory filtering
+    categoryId: null,
+    subCategoryId: null,
+    suggestions: [], // Store for search suggestions
 
     fetchProducts: async () => {
         set({ loading: true });
@@ -25,11 +26,26 @@ const useProductStore = create((set) => ({
                     _limit: limit,
                     _search: searchTerm ? `${searchTerm},name,slug,summary,description` : '',
                     _sort: sort,
-                    categoryId: categoryId || '', // Filter by category
-                    subCategoryId: subCategoryId || '', // Filter by subcategory
+                    categoryId: categoryId || '',
+                    subCategoryId: subCategoryId || '',
                 },
             });
             set({ products: response.data.data, totalProducts: response.data.total, loading: false });
+        } catch (error) {
+            set({ error: error.response?.data?.message || error.message, loading: false });
+        }
+    },
+
+    fetchSuggestions: async (query) => {
+        set({ loading: true });
+        try {
+            const response = await axios.get(`${API_URL}/products`, {
+                params: {
+                    _limit: 5, 
+                    _search: query ? `${query},name` : '',
+                },
+            });
+            set({ suggestions: response.data.data, loading: false });
         } catch (error) {
             set({ error: error.response?.data?.message || error.message, loading: false });
         }
@@ -39,27 +55,8 @@ const useProductStore = create((set) => ({
     setLimit: (limit) => set({ limit }),
     setSearchTerm: (searchTerm) => set({ searchTerm }),
     setSort: (sort) => set({ sort }),
-    setCategoryId: (categoryId) => set({ categoryId }), // Update this
-    setSubCategoryId: (subCategoryId) => set({ subCategoryId }), // Update this
-
-    fetchProductByIdOrSlug: async (idOrSlug) => {
-        set({ loading: true });
-        try {
-            const response = await axios.get(`${API_URL}/products/${idOrSlug}`);
-            set({ product: response.data.data, loading: false });
-        } catch (error) {
-            set({ error: error.response?.data?.message || error.message, loading: false });
-        }
-    },
-    fetchProductByIdForUser: async (userId) => {
-        set({ loading: true });
-        try {
-            const response = await axios.get(`${API_URL}/users/${userId}/products`);
-            set({ product: response.data.data, loading: false });
-        } catch (error) {
-            set({ error: error.response?.data?.message || error.message, loading: false });
-        }
-    },
+    setCategoryId: (categoryId) => set({ categoryId }),
+    setSubCategoryId: (subCategoryId) => set({ subCategoryId }),
 }));
 
 export default useProductStore;

@@ -10,13 +10,26 @@ import useProductStore from "../../store/ProductStore";
 import useCategoryStore from "../../store/CategoriesStore";
 import ProductCardDesign from "../../components/common/ProductCardDesign";
 const shop = () => {
-  const [products, fetchProducts] = useProductStore();
-  const [categories, fetchCategories] = useCategoryStore();
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const { products, fetchProducts } = useProductStore();
+  const { categories, fetchCategories } = useCategoryStore();
   useEffect(() => {
     fetchProducts();
     fetchCategories();
   }, [fetchProducts, fetchCategories]);
 
+  const handleCategoryChange = (categoryId) => {
+    setSelectedCategory(categoryId);
+    // setCategoryId(categoryId);
+    // setSubCategoryId(null);
+  };
+  console.log(categories);
+
+  const handleSubCategoryChange = (subCategoryId) => {
+    setSelectedSubCategory(subCategoryId);
+    // setSubCategoryId(subCategoryId);
+  };
   return (
     <div>
       <Navbar />
@@ -40,36 +53,61 @@ const shop = () => {
                     <ShopMenu title="Categories">
                       <div className="mt-5">
                         <ul className="space-y-3">
-                          <li>
-                            <label
-                              htmlFor="FilterMens"
-                              className="inline-flex items-center gap-2"
-                            >
-                              <input
-                                type="radio"
-                                id="FilterMens"
-                                className="size-4 radio-primary radio"
-                              />
-                              <span className="text-sm font-medium tracking-wider">
-                                Mens (13)
-                              </span>
-                            </label>
-                          </li>
-                          <li>
-                            <label
-                              htmlFor="FilterWomens"
-                              className="inline-flex items-center gap-2"
-                            >
-                              <input
-                                type="radio"
-                                id="FilterWomens"
-                                className="size-4 radio-primary radio"
-                              />
-                              <span className="text-sm font-medium tracking-wider">
-                                Womens (13)
-                              </span>
-                            </label>
-                          </li>
+                          {categories?.map((category) => (
+                            <li key={category._id}>
+                              <label
+                                htmlFor={`Filter${category.name}`}
+                                className="inline-flex items-center gap-2"
+                              >
+                                <input
+                                  type="radio"
+                                  id={`Filter${category.name}`}
+                                  className="size-4 radio-primary radio"
+                                  checked={selectedCategory === category._id}
+                                  onChange={() =>
+                                    handleCategoryChange(category._id)
+                                  }
+                                />
+                                <span className="text-sm font-medium tracking-wider">
+                                  {category.name} (
+                                  {category.subCategories.length})
+                                </span>
+                              </label>
+                              {selectedCategory === category._id &&
+                                category.subCategories.length > 0 && (
+                                  <ul className="ml-4 space-y-2">
+                                    {category.subCategories.map(
+                                      (subCategory) => (
+                                        <li key={subCategory._id}>
+                                          <label
+                                            htmlFor={`FilterSub${subCategory.name}`}
+                                            className="inline-flex items-center gap-2"
+                                          >
+                                            <input
+                                              type="radio"
+                                              id={`FilterSub${subCategory.name}`}
+                                              className="size-4 radio-primary radio"
+                                              checked={
+                                                selectedSubCategory ===
+                                                subCategory._id
+                                              }
+                                              onChange={() =>
+                                                handleSubCategoryChange(
+                                                  subCategory._id
+                                                )
+                                              }
+                                            />
+                                            <span className="text-sm font-medium tracking-wider">
+                                              {subCategory.name}
+                                            </span>
+                                          </label>
+                                        </li>
+                                      )
+                                    )}
+                                  </ul>
+                                )}
+                            </li>
+                          ))}
                         </ul>
                       </div>
                     </ShopMenu>
@@ -124,36 +162,58 @@ const shop = () => {
                 <ShopMenu title="Categories">
                   <div className="mt-5">
                     <ul className="space-y-3">
-                      <li>
-                        <label
-                          htmlFor="FilterMens"
-                          className="inline-flex items-center gap-2"
-                        >
-                          <input
-                            type="radio"
-                            id="FilterMens"
-                            className="size-4 radio-primary radio"
-                          />
-                          <span className="text-sm font-medium tracking-wider">
-                            Mens (13)
-                          </span>
-                        </label>
-                      </li>
-                      <li>
-                        <label
-                          htmlFor="FilterWomens"
-                          className="inline-flex items-center gap-2"
-                        >
-                          <input
-                            type="radio"
-                            id="FilterWomens"
-                            className="size-4 radio-primary radio"
-                          />
-                          <span className="text-sm font-medium tracking-wider">
-                            Womens (13)
-                          </span>
-                        </label>
-                      </li>
+                      {categories?.map((category) => (
+                        <li key={category._id}>
+                          <label
+                            htmlFor={`Filter${category.name}`}
+                            className="inline-flex items-center gap-2"
+                          >
+                            <input
+                              type="radio"
+                              id={`Filter${category.name}`}
+                              className="size-4 radio-primary radio"
+                              checked={selectedCategory === category._id}
+                              onChange={() =>
+                                handleCategoryChange(category._id)
+                              }
+                            />
+                            <span className="text-sm font-medium tracking-wider">
+                              {category.name} ({category.subCategories.length})
+                            </span>
+                          </label>
+                          {selectedCategory === category._id &&
+                            category.subCategories.length > 0 && (
+                              <ul className="ml-4 mt-3 space-y-2">
+                                {category.subCategories.map((subCategory) => (
+                                  <li key={subCategory._id}>
+                                    <label
+                                      htmlFor={`FilterSub${subCategory.name}`}
+                                      className="inline-flex items-center gap-2"
+                                    >
+                                      <input
+                                        type="radio"
+                                        id={`FilterSub${subCategory.name}`}
+                                        className="size-4 radio-primary radio"
+                                        checked={
+                                          selectedSubCategory ===
+                                          subCategory._id
+                                        }
+                                        onChange={() =>
+                                          handleSubCategoryChange(
+                                            subCategory._id
+                                          )
+                                        }
+                                      />
+                                      <span className="text-sm font-medium tracking-wider">
+                                        {subCategory.name}
+                                      </span>
+                                    </label>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </ShopMenu>
