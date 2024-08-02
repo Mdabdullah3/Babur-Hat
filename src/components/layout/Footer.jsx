@@ -32,7 +32,7 @@ const Footer = () => {
   ];
   return (
     <div className="bg-primary mt-20">
-      <footer className="py-4 w-full text-center justify-evenly lg:flex bg-primary flex-wrap flex-col">
+      <footer className="py-4 w-full text-center justify-evenly flex bg-primary flex-wrap">
         <div>
           <h5 className="text-white font-bold underline">Contact Us</h5>
           {contact &&
