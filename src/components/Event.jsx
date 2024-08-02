@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import ProductCardDesign from "./common/ProductCardDesign";
 import useProductStore from "../store/ProductStore";
 

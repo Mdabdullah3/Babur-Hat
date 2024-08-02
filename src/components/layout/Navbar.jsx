@@ -10,18 +10,28 @@ import useCartStore from "../../store/cartStore";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { useRouter } from "next/navigation";
 import { SERVER } from "../../config";
-import useProductStore from "../../store/ProductStore";
 import useUserStore from "../../store/userStore";
+import { category } from "../../utils/constants";
+import useProductStore from "../../store/ProductStore";
 
 const Navbar = () => {
+  // const { user, logout } = useAuthStore((state) => ({
+  //   user: state.user,
+  //   logout: state.logout,
+  // }));
   const { user, fetchUser, logout } = useUserStore();
   useEffect(() => {
     fetchUser();
   }, [fetchUser, user]);
-
   const { cart } = useCartStore();
-  const { suggestions, fetchSuggestions, setSearchTerm } = useProductStore();
   const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push("/auth/login");
+  };
+
+  const { suggestions, fetchSuggestions, setSearchTerm } = useProductStore();
   const [searchValue, setSearchValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -36,12 +46,13 @@ const Navbar = () => {
       setShowSuggestions(false);
     }
   };
+  const [isClient, setIsClient] = useState(false);
 
-  const handleLogout = () => {
-    logout();
-    router.push("/auth/login");
-  };
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
+  if (!isClient) return null;
   return (
     <nav className="relative">
       <div className="bg-black text-white py-4">
@@ -62,8 +73,7 @@ const Navbar = () => {
             <div className="relative">
               <label className="input input-bordered rounded-full flex items-center gap-2 h-[52px] mx-auto">
                 <input
-                  type="text"
-                  className="grow w-[23rem] placeholder:text-gray-500 text-black"
+                  className="grow w-[23rem] text-black"
                   placeholder="Search products..."
                   value={searchValue}
                   onChange={handleSearchChange}
@@ -73,19 +83,19 @@ const Navbar = () => {
                 </div>
               </label>
               {showSuggestions && (
-                <ul className="absolute top-full left-0 right-0 mt-2 bg-white shadow-lg rounded-lg overflow-hidden z-50 py-2">
-                  {suggestions.map((suggestion, index) => (
+                <ul className="absolute top-full left-0 right-0 mt-2 bg-white shadow-lg rounded-lg overflow-hidden z-50">
+                  {suggestions?.map((suggestion, index) => (
                     <li
                       key={suggestion._id}
-                      className={`px-4 capitalize py-2 hover:bg-gray-100 cursor-pointer text-black ${
+                      className={`p-2 px-4 capitalize hover:bg-gray-100 cursor-pointer text-black ${
                         index !== suggestions.length - 1
-                          ? "border-b border-gray-400"
+                          ? "border-b border-gray-300"
                           : ""
                       }`}
                       onClick={() => {
-                        router.push(`/products/${suggestion._id}`);
+                        router.push(`/product/${suggestion._id}`);
                         setShowSuggestions(false);
-                        setSearchValue(suggestion.name);
+                        setSearchValue(suggestion?.name);
                       }}
                     >
                       {suggestion.name}
@@ -181,6 +191,73 @@ const Navbar = () => {
               </div>
             </Link>
           </div>
+        </div>
+        <div className="flex items-center justify-center mt-4">
+          <ul className="hidden md:flex items-center gap-8 text-md tracking-wider font-bold -ml-28">
+            <li className="text-[#E92769]">Recent Events</li>
+            <li>New Arrival</li>
+            <li>Top Rated</li>
+            <li>Best Deals</li>
+            <li>Top Rated</li>
+          </ul>
+        </div>
+        <div className="block md:hidden lg:mt-4 px-4">
+          <div className="relative">
+            <label className="input input-bordered rounded-full flex items-center gap-2 lg:h-[52px] h-[44px] mx-auto">
+              <input
+                type="text"
+                className="grow w-full text-black"
+                value={searchValue}
+                onChange={handleSearchChange}
+                placeholder="Search Products..."
+              />
+              <div className="bg-black px-4 py-2 rounded-full">
+                <FiSearch className="text-white text-xl lg:text-2xl" />
+              </div>
+            </label>
+            {showSuggestions && (
+              <ul className="absolute top-full left-0 right-0 mt-2 bg-white shadow-lg rounded-lg overflow-hidden z-50">
+                {suggestions?.map((suggestion, index) => (
+                  <li
+                    key={suggestion._id}
+                    className={`p-2 px-4 capitalize hover:bg-gray-100 cursor-pointer text-black ${
+                      index !== suggestions.length - 1
+                        ? "border-b border-gray-300"
+                        : ""
+                    }`}
+                    onClick={() => {
+                      router.push(`/product/${suggestion._id}`);
+                      setShowSuggestions(false);
+                      setSearchValue(suggestion?.name);
+                    }}
+                  >
+                    {suggestion.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="drawer z-50">
+        <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content"></div>
+        <div className="drawer-side z-50">
+          <label htmlFor="my-drawer" className="drawer-overlay"></label>
+          <ul className="menu p-4  min-h-full bg-base-200 text-base-content z-50">
+            {category?.map((cat, index) => (
+              <Link
+                href="/shop"
+                key={index}
+                className="flex items-center gap-3 mt-4 tracking-wider text-gray-600"
+              >
+                <h1 className="bg-gray-200 px-1 py-1 rounded-full">
+                  {cat?.icon}
+                </h1>
+                <h1>{cat?.name}</h1>
+              </Link>
+            ))}
+          </ul>
         </div>
       </div>
     </nav>
