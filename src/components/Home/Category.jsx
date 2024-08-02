@@ -7,6 +7,7 @@ import "swiper/css/grid";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { ProductCategory } from "../../utils/constants";
+import Link from "next/link";
 
 const Category = () => {
   return (
@@ -52,16 +53,18 @@ const Category = () => {
       >
         {ProductCategory.map((item) => (
           <SwiperSlide key={item.id}>
-            <div className="p-2 py-4 mb-6">
-              <img
-                src={item.img}
-                className="rounded-full w-24 lg:w-32 h-24 lg:h-32 mx-auto"
-                alt="Category image"
-              />
-              <h1 className="lg:mt-5 mt-3 text-sm text-center tracking-wider font-[500]">
-                {item.name}
-              </h1>
-            </div>
+            <Link href={"/shop"}>
+              <div className="p-2 py-4 mb-6">
+                <img
+                  src={item.img}
+                  className="rounded-full w-24 lg:w-32 h-24 lg:h-32 mx-auto"
+                  alt="Category image"
+                />
+                <h1 className="lg:mt-5 mt-3 text-sm text-center tracking-wider font-[500]">
+                  {item.name}
+                </h1>
+              </div>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
