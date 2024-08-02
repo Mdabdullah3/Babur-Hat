@@ -33,7 +33,11 @@ const Banner = () => {
             {bannerImage.map((item, index) => (
               <SwiperSlide key={index}>
                 <div className="-z-10">
-                  <img src={item.img} alt="banner image" />
+                  <img
+                    src={item.img}
+                    alt="banner image"
+                    className=" rounded-2xl"
+                  />
                 </div>
               </SwiperSlide>
             ))}

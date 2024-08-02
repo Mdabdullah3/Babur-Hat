@@ -18,6 +18,7 @@ const ProductDetails = ({ params }) => {
   const [openDetails, setOpenDetails] = useState(
     productInformation[0]?.Description
   );
+  const {id} = params
 
   const { recentlyViewed, addRecentlyViewed, initializeRecentlyViewed } =
     useRecentlyViewedStore();
@@ -25,10 +26,10 @@ const ProductDetails = ({ params }) => {
   const handleDetailClick = (details) => {
     setOpenDetails(details);
   };
-  const { product, loading, fetchProductByIdOrSlug } = useProductStore();
+  const { product, fetchProductByIdOrSlug } = useProductStore();
   useEffect(() => {
-    fetchProductByIdOrSlug(params?.id);
-  }, [params?.id, product]);
+    fetchProductByIdOrSlug(id);
+  }, [id, fetchProductByIdOrSlug]);
 
   const { addToWishlist, wishlist, removeFromWishlist } = useWishlistStore();
 

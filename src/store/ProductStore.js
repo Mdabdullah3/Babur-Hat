@@ -41,7 +41,7 @@ const useProductStore = create((set) => ({
         try {
             const response = await axios.get(`${API_URL}/products`, {
                 params: {
-                    _limit: 5, 
+                    _limit: 5,
                     _search: query ? `${query},name` : '',
                 },
             });
@@ -57,6 +57,25 @@ const useProductStore = create((set) => ({
     setSort: (sort) => set({ sort }),
     setCategoryId: (categoryId) => set({ categoryId }),
     setSubCategoryId: (subCategoryId) => set({ subCategoryId }),
+
+    fetchProductByIdOrSlug: async (idOrSlug) => {
+        set({ loading: true });
+        try {
+            const response = await axios.get(`${API_URL}/products/${idOrSlug}`);
+            set({ product: response.data.data, loading: false });
+        } catch (error) {
+            set({ error: error.response?.data?.message || error.message, loading: false });
+        }
+    },
+    fetchProductByIdForUser: async (userId) => {
+        set({ loading: true });
+        try {
+            const response = await axios.get(`${API_URL}/users/${userId}/products`);
+            set({ product: response.data.data, loading: false });
+        } catch (error) {
+            set({ error: error.response?.data?.message || error.message, loading: false });
+        }
+    },
 }));
 
 export default useProductStore;
