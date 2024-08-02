@@ -196,6 +196,11 @@ const Navbar = () => {
         </div>
         <div className="flex items-center justify-center mt-4">
           <ul className="hidden md:flex items-center gap-8 text-md tracking-wider font-bold -ml-28">
+          <Link href="/">
+              <li className={`cursor-pointer ${isActive("/")}`}>
+                Home
+              </li>
+            </Link>
             <Link href="/event">
               <li className={`cursor-pointer ${isActive("/event")}`}>
                 Recent Events

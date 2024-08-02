@@ -6,6 +6,7 @@ import { LuMoveLeft } from "react-icons/lu";
 import { toast } from "react-toastify";
 import useWishlistStore from "../../store/wishlistStore";
 import useCartStore from "../../store/cartStore";
+import { SERVER } from "../../config";
 
 const WishlistCard = () => {
   const { wishlist, removeFromWishlist } = useWishlistStore();
@@ -38,13 +39,13 @@ const WishlistCard = () => {
     <div className="lg:mt-12 mt-4 relative">
       <div className="w-11/12 mx-auto mt-6 tracking-wider">
         <h1 className="lg:text-3xl text-lg font-bold">
-          Wishlist ({wishlist.length})
+          Wishlist ({wishlist?.length || 0})
         </h1>
-        {wishlist.length !== 0 ? (
+        {wishlist?.length !== 0 ? (
           <div className="lg:mt-10 mt-4 lg:px-4 px-1 mx-auto">
             <div className=" col-span-2">
               <div>
-                {wishlist.map((item, index) => (
+                {wishlist?.map((item, index) => (
                   <div key={index}>
                     {index !== 0 && (
                       <hr className="border-t border-gray-300 mt-4 lg:mt-6 w-[95%]" />
@@ -52,7 +53,7 @@ const WishlistCard = () => {
                     <div className="lg:flex items-center w-11/12 justify-between mt-6">
                       <div className=" relative flex items-center justify-between">
                         <img
-                          src={item?.topimg}
+                          src={`${SERVER}${item?.coverPhoto.secure_url}`}
                           className="w-24 h-24 rounded-sm"
                           alt="whislist image"
                         />
@@ -65,14 +66,12 @@ const WishlistCard = () => {
                         </h1>
                         <div className="lg:hidden block">
                           <h1 className="  tracking-wider text-[14px]">
-                            {item.productName.slice(0, 30)}...
+                            {item?.name.slice(0, 30)}...
                           </h1>
 
                           <div className="flex items-center justify-between lg:hidden mt-2">
                             <div>
-                              <h1 className="text-[14px]">
-                                ${item.sellPrice}.00
-                              </h1>
+                              <h1 className="text-[14px]">${item.price}.00</h1>
                             </div>
 
                             <div className="">

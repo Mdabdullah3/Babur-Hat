@@ -49,7 +49,7 @@ const TopRated = () => {
               <div className="slide-content mx-2">
                 <img
                   src={item?.img}
-                  className="rounded-2xl w-full cursor-pointer bg-white shadow-lg border border-gray-400 "
+                  className="rounded-2xl w-52 cursor-pointer bg-white shadow-lg border border-gray-400 "
                   alt="Brand Image"
                 />
                 <h1 className="text-center lg:text-xl text-sm my-2 text-gray-500 h-8 lg:h-12">

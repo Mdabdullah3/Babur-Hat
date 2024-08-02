@@ -8,9 +8,7 @@ import { GoHeart } from "react-icons/go";
 
 const ProductInfo = ({
   product,
-  handleAddToWishlist,
-  wishlist,
-  handleRemoveFromWishlist,
+  
 }) => {
   const [selectedSize, setSelectedSize] = useState("");
 

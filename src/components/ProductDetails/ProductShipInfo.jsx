@@ -5,7 +5,13 @@ import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { FiShare2 } from "react-icons/fi";
 import useCartStore from "../../store/cartStore";
 import { toast } from "react-toastify";
-const ProductShipInfo = ({ product }) => {
+import { FaHeart } from "react-icons/fa";
+const ProductShipInfo = ({
+  product,
+  handleAddToWishlist,
+  wishlist,
+  handleRemoveFromWishlist,
+}) => {
   const { addToCart } = useCartStore();
   const handleAddToCart = () => {
     const result = addToCart(product);
@@ -32,8 +38,8 @@ const ProductShipInfo = ({ product }) => {
       </h1>
       <h1>Estimated delivery on Jul 18 </h1>
       <h1 className="mt-2 font-bold">Cash on Delivery Available</h1>
-      <hr className="my-3" />
-      <label htmlFor="" className="w-full text-md font-semibold">
+      <hr className="my-4" />
+      <label htmlFor="" className="w-full text-md font-semibold mt-2">
         Quantity :
       </label>
       <div className="relative flex item-center bg-transparent rounded-lg my-3 mb-5 w-32">
@@ -50,20 +56,34 @@ const ProductShipInfo = ({ product }) => {
       </div>
       <button
         onClick={handleAddToCart}
-        className="w-full my-2 mt-5 py-3 rounded-full border hover:border-black border-primary bg-primary text-white tracking-wider  hover:bg-black hover:text-white transition duration-500 text-sm font-bold"
+        className="w-full my-2 mt-6 py-3 rounded-full border hover:border-black border-primary bg-primary text-white tracking-wider  hover:bg-black hover:text-white transition duration-500 text-sm font-bold"
       >
         Add To Cart
       </button>
       {/* <button className="w-full py-3 rounded-full my-2 border-[1px] hover:border-primary border-black text-black tracking-wider  hover:bg-primary hover:text-white transition duration-500 font-bold">
         Buy Now
       </button> */}
-      <div className="grid grid-cols-3 items-center gap-2">
+      <div className="grid grid-cols-3 items-center gap-2 mt-2">
         <button className="w-full font-bold py-3 rounded-full my-2 bg-primary/20 justify-center  hover:border-primary col-span-2 flex items-center gap-2  text-primary tracking-wider hover:bg-primary hover:text-white transition duration-500">
           <FiShare2 /> Share
         </button>
-        <button className="w-full py-3 border border-black rounded-full flex font-bold text-lg justify-center">
-          <GoHeart />
-        </button>
+        {wishlist?.find((item) => item._id === product._id) ? (
+          <h1
+            onClick={() => handleRemoveFromWishlist(product._id)}
+            className="tooltip tooltip-left border rounded-full py-3 px-5 mx-auto border-primary text-primary cursor-pointer"
+            data-tip="Remove From Wishlist"
+          >
+            <FaHeart size={22} />
+          </h1>
+        ) : (
+          <h1
+            onClick={handleAddToWishlist}
+            className="tooltip tooltip-left border rounded-full py-3 px-5 mx-auto border-primary text-primary cursor-pointer"
+            data-tip="Add To Wishlist"
+          >
+            <GoHeart size={22} />
+          </h1>
+        )}
       </div>
     </div>
   );
