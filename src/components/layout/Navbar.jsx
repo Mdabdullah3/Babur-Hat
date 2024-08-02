@@ -83,7 +83,7 @@ const Navbar = () => {
                           : ""
                       }`}
                       onClick={() => {
-                        router.push(`/product/${suggestion.slug}`);
+                        router.push(`/products/${suggestion._id}`);
                         setShowSuggestions(false);
                         setSearchValue(suggestion.name);
                       }}
