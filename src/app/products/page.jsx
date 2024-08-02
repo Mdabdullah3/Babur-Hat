@@ -1,23 +1,28 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import ProductCard from "../../components/common/ProductCard";
-import useProductStore from "../../store/ProductStore";
+/* eslint-disable @next/next/no-img-element */
+import DeafultProducts from "../../components/Home/DeafultProducts";
+import Footer from "../../components/layout/Footer";
+import Navbar from "../../components/layout/Navbar";
+export const metadata = {
+  title: "New Arrival - Babur Hat",
+  description: "New Arrival section of Babur Hat",
+};
 const Products = () => {
-  const { products, fetchProducts } = useProductStore();
-  useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
   return (
-    <div className="w-11/12 mx-auto mt-10">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-        {products?.slice(0, 12).map((product) => (
-          <>
-            <ProductCard product={product} key={product?._id} />
-          </>
-        ))}
-      </div>
-      <hr />
-    </div>
+    <main>
+      <Navbar />
+      <section>
+        <div className=" relative">
+          <img src="/cover.jpg" alt="" />
+          <h1 className="text-2xl font-bold mb-5 absolute top-16 left-10">
+            Products
+          </h1>
+        </div>
+      </section>
+      <section>
+        <DeafultProducts />
+      </section>
+      <Footer />
+    </main>
   );
 };
 

@@ -195,11 +195,21 @@ const Navbar = () => {
         </div>
         <div className="flex items-center justify-center mt-4">
           <ul className="hidden md:flex items-center gap-8 text-md tracking-wider font-bold -ml-28">
-            <li className="text-[#E92769]">Recent Events</li>
-            <li>New Arrival</li>
-            <li>Top Rated</li>
-            <li>Best Deals</li>
-            <li>Top Rated</li>
+            <Link href="/event">
+              <li className="text-[#E92769] cursor-pointer">Recent Events</li>
+            </Link>
+            <Link href="/products">
+              <li className=" cursor-pointer">New Arrival</li>
+            </Link>
+            <Link href="/shop">
+              <li className=" cursor-pointer">Shop</li>
+            </Link>
+            <Link href="/best-deal">
+              <li className=" cursor-pointer">Best Deals</li>
+            </Link>
+            <Link href="/vendor">
+              <li className=" cursor-pointer">Top Rated</li>
+            </Link>
           </ul>
         </div>
         <div className="block md:hidden lg:mt-4 px-4">
