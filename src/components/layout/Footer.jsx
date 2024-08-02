@@ -13,7 +13,7 @@ const Footer = () => {
     "Boss Pg, Hyderabad",
     "Telengana",
     "+91 80089252100",
-    "venugopalreddy9493@gmail.com",
+    "baburhut@gmail.com",
   ];
   const information = [
     "Privacy Policy",
@@ -32,7 +32,7 @@ const Footer = () => {
   ];
   return (
     <div className="bg-primary mt-20">
-      <footer className="py-4 w-full text-center justify-evenly flex bg-primary flex-wrap">
+      <footer className="py-8  md:text-center grid grid-cols-2 gap-10 bg-primary w-11/12 mx-auto md:grid-cols-5">
         <div>
           <h5 className="text-white font-bold underline">Contact Us</h5>
           {contact &&
@@ -45,11 +45,10 @@ const Footer = () => {
               </p>
             ))}
           <div className="flex justify-between 800px:w-full w-3/5 m-auto items-center text-white cursor-pointer">
-            <AiOutlineInstagram className=" text-[2.2rem] p-[4px]  mr-[10px] rounded-xl hover:bg-[#febd69]" />
-            <AiOutlineLinkedin className=" text-[2rem] p-[4px]  mr-[10px] rounded-xl hover:bg-[#febd69]" />
-            <AiOutlineGithub className=" text-[2.2rem] p-[4px]  mr-[10px] rounded-xl hover:bg-[#febd69]" />
-            <AiOutlineFacebook className=" text-[2.2rem] p-[4px]  mr-[10px] rounded-xl hover:bg-[#febd69]" />
-            <AiOutlineTwitter className=" text-[2.2rem] p-[4px]  mr-[10px] rounded-xl hover:bg-[#febd69]" />
+            <AiOutlineInstagram size={30} />
+            <AiOutlineLinkedin size={30} />
+            <AiOutlineFacebook size={30} />
+            <AiOutlineTwitter size={30} />
           </div>
         </div>
         <div className="flex flex-col">

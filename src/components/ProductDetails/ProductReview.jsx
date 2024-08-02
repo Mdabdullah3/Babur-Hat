@@ -75,12 +75,12 @@ const ProductReview = ({ productId, product }) => {
 
   return (
     <div>
-      <div className="flex items-center justify-around mb-6">
+      <div className="flex items-center justify-around mb-4 md:mb-6 flex-wrap">
         <div>
-          <h1 className="text-2xl mb-5 font-[500] tracking-wider">
+          <h1 className="md:text-2xl text-xl mb-5 font-[500] tracking-wider">
             Rating & Review
           </h1>
-          <p className="flex items-center">
+          {/* <p className="flex items-center">
             <CiStar size={19} />
             <CiStar size={19} />
             <CiStar size={19} />
@@ -89,10 +89,10 @@ const ProductReview = ({ productId, product }) => {
             <span className="text-lg tracking-wider ml-3">
               Based on {reviews.length} Reviews
             </span>
-          </p>
+          </p> */}
         </div>
         <button
-          className="font-[500] text-sm tracking-wider my-2 uppercase px-8 border-[1px] rounded-md border-black py-4 hover:bg-primary hover:border-primary hover:text-white transition duration-500"
+          className="font-[500] text-sm tracking-wider my-2 uppercase px-5 md:px-8 border-[1px] rounded-md border-black py-2 md:py-4 hover:bg-primary hover:border-primary hover:text-white transition duration-500"
           onClick={openModal}
         >
           Write a review

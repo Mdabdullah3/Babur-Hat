@@ -6,16 +6,13 @@ import { useState } from "react";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import { GoHeart } from "react-icons/go";
 
-const ProductInfo = ({
-  product,
-  
-}) => {
+const ProductInfo = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState("");
 
   const handleSizeClick = (size) => setSelectedSize(size);
 
   return (
-    <div className="col-span-3">
+    <div className="col-span-3 lg:mt-0 mt-4">
       <h2 className="bg-primary px-3 font-bold text-white tracking-wider w-14 py-1 rounded-sm">
         Sale
       </h2>
@@ -60,7 +57,7 @@ const ProductInfo = ({
         <FaEye size={18} /> <span className="font-bold">21</span> people are
         viewing this right now
       </h2>
-      <h1 className="mt-2 font-bold flex tracking-wider">
+      <h1 className="mt-2 font-bold  tracking-wider w-12">
         Size: <span className="font-normal">{selectedSize}</span>
       </h1>
       <ProductSizeSelector
