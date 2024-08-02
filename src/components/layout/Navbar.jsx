@@ -5,10 +5,9 @@ import { FiSearch } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdMenu } from "react-icons/md";
 import Link from "next/link";
-import useAuthStore from "../../store/authStore";
 import useCartStore from "../../store/cartStore";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { SERVER } from "../../config";
 import useUserStore from "../../store/userStore";
 import { category } from "../../utils/constants";
@@ -25,6 +24,8 @@ const Navbar = () => {
   }, [fetchUser, user]);
   const { cart } = useCartStore();
   const router = useRouter();
+  const pathname = usePathname();
+  const isActive = (path) => pathname === path ? "text-[#E92769]" : "";
 
   const handleLogout = () => {
     logout();
@@ -196,19 +197,27 @@ const Navbar = () => {
         <div className="flex items-center justify-center mt-4">
           <ul className="hidden md:flex items-center gap-8 text-md tracking-wider font-bold -ml-28">
             <Link href="/event">
-              <li className="text-[#E92769] cursor-pointer">Recent Events</li>
+              <li className={`cursor-pointer ${isActive("/event")}`}>
+                Recent Events
+              </li>
             </Link>
             <Link href="/products">
-              <li className=" cursor-pointer">New Arrival</li>
+              <li className={`cursor-pointer ${isActive("/products")}`}>
+                New Arrival
+              </li>
             </Link>
             <Link href="/shop">
-              <li className=" cursor-pointer">Shop</li>
+              <li className={`cursor-pointer ${isActive("/shop")}`}>Shop</li>
             </Link>
             <Link href="/best-deal">
-              <li className=" cursor-pointer">Best Deals</li>
+              <li className={`cursor-pointer ${isActive("/best-deal")}`}>
+                Best Deals
+              </li>
             </Link>
             <Link href="/vendor">
-              <li className=" cursor-pointer">Top Rated</li>
+              <li className={`cursor-pointer ${isActive("/vendor")}`}>
+                Top Rated
+              </li>
             </Link>
           </ul>
         </div>
