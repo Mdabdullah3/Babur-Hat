@@ -15,7 +15,10 @@ const ProductSummery = () => {
   if (!isClient) {
     return null;
   }
-  console.log(cart);
+  const total = cart?.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
   return (
     <div className="w-full">
       <h1 className="font-bold capitalize text-2xl tracking-wider mb-10">
@@ -29,7 +32,7 @@ const ProductSummery = () => {
               <div className="flex items-center gap-3">
                 <img
                   src={`${SERVER}${order?.coverPhoto.secure_url}`}
-                  className="w-16 h-20 rounded-sm"
+                  className="w-20 h-20 rounded-sm"
                   alt=""
                 />
                 <div className=" tracking-wider">
@@ -77,10 +80,7 @@ const ProductSummery = () => {
             Subtotal{" "}
             <span className="font-bold text-secondary flex items-center gap-1">
               <FaBangladeshiTakaSign />
-              {cart.reduce(
-                (total, item) => total + item.price * item.quantity,
-                0
-              )}
+              {total}
             </span>
           </h1>
         </div>
@@ -88,16 +88,20 @@ const ProductSummery = () => {
           <hr className="my-3" />
           <h1 className="text-gray-600 tracking-wider flex items-center justify-between">
             Shipping
-            <span className="font-bold text-secondary">
-              <span className="font-normal mr-1">Flat rate:</span> $10.00
+            <span className="font-bold text-secondary flex items-center">
+              <FaBangladeshiTakaSign />
+              60.00
             </span>
           </h1>
         </div>
         <div>
           <hr className="my-3" />
           <h1 className="tracking-wider flex items-center justify-between font-bold">
-            Total
-            <span className="font-bold text-secondary text-xl">$334.00</span>
+            Payable
+            <span className="font-bold text-secondary text-xl  flex items-center">
+              <FaBangladeshiTakaSign />
+              {parseFloat(total) + 60}
+            </span>
           </h1>
         </div>
       </div>
