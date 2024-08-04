@@ -77,12 +77,14 @@ const Profile = () => {
     console.log(formData);
   };
 
+  console.log(avatar);
+
   return (
     <form onSubmit={handleSubmit}>
       <InputFileUpload
         label="Profile Picture"
         name="avatar"
-        setFile={handleAvatarChange} 
+        setFile={handleAvatarChange}
         file={avatar}
       />
       <div className="grid grid-cols-2 gap-4 my-6">
