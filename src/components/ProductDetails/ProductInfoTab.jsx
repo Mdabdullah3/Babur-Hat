@@ -10,7 +10,7 @@ const ProductInfoTab = ({
   handleDetailClick,
   product,
 }) => {
-  const reviews = product?.reviews.filter((review) => review.review);
+  const reviews = product?.reviews?.filter((review) => review.review);
 
   return (
     <section>
@@ -32,7 +32,7 @@ const ProductInfoTab = ({
             }
             onClick={() => handleDetailClick(Details[0].reviews)}
           >
-            Reviews ({reviews?.length})
+            Reviews ({reviews ? reviews?.length : 0})
           </button>
           <button
             className={

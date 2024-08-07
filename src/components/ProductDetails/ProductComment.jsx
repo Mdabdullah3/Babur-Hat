@@ -4,9 +4,11 @@ import PrimaryButton from "../common/PrimaryButton";
 import useReviewStore from "../../store/reviewStore";
 import useUserStore from "../../store/userStore";
 import { SERVER } from "../../config";
+import InputFileUpload from "../common/InputFileUpload";
 
 const ProductComment = ({ productId, product }) => {
   const [newComments, setNewComments] = useState("");
+  const [image, setImages] = useState(null);
   const [editComment, setEditComment] = useState(null);
   const { addReview, updateReview, deleteReview } = useReviewStore();
   const { user, fetchUser } = useUserStore();
@@ -34,6 +36,7 @@ const ProductComment = ({ productId, product }) => {
           product: productId,
           userId: user._id,
           comment: newComments,
+          image: image,
         };
         await addReview(formdata, message);
       }
@@ -55,7 +58,7 @@ const ProductComment = ({ productId, product }) => {
     }
   };
 
-  const comments = product.reviews.filter((review) => review.comment);
+  const comments = product?.reviews?.filter((review) => review.comment);
 
   return (
     <div>
@@ -70,17 +73,26 @@ const ProductComment = ({ productId, product }) => {
         </div>
       </div>
       <hr />
-      <div className="flex items-center gap-5">
-        <textarea
-          className="textarea textarea-bordered w-full mt-4"
-          placeholder="Write Your Comments"
-          value={newComments}
-          onChange={(e) => setNewComments(e.target.value)}
-        />
-        <PrimaryButton
-          onClick={handleAddComment}
-          value={editComment ? "Update" : "Send"}
-        />
+      <div className="flex gap-5">
+        <div className="flex-1">
+          <textarea
+            className="textarea textarea-bordered w-full mt-4"
+            placeholder="Write Your Comments"
+            value={newComments}
+            onChange={(e) => setNewComments(e.target.value)}
+          />
+          <InputFileUpload
+            label="Upload Image"
+            setFile={setImages}
+            name="image"
+          />
+        </div>
+        <div className="mt-5">
+          <PrimaryButton
+            onClick={handleAddComment}
+            value={editComment ? "Update" : "Send"}
+          />
+        </div>
       </div>
       <div className="mt-8">
         {comments.length > 0 ? (
@@ -101,6 +113,13 @@ const ProductComment = ({ productId, product }) => {
                   <p>{new Date(comment.createdAt).toLocaleDateString()}</p>
                 </div>
               </div>
+              {comment?.image?.secure_url ? (
+                <img
+                  src={`${SERVER}${comment?.image?.secure_url}`}
+                  alt=""
+                  className="w-40 h-40 my-3"
+                />
+              ) : null}
               <p className="mt-4">{comment.comment}</p>
               {user && user._id === comment.user._id && (
                 <div>

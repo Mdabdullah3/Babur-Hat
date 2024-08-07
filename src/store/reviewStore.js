@@ -62,7 +62,9 @@ const useReviewStore = create((set) => ({
     addReview: async (reviewData, message) => {
         set({ loading: true, error: null });
         try {
-            const response = await axios.post(`${API_URL}/reviews`, reviewData);
+            const response = await axios.post(`${API_URL}/reviews`, reviewData, {
+                withCredentials: true,
+            });
             if (response.data.data) {
                 toast.success(message);
             }
@@ -77,7 +79,9 @@ const useReviewStore = create((set) => ({
     updateReview: async (reviewId, reviewData, message) => {
         set({ loading: true, error: null });
         try {
-            const response = await axios.patch(`${API_URL}/reviews/${reviewId}`, reviewData);
+            const response = await axios.patch(`${API_URL}/reviews/${reviewId}`, reviewData, {
+                withCredentials: true,
+            });
             if (response.data.data) {
                 toast.success(message);
             }

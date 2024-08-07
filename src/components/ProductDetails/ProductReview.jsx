@@ -27,18 +27,23 @@ const ProductReview = ({ productId, product }) => {
     product: productId,
     userId: user?._id,
     review: newReview,
-    // image: image
+    image: image,
   };
 
   const handleAddReview = async () => {
     await addReview(formdata);
+    console.log(formdata);
     document.getElementById("my_modal_2").close();
     setNewReview("");
   };
 
   const handleEditReview = async () => {
     if (editReview) {
-      await updateReview(editReview._id, { ...editReview, review: newReview });
+      await updateReview(
+        editReview._id,
+        { ...editReview, review: newReview },
+        "Review Updated Successfully"
+      );
       document.getElementById("edit_modal").close();
       setEditReview(null);
       setNewReview("");
@@ -71,7 +76,7 @@ const ProductReview = ({ productId, product }) => {
     }
   };
 
-  const reviews = product.reviews.filter((review) => review.review);
+  const reviews = product?.reviews?.filter((review) => review.review);
 
   return (
     <div>
@@ -100,12 +105,9 @@ const ProductReview = ({ productId, product }) => {
       </div>
       <hr />
       <div>
-        {reviews.length > 0 ? (
+        {reviews?.length > 0 ? (
           reviews?.map((review) => (
-            <div
-              key={review?._id}
-              className="flex items-center gap-5 mb-8 mt-6"
-            >
+            <div key={review?._id} className="flex  gap-5 mb-8 mt-6">
               {review?.user?.avatar ? (
                 <img
                   src={`${SERVER}${review?.user?.avatar?.secure_url}`}
@@ -126,11 +128,18 @@ const ProductReview = ({ productId, product }) => {
                 <h2 className="tracking-wider font-bold text-[15px] my-1">
                   {review?.user?.name} -
                   <span className="text-[12px] text-gray-500 ml-2 font-normal">
-                    {new Date(review.createdAt).toLocaleDateString()}
+                    {new Date(review?.createdAt).toLocaleDateString()}
                   </span>
                 </h2>
-                <h1>{review.review}</h1>
-                {user && user._id === review.user._id && (
+                {review?.image?.secure_url ? (
+                  <img
+                    src={`${SERVER}${review?.image?.secure_url}`}
+                    alt=""
+                    className="w-40 h-40 my-3"
+                  />
+                ) : null}
+                <h1>{review?.review}</h1>
+                {user && user._id === review?.user._id && (
                   <div className="mt-2">
                     <button
                       className="text-blue-500 text-xl "
@@ -164,12 +173,12 @@ const ProductReview = ({ productId, product }) => {
             value={newReview}
             onChange={(e) => setNewReview(e.target.value)}
           />
-          {/* <InputFileUpload
+          <InputFileUpload
             label="Profile Picture"
             name="avatar"
             setFile={setImages}
             file={image}
-          /> */}
+          />
           <div className="modal-action">
             <button className="btn" onClick={handleAddReview}>
               Submit
