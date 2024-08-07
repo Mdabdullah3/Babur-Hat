@@ -109,8 +109,8 @@ const ProductComment = ({ productId, product }) => {
                   className="w-14 h-14 rounded-full"
                 />
                 <div>
-                  <h4 className="font-bold">{comment.user.name}</h4>
-                  <p>{new Date(comment.createdAt).toLocaleDateString()}</p>
+                  <h4 className="font-bold">{comment?.user.name}</h4>
+                  <p>{new Date(comment?.createdAt).toLocaleDateString()}</p>
                 </div>
               </div>
               {comment?.image?.secure_url ? (
