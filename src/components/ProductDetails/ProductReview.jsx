@@ -9,7 +9,7 @@ import { SERVER } from "../../config";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import InputFileUpload from "../common/InputFileUpload";
-
+import { toDataURL } from "../../utils/DataUrl";
 const ProductReview = ({ productId, product }) => {
   const [newReview, setNewReview] = useState("");
   const [image, setImages] = useState(null);
@@ -17,6 +17,7 @@ const ProductReview = ({ productId, product }) => {
   const { fetchReviewsByProduct, addReview, updateReview, deleteReview } =
     useReviewStore();
   const { user, fetchUser } = useUserStore();
+  const reviews = product?.reviews?.filter((review) => review.review);
 
   useEffect(() => {
     fetchReviewsByProduct(productId);
@@ -31,12 +32,18 @@ const ProductReview = ({ productId, product }) => {
   };
 
   const handleAddReview = async () => {
-    await addReview(formdata);
-    console.log(formdata);
+    await addReview(formdata, "Review Added Successfully");
     document.getElementById("my_modal_2").close();
     setNewReview("");
   };
-
+  useEffect(() => {
+    if (editReview?.image?.secure_url) {
+      const imageUrl = `${SERVER}${editReview.image.secure_url}`;
+      toDataURL(imageUrl).then((base64) => {
+        setImages(base64);
+      });
+    }
+  }, [editReview?.image?.secure_url]);
   const handleEditReview = async () => {
     if (editReview) {
       await updateReview(
@@ -44,6 +51,7 @@ const ProductReview = ({ productId, product }) => {
         { ...editReview, review: newReview },
         "Review Updated Successfully"
       );
+
       document.getElementById("edit_modal").close();
       setEditReview(null);
       setNewReview("");
@@ -76,8 +84,7 @@ const ProductReview = ({ productId, product }) => {
     }
   };
 
-  const reviews = product?.reviews?.filter((review) => review.review);
-
+  console.log(image);
   return (
     <div>
       <div className="flex items-center justify-around mb-4 md:mb-6 flex-wrap">
@@ -200,6 +207,12 @@ const ProductReview = ({ productId, product }) => {
             placeholder="Update your review"
             value={newReview}
             onChange={(e) => setNewReview(e.target.value)}
+          />
+          <InputFileUpload
+            label="Profile Picture"
+            name="avatar"
+            setFile={setImages}
+            file={image}
           />
           <div className="modal-action">
             <button className="btn" onClick={handleEditReview}>
