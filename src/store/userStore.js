@@ -79,7 +79,7 @@ const useUserStore = create((set, get) => ({
     },
 
     googleLogin: () => {
-        window.location.href = `${SERVER}/auth/google`;
+        window.location.href = `${SERVER}/api/auth/google`;
     }
 }));
 

@@ -10,9 +10,10 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import InputFileUpload from "../common/InputFileUpload";
 import { toDataURL } from "../../utils/DataUrl";
+
 const ProductReview = ({ productId, product }) => {
   const [newReview, setNewReview] = useState("");
-  const [image, setImages] = useState(null);
+  const [image, setImage] = useState(null);
   const [editReview, setEditReview] = useState(null);
   const { fetchReviewsByProduct, addReview, updateReview, deleteReview } =
     useReviewStore();
@@ -22,39 +23,49 @@ const ProductReview = ({ productId, product }) => {
   useEffect(() => {
     fetchReviewsByProduct(productId);
     fetchUser();
-  }, [productId, fetchUser, fetchReviewsByProduct]);
-
-  const formdata = {
-    product: productId,
-    userId: user?._id,
-    review: newReview,
-    image: image,
-  };
+  }, [productId, fetchUser, product, fetchReviewsByProduct]);
 
   const handleAddReview = async () => {
-    await addReview(formdata, "Review Added Successfully");
+    const formData = {
+      product: productId,
+      userId: user?._id,
+      review: newReview,
+      image: image,
+    };
+
+    await addReview(formData, "Review Added Successfully");
     document.getElementById("my_modal_2").close();
     setNewReview("");
+    setImage(null);
   };
+
   useEffect(() => {
     if (editReview?.image?.secure_url) {
       const imageUrl = `${SERVER}${editReview.image.secure_url}`;
       toDataURL(imageUrl).then((base64) => {
-        setImages(base64);
+        setImage(base64);
       });
     }
   }, [editReview?.image?.secure_url]);
+
   const handleEditReview = async () => {
+    const updatedReviewData = {
+      ...editReview,
+      review: newReview,
+      image: image || editReview.image,
+    };
+    console.log(updatedReviewData);
+
     if (editReview) {
       await updateReview(
         editReview._id,
-        { ...editReview, review: newReview },
+        updatedReviewData,
         "Review Updated Successfully"
       );
-
       document.getElementById("edit_modal").close();
       setEditReview(null);
       setNewReview("");
+      setImage(null);
     }
   };
 
@@ -78,13 +89,11 @@ const ProductReview = ({ productId, product }) => {
 
   const handleDeleteReview = async (review) => {
     if (user && user._id === review.user._id) {
-      await deleteReview(review._id);
+      await deleteReview(review._id, "Review Deleted Successfully");
     } else {
       toast.error("You are not authorized to delete this review.");
     }
   };
-
-  console.log(image);
   return (
     <div>
       <div className="flex items-center justify-around mb-4 md:mb-6 flex-wrap">
@@ -183,7 +192,7 @@ const ProductReview = ({ productId, product }) => {
           <InputFileUpload
             label="Profile Picture"
             name="avatar"
-            setFile={setImages}
+            setFile={setImage}
             file={image}
           />
           <div className="modal-action">
@@ -211,7 +220,7 @@ const ProductReview = ({ productId, product }) => {
           <InputFileUpload
             label="Profile Picture"
             name="avatar"
-            setFile={setImages}
+            setFile={setImage}
             file={image}
           />
           <div className="modal-action">
