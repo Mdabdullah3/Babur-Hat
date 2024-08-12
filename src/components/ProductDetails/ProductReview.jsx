@@ -70,11 +70,7 @@ const ProductReview = ({ productId, product }) => {
   };
 
   const openModal = () => {
-    if (!user) {
-      toast.error("Please log in first to write a review.");
-    } else {
-      document.getElementById("my_modal_2").showModal();
-    }
+    document.getElementById("my_modal_2").showModal();
   };
 
   const openEditModal = (review) => {

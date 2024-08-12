@@ -7,10 +7,17 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import useCartStore from "../../store/cartStore";
 import Link from "next/link";
 import { SERVER } from "../../config";
+import InputField from "../common/InputField";
+import PrimaryButton from "../common/PrimaryButton";
+import axios from "axios";
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart } = useCartStore();
   const [isClient, setIsClient] = useState(false);
+  const [coupon, setCoupon] = useState("");
+  const [discount, setDiscount] = useState(0);
+  const [error, setError] = useState("");
+  const [couponApplied, setCouponApplied] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -28,8 +35,45 @@ const Cart = () => {
 
   const handleClearCart = () => {
     clearCart();
+    setDiscount(0); // Reset discount when cart is cleared
   };
-  console.log(cart);
+
+  const handleApplyCoupon = async () => {
+    try {
+      const response = await axios.get(
+        "http://103.148.15.24:5000/api/vouchers"
+      );
+      const vouchers = response.data;
+      console.log(vouchers);
+      const validVoucher = vouchers.find(
+        (voucher) =>
+          voucher.redeemCode === coupon && voucher.status === "active"
+        // new Date(voucher.startDate) <= new Date() &&
+        // new Date(voucher.endDate) >= new Date()
+      );
+
+      if (validVoucher) {
+        setDiscount(validVoucher.discount);
+        setCouponApplied(true);
+        setError("");
+      } else {
+        setDiscount(0);
+        setCouponApplied(false);
+        setError("Invalid or expired coupon code.");
+      }
+    } catch (error) {
+      console.error("Failed to apply coupon:", error);
+      setError("An error occurred while applying the coupon.");
+    }
+  };
+
+  const calculateTotal = () => {
+    const subtotal = cart.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+    return subtotal - (subtotal * discount) / 100 + 60; // 60 is the shipping fee
+  };
 
   return (
     <div className="w-11/12 mx-auto lg:mt-10 mt-4 tracking-wider">
@@ -49,7 +93,7 @@ const Cart = () => {
                     <div className="flex items-center">
                       <div className="relative">
                         <img
-                          src={`${SERVER}${item?.coverPhoto.secure_url}`}
+                          src={`${SERVER}${item?.coverPhoto}`}
                           className="lg:w-20 lg:h-18 h-20 rounded-sm mx-2"
                           alt="cart image"
                         />
@@ -72,7 +116,7 @@ const Cart = () => {
                             </h1>
                           </div>
                           <div>
-                            <h1>${item.price}.00</h1>
+                            <h1>${item.price * parseInt(item?.quantity)}.00</h1>
                           </div>
                           <div className="">
                             <div className="relative flex flex-row lg:w-36 w-20 lg:h-12 h-8 bg-transparent rounded-lg">
@@ -146,6 +190,25 @@ const Cart = () => {
                   </div>
                 </React.Fragment>
               ))}
+              <hr className="m-4" />
+              <div className="flex gap-2 justify-center items-center mt-6 mx-4">
+                <InputField
+                  id="coupon"
+                  name="coupon"
+                  value={coupon}
+                  onChange={(e) => setCoupon(e.target.value)}
+                  placeholder="Enter your coupon code"
+                />
+                <PrimaryButton value="Apply" onClick={handleApplyCoupon} />
+              </div>
+              {error && (
+                <p className="text-red-500 text-center mt-2">{error}</p>
+              )}
+              {couponApplied && (
+                <p className="text-green-500 text-center mt-2">
+                  Coupon applied! You get a {discount}% discount.
+                </p>
+              )}
               <div className="flex lg:hidden justify-center my-3 bg-red-500 px-2 text-white py-3 rounded-xl">
                 <div className="">
                   <h1 className="text-sm  font-bold">Cart Totals</h1>

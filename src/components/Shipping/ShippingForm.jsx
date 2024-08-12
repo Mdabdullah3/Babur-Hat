@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-// components/ShippingForm.js
 "use client";
 import { useEffect, useState } from "react";
 import InputField from "../common/InputField";
@@ -78,8 +77,47 @@ const ShippingForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
-    toast.success("Your order is successful!");
+
+    // Prepare the data according to API requirements
+    const requestData = {
+      product: "667ea9b1df5d6c0e864f1841", 
+      price: total + 60, 
+      currency: "BDT",
+      paymentType: selectedMethod === "cod" ? "cash" : "card",
+      shippingInfo: {
+        name: form.fullName,
+        email: form.email,
+        phone: form.phone,
+        method: "Courier",
+        address1: form.streetAddress,
+        address2: "",
+        city: selectedCity?.label || "", 
+        state: selectedDistrict?.label || "",
+        postcode: form.postalCode,
+        country: "Bangladesh",
+      },
+    };
+
+    // Send the data to the API
+    fetch("{{origin}}/api/payments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          toast.success("Your order is successful!");
+        } else {
+          toast.error("There was an issue with your order. Please try again.");
+        }
+      })
+      .catch((error) => {
+        toast.error("There was an error processing your order.");
+        console.error("Error:", error);
+      });
   };
 
   useEffect(() => {

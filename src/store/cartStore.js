@@ -14,7 +14,20 @@ const useCartStore = create(
                         productAdded = false;
                         return state;
                     }
-                    const newCart = [...state.cart, { ...product, quantity: 1 }];
+                    const { _id, user, coverPhoto, price, name, quantity, stock, size } = product;
+                    const newCart = [
+                        ...state.cart,
+                        {
+                            _id,
+                            userId: user._id,
+                            coverPhoto: coverPhoto.secure_url,
+                            name,
+                            quantity: 1,
+                            stock,
+                            price,
+                            size
+                        }
+                    ];
                     productAdded = true;
                     return { cart: newCart };
                 });
