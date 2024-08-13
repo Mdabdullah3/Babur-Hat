@@ -53,27 +53,7 @@ const ProductSummery = () => {
             </div>
           </div>
         ))}
-        <div className="mt-5">
-          <hr className="mb-2" />
-          <label htmlFor="Coupon" className="tracking-wider">
-            Coupon Code
-          </label>
-          <div className="flex items-center gap-2 justify-between">
-            <input
-              className="input input-bordered w-9/12 tracking-wider focus:outline-none my-2"
-              type="text"
-              id="Coupon"
-              placeholder="Coupon Code"
-              //   value={fullName}
-              //   onChange={(e) => setFullName(e.target.value)}
-            />
-            <div>
-              <button className="px-5 py-3 bg-primary w-full text-white tracking-wider rounded-lg">
-                Apply
-              </button>
-            </div>
-          </div>
-        </div>
+
         <div>
           <hr className="my-3" />
           <h1 className="text-gray-600 tracking-wider flex items-center justify-between">

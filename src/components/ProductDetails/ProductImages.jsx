@@ -9,7 +9,6 @@ import { SERVER } from "../../config";
 const ProductImages = ({ product }) => {
   return (
     <div className="flex gap-4  overflow-hidden col-span-3">
-      
       <Swiper
         centeredSlides={true}
         autoplay={{
@@ -28,6 +27,7 @@ const ProductImages = ({ product }) => {
             <img
               src={`${SERVER}${product?.coverPhoto.secure_url}`}
               alt="Product Image"
+              className="h-[31rem] w-[31rem] rounded-md"
             />
           </div>
         </SwiperSlide>
@@ -46,7 +46,11 @@ const ProductImages = ({ product }) => {
         {product?.images.map((img, index) => (
           <SwiperSlide key={index}>
             <div className="-z-10">
-              <img src={`${SERVER}${img?.secure_url}`} alt="Product Image" />
+              <img
+                src={`${SERVER}${img?.secure_url}`}
+                className="h-[31rem] w-[31rem] rounded-md"
+                alt="Product Image"
+              />
             </div>
           </SwiperSlide>
         ))}

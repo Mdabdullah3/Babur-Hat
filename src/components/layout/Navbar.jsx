@@ -2,7 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import { FaRegUser } from "react-icons/fa";
+import { FaHeart, FaRegUser } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdMenu } from "react-icons/md";
 import Link from "next/link";
 import useCartStore from "../../store/cartStore";
@@ -25,7 +25,7 @@ const Navbar = () => {
   const { cart } = useCartStore();
   const router = useRouter();
   const pathname = usePathname();
-  const isActive = (path) => pathname === path ? "text-[#E92769]" : "";
+  const isActive = (path) => (pathname === path ? "text-[#E92769]" : "");
 
   const handleLogout = () => {
     logout();
@@ -192,14 +192,17 @@ const Navbar = () => {
                 </div>
               </div>
             </Link>
+            <Link href="/wishlist">
+              <h1 className="md:text-2xl text-xl">
+                <FaHeart />
+              </h1>
+            </Link>
           </div>
         </div>
         <div className="flex items-center justify-center mt-4">
           <ul className="hidden md:flex items-center gap-8 text-md tracking-wider font-bold -ml-28">
-          <Link href="/">
-              <li className={`cursor-pointer ${isActive("/")}`}>
-                Home
-              </li>
+            <Link href="/">
+              <li className={`cursor-pointer ${isActive("/")}`}>Home</li>
             </Link>
             <Link href="/event">
               <li className={`cursor-pointer ${isActive("/event")}`}>
