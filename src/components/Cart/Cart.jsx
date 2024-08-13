@@ -43,19 +43,38 @@ const Cart = () => {
       const response = await axios.get(
         "http://103.148.15.24:5000/api/vouchers"
       );
-      const vouchers = response.data;
+      const vouchers = response?.data?.data;
       console.log(vouchers);
+
+      // Find the valid voucher based on coupon code and status
       const validVoucher = vouchers.find(
         (voucher) =>
           voucher.redeemCode === coupon && voucher.status === "active"
-        // new Date(voucher.startDate) <= new Date() &&
-        // new Date(voucher.endDate) >= new Date()
       );
 
       if (validVoucher) {
-        setDiscount(validVoucher.discount);
-        setCouponApplied(true);
-        setError("");
+        // Filter cart items that belong to the same vendor as the voucher
+        const discountableItems = cart.filter(
+          (item) => item.userId === validVoucher.userId
+        );
+
+        if (discountableItems.length > 0) {
+          // Apply discount only to the eligible items
+          const discountAmount = discountableItems.reduce(
+            (total, item) =>
+              total +
+              (item.price * item.quantity * validVoucher.discount) / 100,
+            0
+          );
+
+          setDiscount(discountAmount);
+          setCouponApplied(true);
+          setError("");
+        } else {
+          setDiscount(0);
+          setCouponApplied(false);
+          setError("No items in the cart are eligible for this coupon.");
+        }
       } else {
         setDiscount(0);
         setCouponApplied(false);
@@ -67,12 +86,14 @@ const Cart = () => {
     }
   };
 
+  console.log(discount);
+
   const calculateTotal = () => {
     const subtotal = cart.reduce(
       (total, item) => total + item.price * item.quantity,
       0
     );
-    return subtotal - (subtotal * discount) / 100 + 60; // 60 is the shipping fee
+    return subtotal - discount;
   };
 
   return (
@@ -235,11 +256,7 @@ const Cart = () => {
                       Total{" "}
                       <span className="text-lg">
                         <FaBangladeshiTakaSign />
-                        {cart.reduce(
-                          (total, item) => total + item.price * item.quantity,
-                          0
-                        ) + 60}
-                        .00
+                        {calculateTotal()} BDT
                       </span>
                     </h1>
                   </div>
@@ -270,11 +287,7 @@ const Cart = () => {
                 SubTotal :
                 <span className="ml-10 flex font-[500] text-lg items-center">
                   <FaBangladeshiTakaSign />
-                  {cart.reduce(
-                    (total, item) => total + item.price * item.quantity,
-                    0
-                  )}
-                  .00
+                  {calculateTotal()} BDT
                 </span>
               </h1>
               <h1 className="mt-4 tracking-wider uppercase text-sm flex gap-10 items-start">
@@ -289,11 +302,7 @@ const Cart = () => {
                   Total{" "}
                   <span className="text-xl flex items-center">
                     <FaBangladeshiTakaSign size={32} />
-                    {cart.reduce(
-                      (total, item) => total + item.price * item.quantity,
-                      0
-                    ) + 60}
-                    .00
+                    {calculateTotal()} BDT
                   </span>
                 </h1>
                 <Link href="/shipping">
