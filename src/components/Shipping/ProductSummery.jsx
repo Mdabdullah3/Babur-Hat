@@ -31,7 +31,7 @@ const ProductSummery = () => {
             <div className="mt-5 flex justify-between items-center">
               <div className="flex items-center gap-3">
                 <img
-                  src={`${SERVER}${order?.coverPhoto.secure_url}`}
+                  src={`${SERVER}${order?.coverPhoto}`}
                   className="w-20 h-20 rounded-sm"
                   alt=""
                 />

@@ -180,7 +180,14 @@ const Cart = () => {
                       </h1>
                     </div>
                     <div className="hidden lg:block">
-                      <h1>${item.price}.00</h1>
+                      <h1 className="text-gray-500">
+                        ({item?.quantity} x {item?.price}) ={""}
+                        <span className="font-semibold text-black">
+                          {" "}
+                          {item.price * parseInt(item?.quantity)}
+                        </span>
+                        BDT
+                      </h1>
                     </div>
                     <div className="w-28 mt-2 lg:block hidden">
                       <div className="relative flex flex-row w-36 h-12 bg-transparent rounded-lg">
@@ -302,7 +309,7 @@ const Cart = () => {
                   Total{" "}
                   <span className="text-xl flex items-center">
                     <FaBangladeshiTakaSign size={32} />
-                    {calculateTotal()} BDT
+                    {calculateTotal() + 60} BDT
                   </span>
                 </h1>
                 <Link href="/shipping">
