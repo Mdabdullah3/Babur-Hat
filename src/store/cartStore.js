@@ -1,4 +1,3 @@
-'use client';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -6,7 +5,7 @@ const useCartStore = create(
     persist(
         (set) => ({
             cart: [],
-            addToCart: (product) => {
+            addToCart: (product, quantity = 1) => {
                 let productAdded = false;
                 set((state) => {
                     const productExists = state.cart.find((item) => item._id === product._id);
@@ -14,7 +13,7 @@ const useCartStore = create(
                         productAdded = false;
                         return state;
                     }
-                    const { _id, user, coverPhoto, price, name, quantity, stock, size } = product;
+                    const { _id, user, coverPhoto, price, name, stock, size } = product;
                     const newCart = [
                         ...state.cart,
                         {
@@ -22,7 +21,7 @@ const useCartStore = create(
                             userId: user._id,
                             coverPhoto: coverPhoto.secure_url,
                             name,
-                            quantity: 1,
+                            quantity,
                             stock,
                             price,
                             size
