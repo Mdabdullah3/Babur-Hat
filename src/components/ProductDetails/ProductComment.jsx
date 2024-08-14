@@ -94,6 +94,7 @@ const ProductComment = ({ productId, product }) => {
             label="Upload Image"
             setFile={setImages}
             name="image"
+            file={image}
           />
         </div>
         <div className="mt-5">
