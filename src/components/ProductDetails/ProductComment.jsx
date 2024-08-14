@@ -5,6 +5,7 @@ import useReviewStore from "../../store/reviewStore";
 import useUserStore from "../../store/userStore";
 import { SERVER } from "../../config";
 import InputFileUpload from "../common/InputFileUpload";
+import { toDataURL } from "../../utils/DataUrl";
 
 const ProductComment = ({ productId, product }) => {
   const [newComments, setNewComments] = useState("");
@@ -27,6 +28,7 @@ const ProductComment = ({ productId, product }) => {
           {
             ...editComment,
             comment: newComments,
+            image: image || editComment?.image,
           },
           message
         );
@@ -43,7 +45,14 @@ const ProductComment = ({ productId, product }) => {
       setNewComments("");
     }
   };
-
+  useEffect(() => {
+    if (editComment?.image?.secure_url) {
+      const imageUrl = `${SERVER}${editComment.image.secure_url}`;
+      toDataURL(imageUrl).then((base64) => {
+        setImages(base64);
+      });
+    }
+  }, [editComment?.image?.secure_url]);
   const handleEditComment = (comment) => {
     if (user && user._id === comment.user._id) {
       setEditComment(comment);
