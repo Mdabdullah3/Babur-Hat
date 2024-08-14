@@ -97,6 +97,7 @@ const ProductComment = ({ productId, product }) => {
             file={image}
           />
         </div>
+        
         <div className="mt-5">
           <PrimaryButton
             onClick={handleAddComment}
