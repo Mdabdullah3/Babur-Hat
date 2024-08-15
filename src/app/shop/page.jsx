@@ -12,6 +12,8 @@ import ProductCardDesign from "../../components/common/ProductCardDesign";
 const shop = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const [selectedSize, setSelectecdSize] = useState(null);
+  const [priceRange, setPriceRange] = useState([0, 1000]);
   const { products, fetchProducts } = useProductStore();
   const { categories, fetchCategories } = useCategoryStore();
   useEffect(() => {
@@ -24,12 +26,52 @@ const shop = () => {
     // setCategoryId(categoryId);
     // setSubCategoryId(null);
   };
-  console.log(categories);
 
   const handleSubCategoryChange = (subCategoryId) => {
     setSelectedSubCategory(subCategoryId);
-    // setSubCategoryId(subCategoryId);
   };
+  const handleSizeChange = (size) => {
+    setSelectecdSize(size);
+  };
+
+  const handlePriceChange = (event) => {
+    const value = Number(event.target.value);
+    setPriceRange([0, value]);
+  };
+  const filterProducts = () => {
+    const filteredProducts = products?.filter((product) => {
+      let matchesCategory = true;
+      let matchesSubCategory = true;
+      let matchesSize = true;
+      let matchesPrice = true;
+
+      if (selectedCategory) {
+        matchesCategory = product.category === selectedCategory;
+      }
+
+      if (selectedSubCategory) {
+        matchesSubCategory = product.subCategory === selectedSubCategory;
+      }
+
+      if (selectedSize) {
+        matchesSize = product.size === selectedSize;
+      }
+
+      if (priceRange[0] !== 0 || priceRange[1] !== 1000) {
+        matchesPrice =
+          product.price >= priceRange[0] && product.price <= priceRange[1];
+      }
+
+      return (
+        matchesCategory && matchesSubCategory && matchesSize && matchesPrice
+      );
+    });
+
+    return filteredProducts;
+  };
+
+  console.log(priceRange, filterProducts());
+  const filterProduct = filterProducts();
   return (
     <div>
       <Navbar />
@@ -115,10 +157,15 @@ const shop = () => {
                       <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2 mt-6 w-full">
                         {size?.map((item, index) => (
                           <div
+                            onClick={() => handleSizeChange(item)}
                             key={index}
-                            className="mx-auto w-full text-center"
+                            className="mx-auto w-full cursor-pointer text-center"
                           >
-                            <h1 className="px-2 py-2 rounded-lg border border-gray-400 text-md font-medium">
+                            <h1
+                              className={`text-sm font-medium border border-gray-400 p-4 tracking-wider ${
+                                item === selectedSize ? "text-primary" : ""
+                              }`}
+                            >
                               {item}
                             </h1>
                           </div>
@@ -220,8 +267,16 @@ const shop = () => {
                 <ShopMenu title="Size">
                   <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2 mt-6 w-full">
                     {size?.map((item, index) => (
-                      <div key={index} className="mx-auto w-full text-center">
-                        <h1 className="px-2 py-2 rounded-lg border border-gray-400 text-md font-medium">
+                      <div
+                        onClick={() => handleSizeChange(item)}
+                        key={index}
+                        className="mx-auto w-full text-center cursor-pointer"
+                      >
+                        <h1
+                          className={`text-sm font-medium border-gray-400 border p-3 rounded-lg tracking-wider ${
+                            item === selectedSize ? "text-primary" : ""
+                          }`}
+                        >
                           {item}
                         </h1>
                       </div>
@@ -233,12 +288,14 @@ const shop = () => {
                     <input
                       type="range"
                       min={0}
-                      max="1000"
+                      max={Math.max(...products.map((p) => p.price), 1000)}
                       className="range range-xs range-primary"
+                      value={priceRange[1]}
+                      onChange={handlePriceChange}
                     />
                     <p className="tracking-wider mt-2 flex justify-between">
-                      <span>Price - $0</span>
-                      <span>$1000</span>
+                      <span>Price - ${priceRange[0]}</span>
+                      <span>${priceRange[1]}</span>
                     </p>
                   </div>
                 </ShopMenu>
@@ -251,14 +308,17 @@ const shop = () => {
             </div>
           </div>
           <div className="lg:col-span-3">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 md:gap-4 gap-2">
-              {products?.slice(0, 20).map((product) => (
-                <ProductCardDesign
-                  key={product._id}
-                  product={product}
-                ></ProductCardDesign>
-              ))}
-            </div>
+            {filterProduct.length > 0 ? (
+              <div className="grid grid-cols-2  md:grid-cols-4 md:gap-4 gap-2">
+                {filterProduct.map((product) => (
+                  <ProductCardDesign key={product._id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <h1 className="text-center text-red-500 text-xl mt-10">
+                No Product Found
+              </h1>
+            )}
           </div>
         </div>
       </section>

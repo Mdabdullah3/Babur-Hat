@@ -300,7 +300,7 @@ export const cart = [
     },
 ];
 
-export const size = ["S", "XL", "L", "X", "2XL", "40", "42", "44", "46", "48"];
+export const size = ["S", "XL", "L", "X", "XS", "2XL", "40", "42", "44", "46", "48"];
 
 export const reacentOrder = [
     {

@@ -4,7 +4,6 @@ import { API_URL } from '../config';
 
 const useProductStore = create((set) => ({
     products: [],
-    product: null,
     totalProducts: 0,
     loading: false,
     error: null,
@@ -12,13 +11,24 @@ const useProductStore = create((set) => ({
     limit: 10,
     searchTerm: '',
     sort: '-createdAt,price',
-    categoryId: null,
-    subCategoryId: null,
-    suggestions: [], // Store for search suggestions
+    selectedCategory: null,
+    selectedSubCategory: null,
+    selectedSize: null,
+    minPrice: 0,
+    maxPrice: 1000,
+
+    setPage: (page) => set({ page }),
+    setLimit: (limit) => set({ limit }),
+    setSearchTerm: (searchTerm) => set({ searchTerm }),
+    setSort: (sort) => set({ sort }),
+    setCategory: (category) => set({ selectedCategory: category }),
+    setSubCategory: (subCategory) => set({ selectedSubCategory: subCategory }),
+    setSize: (size) => set({ selectedSize: size }),
+    setPriceRange: (minPrice, maxPrice) => set({ minPrice, maxPrice }),
 
     fetchProducts: async () => {
         set({ loading: true });
-        const { page, limit, searchTerm, sort, categoryId, subCategoryId } = useProductStore.getState();
+        const { page, limit, searchTerm, sort, selectedCategory, selectedSubCategory, selectedSize, minPrice, maxPrice } = useProductStore.getState();
         try {
             const response = await axios.get(`${API_URL}/products`, {
                 params: {
@@ -26,8 +36,11 @@ const useProductStore = create((set) => ({
                     _limit: limit,
                     _search: searchTerm ? `${searchTerm},name,slug,summary,description` : '',
                     _sort: sort,
-                    categoryId: categoryId || '',
-                    subCategoryId: subCategoryId || '',
+                    category: selectedCategory,
+                    subCategory: selectedSubCategory,
+                    size: selectedSize,
+                    price_gte: minPrice,
+                    price_lte: maxPrice,
                 },
             });
             set({ products: response.data.data, totalProducts: response.data.total, loading: false });
@@ -51,12 +64,7 @@ const useProductStore = create((set) => ({
         }
     },
 
-    setPage: (page) => set({ page }),
-    setLimit: (limit) => set({ limit }),
-    setSearchTerm: (searchTerm) => set({ searchTerm }),
-    setSort: (sort) => set({ sort }),
-    setCategoryId: (categoryId) => set({ categoryId }),
-    setSubCategoryId: (subCategoryId) => set({ subCategoryId }),
+
 
     fetchProductByIdOrSlug: async (idOrSlug) => {
         set({ loading: true });
