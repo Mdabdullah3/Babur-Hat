@@ -33,20 +33,10 @@ const ProductCardDesign = ({ product }) => {
             alt=""
           />
         </div>
-        <h1 className="text-[14px]  mt-1 capitalize">
+        <h1 className="text-[14px]  my-1 capitalize">
           {product.name.slice(0, 20)}...
         </h1>
-        <h1 className="flex items-center  justify-between lg:text-sm text-[14px] text-yellow-500 my-2">
-          <div className="flex gap-1">
-            <FaStar />
-            <FaStar />
-            <FaStar />
-            <FaStar />
-          </div>
-          <span className="text-gray-500 lg:text-sm text-[12px] lg:ml-3">
-            1000+ Sold
-          </span>
-        </h1>
+
         <h1 className="lg:text-xl text-[14px] font-bold">
           <span className="lg:text-sm text-[14px]">BDT</span> {product.price}.00{" "}
           <del className="font-normal ml-2 lg:text-sm text-gray-400 text-[14px]">

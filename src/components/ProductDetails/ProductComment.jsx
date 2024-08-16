@@ -6,23 +6,33 @@ import useUserStore from "../../store/userStore";
 import { SERVER } from "../../config";
 import InputFileUpload from "../common/InputFileUpload";
 import { toDataURL } from "../../utils/DataUrl";
+import { FiEdit } from "react-icons/fi";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
-const ProductComment = ({ productId, product }) => {
+const ProductComment = ({ productId }) => {
   const [newComments, setNewComments] = useState("");
   const [image, setImages] = useState(null);
   const [editComment, setEditComment] = useState(null);
-  const { addReview, updateReview, deleteReview } = useReviewStore();
+  const {
+    addReview,
+    fetchReviewsByProduct,
+    reviews,
+    updateReview,
+    deleteReview,
+  } = useReviewStore();
   const { user, fetchUser } = useUserStore();
 
   useEffect(() => {
     fetchUser();
-  }, [fetchUser]);
+    fetchReviewsByProduct(productId);
+  }, [fetchUser, fetchReviewsByProduct, productId]);
 
   const handleAddComment = async () => {
-    const message = "Comment Added Successfully";
+    const message = editComment
+      ? "Comment Updated Successfully"
+      : "Comment Added Successfully";
     if (user && newComments.trim()) {
       if (editComment) {
-        const message = "Comment Updated Successfully";
         await updateReview(
           editComment._id,
           {
@@ -43,8 +53,13 @@ const ProductComment = ({ productId, product }) => {
         await addReview(formdata, message);
       }
       setNewComments("");
+      setImages(null);
+      document
+        .getElementById(editComment ? "edit_modal" : "my_modal_2")
+        .close();
     }
   };
+
   useEffect(() => {
     if (editComment?.image?.secure_url) {
       const imageUrl = `${SERVER}${editComment.image.secure_url}`;
@@ -53,21 +68,27 @@ const ProductComment = ({ productId, product }) => {
       });
     }
   }, [editComment?.image?.secure_url]);
-  const handleEditComment = (comment) => {
+
+  const openModal = () => {
+    document.getElementById("my_modal_2").showModal();
+  };
+
+  const openEditModal = (comment) => {
     if (user && user._id === comment.user._id) {
       setEditComment(comment);
       setNewComments(comment.comment);
+      document.getElementById("edit_modal").showModal();
     }
   };
 
   const handleDeleteComment = async (comment) => {
     if (user && user._id === comment.user._id) {
-      const message = "Comment Deleted Successfull";
+      const message = "Comment Deleted Successfully";
       await deleteReview(comment._id, message);
     }
   };
 
-  const comments = product?.reviews?.filter((review) => review.comment);
+  const comments = reviews?.filter((review) => review.comment);
 
   return (
     <div>
@@ -83,25 +104,10 @@ const ProductComment = ({ productId, product }) => {
       </div>
       <hr />
       <div className="flex gap-5">
-        <div className="flex-1">
-          <textarea
-            className="textarea textarea-bordered w-full mt-4"
-            placeholder="Write Your Comments"
-            value={newComments}
-            onChange={(e) => setNewComments(e.target.value)}
-          />
-          <InputFileUpload
-            label="Upload Image"
-            setFile={setImages}
-            name="image"
-            file={image}
-          />
-        </div>
-        
         <div className="mt-5">
           <PrimaryButton
-            onClick={handleAddComment}
-            value={editComment ? "Update" : "Send"}
+            onClick={openModal}
+            value={editComment ? "Update" : "Write Comment"}
           />
         </div>
       </div>
@@ -136,15 +142,15 @@ const ProductComment = ({ productId, product }) => {
                 <div>
                   <button
                     className="text-blue-500 mr-4"
-                    onClick={() => handleEditComment(comment)}
+                    onClick={() => openEditModal(comment)}
                   >
-                    Edit
+                    <FiEdit />
                   </button>
                   <button
                     className="text-red-500"
                     onClick={() => handleDeleteComment(comment)}
                   >
-                    Delete
+                    <RiDeleteBin6Line />
                   </button>
                 </div>
               )}
@@ -156,6 +162,62 @@ const ProductComment = ({ productId, product }) => {
           </h1>
         )}
       </div>
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Write a Comment</h3>
+          <textarea
+            className="textarea textarea-bordered w-full mt-4"
+            placeholder="Your comment"
+            value={newComments}
+            onChange={(e) => setNewComments(e.target.value)}
+          />
+          <InputFileUpload
+            label="Profile Picture"
+            name="avatar"
+            setFile={setImages}
+            file={image}
+          />
+          <div className="modal-action">
+            <button className="btn" onClick={handleAddComment}>
+              Submit
+            </button>
+            <button
+              className="btn"
+              onClick={() => document.getElementById("my_modal_2").close()}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </dialog>
+      <dialog id="edit_modal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Edit Comment</h3>
+          <textarea
+            className="textarea textarea-bordered w-full mt-4"
+            placeholder="Update your comment"
+            value={newComments}
+            onChange={(e) => setNewComments(e.target.value)}
+          />
+          <InputFileUpload
+            label="Profile Picture"
+            name="avatar"
+            setFile={setImages}
+            file={image}
+          />
+          <div className="modal-action">
+            <button className="btn" onClick={handleAddComment}>
+              Update
+            </button>
+            <button
+              className="btn"
+              onClick={() => document.getElementById("edit_modal").close()}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };

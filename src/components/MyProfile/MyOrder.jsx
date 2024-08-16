@@ -86,6 +86,9 @@ const MyOrder = () => {
                             <h1>Quantity : {orderProduct?.quantity}</h1>
                           </div>
                         </div>
+                        <button className="btn btn-primary px-4 py-2 text-white">
+                          Review
+                        </button>
                       </div>
                     </div>
                   ))}

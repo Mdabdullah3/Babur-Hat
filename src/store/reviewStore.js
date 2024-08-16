@@ -13,7 +13,7 @@ const useReviewStore = create((set) => ({
         set({ loading: true, error: null });
         try {
             const response = await axios.get(`${API_URL}/reviews`);
-            set({ reviews: response?.data, loading: false });
+            set({ reviews: response.data?.data || [], loading: false }); // Safeguard to ensure it's always an array
         } catch (error) {
             set({ error: error.message, loading: false });
         }
@@ -23,7 +23,7 @@ const useReviewStore = create((set) => ({
         set({ loading: true, error: null });
         try {
             const response = await axios.get(`${API_URL}/products/${productId}/reviews`);
-            set({ reviews: response?.data, loading: false });
+            set({ reviews: response.data?.data || [], loading: false });
         } catch (error) {
             set({ error: error.message, loading: false });
         }
@@ -33,7 +33,7 @@ const useReviewStore = create((set) => ({
         set({ loading: true, error: null });
         try {
             const response = await axios.get(`${API_URL}/users/${userId}/reviews`);
-            set({ reviews: response.data.data, loading: false });
+            set({ reviews: response.data?.data || [], loading: false });
         } catch (error) {
             set({ error: error.message, loading: false });
         }
@@ -43,7 +43,7 @@ const useReviewStore = create((set) => ({
         set({ loading: true, error: null });
         try {
             const response = await axios.get(`${API_URL}/me/reviews`);
-            set({ reviews: response.data.data, loading: false });
+            set({ reviews: response.data?.data || [], loading: false });
         } catch (error) {
             set({ error: error.message, loading: false });
         }
@@ -53,7 +53,7 @@ const useReviewStore = create((set) => ({
         set({ loading: true, error: null });
         try {
             const response = await axios.get(`${API_URL}/reviews/${reviewId}`);
-            set({ review: response.data.data, loading: false });
+            set({ review: response.data?.data || null, loading: false });
         } catch (error) {
             set({ error: error.message, loading: false });
         }
@@ -65,14 +65,16 @@ const useReviewStore = create((set) => ({
             const response = await axios.post(`${API_URL}/reviews`, reviewData, {
                 withCredentials: true,
             });
-            if (response.data.data) {
+            if (response.data?.data) {
                 toast.success(message);
+                set((state) => ({
+                    reviews: [...state.reviews, response.data.data],
+                    loading: false,
+                }));
             }
-            console.log(response);
         } catch (error) {
             set({ error: error.message, loading: false });
             toast.error(error.message);
-            console.log(error);
         }
     },
 
@@ -82,8 +84,14 @@ const useReviewStore = create((set) => ({
             const response = await axios.patch(`${API_URL}/reviews/${reviewId}`, reviewData, {
                 withCredentials: true,
             });
-            if (response.data.data) {
+            if (response.data?.data) {
                 toast.success(message);
+                set((state) => ({
+                    reviews: state.reviews.map((review) =>
+                        review._id === reviewId ? response.data.data : review
+                    ),
+                    loading: false,
+                }));
             }
         } catch (error) {
             set({ error: error.message, loading: false });
@@ -96,6 +104,10 @@ const useReviewStore = create((set) => ({
         try {
             await axios.delete(`${API_URL}/reviews/${reviewId}`);
             toast.success(message);
+            set((state) => ({
+                reviews: state.reviews.filter((review) => review._id !== reviewId),
+                loading: false,
+            }));
         } catch (error) {
             set({ error: error.message, loading: false });
             toast.error(error.message);
