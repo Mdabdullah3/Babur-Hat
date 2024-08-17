@@ -47,6 +47,13 @@ const Navbar = () => {
       setShowSuggestions(false);
     }
   };
+
+  const handleSearchSubmit = () => {
+    if (searchValue) {
+      router.push(`/shop?search=${searchValue}`);
+      setShowSuggestions(false);
+    }
+  };
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -78,6 +85,7 @@ const Navbar = () => {
                   placeholder="Search products..."
                   value={searchValue}
                   onChange={handleSearchChange}
+                  onKeyDown={(e) => e.key === "Enter" && handleSearchSubmit()}
                 />
                 <div className="bg-black px-6 py-2 rounded-full">
                   <FiSearch className="text-white" size={29} />
@@ -94,7 +102,7 @@ const Navbar = () => {
                           : ""
                       }`}
                       onClick={() => {
-                        router.push(`/products/${suggestion._id}`);
+                        router.push(`/shop?search=${suggestion?.name}`);
                         setShowSuggestions(false);
                         setSearchValue(suggestion?.name);
                       }}
@@ -233,12 +241,13 @@ const Navbar = () => {
           <div className="relative">
             <label className="input input-bordered rounded-full flex items-center gap-2 lg:h-[52px] h-[44px] mx-auto">
               <input
-                type="text"
-                className="grow w-full text-black"
+                className="grow w-[23rem] text-black"
+                placeholder="Search products..."
                 value={searchValue}
                 onChange={handleSearchChange}
-                placeholder="Search Products..."
+                onKeyDown={(e) => e.key === "Enter" && handleSearchSubmit()}
               />
+
               <div className="bg-black px-4 py-2 rounded-full">
                 <FiSearch className="text-white text-xl lg:text-2xl" />
               </div>

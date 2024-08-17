@@ -9,6 +9,8 @@ import { CiMenuBurger } from "react-icons/ci";
 import useProductStore from "../../store/ProductStore";
 import useCategoryStore from "../../store/CategoriesStore";
 import ProductCardDesign from "../../components/common/ProductCardDesign";
+import { useSearchParams } from "next/navigation";
+
 const shop = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
@@ -16,10 +18,21 @@ const shop = () => {
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const { products, fetchProducts } = useProductStore();
   const { categories, fetchCategories } = useCategoryStore();
+  const [searchTerm, setSearchTerm] = useState("");
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
+  const search = searchParams.get("search");
+  console.log(category);
   useEffect(() => {
     fetchProducts();
     fetchCategories();
-  }, [fetchProducts, fetchCategories]);
+    if (category) {
+      setSelectedCategory(category);
+    }
+    if (search) {
+      setSearchTerm(search);
+    }
+  }, [fetchProducts, search, fetchCategories, category]);
 
   const handleCategoryChange = (categoryId) => {
     setSelectedCategory(categoryId);
@@ -44,7 +57,7 @@ const shop = () => {
       let matchesSubCategory = true;
       let matchesSize = true;
       let matchesPrice = true;
-
+      let matchesSearchTerm = true;
       if (selectedCategory) {
         matchesCategory = product.category === selectedCategory;
       }
@@ -62,8 +75,18 @@ const shop = () => {
           product.price >= priceRange[0] && product.price <= priceRange[1];
       }
 
+      if (searchTerm) {
+        matchesSearchTerm = product.name
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      }
+
       return (
-        matchesCategory && matchesSubCategory && matchesSize && matchesPrice
+        matchesCategory &&
+        matchesSubCategory &&
+        matchesSize &&
+        matchesPrice &&
+        matchesSearchTerm
       );
     });
 
@@ -72,6 +95,14 @@ const shop = () => {
 
   console.log(priceRange, filterProducts());
   const filterProduct = filterProducts();
+
+  const handleResetFilters = () => {
+    setSelectedCategory(null);
+    setSelectedSubCategory(null);
+    setSelectecdSize(null);
+    setPriceRange([0, 1000]);
+    fetchProducts();
+  };
   return (
     <div>
       <Navbar />
@@ -188,7 +219,10 @@ const shop = () => {
                     </ShopMenu>
                   </div>
                   <div className="mt-10">
-                    <button className="font-bold rounded-sm tracking-wider w-full py-3 bg-primary text-white">
+                    <button
+                      onClick={handleResetFilters}
+                      className="font-bold rounded-sm tracking-wider w-full py-3 bg-primary text-white"
+                    >
                       Reset
                     </button>
                   </div>
@@ -301,7 +335,10 @@ const shop = () => {
                 </ShopMenu>
               </div>
               <div className="mt-10">
-                <button className="font-bold rounded-sm tracking-wider w-full py-3 bg-primary text-white">
+                <button
+                  onClick={handleResetFilters}
+                  className="font-bold rounded-sm tracking-wider w-full py-3 bg-primary text-white"
+                >
                   Reset
                 </button>
               </div>
