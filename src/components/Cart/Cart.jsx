@@ -86,7 +86,7 @@ const Cart = () => {
     }
   };
 
-  console.log(discount);
+  console.log(cart);
 
   const calculateTotal = () => {
     const subtotal = cart.reduce(

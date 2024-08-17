@@ -42,7 +42,27 @@ const useUserStore = create((set, get) => ({
             set({ error: error.message, loading: false });
         }
     },
-
+    updatePassword: async (currentPassword, newPassword, confirmPassword) => {
+        set({ loading: true, error: null });
+        try {
+            const response = await axios.patch(
+                `${API_URL}/auth/update-password`,
+                {
+                    currentPassword,
+                    password: newPassword,
+                    confirmPassword,
+                },
+                {
+                    withCredentials: true,
+                }
+            );
+            toast.success(response.data.message);
+            set({ loading: false });
+        } catch (error) {
+            toast.error(error.response?.data?.message || 'Password update failed.');
+            set({ error: error.message, loading: false });
+        }
+    },
     login: async (email, password, router) => {
         set({ loading: true, error: null });
         try {

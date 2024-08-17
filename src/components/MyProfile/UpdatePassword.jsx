@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
-import { API_URL } from "../../config";
+import useUserStore from "../../store/userStore";
 import InputField from "../common/InputField";
 import PrimaryButton from "../common/PrimaryButton";
 
@@ -15,6 +14,8 @@ const UpdatePassword = () => {
     password: "",
     confirmPassword: "",
   });
+
+  const updatePassword = useUserStore((state) => state.updatePassword);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,27 +32,15 @@ const UpdatePassword = () => {
       return;
     }
 
-    try {
-      const response = await axios.patch(
-        `${API_URL}/auth/update-password`,
-        {
-          currentPassword: formData.currentPassword,
-          password: formData.password,
-          confirmPassword: formData.confirmPassword,
-        },
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(response);
-      toast.success(response.data.message);
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+    await updatePassword(
+      formData.currentPassword,
+      formData.password,
+      formData.confirmPassword
+    );
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-8">
+    <form onSubmit={handleSubmit} className="mt-8" autoComplete="off">
       <InputField
         label="Current Password"
         id="currentPassword"
@@ -62,6 +51,7 @@ const UpdatePassword = () => {
         required
         showPassword={showCurrentPassword}
         toggleShowPassword={() => setShowCurrentPassword((prev) => !prev)}
+        autoComplete="current-password" // Add this
       />
       <InputField
         label="New Password"
@@ -73,6 +63,7 @@ const UpdatePassword = () => {
         required
         showPassword={showNewPassword}
         toggleShowPassword={() => setShowNewPassword((prev) => !prev)}
+        autoComplete="new-password" // Add this
       />
       <InputField
         label="Confirm New Password"
@@ -84,6 +75,7 @@ const UpdatePassword = () => {
         required
         showPassword={showConfirmPassword}
         toggleShowPassword={() => setShowConfirmPassword((prev) => !prev)}
+        autoComplete="new-password" // Add this
       />
       <div className="mt-5">
         <PrimaryButton type="submit" value="Update Password" />

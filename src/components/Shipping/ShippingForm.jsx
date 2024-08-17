@@ -7,6 +7,7 @@ import Select from "react-select";
 import useCartStore from "../../store/cartStore";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { toast } from "react-toastify";
+import { API_URL } from "../../config";
 const ShippingForm = () => {
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
@@ -80,8 +81,8 @@ const ShippingForm = () => {
 
     // Prepare the data according to API requirements
     const requestData = {
-      product: "667ea9b1df5d6c0e864f1841", 
-      price: total + 60, 
+      product: cart.map((item) => item._id),
+      price: total + 60,
       currency: "BDT",
       paymentType: selectedMethod === "cod" ? "cash" : "card",
       shippingInfo: {
@@ -91,7 +92,7 @@ const ShippingForm = () => {
         method: "Courier",
         address1: form.streetAddress,
         address2: "",
-        city: selectedCity?.label || "", 
+        city: selectedCity?.label || "",
         state: selectedDistrict?.label || "",
         postcode: form.postalCode,
         country: "Bangladesh",
@@ -99,25 +100,27 @@ const ShippingForm = () => {
     };
 
     // Send the data to the API
-    fetch("{{origin}}/api/payments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          toast.success("Your order is successful!");
-        } else {
-          toast.error("There was an issue with your order. Please try again.");
-        }
-      })
-      .catch((error) => {
-        toast.error("There was an error processing your order.");
-        console.error("Error:", error);
-      });
+    // fetch(`${API_URL}/api/payments`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(requestData),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     if (data.success) {
+    //       toast.success("Your order is successful!");
+    //     } else {
+    //       toast.error("There was an issue with your order. Please try again.");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     toast.error("There was an error processing your order.");
+    //     console.error("Error:", error);
+    //   });
+
+    console.log(requestData);
   };
 
   useEffect(() => {
