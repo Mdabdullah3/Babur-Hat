@@ -8,6 +8,30 @@ import useCartStore from "../../store/cartStore";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { API_URL } from "../../config";
+const products = [
+  {
+    id: 1,
+    title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+    price: 109.95,
+    description:
+      "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+  },
+  {
+    id: 2,
+    title: "Mens Casual Premium Slim Fit T-Shirts",
+    price: 22.3,
+  },
+  {
+    id: 2,
+    title: "Mens Casual Premium Slim Fit T-Shirts",
+    price: 22.3,
+  },
+  {
+    id: 2,
+    title: "Mens Casual Premium Slim Fit T-Shirts",
+    price: 22.3,
+  },
+];
 const ShippingForm = () => {
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
@@ -79,48 +103,34 @@ const ShippingForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Prepare the data according to API requirements
-    const requestData = {
-      product: cart.map((item) => item._id),
-      price: total + 60,
-      currency: "BDT",
-      paymentType: selectedMethod === "cod" ? "cash" : "card",
-      shippingInfo: {
-        name: form.fullName,
-        email: form.email,
-        phone: form.phone,
-        method: "Courier",
-        address1: form.streetAddress,
-        address2: "",
-        city: selectedCity?.label || "",
-        state: selectedDistrict?.label || "",
-        postcode: form.postalCode,
-        country: "Bangladesh",
-      },
-    };
-
-    // Send the data to the API
-    // fetch(`${API_URL}/api/payments`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(requestData),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     if (data.success) {
-    //       toast.success("Your order is successful!");
-    //     } else {
-    //       toast.error("There was an issue with your order. Please try again.");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     toast.error("There was an error processing your order.");
-    //     console.error("Error:", error);
-    //   });
-
-    console.log(requestData);
+    products.map((product) => {
+      const request = fetch(`${API_URL}/payments/${product.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...product,
+          currency: "BDT",
+          paymentType: selectedMethod === "cod" ? "cash" : "card",
+          shippingInfo: {
+            name: form.fullName,
+            email: form.email,
+            phone: form.phone,
+            method: "Courier",
+            address1: form.streetAddress,
+            address2: "",
+            city: selectedCity?.label || "",
+            state: selectedDistrict?.label || "",
+            postcode: form.postalCode,
+            country: "Bangladesh",
+          },
+        }),
+      });
+      request
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    });
   };
 
   useEffect(() => {
