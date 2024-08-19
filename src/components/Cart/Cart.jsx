@@ -12,7 +12,8 @@ import PrimaryButton from "../common/PrimaryButton";
 import axios from "axios";
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity, clearCart } = useCartStore();
+  const { cart, removeFromCart, updateQuantity, updatePrice, clearCart } =
+    useCartStore();
   const [isClient, setIsClient] = useState(false);
   const [coupon, setCoupon] = useState("");
   const [discount, setDiscount] = useState(0);
@@ -21,6 +22,19 @@ const Cart = () => {
 
   useEffect(() => {
     setIsClient(true);
+    const savedCart = JSON.parse(localStorage.getItem("cart-storage"))?.state
+      .cart;
+    if (savedCart) {
+      const discountAmount = savedCart.reduce((total, item) => {
+        if (item.couponApplied) {
+          const discountValue =
+            (item.originalPrice - item.price) * item.quantity;
+          return total + discountValue;
+        }
+        return total;
+      }, 0);
+      setDiscount(discountAmount);
+    }
   }, []);
 
   if (!isClient) return null;
@@ -52,10 +66,10 @@ const Cart = () => {
       if (validVoucher) {
         let discountAmount = 0;
 
-        cart.forEach((item) => {
+        const updatedCart = cart.map((item) => {
           if (
-            item.role === "admin" ||
-            item.userId === validVoucher.user	 //&& item.role === "user"
+            (item.userId === validVoucher.user || item.role === "admin") &&
+            !item.couponApplied
           ) {
             const newPrice =
               item.originalPrice -
@@ -65,23 +79,24 @@ const Cart = () => {
             // Update the price in the cart
             updatePrice(item._id, newPrice);
 
-            // Store updated price in local storage
-            const storedCart = JSON.parse(localStorage.getItem("cart-storage"));
-            const updatedStoredCart = storedCart.map((storedItem) =>
-              storedItem._id === item._id
-                ? { ...storedItem, price: newPrice }
-                : storedItem
-            );
-            localStorage.setItem(
-              "cart-storage",
-              JSON.stringify(updatedStoredCart)
-            );
+            // Mark the item as having the coupon applied
+            return { ...item, couponApplied: true };
           }
+          return item;
         });
 
-        setDiscount(discountAmount);
-        setCouponApplied(true);
-        setError("");
+        if (discountAmount > 0) {
+          setDiscount(discountAmount);
+          setCouponApplied(true);
+          setError("");
+
+          // Persist the updated cart in local storage
+          useCartStore.setState({ cart: updatedCart });
+        } else {
+          setDiscount(0);
+          setCouponApplied(false);
+          setError("This coupon is not applicable to the items in your cart.");
+        }
       } else {
         setDiscount(0);
         setCouponApplied(false);
@@ -100,6 +115,7 @@ const Cart = () => {
     );
     return subtotal - discount;
   };
+  console.log(cart);
 
   return (
     <div className="w-11/12 mx-auto lg:mt-10 mt-4 tracking-wider">
@@ -186,7 +202,7 @@ const Cart = () => {
                     </div>
                     <div className="hidden lg:block">
                       <h1 className="text-gray-500">
-                        ({item?.quantity} x {item?.price}) ={""}
+                        ({item?.quantity} x {item?.originalPrice}) ={""}
                         <span className="font-semibold text-black">
                           {" "}
                           {item.price * parseInt(item?.quantity)}
@@ -239,7 +255,7 @@ const Cart = () => {
               )}
               {couponApplied && (
                 <p className="text-green-500 text-center mt-2">
-                  Coupon applied! You get a {discount}% discount.
+                  Coupon applied! You get a {discount.toFixed(2)}% discount.
                 </p>
               )}
               <div className="flex lg:hidden justify-center my-3 bg-red-500 px-2 text-white py-3 rounded-xl">
