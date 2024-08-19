@@ -35,7 +35,7 @@ const Cart = () => {
 
   const handleClearCart = () => {
     clearCart();
-    setDiscount(0); // Reset discount when cart is cleared
+    setDiscount(0);
   };
 
   const handleApplyCoupon = async () => {
@@ -44,37 +44,44 @@ const Cart = () => {
         "http://103.148.15.24:5000/api/vouchers"
       );
       const vouchers = response?.data?.data;
-      console.log(vouchers);
-
-      // Find the valid voucher based on coupon code and status
       const validVoucher = vouchers.find(
         (voucher) =>
           voucher.redeemCode === coupon && voucher.status === "active"
       );
 
       if (validVoucher) {
-        // Filter cart items that belong to the same vendor as the voucher
-        const discountableItems = cart.filter(
-          (item) => item.userId === validVoucher.userId
-        );
+        let discountAmount = 0;
 
-        if (discountableItems.length > 0) {
-          // Apply discount only to the eligible items
-          const discountAmount = discountableItems.reduce(
-            (total, item) =>
-              total +
-              (item.price * item.quantity * validVoucher.discount) / 100,
-            0
-          );
+        cart.forEach((item) => {
+          if (
+            item.role === "admin" ||
+            item.userId === validVoucher.user	 //&& item.role === "user"
+          ) {
+            const newPrice =
+              item.originalPrice -
+              (item.originalPrice * validVoucher.discount) / 100;
+            discountAmount += (item.originalPrice - newPrice) * item.quantity;
 
-          setDiscount(discountAmount);
-          setCouponApplied(true);
-          setError("");
-        } else {
-          setDiscount(0);
-          setCouponApplied(false);
-          setError("No items in the cart are eligible for this coupon.");
-        }
+            // Update the price in the cart
+            updatePrice(item._id, newPrice);
+
+            // Store updated price in local storage
+            const storedCart = JSON.parse(localStorage.getItem("cart-storage"));
+            const updatedStoredCart = storedCart.map((storedItem) =>
+              storedItem._id === item._id
+                ? { ...storedItem, price: newPrice }
+                : storedItem
+            );
+            localStorage.setItem(
+              "cart-storage",
+              JSON.stringify(updatedStoredCart)
+            );
+          }
+        });
+
+        setDiscount(discountAmount);
+        setCouponApplied(true);
+        setError("");
       } else {
         setDiscount(0);
         setCouponApplied(false);
@@ -85,8 +92,6 @@ const Cart = () => {
       setError("An error occurred while applying the coupon.");
     }
   };
-
-  console.log(cart);
 
   const calculateTotal = () => {
     const subtotal = cart.reduce(

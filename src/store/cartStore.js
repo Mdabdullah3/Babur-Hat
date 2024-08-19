@@ -19,12 +19,14 @@ const useCartStore = create(
                         {
                             _id,
                             userId: user._id,
+                            role: user.role,
                             coverPhoto: coverPhoto.secure_url,
                             name,
                             quantity,
                             stock,
                             price,
-                            size
+                            size,
+                            originalPrice: price, 
                         }
                     ];
                     productAdded = true;
