@@ -94,9 +94,9 @@ const Cart = () => {
       (total, item) => total + item.price * item.quantity,
       0
     );
-    return subtotal - discount;
+    return subtotal;
   };
-  console.log(cart);
+  console.log(discount);
 
   return (
     <div className="w-11/12 mx-auto lg:mt-10 mt-4 tracking-wider">
@@ -139,7 +139,13 @@ const Cart = () => {
                             </h1>
                           </div>
                           <div>
-                            <h1>${item.price * parseInt(item?.quantity)}.00</h1>
+                            <h1>
+                              $
+                              {(item.price * parseInt(item?.quantity)).toFixed(
+                                2
+                              )}
+                              .00
+                            </h1>
                           </div>
                           <div className="">
                             <div className="relative flex flex-row lg:w-36 w-20 lg:h-12 h-8 bg-transparent rounded-lg">
@@ -186,7 +192,7 @@ const Cart = () => {
                         ({item?.quantity} x {item?.originalPrice}) ={""}
                         <span className="font-semibold text-black">
                           {" "}
-                          {item.price * parseInt(item?.quantity)}
+                          {(item.price * parseInt(item?.quantity)).toFixed(2)}
                         </span>
                         BDT
                       </h1>
@@ -246,10 +252,7 @@ const Cart = () => {
                     SubTotal :
                     <span className="ml-10 flex font-[500] text-sm items-center">
                       <FaBangladeshiTakaSign />
-                      {cart.reduce(
-                        (total, item) => total + item.price * item.quantity,
-                        0
-                      )}
+                      {calculateTotal().toFixed(2)}
                       .00
                     </span>
                   </h1>
@@ -265,7 +268,7 @@ const Cart = () => {
                       Total{" "}
                       <span className="text-lg">
                         <FaBangladeshiTakaSign />
-                        {calculateTotal()} BDT
+                        {(calculateTotal() + 60).toFixed(2)} BDT
                       </span>
                     </h1>
                   </div>
@@ -296,7 +299,7 @@ const Cart = () => {
                 SubTotal :
                 <span className="ml-10 flex font-[500] text-lg items-center">
                   <FaBangladeshiTakaSign />
-                  {calculateTotal()} BDT
+                  {calculateTotal().toFixed(2)} BDT
                 </span>
               </h1>
               <h1 className="mt-4 tracking-wider uppercase text-sm flex gap-10 items-start">
@@ -311,7 +314,7 @@ const Cart = () => {
                   Total{" "}
                   <span className="text-xl flex items-center">
                     <FaBangladeshiTakaSign size={32} />
-                    {calculateTotal() + 60} BDT
+                    {(calculateTotal() + 60).toFixed(2)} BDT
                   </span>
                 </h1>
                 <Link href="/shipping">

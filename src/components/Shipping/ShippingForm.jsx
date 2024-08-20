@@ -8,36 +8,15 @@ import useCartStore from "../../store/cartStore";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { API_URL } from "../../config";
-const products = [
-  {
-    id: 1,
-    title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-    price: 109.95,
-    description:
-      "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-  },
-  {
-    id: 2,
-    title: "Mens Casual Premium Slim Fit T-Shirts",
-    price: 22.3,
-  },
-  {
-    id: 2,
-    title: "Mens Casual Premium Slim Fit T-Shirts",
-    price: 22.3,
-  },
-  {
-    id: 2,
-    title: "Mens Casual Premium Slim Fit T-Shirts",
-    price: 22.3,
-  },
-];
+import useUserStore from "../../store/userStore";
+
 const ShippingForm = () => {
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [bdDistricts, setBdDistricts] = useState([]);
   const [bdCities, setBdCities] = useState([]);
   const [cityOptions, setCityOptions] = useState([]);
+  const { user } = useUserStore();
   const [selectedMethod, setSelectedMethod] = useState("cod");
   const [isClient, setIsClient] = useState(false);
   const { cart } = useCartStore();
@@ -100,37 +79,56 @@ const ShippingForm = () => {
     setSelectedMethod(method);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    products.map((product) => {
-      const request = fetch(`${API_URL}/payments/${product.id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...product,
-          currency: "BDT",
-          paymentType: selectedMethod === "cod" ? "cash" : "card",
-          shippingInfo: {
-            name: form.fullName,
-            email: form.email,
-            phone: form.phone,
-            method: "Courier",
-            address1: form.streetAddress,
-            address2: "",
-            city: selectedCity?.label || "",
-            state: selectedDistrict?.label || "",
-            postcode: form.postalCode,
-            country: "Bangladesh",
+    const phoneRegex = /^01[3-9]\d{8}$/;
+    if (!phoneRegex?.test(form.phone)) {
+      toast.error("Invalid Phone Number");
+      return;
+    }
+    try {
+      const requests = cart.map((item) => {
+        return fetch(`${API_URL}/payments/${item._id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        }),
+          credentials: "include",
+          body: JSON.stringify({
+            ...item,
+            currency: "BDT",
+            paymentType: selectedMethod === "cod" ? "cash" : "card",
+            user: user._id,
+            shippingInfo: {
+              name: form.fullName,
+              email: form.email,
+              phone: form.phone,
+              method: "Courier",
+              address1: form.streetAddress,
+              address2: "",
+              city: selectedCity?.label || "",
+              state: selectedDistrict?.label || "",
+              postcode: form.postalCode,
+              country: "Bangladesh",
+              deliveryFee: 60,
+            },
+          }),
+        });
       });
-      request
-        .then((response) => response.json())
-        .then((data) => console.log(data));
-    });
+
+      const responses = await Promise.all(requests);
+
+      const data = await Promise.all(
+        responses.map((response) => response.json())
+      );
+
+      console.log(data);
+
+      toast.success("Payment Successful");
+    } catch (error) {
+      console.error("An error occurred:", error);
+      toast.error(error.message || "An error occurred. Please try again.");
+    }
   };
 
   useEffect(() => {
@@ -169,7 +167,7 @@ const ShippingForm = () => {
           <InputField
             label="Phone"
             id="phone"
-            placeholder="Phone Number"
+            placeholder="017XXX-XXXXX"
             required
             value={form.phone}
             onChange={handleInputChange}
