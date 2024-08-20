@@ -65,38 +65,19 @@ const Cart = () => {
 
       if (validVoucher) {
         let discountAmount = 0;
-
-        const updatedCart = cart.map((item) => {
-          if (
-            (item.userId === validVoucher.user || item.role === "admin") &&
-            !item.couponApplied
-          ) {
+        cart.forEach((item) => {
+          if (item.userId === validVoucher.user && !item.couponApplied) {
             const newPrice =
               item.originalPrice -
               (item.originalPrice * validVoucher.discount) / 100;
             discountAmount += (item.originalPrice - newPrice) * item.quantity;
-
-            // Update the price in the cart
             updatePrice(item._id, newPrice);
-
-            // Mark the item as having the coupon applied
-            return { ...item, couponApplied: true };
           }
-          return item;
         });
 
-        if (discountAmount > 0) {
-          setDiscount(discountAmount);
-          setCouponApplied(true);
-          setError("");
-
-          // Persist the updated cart in local storage
-          useCartStore.setState({ cart: updatedCart });
-        } else {
-          setDiscount(0);
-          setCouponApplied(false);
-          setError("This coupon is not applicable to the items in your cart.");
-        }
+        setDiscount(discountAmount);
+        setCouponApplied(true);
+        setError("");
       } else {
         setDiscount(0);
         setCouponApplied(false);
