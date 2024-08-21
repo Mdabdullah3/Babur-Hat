@@ -9,6 +9,7 @@ import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { API_URL } from "../../config";
 import useUserStore from "../../store/userStore";
+import axios from "axios";
 
 const ShippingForm = () => {
   const [selectedDistrict, setSelectedDistrict] = useState(null);
@@ -20,7 +21,6 @@ const ShippingForm = () => {
   const [selectedMethod, setSelectedMethod] = useState("cod");
   const [isClient, setIsClient] = useState(false);
   const { cart } = useCartStore();
-
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -81,50 +81,56 @@ const ShippingForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate phone number
     const phoneRegex = /^01[3-9]\d{8}$/;
-    if (!phoneRegex?.test(form.phone)) {
+    if (!phoneRegex.test(form.phone)) {
       toast.error("Invalid Phone Number");
       return;
     }
+
+    // Prepare the order products
+    const orderProducts = cart?.map((item) => ({
+      product: item._id,
+      price: item.price,
+      quantity: item.quantity,
+    }));
+
     try {
-      const requests = cart.map((item) => {
-        return fetch(`${API_URL}/payments/${item._id}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            ...item,
-            currency: "BDT",
-            paymentType: selectedMethod === "cod" ? "cash" : "card",
-            user: user._id,
-            shippingInfo: {
-              name: form.fullName,
-              email: form.email,
-              phone: form.phone,
-              method: "Courier",
-              address1: form.streetAddress,
-              address2: "",
-              city: selectedCity?.label || "",
-              state: selectedDistrict?.label || "",
-              postcode: form.postalCode,
-              country: "Bangladesh",
-              deliveryFee: 60,
-            },
-          }),
-        });
+      // Create the request form
+      const requestForm = {
+        products: orderProducts,
+        currency: "BDT",
+        user: user?._id,
+        paymentType: selectedMethod === "cod" ? "cash" : "card",
+        status: "pending",
+        shippingInfo: {
+          name: form.fullName,
+          email: form.email,
+          phone: form.phone,
+          method: "Courier",
+          address1: form.streetAddress,
+          address2: "",
+          city: selectedCity?.label || "",
+          state: selectedDistrict?.label || "",
+          postcode: form.postalCode,
+          country: "Bangladesh",
+          deliveryFee: 60,
+        },
+      };
+
+      // Send POST request
+      const response = await axios.post(`${API_URL}/payments`, requestForm, {
+        withCredentials: true,
       });
 
-      const responses = await Promise.all(requests);
-
-      const data = await Promise.all(
-        responses.map((response) => response.json())
-      );
-
-      console.log(data);
-
-      toast.success("Payment Successful");
+      console.log(response);
+      // Handle success
+      if (response.status === 200 || response.status === 201) {
+        toast.success("Payment processed successfully!");
+      } else {
+        throw new Error("Failed to process payment.");
+      }
     } catch (error) {
       console.error("An error occurred:", error);
       toast.error(error.message || "An error occurred. Please try again.");
