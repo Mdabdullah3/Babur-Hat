@@ -10,11 +10,15 @@ const ProductCardDesign = ({ product }) => {
   const { addToCart } = useCartStore();
 
   const handleAddToCart = () => {
-    const productAdded = addToCart(product);
-    if (!productAdded) {
-      toast.error("Product already in cart");
+    if (product?.quantity < 1) {
+      toast.error("Product is out of stock");
     } else {
-      toast.success("Product added to cart");
+      const productAdded = addToCart(product);
+      if (!productAdded) {
+        toast.error("Product already in cart");
+      } else {
+        toast.success("Product added to cart");
+      }
     }
   };
   return (

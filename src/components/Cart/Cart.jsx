@@ -65,13 +65,19 @@ const Cart = () => {
 
       if (validVoucher) {
         let discountAmount = 0;
+
         cart.forEach((item) => {
-          if (item.userId === validVoucher.user && !item.couponApplied) {
-            const newPrice =
-              item.originalPrice -
-              (item.originalPrice * validVoucher.discount) / 100;
-            discountAmount += (item.originalPrice - newPrice) * item.quantity;
-            updatePrice(item._id, newPrice);
+          if (
+            validVoucher.user.role === "admin" ||
+            item.userId === validVoucher.user._id
+          ) {
+            if (!item.couponApplied) {
+              const newPrice =
+                item.originalPrice -
+                (item.originalPrice * validVoucher.discount) / 100;
+              discountAmount += (item.originalPrice - newPrice) * item.quantity;
+              updatePrice(item._id, newPrice);
+            }
           }
         });
 
@@ -84,7 +90,6 @@ const Cart = () => {
         setError("Invalid or expired coupon code.");
       }
     } catch (error) {
-      console.error("Failed to apply coupon:", error);
       setError("An error occurred while applying the coupon.");
     }
   };
@@ -96,7 +101,10 @@ const Cart = () => {
     );
     return subtotal;
   };
-  console.log(discount);
+  const originalPrice = cart.reduce(
+    (total, item) => total + item.originalPrice * item.quantity,
+    0
+  );
 
   return (
     <div className="w-11/12 mx-auto lg:mt-10 mt-4 tracking-wider">
