@@ -1,8 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import LatestOrders from "../../utils/constants";
+import useOrderStore from "../../store/orderStore";
+import useUserStore from "../../store/userStore";
 const MyOrder = () => {
+  const { user } = useUserStore();
+  const { orders, fetchPaymentsByUser } = useOrderStore();
+  useEffect(() => {
+    fetchPaymentsByUser(user?._id);
+  }, [fetchPaymentsByUser, user?._id]);
+
+  console.log(orders);
   return (
     <section>
       <div>
@@ -10,20 +20,20 @@ const MyOrder = () => {
           Thank You For Ordering
         </h1>
         <section className="flex flex-col items-center md:w-11/12 mx-auto md:mb-4 relative">
-          {LatestOrders.length === 0 ? (
+          {orders?.data?.length === 0 ? (
             <h1 className="h-screen flex items-center text-3xl text-gray-600">
               No Orders Found
             </h1>
           ) : (
-            LatestOrders?.map((item) => (
+            orders?.data?.map((item) => (
               <div key={item.id} className="mt-10">
                 <ul className="steps mb:mt-4 w-full mx-auto">
                   <li
                     className={`step ${
-                      item?.status === "Pending" ||
-                      item?.status === "Received" ||
-                      item?.status === "Shipping" ||
-                      item?.status === "Paid"
+                      item?.status === "pending" ||
+                      item?.status === "received" ||
+                      item?.status === "shipped" ||
+                      item?.status === "completed"
                         ? "step-primary"
                         : ""
                     }`}
@@ -32,7 +42,8 @@ const MyOrder = () => {
                   </li>
                   <li
                     className={`step ${
-                      item?.status === "Shipping" || item?.status === "Paid"
+                      item?.status === "received" ||
+                      item?.status === "completed"
                         ? "step-primary"
                         : ""
                     }`}
@@ -41,7 +52,7 @@ const MyOrder = () => {
                   </li>
                   <li
                     className={`step ${
-                      item?.status === "Shipping" || item?.status === "Paid"
+                      item?.status === "shipped" || item?.status === "completed"
                         ? "step-primary"
                         : ""
                     }`}
@@ -50,16 +61,16 @@ const MyOrder = () => {
                   </li>
                   <li
                     className={`step ${
-                      item?.status === "Paid" ? "step-primary" : ""
+                      item?.status === "completed" ? "step-primary" : ""
                     }`}
                   >
                     Completed
                   </li>
                 </ul>
                 <div className="lg:w-[1000px] md:w-[600px] w-[380px]">
-                  {item?.orderedProducts?.map((orderProduct) => (
+                  {item?.products?.map((orderProduct) => (
                     <div
-                      key={orderProduct.id}
+                      key={orderProduct?._id}
                       className="bg-white h-24 mb-5 mt-3"
                     >
                       <div className="flex gap-10 items-center justify-between px-3">
@@ -76,13 +87,15 @@ const MyOrder = () => {
                           </h1>
                           <h1 className="flex items-center">
                             <FaBangladeshiTakaSign />{" "}
-                            {parseFloat(orderProduct?.sellPrice) *
+                            {parseFloat(orderProduct?.price) *
                               parseFloat(orderProduct?.quantity)}
                           </h1>
                         </div>
                         <div>
                           <div className="font-bold">
-                            <h1>Size : {orderProduct?.size}</h1>
+                            {orderProduct?.size && (
+                              <h1>Size : {orderProduct?.size}</h1>
+                            )}
                             <h1>Quantity : {orderProduct?.quantity}</h1>
                           </div>
                         </div>
@@ -94,8 +107,15 @@ const MyOrder = () => {
                   ))}
                   <div className="flex items-center justify-end w-full font-bold">
                     <h1 className="text-lg tracking-wider flex items-center gap-1">
-                      Total : <FaBangladeshiTakaSign />
-                      {item.discountedTotal}{" "}
+                      Total :
+                      <FaBangladeshiTakaSign />
+                      {item.products.reduce((total, orderProduct) => {
+                        return (
+                          total +
+                          parseFloat(orderProduct?.price) *
+                            parseFloat(orderProduct?.quantity)
+                        );
+                      }, 0) + parseFloat(item?.shippingInfo?.deliveryFee)}
                     </h1>
                   </div>
                 </div>

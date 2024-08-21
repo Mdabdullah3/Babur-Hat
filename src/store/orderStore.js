@@ -1,10 +1,10 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import { API_URL } from '../config';
-import toast from 'react-hot-toast';
+import { toast } from 'react-toastify';
 
 const useOrderStore = create((set) => ({
-    payments: [],
+    orders: [],
     loading: false,
     error: null,
 
@@ -12,9 +12,9 @@ const useOrderStore = create((set) => ({
     createPayment: async (paymentData) => {
         set({ loading: true });
         try {
-            const response = await axios.post(`${API_URL}/payments`, paymentData);
+            const response = await axios.post(`${API_URL}/payments`, paymentData, { withCredentials: true });
             set((state) => ({
-                payments: [...state.payments, response.data],
+                orders: [...state.orders, response.data],
                 loading: false,
             }));
             toast.success("Payment created successfully!");
@@ -28,8 +28,8 @@ const useOrderStore = create((set) => ({
     fetchAllPayments: async () => {
         set({ loading: true });
         try {
-            const response = await axios.get(`${API_URL}/payments`);
-            set({ payments: response.data, loading: false });
+            const response = await axios.get(`${API_URL}/payments`, { withCredentials: true });
+            set({ orders: response.data, loading: false });
         } catch (error) {
             set({ error: error.response?.data?.message || error.message, loading: false });
         }
@@ -39,8 +39,8 @@ const useOrderStore = create((set) => ({
     fetchPaymentsByUser: async (userId) => {
         set({ loading: true });
         try {
-            const response = await axios.get(`${API_URL}/users/${userId}/payments`);
-            set({ payments: response.data, loading: false });
+            const response = await axios.get(`${API_URL}/users/${userId}/payments`, { withCredentials: true });
+            set({ orders: response.data, loading: false });
         } catch (error) {
             set({ error: error.response?.data?.message || error.message, loading: false });
         }
@@ -50,8 +50,8 @@ const useOrderStore = create((set) => ({
     fetchPaymentById: async (paymentId) => {
         set({ loading: true });
         try {
-            const response = await axios.get(`${API_URL}/payments/${paymentId}`);
-            set({ payments: [response.data], loading: false });
+            const response = await axios.get(`${API_URL}/payments/${paymentId}`, { withCredentials: true });
+            set({ orders: [response.data], loading: false });
         } catch (error) {
             set({ error: error.response?.data?.message || error.message, loading: false });
         }

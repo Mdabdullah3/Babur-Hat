@@ -20,7 +20,8 @@ const ShippingForm = () => {
   const { user } = useUserStore();
   const [selectedMethod, setSelectedMethod] = useState("cod");
   const [isClient, setIsClient] = useState(false);
-  const { cart } = useCartStore();
+  const { cart, clearCart } = useCartStore();
+
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -127,6 +128,7 @@ const ShippingForm = () => {
       console.log(response);
       // Handle success
       if (response.status === 200 || response.status === 201) {
+        
         toast.success("Payment processed successfully!");
       } else {
         throw new Error("Failed to process payment.");
