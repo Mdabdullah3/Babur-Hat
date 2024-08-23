@@ -23,7 +23,18 @@ const ShippingForm = () => {
   const [isClient, setIsClient] = useState(false);
   const { cart, clearCart } = useCartStore();
   const [shippingData, setShippingData] = useState([]);
+  const [productsData, setProductsData] = useState([]);
+  const [error, setError] = useState("");
 
+  useEffect(() => {
+    const url = `${API_URL}/products?_limit=10000&_fields=_id,quantity`;
+    const fetchData = async () => {
+      const response = await fetch(url);
+      const data = await response.json();
+      setProductsData(data.data);
+    };
+    fetchData();
+  }, []);
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -103,7 +114,11 @@ const ShippingForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const stockError = checkProductStock();
+    if (stockError) {
+      setError(stockError);
+      return;
+    }
     // Validate phone number
     const phoneRegex = /^01[3-9]\d{8}$/;
     if (!phoneRegex.test(form.phone)) {
@@ -166,6 +181,23 @@ const ShippingForm = () => {
   if (!isClient) {
     return null;
   }
+
+  const checkProductStock = () => {
+    for (const item of cart) {
+      const product = productsData.find((p) => p._id === item._id);
+      if (!product) {
+        return "Product not found.";
+      }
+      if (product.quantity === 0) {
+        return `"${item.name}" is out of stock. Please remove it from the cart.`;
+      }
+      if (item.quantity > product.quantity) {
+        return `The quantity of "${item.name}" exceeds available stock. Please reduce the quantity.`;
+      }
+    }
+    return null;
+  };
+
   return (
     <section className="flex gap-12 items-start">
       <section className="w-full">
@@ -346,6 +378,7 @@ const ShippingForm = () => {
             </div>
           </section>
 
+          {error && <p className="text-red-500 text-center my-2">{error}</p>}
           <PrimaryButton type="submit" value="Place Order" />
         </form>
       </section>

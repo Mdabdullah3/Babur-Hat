@@ -10,6 +10,7 @@ import { API_URL, SERVER } from "../../config";
 import InputField from "../common/InputField";
 import PrimaryButton from "../common/PrimaryButton";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, updatePrice, clearCart } =
@@ -22,7 +23,7 @@ const Cart = () => {
   const [productsData, setProductsData] = useState([]);
 
   useEffect(() => {
-    const url = `${API_URL}/products?_limit=100&_fields=_id,quantity`;
+    const url = `${API_URL}/products?_limit=10000&_fields=_id,quantity`;
     const fetchData = async () => {
       const response = await fetch(url);
       const data = await response.json();
@@ -119,23 +120,23 @@ const Cart = () => {
       if (!product) {
         return "Product not found.";
       }
-      if (item.quantity > product.quantity) {
-        return `The quantity of "${item.name}" exceeds available stock. Please reduce the quantity.`;
-      }
       if (product.quantity === 0) {
         return `"${item.name}" is out of stock. Please remove it from the cart.`;
+      }
+      if (item.quantity > product.quantity) {
+        return `The quantity of "${item.name}" exceeds available stock. Please reduce the quantity.`;
       }
     }
     return null;
   };
-
+  const router = useRouter();
   const handleProceedToCheckout = () => {
     const stockError = checkProductStock();
     if (stockError) {
       setError(stockError);
       return;
     }
-    // Proceed to checkout
+    router.push("/shipping");
   };
 
   return (
@@ -357,11 +358,14 @@ const Cart = () => {
                     {(calculateTotal() + 60).toFixed(2)} BDT
                   </span>
                 </h1>
-                <Link href="/shipping">
-                  <button className="text-[14px] font-bold uppercase border-white border-[1px] text-primary w-full mt-8 py-4 bg-white rounded-full hover:bg-transparent hover:text-white transition duration-500">
-                    Proceed to Checkout
-                  </button>
-                </Link>
+                {/* <Link href="/shipping"> */}
+                <button
+                  onClick={handleProceedToCheckout}
+                  className="text-[14px] font-bold uppercase border-white border-[1px] text-primary w-full mt-8 py-4 bg-white rounded-full hover:bg-transparent hover:text-white transition duration-500"
+                >
+                  Proceed to Checkout
+                </button>
+                {/* </Link> */}
                 <button
                   onClick={handleClearCart}
                   className="text-[14px] font-bold uppercase border-white border-[1px] text-primary w-full mt-4 py-2 bg-white rounded-full hover:bg-transparent hover:text-white transition duration-500"

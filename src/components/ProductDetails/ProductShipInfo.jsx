@@ -17,6 +17,9 @@ const ProductShipInfo = ({
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = () => {
+    if (product?.quantity > 0) {
+      toast.error("Product is out of stock");
+    }
     const result = addToCart(product, quantity);
     if (!result) {
       toast.error("Product already in cart");
@@ -75,12 +78,21 @@ const ProductShipInfo = ({
           +
         </button>
       </div>
-      <button
-        onClick={handleAddToCart}
-        className="w-full my-2 mt-6 py-3 rounded-full border hover:border-black border-primary bg-primary text-white tracking-wider hover:bg-black hover:text-white transition duration-500 text-sm font-bold"
-      >
-        Add To Cart
-      </button>
+      {product?.quantity > 0 ? (
+        <button
+          onClick={handleAddToCart}
+          className="w-full font-bold py-3 rounded-full my-2 bg-primary text-white tracking-wider hover:bg-primary/70 transition duration-500"
+        >
+          Add To Cart
+        </button>
+      ) : (
+        <button
+          disabled
+          className="w-full font-bold py-3 rounded-full my-2 bg-primary text-white tracking-wider"
+        >
+          Add To Cart
+        </button>
+      )}
       <div className="grid grid-cols-3 items-center gap-2 mt-2">
         <button className="w-full font-bold py-3 rounded-full my-2 bg-primary/20 justify-center hover:border-primary col-span-2 flex items-center gap-2 text-primary tracking-wider hover:bg-primary hover:text-white transition duration-500">
           <FiShare2 /> Share

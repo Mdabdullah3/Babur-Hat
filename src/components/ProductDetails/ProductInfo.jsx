@@ -13,9 +13,15 @@ const ProductInfo = ({ product }) => {
 
   return (
     <div className="col-span-3 lg:mt-0 mt-4">
-      <h2 className="bg-primary px-3 font-bold text-white tracking-wider w-14 py-1 rounded-sm">
-        Sale
-      </h2>
+      {product?.quantity > 0 ? (
+        <h2 className="bg-primary px-3 font-bold text-white tracking-wider w-12 py-1 rounded-sm">
+          Sell
+        </h2>
+      ) : (
+        <h2 className="bg-primary px-3 font-bold text-white tracking-wider w-28 py-2 rounded-sm">
+          Stock Out
+        </h2>
+      )}
       <div className="flex items-center justify-between w-full mt-2 lg:mt-5">
         <h1 className="lg:text-2xl text-lg font-bold capitalize tracking-wider">
           {product?.name}
@@ -41,8 +47,6 @@ const ProductInfo = ({ product }) => {
         </div> */}
       </div>
       <h2 className="text-md text-orange-500 flex items-center mt-2">
-        <FaStar /> <FaStar /> <FaStar /> <FaStar />
-        <FaStarHalfAlt />
         <span className="text-black tracking-wider ml-2">(21 reviews)</span>
       </h2>
       <div className="flex items-center justify-between">
