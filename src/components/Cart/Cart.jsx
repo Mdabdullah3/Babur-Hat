@@ -6,7 +6,7 @@ import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import useCartStore from "../../store/cartStore";
 import Link from "next/link";
-import { SERVER } from "../../config";
+import { API_URL, SERVER } from "../../config";
 import InputField from "../common/InputField";
 import PrimaryButton from "../common/PrimaryButton";
 import axios from "axios";
@@ -19,7 +19,18 @@ const Cart = () => {
   const [discount, setDiscount] = useState(0);
   const [error, setError] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
+  const [productsData, setProductsData] = useState([]);
 
+  useEffect(() => {
+    const url = `${API_URL}/products?_limit=100&_fields=_id,quantity`;
+    const fetchData = async () => {
+      const response = await fetch(url);
+      const data = await response.json();
+      setProductsData(data.data);
+    };
+    fetchData();
+  }, []);
+  console.log(productsData);
   useEffect(() => {
     setIsClient(true);
     const savedCart = JSON.parse(localStorage.getItem("cart-storage"))?.state
@@ -101,10 +112,31 @@ const Cart = () => {
     );
     return subtotal;
   };
-  const originalPrice = cart.reduce(
-    (total, item) => total + item.originalPrice * item.quantity,
-    0
-  );
+
+  const checkProductStock = () => {
+    for (const item of cart) {
+      const product = productsData.find((p) => p._id === item._id);
+      if (!product) {
+        return "Product not found.";
+      }
+      if (item.quantity > product.quantity) {
+        return `The quantity of "${item.name}" exceeds available stock. Please reduce the quantity.`;
+      }
+      if (product.quantity === 0) {
+        return `"${item.name}" is out of stock. Please remove it from the cart.`;
+      }
+    }
+    return null;
+  };
+
+  const handleProceedToCheckout = () => {
+    const stockError = checkProductStock();
+    if (stockError) {
+      setError(stockError);
+      return;
+    }
+    // Proceed to checkout
+  };
 
   return (
     <div className="w-11/12 mx-auto lg:mt-10 mt-4 tracking-wider">

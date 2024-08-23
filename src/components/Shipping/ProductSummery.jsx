@@ -5,7 +5,7 @@ import { RxCross2 } from "react-icons/rx";
 import useCartStore from "../../store/cartStore";
 import { SERVER } from "../../config";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
-const ProductSummery = () => {
+const ProductSummery = ({ deliveryCharge }) => {
   const { cart } = useCartStore();
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
@@ -70,7 +70,7 @@ const ProductSummery = () => {
             Shipping
             <span className="font-bold text-secondary flex items-center">
               <FaBangladeshiTakaSign />
-              60.00
+              {deliveryCharge}.00
             </span>
           </h1>
         </div>
@@ -80,7 +80,7 @@ const ProductSummery = () => {
             Payable
             <span className="font-bold text-secondary text-xl  flex items-center">
               <FaBangladeshiTakaSign />
-              {parseFloat(total) + 60}
+              {parseFloat(total) + parseFloat(deliveryCharge)}.00
             </span>
           </h1>
         </div>
