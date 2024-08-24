@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { GoHeart } from "react-icons/go";
 import { CiLocationOn } from "react-icons/ci";
-import { FaBangladeshiTakaSign } from "react-icons/fa6";
-import { FiShare2 } from "react-icons/fi";
+import {
+  FaBangladeshiTakaSign,
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaHeart,
+} from "react-icons/fa6";
+import { FiShare2, FiCopy } from "react-icons/fi";
 import useCartStore from "../../store/cartStore";
 import { toast } from "react-toastify";
-import { FaHeart } from "react-icons/fa";
 
 const ProductShipInfo = ({
   product,
@@ -15,10 +20,12 @@ const ProductShipInfo = ({
 }) => {
   const { addToCart } = useCartStore();
   const [quantity, setQuantity] = useState(1);
+  const [shareOpen, setShareOpen] = useState(false);
 
   const handleAddToCart = () => {
-    if (product?.quantity > 0) {
+    if (product?.quantity <= 0) {
       toast.error("Product is out of stock");
+      return;
     }
     const result = addToCart(product, quantity);
     if (!result) {
@@ -36,6 +43,33 @@ const ProductShipInfo = ({
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    toast.success("Link copied to clipboard!");
+  };
+
+  const handleSocialShare = (platform) => {
+    const url = window.location.href;
+    const text = encodeURIComponent(`Check out this product: ${product.name}`);
+    let shareUrl = "";
+
+    switch (platform) {
+      case "facebook":
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        break;
+      case "twitter":
+        shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+        break;
+      case "instagram":
+        shareUrl = `https://www.instagram.com/`;
+        break;
+      default:
+        return;
+    }
+
+    window.open(shareUrl, "_blank");
   };
 
   return (
@@ -93,10 +127,42 @@ const ProductShipInfo = ({
           Add To Cart
         </button>
       )}
-      <div className="grid grid-cols-3 items-center gap-2 mt-2">
-        <button className="w-full font-bold py-3 rounded-full my-2 bg-primary/20 justify-center hover:border-primary col-span-2 flex items-center gap-2 text-primary tracking-wider hover:bg-primary hover:text-white transition duration-500">
+      <div
+        className="relative grid grid-cols-3 items-center gap-2 mt-2"
+        onMouseEnter={() => setShareOpen(true)}
+        onMouseLeave={() => setShareOpen(false)}
+      >
+        <button className="w-full font-bold py-3 rounded-full my-2 bg-primary/20 justify-center hover:border-primary col-span-2 flex items-center gap-2 text-primary tracking-wider hover:bg-primary hover:text-white transition duration-500 relative">
           <FiShare2 /> Share
         </button>
+        {shareOpen && (
+          <div className="absolute top-14 flex left-0 bg-white shadow-lg rounded-lg p-4 z-10">
+            <button
+              onClick={() => handleSocialShare("facebook")}
+              className="flex items-center gap-2 py-2 hover:text-blue-600"
+            >
+              <FaFacebookF />
+            </button>
+            <button
+              onClick={() => handleSocialShare("twitter")}
+              className="flex items-center gap-2 py-2 hover:text-blue-400"
+            >
+              <FaTwitter />
+            </button>
+            <button
+              onClick={() => handleSocialShare("instagram")}
+              className="flex items-center gap-2 py-2 hover:text-pink-500"
+            >
+              <FaInstagram />
+            </button>
+            <button
+              onClick={handleCopyLink}
+              className="flex items-center gap-2 py-2 hover:text-gray-600"
+            >
+              <FiCopy /> Copy Link
+            </button>
+          </div>
+        )}
         {wishlist?.find((item) => item._id === product._id) ? (
           <h1
             onClick={() => handleRemoveFromWishlist(product._id)}
