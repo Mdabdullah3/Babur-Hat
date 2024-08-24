@@ -11,6 +11,7 @@ import {
 import { FiShare2, FiCopy } from "react-icons/fi";
 import useCartStore from "../../store/cartStore";
 import { toast } from "react-toastify";
+import { FaFacebook } from "react-icons/fa";
 
 const ProductShipInfo = ({
   product,
@@ -57,7 +58,9 @@ const ProductShipInfo = ({
 
     switch (platform) {
       case "facebook":
-        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          url
+        )}`;
         break;
       case "twitter":
         shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
@@ -136,30 +139,30 @@ const ProductShipInfo = ({
           <FiShare2 /> Share
         </button>
         {shareOpen && (
-          <div className="absolute top-14 flex left-0 bg-white shadow-lg rounded-lg p-4 z-10">
+          <div className="absolute top-14 items-center gap-5 flex left-0 bg-white shadow-lg rounded-lg p-4 z-10">
             <button
               onClick={() => handleSocialShare("facebook")}
-              className="flex items-center gap-2 py-2 hover:text-blue-600"
+              className="flex items-center gap-2 py-2 text-blue-600  rounded-full"
             >
-              <FaFacebookF />
+              <FaFacebook size={28} />
             </button>
             <button
               onClick={() => handleSocialShare("twitter")}
-              className="flex items-center gap-2 py-2 hover:text-blue-400"
+              className="flex items-center gap-2 py-2 text-blue-400"
             >
-              <FaTwitter />
+              <FaTwitter size={28} />
             </button>
             <button
               onClick={() => handleSocialShare("instagram")}
-              className="flex items-center gap-2 py-2 hover:text-pink-500"
+              className="flex items-center gap-2 py-2 text-pink-500"
             >
-              <FaInstagram />
+              <FaInstagram size={28} />
             </button>
             <button
               onClick={handleCopyLink}
-              className="flex items-center gap-2 py-2 hover:text-gray-600"
+              className="flex items-center gap-2 py-2 text-gray-600"
             >
-              <FiCopy /> Copy Link
+              <FiCopy size={28} />
             </button>
           </div>
         )}
