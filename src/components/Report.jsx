@@ -30,12 +30,9 @@ const Report = ({ isOpen, onRequestClose, id }) => {
       setFormData((prevData) => ({
         ...prevData,
         user: user._id,
-        
       }));
-      console.log(formData);
     }
   }, [user]);
-  console.log(formData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
