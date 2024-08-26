@@ -15,7 +15,7 @@ import Link from "next/link";
 import { SERVER } from "../../../config";
 import { FaHeart } from "react-icons/fa";
 import { GoHeart } from "react-icons/go";
-
+import Report from "../../../components/Report";
 const ProductDetails = ({ params }) => {
   const [openDetails, setOpenDetails] = useState(
     productInformation[0]?.Description
@@ -58,8 +58,8 @@ const ProductDetails = ({ params }) => {
   return (
     <section className="">
       <Navbar />
-      <div className="flex items-center justify-between w-11/12 mx-auto">
-        <div className="mt-10 w-11/12 mx-auto">
+      <div className="flex items-center justify-between w-11/12 mx-auto  mt-10">
+        <div className=" w-11/12 mx-auto">
           {product?.user && (
             <div>
               <Link
@@ -87,7 +87,12 @@ const ProductDetails = ({ params }) => {
           )}
         </div>
         <div>
-          <button onClick={openReportModal}>Report</button>
+          <button
+            onClick={openReportModal}
+            className="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
+          >
+            Report
+          </button>{" "}
         </div>
       </div>
       <div className="">
@@ -140,6 +145,11 @@ const ProductDetails = ({ params }) => {
           )}
         </button>
       </div>
+      <Report
+        isOpen={isReportModalOpen}
+        id={id}
+        onRequestClose={closeReportModal}
+      />
     </section>
   );
 };

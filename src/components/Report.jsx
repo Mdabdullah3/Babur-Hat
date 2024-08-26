@@ -6,14 +6,15 @@ import useUserStore from "../store/userStore";
 import { API_URL } from "../config";
 import { toast } from "react-toastify";
 import Modal from "react-modal";
+import { RxCross2 } from "react-icons/rx";
+import PrimaryButton from "./common/PrimaryButton";
 
-Modal.setAppElement("#__next"); // Ensure accessibility by specifying the app root element
-
-const Report = ({ isOpen, onRequestClose }) => {
+const Report = ({ isOpen, onRequestClose, id }) => {
   const { user, fetchUser } = useUserStore();
 
   const [formData, setFormData] = useState({
     user: "",
+    product: id,
     title: "",
     message: "",
     description: "",
@@ -29,9 +30,12 @@ const Report = ({ isOpen, onRequestClose }) => {
       setFormData((prevData) => ({
         ...prevData,
         user: user._id,
+        
       }));
+      console.log(formData);
     }
   }, [user]);
+  console.log(formData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -71,12 +75,20 @@ const Report = ({ isOpen, onRequestClose }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Submit Report"
-      className="w-full max-w-3xl p-8 bg-white rounded-lg shadow-lg mx-auto my-20"
-      overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+      className="w-full max-w-3xl p-8 bg-white rounded-lg shadow-lg mx-auto my-20 z-[10]"
+      overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10"
     >
-      <h2 className="mb-6 text-3xl font-bold text-center text-gray-800">
-        Submit a Report
-      </h2>
+      <div className="relative">
+        <h2 className="mb-6 text-3xl font-bold text-center text-gray-800">
+          Submit a Report
+        </h2>
+        <h1
+          onClick={onRequestClose}
+          className="absolute top-3 right-2 cursor-pointer"
+        >
+          <RxCross2 size={25} />
+        </h1>
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
@@ -144,12 +156,7 @@ const Report = ({ isOpen, onRequestClose }) => {
             className="w-full px-4 py-2 mt-2 border rounded-lg focus:ring focus:ring-blue-300 focus:outline-none"
           />
         </div>
-        <button
-          type="submit"
-          className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
-        >
-          Submit Report
-        </button>
+        <PrimaryButton value={"Submit Report"} />
       </form>
     </Modal>
   );
