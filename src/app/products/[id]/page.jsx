@@ -21,7 +21,7 @@ const ProductDetails = ({ params }) => {
     productInformation[0]?.Description
   );
   const { id } = params;
-
+  const [isReportModalOpen, setReportModalOpen] = useState(false);
   const { recentlyViewed, addRecentlyViewed, initializeRecentlyViewed } =
     useRecentlyViewedStore();
 
@@ -48,7 +48,13 @@ const ProductDetails = ({ params }) => {
     removeFromWishlist(id);
     toast.success("Product removed from wishlist");
   };
+  const openReportModal = () => {
+    setReportModalOpen(true);
+  };
 
+  const closeReportModal = () => {
+    setReportModalOpen(false);
+  };
   return (
     <section className="">
       <Navbar />
@@ -81,7 +87,7 @@ const ProductDetails = ({ params }) => {
           )}
         </div>
         <div>
-          <button>Report</button>
+          <button onClick={openReportModal}>Report</button>
         </div>
       </div>
       <div className="">
