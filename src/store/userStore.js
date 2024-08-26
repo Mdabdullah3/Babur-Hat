@@ -1,5 +1,5 @@
 // store/userStore.js
-import {create} from 'zustand';
+import { create } from 'zustand';
 import axios from 'axios';
 import { API_URL, SERVER } from '../config';
 import { toast } from 'react-toastify';
@@ -8,6 +8,8 @@ const useUserStore = create((set, get) => ({
     user: null,
     loading: false,
     error: null,
+    isSurveyModalOpen: false,
+    selectedCategories: [],
 
     fetchUser: async () => {
         set({ loading: true, error: null });
@@ -25,8 +27,7 @@ const useUserStore = create((set, get) => ({
             const response = await axios.patch(`${API_URL}/users/me`, userData, {
                 withCredentials: true,
             });
-            toast.success("Profile Update Successfully")
-            console.log(response);
+            toast.success("Profile Update Successfully");
             set({ user: response.data.data, loading: false });
         } catch (error) {
             set({ error: error.message, loading: false });
@@ -42,6 +43,7 @@ const useUserStore = create((set, get) => ({
             set({ error: error.message, loading: false });
         }
     },
+
     updatePassword: async (currentPassword, newPassword, confirmPassword) => {
         set({ loading: true, error: null });
         try {
@@ -63,6 +65,7 @@ const useUserStore = create((set, get) => ({
             set({ error: error.message, loading: false });
         }
     },
+
     login: async (email, password, router) => {
         set({ loading: true, error: null });
         try {
@@ -70,6 +73,7 @@ const useUserStore = create((set, get) => ({
             if (response.status === 200) {
                 await get().fetchUser();
                 toast.success('Login successful');
+                set({ isSurveyModalOpen: true });
                 router.push('/');
             } else {
                 toast.error('Login failed. Please try again.');
@@ -100,7 +104,25 @@ const useUserStore = create((set, get) => ({
 
     googleLogin: () => {
         window.location.href = `${SERVER}/api/auth/google`;
-    }
+    },
+
+    toggleSurveyModal: () => {
+        set((state) => ({ isSurveyModalOpen: !state.isSurveyModalOpen }));
+    },
+
+    selectCategory: (category) => {
+        set((state) => {
+            const selected = state.selectedCategories.includes(category)
+                ? state.selectedCategories.filter((item) => item !== category)
+                : [...state.selectedCategories, category];
+            localStorage.setItem('selectedCategory', JSON.stringify(selected));
+            return { selectedCategories: selected };
+        });
+    },
+
+    submitSurvey: () => {
+        set({ isSurveyModalOpen: false });
+    },
 }));
 
 export default useUserStore;

@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 import { bannerImage } from "../../utils/constants";
 import BannerCategory from "./BannerCategory";
 import "../style.css";
-
+import SurveyModal from "../SurveyModal"
 const Banner = () => {
   return (
     <div className="bg-info flex items-center justify-center">
@@ -44,6 +44,8 @@ const Banner = () => {
           </Swiper>
         </div>
       </div>
+      <SurveyModal />
+
     </div>
   );
 };
