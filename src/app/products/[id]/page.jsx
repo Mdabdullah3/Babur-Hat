@@ -52,32 +52,37 @@ const ProductDetails = ({ params }) => {
   return (
     <section className="">
       <Navbar />
-      <div className="mt-10 w-11/12 mx-auto">
-        {product?.user && (
-          <div>
-            <Link
-              href={`/vendor/${product?.user?._id}`}
-              className="flex items-center gap-2 cursor-pointer"
-            >
-              {product?.user?.avatar ? (
-                <img
-                  src={`${SERVER}${product?.user?.avatar?.secure_url}`}
-                  alt=""
-                  className="w-10 h-10 rounded-full"
-                />
-              ) : (
-                <img
-                  src="/avatar.png"
-                  alt=""
-                  className="w-10 h-10 rounded-full"
-                />
-              )}
-              <h1 className="font-semibold capitalize">
-                {product?.user?.name}
-              </h1>
-            </Link>
-          </div>
-        )}
+      <div className="flex items-center justify-between w-11/12 mx-auto">
+        <div className="mt-10 w-11/12 mx-auto">
+          {product?.user && (
+            <div>
+              <Link
+                href={`/vendor/${product?.user?._id}`}
+                className="flex items-center gap-2 cursor-pointer"
+              >
+                {product?.user?.avatar ? (
+                  <img
+                    src={`${SERVER}${product?.user?.avatar?.secure_url}`}
+                    alt=""
+                    className="w-10 h-10 rounded-full"
+                  />
+                ) : (
+                  <img
+                    src="/avatar.png"
+                    alt=""
+                    className="w-10 h-10 rounded-full"
+                  />
+                )}
+                <h1 className="font-semibold capitalize">
+                  {product?.user?.name}
+                </h1>
+              </Link>
+            </div>
+          )}
+        </div>
+        <div>
+          <button>Report</button>
+        </div>
       </div>
       <div className="">
         <div className="">

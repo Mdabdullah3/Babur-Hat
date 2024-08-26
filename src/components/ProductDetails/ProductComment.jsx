@@ -98,7 +98,7 @@ const ProductComment = ({ productId }) => {
             Comment & Answer
           </h1>
           <p>
-            {comments.length} Comment{comments.length !== 1 && "s"}
+            {comments?.length} Comment{comments?.length !== 1 && "s"}
           </p>
         </div>
       </div>
