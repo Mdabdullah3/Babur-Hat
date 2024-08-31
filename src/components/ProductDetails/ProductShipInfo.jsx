@@ -15,6 +15,7 @@ import { FaFacebook } from "react-icons/fa";
 
 const ProductShipInfo = ({
   product,
+  selectedVariant,
   handleAddToWishlist,
   wishlist,
   handleRemoveFromWishlist,
@@ -23,12 +24,13 @@ const ProductShipInfo = ({
   const [quantity, setQuantity] = useState(1);
   const [shareOpen, setShareOpen] = useState(false);
 
+  console.log(quantity);
   const handleAddToCart = () => {
-    if (product?.quantity <= 0) {
+    if (selectedVariant?.quantity <= quantity) {
       toast.error("Product is out of stock");
       return;
     }
-    const result = addToCart(product, quantity);
+    const result = addToCart(product, selectedVariant, quantity);
     if (!result) {
       toast.error("Product already in cart");
     } else {
@@ -115,7 +117,7 @@ const ProductShipInfo = ({
           +
         </button>
       </div>
-      {product?.quantity > 0 ? (
+      {selectedVariant?.quantity > 0 ? (
         <button
           onClick={handleAddToCart}
           className="w-full font-bold py-3 rounded-full my-2 bg-primary text-white tracking-wider hover:bg-primary/70 transition duration-500"

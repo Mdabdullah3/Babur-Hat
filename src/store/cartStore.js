@@ -1,61 +1,55 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 const useCartStore = create(
     persist(
         (set) => ({
             cart: [],
-            addToCart: (product, quantity = 1) => {
+            addToCart: (product, variant, quantity = 1) => {
                 let productAdded = false;
                 set((state) => {
-                    const productExists = state.cart.find((item) => item._id === product._id);
+                    const productExists = state.cart.find(
+                        (item) => item._id === product._id && item.variant.size === variant.size
+                    );
                     if (productExists) {
                         productAdded = false;
                         return state;
                     }
-                    const { _id, user, coverPhoto, price, name, stock, size } = product;
+                    const { _id, name, user, coverPhoto } = product;
+                    const { price, discount, size, color,  } = variant;
+
                     const newCart = [
                         ...state.cart,
                         {
                             _id,
                             userId: user._id,
-                            role: user.role,
-                            coverPhoto: coverPhoto.secure_url,
+                            variantId: variant?._id,
                             name,
+                            size,
+                            color,
+                            price: discount ? discount : price,
                             quantity,
                             stock,
-                            price,
-                            size,
-                            originalPrice: price,
-                            couponApplied: false,
-                        }
+                            coverPhoto,
+                        },
                     ];
                     productAdded = true;
                     return { cart: newCart };
                 });
+
                 return productAdded;
             },
-            removeFromCart: (id) => set((state) => {
-                const newCart = state.cart.filter((item) => item._id !== id);
-                return { cart: newCart };
-            }),
-            updateQuantity: (id, quantity) => set((state) => {
-                const newCart = state.cart.map((item) =>
-                    item._id === id ? { ...item, quantity: Math.max(1, quantity) } : item
-                );
-                return { cart: newCart };
-            }),
-            updatePrice: (id, newPrice) => set((state) => {
-                const newCart = state.cart.map((item) =>
-                    item._id === id ? { ...item, price: newPrice, couponApplied: true } : item
-                );
-                return { cart: newCart };
-            }),
-                clearCart: () => set({ cart: [] })
+            removeFromCart: (productId, size) => {
+                set((state) => ({
+                    cart: state.cart.filter(
+                        (item) => item._id !== productId || item.size !== size
+                    ),
+                }));
+            },
+            clearCart: () => set({ cart: [] }),
         }),
-{
-    name: 'cart-storage',
-        getStorage: () => (typeof window !== 'undefined' ? localStorage : undefined),
+        {
+            name: "cart-storage",
         }
     )
 );

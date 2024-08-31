@@ -34,7 +34,9 @@ const ProductDetails = ({ params }) => {
   }, [id, fetchProductByIdOrSlug]);
 
   const { addToWishlist, wishlist, removeFromWishlist } = useWishlistStore();
-
+  const [selectedVariant, setSelectedVariant] = useState(
+    product?.productVariants[0]
+  );
   const handleAddToWishlist = () => {
     const productAdded = addToWishlist(product);
     if (!productAdded) {
@@ -55,6 +57,7 @@ const ProductDetails = ({ params }) => {
   const closeReportModal = () => {
     setReportModalOpen(false);
   };
+
   return (
     <section className="">
       <Navbar />
@@ -100,11 +103,16 @@ const ProductDetails = ({ params }) => {
           <div className="w-11/12 mt-2 lg:mt-6 mx-auto">
             <div className="lg:grid grid-cols-8 gap-6 ">
               <ProductImages product={product} />
-              <ProductInfo product={product} />
+              <ProductInfo
+                selectedVariant={selectedVariant}
+                setSelectedVariant={setSelectedVariant}
+                product={product}
+              />
               <ProductShipInfo
                 handleAddToWishlist={handleAddToWishlist}
                 handleRemoveFromWishlist={handleRemoveFromWishlist}
                 wishlist={wishlist}
+                selectedVariant={selectedVariant}
                 product={product}
               />
             </div>

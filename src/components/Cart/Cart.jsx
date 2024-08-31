@@ -21,9 +21,10 @@ const Cart = () => {
   const [error, setError] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
   const [productsData, setProductsData] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
-    const url = `${API_URL}/products?_limit=10000&_fields=_id,quantity`;
+    const url = `${API_URL}/products?_limit=10000&_fields=_id,`;
     const fetchData = async () => {
       const response = await fetch(url);
       const data = await response.json();
@@ -63,7 +64,7 @@ const Cart = () => {
     clearCart();
     setDiscount(0);
   };
-
+  console.log(cart);
   const handleApplyCoupon = async () => {
     try {
       const response = await axios.get(
@@ -116,7 +117,9 @@ const Cart = () => {
 
   const checkProductStock = () => {
     for (const item of cart) {
-      const product = productsData.find((p) => p._id === item._id);
+      const product = productsData.find(
+        (p) => p.productVariants._id === item.variantId
+      );
       if (!product) {
         return "Product not found.";
       }
@@ -129,7 +132,6 @@ const Cart = () => {
     }
     return null;
   };
-  const router = useRouter();
   const handleProceedToCheckout = () => {
     const stockError = checkProductStock();
     if (stockError) {
@@ -157,7 +159,7 @@ const Cart = () => {
                     <div className="flex items-center">
                       <div className="relative">
                         <img
-                          src={`${SERVER}${item?.coverPhoto}`}
+                          src={`${SERVER}${item?.coverPhoto?.secure_url}`}
                           className="lg:w-20 lg:h-18 h-20 rounded-sm mx-2"
                           alt="cart image"
                         />
