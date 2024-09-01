@@ -16,7 +16,7 @@ const ProductInfo = ({ product, setSelectedVariant, selectedVariant }) => {
         product?.productVariants?.find((v) => v.size === defaultSize)
       );
     }
-  }, [product]);
+  }, [product, setSelectedVariant]);
 
   const handleSizeClick = (size) => {
     setSelectedSize(size);
