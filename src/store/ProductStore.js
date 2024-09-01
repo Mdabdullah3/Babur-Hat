@@ -8,7 +8,7 @@ const useProductStore = create((set) => ({
     loading: false,
     error: null,
     page: 1,
-    limit: 10,
+    limit: 18,
     searchTerm: '',
     sort: '-createdAt,price',
     selectedCategory: null,
@@ -43,7 +43,12 @@ const useProductStore = create((set) => ({
                     price_lte: maxPrice,
                 },
             });
-            set({ products: response.data.data, totalProducts: response.data.total, loading: false });
+            set({
+                products: response.data.data,
+                totalProducts: response.data.total,
+                totalPages: Math.ceil(response.data.total / limit),
+                loading: false,
+            });
         } catch (error) {
             set({ error: error.response?.data?.message || error.message, loading: false });
         }
