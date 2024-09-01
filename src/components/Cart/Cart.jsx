@@ -13,7 +13,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import useUserStore from "../../store/userStore";
-
+import Loading from "../../components/common/Loading";
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, updatePrice, clearCart } =
     useCartStore();
@@ -63,7 +63,7 @@ const Cart = () => {
   }, [fetchUser]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   if (!isClient) return null;
 
