@@ -7,20 +7,20 @@ import useCartStore from "../../store/cartStore";
 import { toast } from "react-toastify";
 import { SERVER } from "../../config";
 const ProductCardDesign = ({ product }) => {
-  const { addToCart } = useCartStore();
+  // const { addToCart } = useCartStore();
 
-  const handleAddToCart = () => {
-    if (product?.quantity < 1) {
-      toast.error("Product is out of stock");
-    } else {
-      const productAdded = addToCart(product);
-      if (!productAdded) {
-        toast.error("Product already in cart");
-      } else {
-        toast.success("Product added to cart");
-      }
-    }
-  };
+  // const handleAddToCart = () => {
+  //   if (product?.quantity < 1) {
+  //     toast.error("Product is out of stock");
+  //   } else {
+  //     const productAdded = addToCart(product);
+  //     if (!productAdded) {
+  //       toast.error("Product already in cart");
+  //     } else {
+  //       toast.success("Product added to cart");
+  //     }
+  //   }
+  // };
   return (
     <section
       className="relative hover:shadow-md px-2 py-4 transition duration-300 rounded-2xl hover:bg-white"
@@ -42,19 +42,25 @@ const ProductCardDesign = ({ product }) => {
         </h1>
 
         <h1 className="lg:text-xl text-[14px] font-bold">
-          <span className="lg:text-sm text-[14px]">BDT</span> {product.price}.00{" "}
+          <span className="lg:text-sm text-[14px]">BDT</span>{" "}
+          {product?.productVariants[0]?.discount
+            ? product?.productVariants[0]?.discount
+            : product?.productVariants[0]?.price}
+          .00{" "}
           <del className="font-normal ml-2 lg:text-sm text-gray-400 text-[14px]">
-            535.00
+            {product?.productVariants[0]?.discount &&
+              product?.productVariants[0]?.price}
+            .00
           </del>
         </h1>
       </Link>
-      <div
+      {/* <div
         onClick={handleAddToCart}
         className="absolute bottom-[105px] lg:bottom-28 right-5 lg:px-3 px-2 py-2 lg:py-3 cursor-pointer rounded-full bg-black text-white tooltip tooltip-left text-xl lg:text-2xl"
         data-tip="Add To Cart"
       >
         <LiaCartPlusSolid />
-      </div>
+      </div> */}
     </section>
   );
 };

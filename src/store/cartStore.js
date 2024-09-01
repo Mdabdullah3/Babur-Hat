@@ -8,15 +8,15 @@ const useCartStore = create(
             addToCart: (product, variant, quantity = 1) => {
                 let productAdded = false;
                 set((state) => {
-                    const productExists = state.cart.find(
-                        (item) => item._id === product._id && item.variant.size === variant.size
+                    const productExists = state?.cart.find(
+                        (item) => item?._id === product?._id && item?.size === variant?.size
                     );
                     if (productExists) {
                         productAdded = false;
                         return state;
                     }
                     const { _id, name, user, coverPhoto } = product;
-                    const { price, discount, size, color,  } = variant;
+                    const { price, discount, size, color, } = variant;
 
                     const newCart = [
                         ...state.cart,
@@ -29,7 +29,6 @@ const useCartStore = create(
                             color,
                             price: discount ? discount : price,
                             quantity,
-                            stock,
                             coverPhoto,
                         },
                     ];
