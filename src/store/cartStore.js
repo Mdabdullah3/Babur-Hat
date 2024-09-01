@@ -27,6 +27,7 @@ const useCartStore = create(
                             name,
                             size,
                             color,
+                            originalPrice: discount ? discount : price,
                             price: discount ? discount : price,
                             quantity,
                             coverPhoto,

@@ -11,6 +11,8 @@ import InputField from "../common/InputField";
 import PrimaryButton from "../common/PrimaryButton";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import useUserStore from "../../store/userStore";
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, updatePrice, clearCart } =
@@ -22,6 +24,8 @@ const Cart = () => {
   const [couponApplied, setCouponApplied] = useState(false);
   const [productsData, setProductsData] = useState([]);
   const router = useRouter();
+  const { user, fetchUser } = useUserStore();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const url = `${API_URL}/products?_limit=10000&_fields=_id,`;
@@ -49,7 +53,18 @@ const Cart = () => {
       setDiscount(discountAmount);
     }
   }, []);
+  useEffect(() => {
+    const loadUser = async () => {
+      await fetchUser();
+      setLoading(false);
+    };
 
+    loadUser();
+  }, [fetchUser]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   if (!isClient) return null;
 
   const handleRemove = (id) => {
@@ -117,22 +132,31 @@ const Cart = () => {
 
   const checkProductStock = () => {
     for (const item of cart) {
-      const product = productsData.find(
-        (p) => p.productVariants._id === item.variantId
+      const product = productsData?.find((p) =>
+        p?.productVariants?.some((variant) => variant?._id === item?.variantId)
       );
-      if (!product) {
-        return "Product not found.";
+      const variant = product?.productVariants?.find(
+        (variant) => variant?._id === item?.variantId
+      );
+
+      if (!product || !variant) {
+        return "Product or variant not found.";
       }
-      if (product.quantity === 0) {
-        return `"${item.name}" is out of stock. Please remove it from the cart.`;
+      if (variant.quantity === 0) {
+        return `"${item?.name}" is out of stock. Please remove it from the cart.`;
       }
-      if (item.quantity > product.quantity) {
+      if (item?.quantity > variant?.quantity) {
         return `The quantity of "${item.name}" exceeds available stock. Please reduce the quantity.`;
       }
     }
     return null;
   };
+
   const handleProceedToCheckout = () => {
+    if (!user) {
+      toast.error("Please login first");
+      return;
+    }
     const stockError = checkProductStock();
     if (stockError) {
       setError(stockError);
@@ -151,7 +175,7 @@ const Cart = () => {
           <div className="col-span-2">
             <div>
               {cart?.map((item, index) => (
-                <React.Fragment key={item._id}>
+                <React.Fragment key={item?.size}>
                   {index !== 0 && (
                     <hr className="border-t border-gray-300 mt-6 w-[95%]" />
                   )}
@@ -225,23 +249,26 @@ const Cart = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex-col hidden lg:block  items-center w-52">
+                    <div className="flex-col hidden lg:block  items-center w-20">
                       <h1 className="font-bold tracking-wider">
                         {item?.quantity} pcs
                       </h1>
+                    </div>
+                    <div className="hidden lg:block w-20">
+                      <h1 className="text-gray-500 uppercase">{item?.size}</h1>
                     </div>
                     <div className="hidden lg:block">
                       <h1 className="text-gray-500">
                         ({item?.quantity} x {item?.originalPrice}) ={""}
                         <span className="font-semibold text-black">
-                          {" "}
                           {(item.price * parseInt(item?.quantity)).toFixed(2)}
                         </span>
                         BDT
                       </h1>
                     </div>
+
                     <div className="w-28 mt-2 lg:block hidden">
-                      <div className="relative flex flex-row w-36 h-12 bg-transparent rounded-lg">
+                      <div className="relative flex flex-row w-32 h-12 bg-transparent rounded-lg">
                         <button
                           className="w-20 h-full bg-gray-200 cursor-pointer hover:text-gray-700 hover:bg-gray-400"
                           onClick={() =>

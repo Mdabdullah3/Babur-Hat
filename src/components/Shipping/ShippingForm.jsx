@@ -184,14 +184,20 @@ const ShippingForm = () => {
 
   const checkProductStock = () => {
     for (const item of cart) {
-      const product = productsData.find((p) => p._id === item._id);
-      if (!product) {
-        return "Product not found.";
+      const product = productsData?.find((p) =>
+        p?.productVariants?.some((variant) => variant?._id === item?.variantId)
+      );
+      const variant = product?.productVariants?.find(
+        (variant) => variant?._id === item?.variantId
+      );
+
+      if (!product || !variant) {
+        return "Product or variant not found.";
       }
-      if (product.quantity === 0) {
-        return `"${item.name}" is out of stock. Please remove it from the cart.`;
+      if (variant.quantity === 0) {
+        return `"${item?.name}" is out of stock. Please remove it from the cart.`;
       }
-      if (item.quantity > product.quantity) {
+      if (item?.quantity > variant?.quantity) {
         return `The quantity of "${item.name}" exceeds available stock. Please reduce the quantity.`;
       }
     }

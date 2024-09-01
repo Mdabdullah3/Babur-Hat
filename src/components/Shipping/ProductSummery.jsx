@@ -31,7 +31,7 @@ const ProductSummery = ({ deliveryCharge }) => {
             <div className="mt-5 flex justify-between items-center">
               <div className="flex items-center gap-3">
                 <img
-                  src={`${SERVER}${order?.coverPhoto}`}
+                  src={`${SERVER}${order?.coverPhoto?.secure_url}`}
                   className="w-20 h-20 rounded-sm"
                   alt=""
                 />
@@ -44,6 +44,8 @@ const ProductSummery = ({ deliveryCharge }) => {
                   </h1>
                 </div>
               </div>
+              <h1 className="uppercase font-semibold">{order?.size}</h1>
+
               <div>
                 <h1 className=" tracking-wider font-[500] flex items-center">
                   <FaBangladeshiTakaSign />
