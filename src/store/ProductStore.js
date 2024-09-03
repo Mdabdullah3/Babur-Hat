@@ -89,6 +89,15 @@ const useProductStore = create((set) => ({
             set({ error: error.response?.data?.message || error.message, loading: false });
         }
     },
+    fetchAllProducts: async () => {
+        set({ loading: true });
+        try {
+            const response = await axios.get(`${API_URL}/products?_limit=40&_fields=productVariants,category,subCategory,name,_id,coverPhoto`);
+            set({ products: response.data.data, loading: false });
+        } catch (error) {
+            set({ error: error.response?.data?.message || error.message, loading: false });
+        }
+    },
 }));
 
 export default useProductStore;

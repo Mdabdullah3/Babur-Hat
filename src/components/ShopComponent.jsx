@@ -15,7 +15,7 @@ const ShopComponent = () => {
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [selectedSize, setSelectecdSize] = useState(null);
   const [priceRange, setPriceRange] = useState([0, 1000]);
-  const { products, fetchProducts } = useProductStore();
+  const { products, fetchAllProducts } = useProductStore();
   const { categories, fetchCategories } = useCategoryStore();
   const [searchTerm, setSearchTerm] = useState("");
   const searchParams = useSearchParams();
@@ -23,7 +23,7 @@ const ShopComponent = () => {
   const search = searchParams.get("search");
   console.log(category);
   useEffect(() => {
-    fetchProducts();
+    fetchAllProducts();
     fetchCategories();
     if (category) {
       setSelectedCategory(category);
@@ -31,7 +31,7 @@ const ShopComponent = () => {
     if (search) {
       setSearchTerm(search);
     }
-  }, [fetchProducts, search, fetchCategories, category]);
+  }, [fetchAllProducts, search, fetchCategories, category]);
 
   const handleCategoryChange = (categoryId) => {
     setSelectedCategory(categoryId);
