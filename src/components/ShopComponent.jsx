@@ -21,17 +21,20 @@ const ShopComponent = () => {
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
   const search = searchParams.get("search");
-  console.log(category);
+  const subCategory = searchParams.get("sub-category");
   useEffect(() => {
     fetchAllProducts();
     fetchCategories();
+    if (subCategory) {
+      setSelectedSubCategory(subCategory);
+    }
     if (category) {
       setSelectedCategory(category);
     }
     if (search) {
       setSearchTerm(search);
     }
-  }, [fetchAllProducts, search, fetchCategories, category]);
+  }, [fetchAllProducts, search, fetchCategories, category, subCategory]);
 
   const handleCategoryChange = (categoryId) => {
     setSelectedCategory(categoryId);
@@ -100,7 +103,7 @@ const ShopComponent = () => {
     setSelectedSubCategory(null);
     setSelectecdSize(null);
     setPriceRange([0, 1000]);
-    fetchProducts();
+    fetchAllProducts();
   };
   return (
     <div>

@@ -20,6 +20,9 @@ const ProductDetails = ({ params }) => {
   const [openDetails, setOpenDetails] = useState(
     productInformation[0]?.Description
   );
+  const { addToCart } = useCartStore();
+  const [quantity, setQuantity] = useState(1);
+
   const { id } = params;
   const [isReportModalOpen, setReportModalOpen] = useState(false);
   const { recentlyViewed, addRecentlyViewed, initializeRecentlyViewed } =
@@ -45,7 +48,18 @@ const ProductDetails = ({ params }) => {
       toast.success("Product added to wishlist");
     }
   };
-
+  const handleAddToCart = () => {
+    if (selectedVariant?.quantity <= quantity) {
+      toast.error("Product is out of stock");
+      return;
+    }
+    const result = addToCart(product, selectedVariant, quantity);
+    if (!result) {
+      toast.error("Product already in cart");
+    } else {
+      toast.success("Product added to cart");
+    }
+  };
   const handleRemoveFromWishlist = (id) => {
     removeFromWishlist(id);
     toast.success("Product removed from wishlist");
@@ -129,7 +143,10 @@ const ProductDetails = ({ params }) => {
         </div>
       </div>
       <div className="flex lg:hidden border-t gap-4 border-gray-200 p-2 bg-white sticky bottom-0 w-full justify-between items-center ">
-        <button className="w-full  py-3 rounded-full border hover:border-black border-primary bg-primary text-white tracking-wider  hover:bg-black hover:text-white transition duration-500 font-bold">
+        <button
+          onclick={handleAddToCart}
+          className="w-full  py-3 rounded-full border hover:border-black border-primary bg-primary text-white tracking-wider  hover:bg-black hover:text-white transition duration-500 font-bold"
+        >
           Add To Cart
         </button>
         {/* <button className="w-full py-2 rounded-full  border-[1px] hover:border-primary border-black text-black tracking-wider  hover:bg-primary hover:text-white transition duration-500 font-bold">

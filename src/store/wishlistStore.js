@@ -5,7 +5,7 @@ const useWishlistStore = create(
     persist(
         (set) => ({
             wishlist: [],
-            addToWishlist: (product) => {
+            addToWishlist: (product, variant, quantity = 1) => {
                 let productAdded = false;
                 set((state) => {
                     const productExists = state.wishlist.find((item) => item._id === product._id);
@@ -13,7 +13,22 @@ const useWishlistStore = create(
                         productAdded = false;
                         return state;
                     }
-                    const newWishlist = [...state.wishlist, product];
+                    const { _id, name, user, coverPhoto } = product;
+                    const { price, discount, size, color, } = variant;
+                    const newWishlist = [...state.wishlist, 
+                        {
+                            _id,
+                            userId: user._id,
+                            variantId: variant?._id,
+                            name,
+                            size,
+                            color,
+                            originalPrice: discount ? discount : price,
+                            price: discount ? discount : price,
+                            quantity,
+                            coverPhoto,
+                        },
+                    ];
                     productAdded = true;
                     return { wishlist: newWishlist };
                 });

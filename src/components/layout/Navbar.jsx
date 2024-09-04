@@ -117,11 +117,13 @@ const Navbar = () => {
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-4">
               {user?.avatar ? (
-                <img
-                  src={`${SERVER}${user?.avatar?.secure_url}`}
-                  alt="User Avatar"
-                  className="md:w-12 w-6 h-6 md:h-12 rounded-full"
-                />
+                <Link href="/profile">
+                  <img
+                    src={`${SERVER}${user?.avatar?.secure_url}`}
+                    alt="User Avatar"
+                    className="md:w-12 w-10 h-10 md:h-12 rounded-full cursor-pointer"
+                  />
+                </Link>
               ) : (
                 <Link href="/auth/login">
                   <h1 className="lg:text-3xl text-xl">

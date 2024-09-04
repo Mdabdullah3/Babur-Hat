@@ -5,6 +5,7 @@ const useCartStore = create(
     persist(
         (set) => ({
             cart: [],
+
             addToCart: (product, variant, quantity = 1) => {
                 let productAdded = false;
                 set((state) => {

@@ -5,8 +5,18 @@ import MyOrder from "./MyOrder";
 import RecentProducts from "./RecentProducts";
 import UpdatePassword from "./UpdatePassword";
 import MyReview from "./MyReview";
+import { MdMenu } from "react-icons/md";
+import useUserStore from "../../store/userStore";
+import { useRouter } from "next/navigation";
+
 const ProfileMenu = () => {
   const [activeMenu, setActiveMenu] = useState("My Orders");
+  const { logout } = useUserStore();
+  const router = useRouter();
+  const handleLogout = () => {
+    logout();
+    router.push("/auth/login");
+  };
   const menu = [
     "My Orders",
     "My Profile",
@@ -15,10 +25,51 @@ const ProfileMenu = () => {
     "Update Password",
     "Logout",
   ];
+
   return (
-    <section className="">
-      <div className="grid w-11/12 mx-auto grid-cols-5 pt-10">
-        <div className="flex-col flex gap-5">
+    <section className="w-full">
+      <div className="lg:grid lg:grid-cols-5 lg:w-11/12 mx-auto pt-10">
+        <div className="lg:hidden">
+          <div className="drawer">
+            <input
+              id="profile_drawer"
+              type="checkbox"
+              className="drawer-toggle"
+            />
+            <div className="drawer-content">
+              <label
+                htmlFor="profile_drawer"
+                className="md:hidden cursor-pointer"
+              >
+                <MdMenu size={28} />
+              </label>
+            </div>
+            <div className="drawer-side">
+              <label
+                htmlFor="profile_drawer"
+                aria-label="close sidebar"
+                className="drawer-overlay"
+              ></label>
+              <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+                {menu?.map((item, index) => (
+                  <li key={index}>
+                    <a
+                      href="#"
+                      className={`font-bold pb-2 cursor-pointer ${
+                        activeMenu === item ? "text-primary" : ""
+                      }`}
+                      onClick={() => setActiveMenu(item)}
+                    >
+                      {item}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden lg:flex flex-col gap-5">
           {menu.map((item, index) => (
             <button
               key={index}
@@ -31,31 +82,14 @@ const ProfileMenu = () => {
             </button>
           ))}
         </div>
-        {activeMenu === "My Profile" && (
-          <div className="col-span-4">
-            <Profile />
-          </div>
-        )}
-        {activeMenu === "My Orders" && (
-          <div className="col-span-4">
-            <MyOrder />
-          </div>
-        )}
-        {activeMenu === "Recent Product" && (
-          <div className="col-span-4">
-            <RecentProducts />
-          </div>
-        )}
-        {activeMenu === "My Reviews" && (
-          <div className="col-span-4">
-            <MyReview />
-          </div>
-        )}
-        {activeMenu === "Update Password" && (
-          <div className="col-span-4">
-            <UpdatePassword />
-          </div>
-        )}
+
+        <div className="col-span-4 mt-8 lg:mt-0">
+          {activeMenu === "My Profile" && <Profile />}
+          {activeMenu === "My Orders" && <MyOrder />}
+          {activeMenu === "Recent Product" && <RecentProducts />}
+          {activeMenu === "My Reviews" && <MyReview />}
+          {activeMenu === "Update Password" && <UpdatePassword />}
+        </div>
       </div>
     </section>
   );

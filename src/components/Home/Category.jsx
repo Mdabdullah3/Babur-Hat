@@ -59,8 +59,8 @@ const Category = () => {
         className="mySwiper"
       >
         {categories?.map((item) => (
-          <SwiperSlide key={item.id}>
-            <Link href={`/shop?category=${item.id}`}>
+          <SwiperSlide key={item._id}>
+            <Link href={`/shop?category=${item._id}`}>
               <div className="p-2 py-4 mb-6">
                 <img
                   src={

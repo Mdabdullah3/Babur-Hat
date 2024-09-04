@@ -8,7 +8,7 @@ const ShopMenu = ({ title, children }) => {
     setIsOpen(!isOpen);
   };
   return (
-    <div className="">
+    <div className="h-full">
       <div
         className="flex items-center justify-between cursor-pointer"
         onClick={toggleAccordion}
@@ -22,7 +22,7 @@ const ShopMenu = ({ title, children }) => {
       </div>
       <div
         className={`overflow-hidden transition-all duration-300 ${
-          isOpen ? "max-h-96" : "max-h-0"
+          isOpen ? "h-full" : "max-h-0"
         }`}
       >
         <div>{children}</div>

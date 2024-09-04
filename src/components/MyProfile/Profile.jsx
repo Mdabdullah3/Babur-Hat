@@ -87,7 +87,7 @@ const Profile = () => {
         setFile={handleAvatarChange}
         file={avatar}
       />
-      <div className="grid grid-cols-2 gap-4 my-6">
+      <div className="lg:grid lg:grid-cols-2 gap-4 my-6">
         <div>
           <InputField
             label="Name"
