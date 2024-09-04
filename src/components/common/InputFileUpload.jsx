@@ -59,8 +59,8 @@ const InputFileUpload = ({
           </button>
         </div>
       ) : (
-        <div className="flex w-full  items-center justify-center ">
-          <label className="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white">
+        <div className="flex w-full  items-center">
+          <label className="lg:w-64 w-36 flex flex-col items-center px-4 lg:py-6 py-4 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white">
             <svg
               className="w-8 h-8"
               fill="currentColor"

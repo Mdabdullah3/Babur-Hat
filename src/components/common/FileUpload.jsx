@@ -31,7 +31,7 @@ const FileUpload = ({
           </button>
         </div>
       ) : (
-        <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-primary border-dashed rounded-md">
+        <div className="mt-1 flex  px-6 pt-5 pb-6 border-2 border-primary border-dashed rounded-md">
           <div className="space-y-1 text-center">
             <svg
               className="mx-auto h-12 w-12 text-secondary"

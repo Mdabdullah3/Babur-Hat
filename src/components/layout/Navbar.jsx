@@ -150,7 +150,7 @@ const Navbar = () => {
                     </div>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content z-50 menu shadow bg-black cursor-pointer text-white rounded-box lg:w-52 w-36 flex flex-col gap-3 text-md tracking-wider py-4 lg:px-6 px-3 md:-ml-0 -ml-12"
+                      className="dropdown-content z-50 menu shadow bg-black cursor-pointer text-white rounded-box lg:w-52 w-28 flex flex-col gap-3 text-md tracking-wider mt-2 md:mt-0 py-4 lg:px-6 px-3 md:-ml-0 -ml-16 text-[12px] md:text-sm"
                     >
                       <Link href="/profile">
                         <h1 className="block">My Profile</h1>
