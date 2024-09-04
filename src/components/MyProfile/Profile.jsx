@@ -80,7 +80,7 @@ const Profile = () => {
   console.log(avatar);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="mx-4">
       <InputFileUpload
         label="Profile Picture"
         name="avatar"

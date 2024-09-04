@@ -28,23 +28,23 @@ const ProfileMenu = () => {
 
   return (
     <section className="w-full">
-      <div className="lg:grid lg:grid-cols-5 lg:w-11/12 mx-auto pt-10">
-        <div className="lg:hidden">
+      <div className="lg:grid lg:grid-cols-5 lg:w-11/12 mx-auto pt-4 lg:pt-10">
+        <div className="lg:hidden z-50">
           <div className="drawer">
             <input
               id="profile_drawer"
               type="checkbox"
               className="drawer-toggle"
             />
-            <div className="drawer-content">
+            <div className="drawer-content ml-4">
               <label
                 htmlFor="profile_drawer"
-                className="md:hidden cursor-pointer"
+                className="md:hidden cursor-pointer "
               >
                 <MdMenu size={28} />
               </label>
             </div>
-            <div className="drawer-side">
+            <div className="drawer-side z-50">
               <label
                 htmlFor="profile_drawer"
                 aria-label="close sidebar"

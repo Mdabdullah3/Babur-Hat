@@ -71,12 +71,12 @@ const MyOrder = () => {
                   {item?.products?.map((orderProduct) => (
                     <div
                       key={orderProduct?._id}
-                      className="bg-white h-24 mb-5 mt-3"
+                      className="bg-white  mb-5 mt-3"
                     >
-                      <div className="flex gap-10 items-center justify-between px-3">
+                      <div className="flex flex-wrap lg:gap-10 gap-4 items-center justify-between px-3">
                         <div>
                           <img
-                            className="w-20 h-24"
+                            className="md:w-20 md:h-24 w-16 h-16"
                             src={orderProduct?.img}
                             alt=""
                           />

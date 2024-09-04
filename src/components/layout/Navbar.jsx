@@ -114,16 +114,20 @@ const Navbar = () => {
               )}
             </div>
           </div>
-          <div className="flex items-center gap-8">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center md:gap-8 gap-4">
+            <div className="flex items-center lg:gap-4 dropdown dropdown-hover">
               {user?.avatar ? (
-                <Link href="/profile">
-                  <img
-                    src={`${SERVER}${user?.avatar?.secure_url}`}
-                    alt="User Avatar"
-                    className="md:w-12 w-10 h-10 md:h-12 rounded-full cursor-pointer"
-                  />
-                </Link>
+                <div className="relative">
+                  <Link href="/profile">
+                    <img
+                      tabIndex={0}
+                      role="button"
+                      src={`${SERVER}${user?.avatar?.secure_url}`}
+                      alt="User Avatar"
+                      className="md:w-12 w-10 h-10 md:h-12 rounded-full cursor-pointer transition-transform transform hover:scale-105 hover:shadow-lg"
+                    />
+                  </Link>
+                </div>
               ) : (
                 <Link href="/auth/login">
                   <h1 className="lg:text-3xl text-xl">
@@ -132,21 +136,21 @@ const Navbar = () => {
                 </Link>
               )}
               {user ? (
-                <div className="tracking-wider hidden lg:block">
-                  <h1 className="text-[13px]">Welcome</h1>
-                  <div className="dropdown dropdown-hover">
+                <div className="tracking-wider ">
+                  <h1 className="text-[13px] hidden lg:block">Welcome</h1>
+                  <div className="dropdown dropdown-hover ">
                     <div
                       tabIndex={0}
                       role="button"
                       className="flex items-center text-sm font-bold"
                     >
-                      <div className="capitalize tracking-wider flex items-center">
+                      <div className="capitalize tracking-wider  items-center hidden lg:flex">
                         {user?.name} <MdKeyboardArrowDown size={20} />
                       </div>
                     </div>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content z-50 menu shadow bg-black cursor-pointer text-white rounded-box w-52 flex flex-col gap-3 text-md tracking-wider py-4 px-6"
+                      className="dropdown-content z-50 menu shadow bg-black cursor-pointer text-white rounded-box lg:w-52 w-36 flex flex-col gap-3 text-md tracking-wider py-4 lg:px-6 px-3 md:-ml-0 -ml-12"
                     >
                       <Link href="/profile">
                         <h1 className="block">My Profile</h1>
@@ -190,7 +194,7 @@ const Navbar = () => {
               )}
             </div>
             <Link href="/cart">
-              <div className="flex items-center gap-4 cursor-pointer">
+              <div className="flex items-center md:gap-4 cursor-pointer">
                 <h1 className="lg:text-3xl text-2xl">
                   <PiShoppingCartSimpleBold />
                 </h1>
@@ -203,7 +207,7 @@ const Navbar = () => {
               </div>
             </Link>
             <Link href="/wishlist">
-              <h1 className="md:text-2xl text-xl">
+              <h1 className="md:text-2xl text-xl hidden md:block">
                 <FaHeart />
               </h1>
             </Link>
