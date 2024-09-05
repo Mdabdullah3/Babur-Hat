@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
 import React, { useEffect, useState } from "react";
 import PrimaryButton from "../common/PrimaryButton";
 import useReviewStore from "../../store/reviewStore";
@@ -12,11 +13,16 @@ import { toast } from "react-toastify";
 
 const ProductComment = ({ productId }) => {
   const [newComments, setNewComments] = useState("");
+  const [newReply, setNewReply] = useState(""); // Separate state for replies
   const [image, setImages] = useState(null);
   const [editComment, setEditComment] = useState(null);
+  const [commentId, setCommentId] = useState(null);
+  const [editReply, setEditReply] = useState(null);
   const {
     addReview,
+    replys,
     fetchReviewsByProduct,
+    fetchAllReplies,
     reviews,
     updateReview,
     deleteReview,
@@ -25,9 +31,11 @@ const ProductComment = ({ productId }) => {
 
   useEffect(() => {
     fetchUser();
+    fetchAllReplies(productId);
     fetchReviewsByProduct(productId);
-  }, [fetchUser, fetchReviewsByProduct, productId]);
+  }, [fetchUser, fetchReviewsByProduct, fetchAllReplies, productId]);
 
+  // Handle adding or updating a comment
   const handleAddComment = async () => {
     const message = editComment
       ? "Comment Updated Successfully"
@@ -57,7 +65,67 @@ const ProductComment = ({ productId }) => {
     document.getElementById(editComment ? "edit_modal" : "my_modal_2").close();
   };
 
-  console.log(newComments);
+  // Handle adding or editing a reply
+  const handleAddReply = async () => {
+    const message = editReply
+      ? "Reply Updated Successfully"
+      : "Reply Added Successfully";
+    if (editReply) {
+      await updateReview(
+        editReply._id,
+        {
+          ...editReply,
+          comment: newReply,
+          image: image || editReply?.image,
+        },
+        message
+      );
+      setEditReply(null);
+    } else {
+      const formdata = {
+        product: productId,
+        userId: user?._id,
+        comment: newReply,
+        image: image,
+        replyTo: commentId,
+      };
+      console.log(formdata);
+      await addReview(formdata, message);
+    }
+    setNewReply("");
+    setImages(null);
+    document.getElementById("my_reply_modal").close();
+  };
+
+  // Open modal for adding or editing a reply
+  const openReplyModal = (id) => {
+    if (!user) {
+      toast.error("Please Login First");
+      return;
+    }
+    setEditReply(null);
+    setNewReply("");
+    setCommentId(id);
+    document.getElementById("my_reply_modal").showModal();
+  };
+
+  const openEditReplyModal = (reply) => {
+    if (user && user._id === reply.user._id) {
+      setEditReply(reply);
+      setNewReply(reply.comment);
+      document.getElementById("my_reply_modal").showModal();
+    }
+  };
+
+  // Handle deleting a comment or reply
+  const handleDeleteCommentOrReply = async (item) => {
+    if (user && user._id === item.user._id) {
+      const message = "Deleted Successfully";
+      await deleteReview(item._id, message);
+    }
+  };
+
+  // Preload images if editing a comment or reply
   useEffect(() => {
     if (editComment?.image?.secure_url) {
       const imageUrl = `${SERVER}${editComment.image.secure_url}`;
@@ -67,31 +135,22 @@ const ProductComment = ({ productId }) => {
     }
   }, [editComment?.image?.secure_url]);
 
-  const openModal = () => {
-    if (!user) {
-      toast.error("Please Login First");
-      return;
+  const comments = reviews?.filter(
+    (review) => review.comment && !review.replyTo
+  );
+  const commentIds = comments.map((comment) => comment._id);
+
+  const replies = replys?.filter(
+    (reply) => reply.replyTo && commentIds.includes(reply.replyTo._id)
+  );
+
+  const repliesMap = replies.reduce((acc, reply) => {
+    if (!acc[reply.replyTo._id]) {
+      acc[reply.replyTo._id] = [];
     }
-    document.getElementById("my_modal_2").showModal();
-  };
-
-  const openEditModal = (comment) => {
-    if (user && user._id === comment.user._id) {
-      setEditComment(comment);
-      setNewComments(comment.comment);
-      document.getElementById("edit_modal").showModal();
-    }
-  };
-
-  const handleDeleteComment = async (comment) => {
-    if (user && user._id === comment.user._id) {
-      const message = "Comment Deleted Successfully";
-      await deleteReview(comment._id, message);
-    }
-  };
-
-  const comments = reviews?.filter((review) => review.comment);
-
+    acc[reply.replyTo._id].push(reply);
+    return acc;
+  }, {});
   return (
     <div>
       <div className="my-6">
@@ -108,14 +167,14 @@ const ProductComment = ({ productId }) => {
       <div className="flex gap-5">
         <div className="mt-5">
           <PrimaryButton
-            onClick={openModal}
+            onClick={() => document.getElementById("my_modal_2").showModal()}
             value={editComment ? "Update" : "Write Comment"}
           />
         </div>
       </div>
       <div className="mt-8">
-        {comments.length > 0 ? (
-          comments.map((comment) => (
+        {comments?.length > 0 ? (
+          comments?.map((comment) => (
             <div key={comment._id} className="mb-4 p-4 border rounded">
               <div className="flex items-center gap-4">
                 <img
@@ -139,23 +198,33 @@ const ProductComment = ({ productId }) => {
                   className="md:w-40 md:h-40 w-28 h-28 my-3"
                 />
               ) : null}
-              <p className="mt-4">{comment.comment}</p>
-              {user && user._id === comment.user._id && (
-                <div>
-                  <button
-                    className="text-blue-500 mr-4"
-                    onClick={() => openEditModal(comment)}
-                  >
-                    <FiEdit />
-                  </button>
-                  <button
-                    className="text-red-500"
-                    onClick={() => handleDeleteComment(comment)}
-                  >
-                    <RiDeleteBin6Line />
-                  </button>
-                </div>
-              )}
+              <div className="flex items-center justify-between">
+                <p className="mt-4">{comment.comment}</p>
+                {user && user._id === comment.user._id && (
+                  <div>
+                    <button
+                      className="text-blue-500 mr-4"
+                      onClick={() => openEditModal(comment)}
+                    >
+                      <FiEdit />
+                    </button>
+                    <button
+                      className="text-red-500"
+                      onClick={() => handleDeleteCommentOrReply(comment)}
+                    >
+                      <RiDeleteBin6Line />
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="ml-10 mt-4">
+                <button
+                  className="text-blue-500"
+                  onClick={() => openReplyModal(comment?._id)}
+                >
+                  Reply
+                </button>
+              </div>
             </div>
           ))
         ) : (
@@ -192,14 +261,15 @@ const ProductComment = ({ productId }) => {
           </div>
         </div>
       </dialog>
-      <dialog id="edit_modal" className="modal">
+
+      <dialog id="my_reply_modal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold md:text-lg text-sm">Edit Comment</h3>
+          <h3 className="font-bold text-lg">Write a Reply</h3>
           <textarea
             className="textarea textarea-bordered w-full mt-4"
-            placeholder="Update your comment"
-            value={newComments}
-            onChange={(e) => setNewComments(e.target.value)}
+            placeholder="Your reply"
+            value={newReply}
+            onChange={(e) => setNewReply(e.target.value)}
           />
           <InputFileUpload
             label="Image"
@@ -208,12 +278,12 @@ const ProductComment = ({ productId }) => {
             file={image}
           />
           <div className="modal-action">
-            <button className="btn" onClick={handleAddComment}>
-              Update
+            <button className="btn" onClick={handleAddReply}>
+              Submit
             </button>
             <button
               className="btn"
-              onClick={() => document.getElementById("edit_modal").close()}
+              onClick={() => document.getElementById("my_reply_modal").close()}
             >
               Close
             </button>

@@ -8,7 +8,7 @@ const useReviewStore = create((set) => ({
     review: null,
     loading: false,
     error: null,
-
+    replys: [],
     fetchAllReviews: async () => {
         set({ loading: true, error: null });
         try {
@@ -18,11 +18,20 @@ const useReviewStore = create((set) => ({
             set({ error: error.message, loading: false });
         }
     },
+    fetchAllReplies: async (productId) => {
+        set({ loading: true, error: null });
+        try {
+            const response = await axios.get(`${API_URL}/products/${productId}/reviews?_limit=2000&repliesOnly=true`);
+            set({ replys: response.data?.data || [], loading: false });
+        } catch (error) {
+            set({ error: error.message, loading: false });
+        }
+    },
 
     fetchReviewsByProduct: async (productId) => {
         set({ loading: true, error: null });
         try {
-            const response = await axios.get(`${API_URL}/products/${productId}/reviews`);
+            const response = await axios.get(`${API_URL}/products/${productId}/reviews?_limit=2000`);
             set({ reviews: response.data?.data || [], loading: false });
         } catch (error) {
             set({ error: error.message, loading: false });
