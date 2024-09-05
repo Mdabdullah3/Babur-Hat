@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa6";
 import ProductReview from "../../components/ProductDetails/ProductReview";
 import ProductComment from "../../components/ProductDetails/ProductComment";
+import { useState } from "react";
 
 const ProductInfoTab = ({
   Details,
@@ -11,7 +13,8 @@ const ProductInfoTab = ({
   product,
 }) => {
   const reviews = product?.reviews?.filter((review) => review.review);
-
+  const [activeMenu, setActiveMenu] = useState("Review's");
+  const menu = ["Review's", "Comment"];
   return (
     <section>
       <div className="w-11/12 mx-auto mt-10 hidden lg:block">
@@ -69,9 +72,28 @@ const ProductInfoTab = ({
           </div>
         )}
         <hr className="my-4" />
-        <div>
-          <ProductReview productId={product?._id} product={product} />
+        <div className="flex gap-4 items-center">
+          {menu?.map((item) => (
+            <h1
+              onClick={() => setActiveMenu(item)}
+              key={item}
+              className={`transition duration-300 capitalize cursor-pointer${
+                activeMenu === item
+                  ? "text-red-500 border-b-2 border-primary"
+                  : "text-black "
+              }`}
+            >
+              {item}
+            </h1>
+          ))}
         </div>
+        {activeMenu === "Review's" ? (
+          <div>
+            <ProductReview productId={product?._id} product={product} />
+          </div>
+        ) : (
+          <ProductComment />
+        )}
       </div>
     </section>
   );

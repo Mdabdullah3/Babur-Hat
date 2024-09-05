@@ -8,6 +8,7 @@ import InputFileUpload from "../common/InputFileUpload";
 import { toDataURL } from "../../utils/DataUrl";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { toast } from "react-toastify";
 
 const ProductComment = ({ productId }) => {
   const [newComments, setNewComments] = useState("");
@@ -31,35 +32,32 @@ const ProductComment = ({ productId }) => {
     const message = editComment
       ? "Comment Updated Successfully"
       : "Comment Added Successfully";
-    if (user && newComments.trim()) {
-      if (editComment) {
-        await updateReview(
-          editComment._id,
-          {
-            ...editComment,
-            comment: newComments,
-            image: image || editComment?.image,
-          },
-          message
-        );
-        setEditComment(null);
-      } else {
-        const formdata = {
-          product: productId,
-          userId: user._id,
+    if (editComment) {
+      await updateReview(
+        editComment._id,
+        {
+          ...editComment,
           comment: newComments,
-          image: image,
-        };
-        await addReview(formdata, message);
-      }
-      setNewComments("");
-      setImages(null);
-      document
-        .getElementById(editComment ? "edit_modal" : "my_modal_2")
-        .close();
+          image: image || editComment?.image,
+        },
+        message
+      );
+      setEditComment(null);
+    } else {
+      const formdata = {
+        product: productId,
+        userId: user?._id,
+        comment: newComments,
+        image: image,
+      };
+      await addReview(formdata, message);
     }
+    setNewComments("");
+    setImages(null);
+    document.getElementById(editComment ? "edit_modal" : "my_modal_2").close();
   };
 
+  console.log(newComments);
   useEffect(() => {
     if (editComment?.image?.secure_url) {
       const imageUrl = `${SERVER}${editComment.image.secure_url}`;
@@ -70,6 +68,10 @@ const ProductComment = ({ productId }) => {
   }, [editComment?.image?.secure_url]);
 
   const openModal = () => {
+    if (!user) {
+      toast.error("Please Login First");
+      return;
+    }
     document.getElementById("my_modal_2").showModal();
   };
 
@@ -94,7 +96,7 @@ const ProductComment = ({ productId }) => {
     <div>
       <div className="my-6">
         <div>
-          <h1 className="text-2xl font-[500] tracking-wider mb-7">
+          <h1 className="md:text-2xl text-sm font-[500] tracking-wider mb-7">
             Comment & Answer
           </h1>
           <p>
@@ -123,7 +125,7 @@ const ProductComment = ({ productId }) => {
                       : "/avatar.png"
                   }
                   alt=""
-                  className="w-14 h-14 rounded-full"
+                  className="md:w-14 md:h-14 h-10 w-10 rounded-full"
                 />
                 <div>
                   <h4 className="font-bold">{comment?.user.name}</h4>
@@ -134,7 +136,7 @@ const ProductComment = ({ productId }) => {
                 <img
                   src={`${SERVER}${comment?.image?.secure_url}`}
                   alt=""
-                  className="w-40 h-40 my-3"
+                  className="md:w-40 md:h-40 w-28 h-28 my-3"
                 />
               ) : null}
               <p className="mt-4">{comment.comment}</p>
@@ -157,7 +159,7 @@ const ProductComment = ({ productId }) => {
             </div>
           ))
         ) : (
-          <h1 className="text-center text-xl tracking-wider">
+          <h1 className="text-center text-sm md:text-xl tracking-wider">
             There are no Comments found.
           </h1>
         )}
@@ -172,7 +174,7 @@ const ProductComment = ({ productId }) => {
             onChange={(e) => setNewComments(e.target.value)}
           />
           <InputFileUpload
-            label="Profile Picture"
+            label="Image"
             name="avatar"
             setFile={setImages}
             file={image}
@@ -192,7 +194,7 @@ const ProductComment = ({ productId }) => {
       </dialog>
       <dialog id="edit_modal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Edit Comment</h3>
+          <h3 className="font-bold md:text-lg text-sm">Edit Comment</h3>
           <textarea
             className="textarea textarea-bordered w-full mt-4"
             placeholder="Update your comment"
@@ -200,7 +202,7 @@ const ProductComment = ({ productId }) => {
             onChange={(e) => setNewComments(e.target.value)}
           />
           <InputFileUpload
-            label="Profile Picture"
+            label="Image"
             name="avatar"
             setFile={setImages}
             file={image}

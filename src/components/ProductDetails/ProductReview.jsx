@@ -94,7 +94,7 @@ const ProductReview = ({ productId, product }) => {
     <div>
       <div className="flex items-center justify-around mb-4 md:mb-6 flex-wrap">
         <div>
-          <h1 className="md:text-2xl text-xl mb-5 font-[500] tracking-wider">
+          <h1 className="md:text-2xl hidden md:block mb-5 font-[500] tracking-wider">
             Rating & Review
           </h1>
           {/* <p className="flex items-center">
@@ -108,14 +108,15 @@ const ProductReview = ({ productId, product }) => {
             </span>
           </p> */}
         </div>
-        <button
+        {/*  */}
+        {/* <button
           className="font-[500] text-sm tracking-wider my-2 uppercase px-5 md:px-8 border-[1px] rounded-md border-black py-2 md:py-4 hover:bg-primary hover:border-primary hover:text-white transition duration-500"
           onClick={openModal}
         >
           Write a review
-        </button>
+        </button> */}
       </div>
-      <hr />
+      {/* <hr /> */}
       <div>
         {reviews?.length > 0 ? (
           reviews?.map((review) => (

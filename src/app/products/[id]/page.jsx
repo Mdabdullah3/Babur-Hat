@@ -16,6 +16,7 @@ import { SERVER } from "../../../config";
 import { FaHeart } from "react-icons/fa";
 import { GoHeart } from "react-icons/go";
 import Report from "../../../components/Report";
+import useCartStore from "../../../store/cartStore";
 const ProductDetails = ({ params }) => {
   const [openDetails, setOpenDetails] = useState(
     productInformation[0]?.Description
