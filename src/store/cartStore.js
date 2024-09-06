@@ -16,13 +16,15 @@ const useCartStore = create(
                         productAdded = false;
                         return state;
                     }
-                    const { _id, name, user, coverPhoto } = product;
+                    const { _id, name, user, coverPhoto, category, subCategory } = product;
                     const { price, discount, size, color, } = variant;
 
                     const newCart = [
                         ...state.cart,
                         {
                             _id,
+                            category,
+                            subCategory,
                             userId: user._id,
                             variantId: variant?._id,
                             name,
