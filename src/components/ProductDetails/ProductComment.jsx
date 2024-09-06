@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 
 const ProductComment = ({ productId }) => {
   const [newComments, setNewComments] = useState("");
-  const [newReply, setNewReply] = useState(""); // Separate state for replies
+  const [newReply, setNewReply] = useState("");
   const [image, setImages] = useState(null);
   const [editComment, setEditComment] = useState(null);
   const [commentId, setCommentId] = useState(null);
@@ -35,7 +35,6 @@ const ProductComment = ({ productId }) => {
     fetchReviewsByProduct(productId);
   }, [fetchUser, fetchReviewsByProduct, fetchAllReplies, productId]);
 
-  // Handle adding or updating a comment
   const handleAddComment = async () => {
     const message = editComment
       ? "Comment Updated Successfully"
@@ -65,7 +64,6 @@ const ProductComment = ({ productId }) => {
     document.getElementById(editComment ? "edit_modal" : "my_modal_2").close();
   };
 
-  // Handle adding or editing a reply
   const handleAddReply = async () => {
     const message = editReply
       ? "Reply Updated Successfully"
@@ -89,7 +87,6 @@ const ProductComment = ({ productId }) => {
         image: image,
         replyTo: commentId,
       };
-      console.log(formdata);
       await addReview(formdata, message);
     }
     setNewReply("");
@@ -97,7 +94,6 @@ const ProductComment = ({ productId }) => {
     document.getElementById("my_reply_modal").close();
   };
 
-  // Open modal for adding or editing a reply
   const openReplyModal = (id) => {
     if (!user) {
       toast.error("Please Login First");
@@ -117,7 +113,6 @@ const ProductComment = ({ productId }) => {
     }
   };
 
-  // Handle deleting a comment or reply
   const handleDeleteCommentOrReply = async (item) => {
     if (user && user._id === item.user._id) {
       const message = "Deleted Successfully";
@@ -125,7 +120,6 @@ const ProductComment = ({ productId }) => {
     }
   };
 
-  // Preload images if editing a comment or reply
   useEffect(() => {
     if (editComment?.image?.secure_url) {
       const imageUrl = `${SERVER}${editComment.image.secure_url}`;
@@ -138,19 +132,18 @@ const ProductComment = ({ productId }) => {
   const comments = reviews?.filter(
     (review) => review.comment && !review.replyTo
   );
-  const commentIds = comments.map((comment) => comment._id);
 
-  const replies = replys?.filter(
-    (reply) => reply.replyTo && commentIds.includes(reply.replyTo._id)
-  );
-
-  const repliesMap = replies.reduce((acc, reply) => {
-    if (!acc[reply.replyTo._id]) {
-      acc[reply.replyTo._id] = [];
+  const repliesMap = replys?.reduce((acc, reply) => {
+    if (reply.replyTo) {
+      const commentId = reply.replyTo._id;
+      if (!acc[commentId]) {
+        acc[commentId] = [];
+      }
+      acc[commentId].push(reply);
     }
-    acc[reply.replyTo._id].push(reply);
     return acc;
   }, {});
+
   return (
     <div>
       <div className="my-6">
@@ -172,7 +165,7 @@ const ProductComment = ({ productId }) => {
           />
         </div>
       </div>
-      <div className="mt-8">
+      <div className="mt-8 h-full w-full">
         {comments?.length > 0 ? (
           comments?.map((comment) => (
             <div key={comment._id} className="mb-4 p-4 border rounded">
@@ -187,7 +180,9 @@ const ProductComment = ({ productId }) => {
                   className="md:w-14 md:h-14 h-10 w-10 rounded-full"
                 />
                 <div>
-                  <h4 className="font-bold">{comment?.user.name}</h4>
+                  <h4 className="font-bold capitalize text-primary">
+                    {comment?.user.name}
+                  </h4>
                   <p>{new Date(comment?.createdAt).toLocaleDateString()}</p>
                 </div>
               </div>
@@ -199,7 +194,7 @@ const ProductComment = ({ productId }) => {
                 />
               ) : null}
               <div className="flex items-center justify-between">
-                <p className="mt-4">{comment.comment}</p>
+                <p className="my-4 capitalize">{comment.comment}</p>
                 {user && user._id === comment.user._id && (
                   <div>
                     <button
@@ -217,75 +212,135 @@ const ProductComment = ({ productId }) => {
                   </div>
                 )}
               </div>
-              <div className="ml-10 mt-4">
+              <div className="mt-2">
                 <button
                   className="text-blue-500"
-                  onClick={() => openReplyModal(comment?._id)}
+                  onClick={() => openReplyModal(comment._id)}
                 >
                   Reply
                 </button>
               </div>
+              {repliesMap[comment?._id]?.length > 0 && <hr className="mt-2" />}
+              {/* Display Replies */}
+              {repliesMap[comment?._id]?.length > 0 && (
+                <div className="mt-4 ml-10">
+                  {repliesMap[comment._id].map((reply, index) => (
+                    <div key={reply._id} className="p-4">
+                      <div className="flex items-center gap-4">
+                        <img
+                          src={
+                            reply?.user?.avatar
+                              ? `${SERVER}${reply.user.avatar.secure_url}`
+                              : "/avatar.png"
+                          }
+                          alt=""
+                          className="md:w-10 md:h-10 h-7 w-7 rounded-full"
+                        />
+                        <div>
+                          <h4 className="font-bold capitalize text-primary">
+                            {reply?.user.name}
+                          </h4>
+                          <p>
+                            {new Date(reply?.createdAt).toLocaleDateString()}
+                          </p>
+                        </div>
+                      </div>
+                      {reply?.image?.secure_url ? (
+                        <img
+                          src={`${SERVER}${reply?.image?.secure_url}`}
+                          alt=""
+                          className="md:w-32 md:h-32 w-24 h-24 my-3"
+                        />
+                      ) : null}
+                      <p className="mt-4 capitalize">{reply.comment}</p>
+                      {user && user._id === reply.user._id && (
+                        <div>
+                          <button
+                            className="text-blue-500 mr-4"
+                            onClick={() => openEditReplyModal(reply)}
+                          >
+                            <FiEdit />
+                          </button>
+                          <button
+                            className="text-red-500"
+                            onClick={() => handleDeleteCommentOrReply(reply)}
+                          >
+                            <RiDeleteBin6Line />
+                          </button>
+                        </div>
+                      )}
+
+                      {index < repliesMap[comment._id].length - 1 && (
+                        <hr className="border-gray-300 my-4" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))
         ) : (
-          <h1 className="text-center text-sm md:text-xl tracking-wider">
-            There are no Comments found.
-          </h1>
+          <p>No comments yet</p>
         )}
       </div>
+
+      {/* Add Comment Modal */}
       <dialog id="my_modal_2" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Write a Comment</h3>
+          <h2 className="text-xl font-bold mb-4">
+            {editComment ? "Edit Comment" : "Add Comment"}
+          </h2>
           <textarea
-            className="textarea textarea-bordered w-full mt-4"
-            placeholder="Your comment"
             value={newComments}
             onChange={(e) => setNewComments(e.target.value)}
-          />
+            className="textarea textarea-bordered w-full mb-4"
+            rows="4"
+            placeholder="Write your comment here..."
+          ></textarea>
           <InputFileUpload
-            label="Image"
-            name="avatar"
             setFile={setImages}
-            file={image}
+            image={image}
+            id="edit_comment_image"
+            name="Edit Comment Image"
           />
           <div className="modal-action">
-            <button className="btn" onClick={handleAddComment}>
-              Submit
-            </button>
+            <PrimaryButton onClick={handleAddComment} value="Save" />
             <button
-              className="btn"
+              className="btn btn-primary/60 text-white"
               onClick={() => document.getElementById("my_modal_2").close()}
             >
-              Close
+              Cancel
             </button>
           </div>
         </div>
       </dialog>
 
+      {/* Add Reply Modal */}
       <dialog id="my_reply_modal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Write a Reply</h3>
+          <h2 className="text-xl font-bold mb-4">
+            {editReply ? "Edit Reply" : "Add Reply"}
+          </h2>
           <textarea
-            className="textarea textarea-bordered w-full mt-4"
-            placeholder="Your reply"
             value={newReply}
             onChange={(e) => setNewReply(e.target.value)}
-          />
+            className="textarea textarea-bordered w-full mb-4"
+            rows="4"
+            placeholder="Write your reply here..."
+          ></textarea>
           <InputFileUpload
-            label="Image"
-            name="avatar"
             setFile={setImages}
-            file={image}
+            image={image}
+            id="edit_reply_image"
+            name="Edit Reply Image"
           />
           <div className="modal-action">
-            <button className="btn" onClick={handleAddReply}>
-              Submit
-            </button>
+            <PrimaryButton onClick={handleAddReply} value="Save" />
             <button
-              className="btn"
+              className="btn btn-primary"
               onClick={() => document.getElementById("my_reply_modal").close()}
             >
-              Close
+              Cancel
             </button>
           </div>
         </div>

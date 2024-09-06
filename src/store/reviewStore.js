@@ -13,7 +13,7 @@ const useReviewStore = create((set) => ({
         set({ loading: true, error: null });
         try {
             const response = await axios.get(`${API_URL}/reviews`);
-            set({ reviews: response.data?.data || [], loading: false }); // Safeguard to ensure it's always an array
+            set({ reviews: response.data?.data || [], loading: false }); 
         } catch (error) {
             set({ error: error.message, loading: false });
         }
@@ -78,6 +78,7 @@ const useReviewStore = create((set) => ({
                 toast.success(message);
                 set((state) => ({
                     reviews: [...state.reviews, response.data.data],
+                    replys: [...state.replys, response.data.data],
                     loading: false,
                 }));
             }
@@ -100,6 +101,9 @@ const useReviewStore = create((set) => ({
                 set((state) => ({
                     reviews: state.reviews.map((review) =>
                         review._id === reviewId ? response.data.data : review
+                    ),
+                    replys: state.replys.map((reply) =>
+                        reply._id === reviewId ? response.data.data : reply
                     ),
                     loading: false,
                 }));

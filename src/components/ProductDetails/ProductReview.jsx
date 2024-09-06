@@ -150,7 +150,6 @@ const ProductComment = ({ productId }) => {
     return acc;
   }, {});
 
-  console.log(repliesMap[commentId]);
   return (
     <div>
       <div className="my-6">
@@ -172,7 +171,7 @@ const ProductComment = ({ productId }) => {
           />
         </div>
       </div>
-      <div className="mt-8">
+      <div className="mt-8 h-full w-full">
         {comments?.length > 0 ? (
           comments?.map((comment) => (
             <div key={comment._id} className="mb-4 p-4 border rounded">
@@ -217,7 +216,7 @@ const ProductComment = ({ productId }) => {
                   </div>
                 )}
               </div>
-              <div className=" mt-4">
+              <div className="mt-4">
                 <button
                   className="text-blue-500"
                   onClick={() => openReplyModal(comment._id)}
@@ -225,6 +224,7 @@ const ProductComment = ({ productId }) => {
                   Reply
                 </button>
               </div>
+              <h1>Hello Replpy</h1>
               {/* Display Replies */}
               {repliesMap[comment?._id]?.length > 0 ? (
                 <div className="mt-4 ml-10">
@@ -299,7 +299,7 @@ const ProductComment = ({ productId }) => {
             placeholder="Write your comment here..."
           ></textarea>
           <InputFileUpload
-            setImage={setImages}
+            setFile={setImages}
             image={image}
             id="edit_comment_image"
             name="Edit Comment Image"
@@ -330,7 +330,7 @@ const ProductComment = ({ productId }) => {
             placeholder="Write your reply here..."
           ></textarea>
           <InputFileUpload
-            setImage={setImages}
+            setFile={setImages}
             image={image}
             id="edit_reply_image"
             name="Edit Reply Image"
