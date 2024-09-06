@@ -37,7 +37,7 @@ const ProductSummery = ({ deliveryCharge }) => {
                 />
                 <div className=" tracking-wider">
                   <h1 className="text-md font-[500] flex gap-4 items-center">
-                    {order?.name}
+                    {order?.name.slice(0, 22)}...
                     <span className=" text-md text-gray-500 flex items-center font-bold gap-1">
                       <RxCross2 size={13} /> {order?.quantity}
                     </span>

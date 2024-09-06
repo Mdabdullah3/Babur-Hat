@@ -28,7 +28,7 @@ const Cart = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const url = `${API_URL}/products?_limit=10000&_fields=_id,`;
+    const url = `${API_URL}/products?_limit=10000&_fields=_id,productVariants`;
     const fetchData = async () => {
       const response = await fetch(url);
       const data = await response.json();
@@ -67,8 +67,8 @@ const Cart = () => {
   }
   if (!isClient) return null;
 
-  const handleRemove = (id) => {
-    removeFromCart(id);
+  const handleRemove = (id, size) => {
+    removeFromCart(id, size);
   };
 
   const handleUpdateQuantity = (id, quantity) => {
@@ -83,7 +83,7 @@ const Cart = () => {
   const handleApplyCoupon = async () => {
     try {
       const response = await axios.get(
-        "http://103.148.15.24:5000/api/vouchers"
+        `${API_URL}/vouchers`
       );
       const vouchers = response?.data?.data;
       const validVoucher = vouchers.find(
@@ -140,13 +140,13 @@ const Cart = () => {
       );
 
       if (!product || !variant) {
-        return "Product or variant not found.";
+        return `Product not found. ${item?.name}  Please remove it from the cart.`;
       }
       if (variant.quantity === 0) {
         return `"${item?.name}" is out of stock. Please remove it from the cart.`;
       }
       if (item?.quantity > variant?.quantity) {
-        return `The quantity of "${item.name}" exceeds available stock. Please reduce the quantity.`;
+        return `The quantity of "${item?.name}" exceeds available stock. Please reduce the quantity.`;
       }
     }
     return null;
@@ -190,7 +190,7 @@ const Cart = () => {
                         <h1
                           className="tooltip tooltip-top text-primary cursor-pointer font-bold absolute top-1/3 -left-5"
                           data-tip="Remove"
-                          onClick={() => handleRemove(item._id)}
+                          onClick={() => handleRemove(item._id, item?.size)}
                         >
                           <RiDeleteBin6Line size={14} />
                         </h1>

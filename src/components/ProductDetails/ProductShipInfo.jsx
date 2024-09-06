@@ -24,7 +24,6 @@ const ProductShipInfo = ({
   const [quantity, setQuantity] = useState(1);
   const [shareOpen, setShareOpen] = useState(false);
 
-  console.log(product);
   const handleAddToCart = () => {
     if (selectedVariant?.quantity <= quantity) {
       toast.error("Product is out of stock");

@@ -25,9 +25,10 @@ const ShippingForm = () => {
   const [shippingData, setShippingData] = useState([]);
   const [productsData, setProductsData] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const url = `${API_URL}/products?_limit=10000&_fields=_id,quantity`;
+    const url = `${API_URL}/products?_limit=10000&_fields=_id,productVariants`;
     const fetchData = async () => {
       const response = await fetch(url);
       const data = await response.json();
@@ -86,7 +87,6 @@ const ShippingForm = () => {
       });
   }, [selectedDistrict]);
 
-  console.log(shippingData?.deliveryFee);
   useEffect(() => {
     if (selectedDistrict) {
       const filteredCities = bdCities.filter(
@@ -114,6 +114,13 @@ const ShippingForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (cart.length === 0) {
+      toast.error(
+        "Please add some products to your cart, before placing an order"
+      );
+      return;
+    }
+    setLoading(true);
     const stockError = checkProductStock();
     if (stockError) {
       setError(stockError);
@@ -127,46 +134,44 @@ const ShippingForm = () => {
     }
 
     // Prepare the order products
-    const orderProducts = cart?.map((item) => ({
-      product: item._id,
-      price: item.price,
-      quantity: item.quantity,
+    const orders = cart?.map((item) => ({
+      user: user?._id,
+      product: item?._id,
+      price: item?.price,
+      variantId: item?.variantId,
+      currency: "BDT",
+      transactionId: item?.variantId,
+      paymentType: selectedMethod === "cod" ? "cash-on-delivery" : "card",
+      status: "pending",
+      shippingInfo: {
+        name: form.fullName,
+        email: form.email,
+        phone: form.phone,
+        method: "Courier",
+        address1: form.streetAddress,
+        address2: "",
+        city: selectedCity?.label || "",
+        state: selectedDistrict?.label || "",
+        postcode: form.postalCode,
+        country: "Bangladesh",
+        deliveryFee: shippingData?.deliveryFee || 100,
+      },
     }));
 
     try {
-      // Create the request form
-      const requestForm = {
-        products: orderProducts,
-        currency: "BDT",
-        user: user?._id,
-        paymentType: selectedMethod === "cod" ? "cash" : "card",
-        status: "pending",
-        shippingInfo: {
-          name: form.fullName,
-          email: form.email,
-          phone: form.phone,
-          method: "Courier",
-          address1: form.streetAddress,
-          address2: "",
-          city: selectedCity?.label || "",
-          state: selectedDistrict?.label || "",
-          postcode: form.postalCode,
-          country: "Bangladesh",
-          deliveryFee: shippingData?.deliveryFee || 100,
-        },
-      };
-
-      // Send POST request
-      const response = await axios.post(`${API_URL}/payments`, requestForm, {
+      const response = await axios.post(`${API_URL}/orders`, orders, {
         withCredentials: true,
       });
-
       console.log(response);
-      // Handle success
+
       if (response.status === 200 || response.status === 201) {
-        toast.success("Payment processed successfully!");
+        toast.success(
+          response.data.message || "Orders processed successfully!"
+        );
+        setLoading(false);
+        clearCart();
       } else {
-        throw new Error("Failed to process payment.");
+        throw new Error("Failed to process orders.");
       }
     } catch (error) {
       console.error("An error occurred:", error);
