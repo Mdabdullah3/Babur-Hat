@@ -23,7 +23,6 @@ const ProfileMenu = () => {
     "My Reviews",
     "Recent Product",
     "Update Password",
-    "Logout",
   ];
 
   return (
@@ -71,15 +70,15 @@ const ProfileMenu = () => {
 
         <div className="hidden lg:flex flex-col gap-5">
           {menu.map((item, index) => (
-            <button
+            <h1
               key={index}
-              className={`font-bold pb-2 cursor-pointer ${
+              className={`font-bold pb-2 cursor-pointer  ${
                 activeMenu === item ? "text-primary" : ""
               }`}
               onClick={() => setActiveMenu(item)}
             >
               {item}
-            </button>
+            </h1>
           ))}
         </div>
 
