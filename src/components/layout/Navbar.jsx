@@ -116,7 +116,7 @@ const Navbar = () => {
           </div>
           <div className="flex items-center md:gap-8 gap-4">
             <div className="flex items-center lg:gap-4 dropdown dropdown-hover">
-              {user?.avatar ? (
+              {user?.avatar?.secure_url ? (
                 <div className="relative">
                   <Link href="/profile">
                     <img
@@ -128,6 +128,18 @@ const Navbar = () => {
                     />
                   </Link>
                 </div>
+              ) : user?.avatar ? (
+                <div className="relative">
+                <Link href="/profile">
+                  <img
+                    tabIndex={0}
+                    role="button"
+                    src={`${SERVER}${user?.avatar}`}
+                    alt="User Avatar"
+                    className="md:w-12 w-10 h-10 md:h-12 rounded-full cursor-pointer transition-transform transform hover:scale-105 hover:shadow-lg"
+                  />
+                </Link>
+              </div>
               ) : (
                 <Link href="/auth/login">
                   <h1 className="lg:text-3xl text-xl">
@@ -135,6 +147,7 @@ const Navbar = () => {
                   </h1>
                 </Link>
               )}
+
               {user ? (
                 <div className="tracking-wider ">
                   <h1 className="text-[13px] hidden lg:block">Welcome</h1>

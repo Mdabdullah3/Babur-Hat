@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useProductStore from "../../store/ProductStore";
 import ProductCardDesign from "../common/ProductCardDesign";
 import LoadingState from "../common/LoadingState";
@@ -22,6 +22,7 @@ const DeafultProducts = () => {
     if (newPage >= 1 && newPage <= totalPages) {
       setPage(newPage);
     }
+    sectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -29,7 +30,7 @@ const DeafultProducts = () => {
       {loading ? (
         <LoadingState />
       ) : (
-        <section>
+        <section ref={sectionRef}>
           <h1 className="text-lg lg:text-2xl lg:mb-10 mb-4 font-bold">
             Recomended Products
           </h1>
@@ -40,44 +41,45 @@ const DeafultProducts = () => {
           </div>
 
           {/* Pagination Controls */}
-          <div className="flex justify-center items-center mt-12">
-            {/* Previous Button */}
-            <button
-              className="px-4 py-2 mx-1 text-sm bg-primary rounded hover:bg-primary/70 text-white"
-              onClick={() => handlePageChange(page - 1)}
-              disabled={page <= 1}
-            >
-              Previous
-            </button>
+          {products?.length > 0 && (
+            <div className="flex justify-center items-center mt-12">
+              <button
+                className="px-4 py-2 mx-1 text-sm bg-primary rounded hover:bg-primary/70 text-white"
+                onClick={() => handlePageChange(page - 1)}
+                disabled={page <= 1}
+              >
+                Previous
+              </button>
 
-            {/* Page Numbers */}
-            {Array.from({ length: totalPages }, (_, index) => {
-              const pageNumber = index + 1;
-              return (
-                <button
-                  key={pageNumber}
-                  className={`px-4 py-2 mx-1 text-sm rounded ${
-                    pageNumber === page
-                      ? "bg-primary text-white"
-                      : "bg-gray-300 hover:bg-gray-400"
-                  }`}
-                  onClick={() => handlePageChange(pageNumber)}
-                  disabled={pageNumber === page} // Disable the active page button
-                >
-                  {pageNumber}
-                </button>
-              );
-            })}
+              {/* Page Numbers */}
+              {Array?.from({ length: totalPages }, (_, index) => {
+                const pageNumber = index + 1;
+                return (
+                  <button
+                    key={pageNumber}
+                    className={`px-4 py-2 mx-1 text-sm rounded ${
+                      pageNumber === page
+                        ? "bg-primary text-white"
+                        : "bg-gray-300 hover:bg-gray-400"
+                    }`}
+                    onClick={() => handlePageChange(pageNumber)}
+                    disabled={pageNumber === page} // Disable the active page button
+                  >
+                    {pageNumber}
+                  </button>
+                );
+              })}
 
-            {/* Next Button */}
-            <button
-              className="px-4 py-2 mx-1 text-sm bg-primary rounded hover:bg-primary/70 text-white"
-              onClick={() => handlePageChange(page + 1)}
-              disabled={page >= totalPages}
-            >
-              Next
-            </button>
-          </div>
+              {/* Next Button */}
+              <button
+                className="px-4 py-2 mx-1 text-sm bg-primary rounded hover:bg-primary/70 text-white"
+                onClick={() => handlePageChange(page + 1)}
+                disabled={page >= totalPages}
+              >
+                Next
+              </button>
+            </div>
+          )}
         </section>
       )}
     </div>

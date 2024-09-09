@@ -1,347 +1,233 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
-import React, { useEffect, useState } from "react";
-import PrimaryButton from "../common/PrimaryButton";
+import React, { useState, useEffect } from "react";
+import { CiStar } from "react-icons/ci";
+import { FaStar } from "react-icons/fa";
 import useReviewStore from "../../store/reviewStore";
 import useUserStore from "../../store/userStore";
+import { toast } from "react-toastify";
 import { SERVER } from "../../config";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FiEdit } from "react-icons/fi";
 import InputFileUpload from "../common/InputFileUpload";
 import { toDataURL } from "../../utils/DataUrl";
-import { FiEdit } from "react-icons/fi";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { toast } from "react-toastify";
 
-const ProductComment = ({ productId }) => {
-  const [newComments, setNewComments] = useState("");
-  const [newReply, setNewReply] = useState("");
-  const [image, setImages] = useState(null);
-  const [editComment, setEditComment] = useState(null);
-  const [commentId, setCommentId] = useState(null);
-  const [editReply, setEditReply] = useState(null);
-  const {
-    addReview,
-    replys,
-    fetchReviewsByProduct,
-    fetchAllReplies,
-    reviews,
-    updateReview,
-    deleteReview,
-  } = useReviewStore();
+const ProductReview = ({ productId, product }) => {
+  const [newReview, setNewReview] = useState("");
+  const [image, setImage] = useState(null);
+  const [editReview, setEditReview] = useState(null);
+  const { fetchReviewsByProduct, addReview, updateReview, deleteReview } =
+    useReviewStore();
   const { user, fetchUser } = useUserStore();
+  const reviews = product?.reviews?.filter((review) => review.review);
 
   useEffect(() => {
-    fetchUser();
-    fetchAllReplies(productId);
     fetchReviewsByProduct(productId);
-  }, [fetchUser, fetchReviewsByProduct, fetchAllReplies, productId]);
+    fetchUser();
+  }, [productId, fetchUser, product, fetchReviewsByProduct]);
 
-  const handleAddComment = async () => {
-    const message = editComment
-      ? "Comment Updated Successfully"
-      : "Comment Added Successfully";
-    if (editComment) {
-      await updateReview(
-        editComment._id,
-        {
-          ...editComment,
-          comment: newComments,
-          image: image || editComment?.image,
-        },
-        message
-      );
-      setEditComment(null);
-    } else {
-      const formdata = {
-        product: productId,
-        userId: user?._id,
-        comment: newComments,
-        image: image,
-      };
-      await addReview(formdata, message);
-    }
-    setNewComments("");
-    setImages(null);
-    document.getElementById(editComment ? "edit_modal" : "my_modal_2").close();
-  };
+  const handleAddReview = async () => {
+    const formData = {
+      product: productId,
+      userId: user?._id,
+      review: newReview,
+      image: image,
+    };
 
-  const handleAddReply = async () => {
-    const message = editReply
-      ? "Reply Updated Successfully"
-      : "Reply Added Successfully";
-    if (editReply) {
-      await updateReview(
-        editReply._id,
-        {
-          ...editReply,
-          comment: newReply,
-          image: image || editReply?.image,
-        },
-        message
-      );
-      setEditReply(null);
-    } else {
-      const formdata = {
-        product: productId,
-        userId: user?._id,
-        comment: newReply,
-        image: image,
-        replyTo: commentId,
-      };
-      await addReview(formdata, message);
-    }
-    setNewReply("");
-    setImages(null);
-    document.getElementById("my_reply_modal").close();
-  };
-
-  const openReplyModal = (id) => {
-    if (!user) {
-      toast.error("Please Login First");
-      return;
-    }
-    setEditReply(null);
-    setNewReply("");
-    setCommentId(id);
-    document.getElementById("my_reply_modal").showModal();
-  };
-
-  const openEditReplyModal = (reply) => {
-    if (user && user._id === reply.user._id) {
-      setEditReply(reply);
-      setNewReply(reply.comment);
-      document.getElementById("my_reply_modal").showModal();
-    }
-  };
-
-  const handleDeleteCommentOrReply = async (item) => {
-    if (user && user._id === item.user._id) {
-      const message = "Deleted Successfully";
-      await deleteReview(item._id, message);
-    }
+    await addReview(formData, "Review Added Successfully");
+    document.getElementById("my_modal_2").close();
+    setNewReview("");
+    setImage(null);
   };
 
   useEffect(() => {
-    if (editComment?.image?.secure_url) {
-      const imageUrl = `${SERVER}${editComment.image.secure_url}`;
+    if (editReview?.image?.secure_url) {
+      const imageUrl = `${SERVER}${editReview.image.secure_url}`;
       toDataURL(imageUrl).then((base64) => {
-        setImages(base64);
+        setImage(base64);
       });
     }
-  }, [editComment?.image?.secure_url]);
+  }, [editReview?.image?.secure_url]);
 
-  const comments = reviews?.filter(
-    (review) => review.comment && !review.replyTo
-  );
-  const commentIds = comments.map((comment) => comment._id);
+  const handleEditReview = async () => {
+    const updatedReviewData = {
+      ...editReview,
+      review: newReview,
+      image: image || editReview.image,
+    };
+    console.log(updatedReviewData);
 
-  // const replies = replys?.filter(
-  //   (reply) => reply.replyTo && commentIds.includes(reply.replyTo._id)
-  // );
-
-  // Create a map for quick lookup of replies by comment ID
-  const repliesMap = replys?.reduce((acc, reply) => {
-    if (reply.replyTo) {
-      const commentId = reply.replyTo._id;
-      if (!acc[commentId]) {
-        acc[commentId] = [];
-      }
-      acc[commentId].push(reply);
+    if (editReview) {
+      await updateReview(
+        editReview._id,
+        updatedReviewData,
+        "Review Updated Successfully"
+      );
+      document.getElementById("edit_modal").close();
+      setEditReview(null);
+      setNewReview("");
+      setImage(null);
     }
-    return acc;
-  }, {});
+  };
 
+  const openModal = () => {
+    document.getElementById("my_modal_2").showModal();
+  };
+
+  const openEditModal = (review) => {
+    if (user && user._id === review.user._id) {
+      setEditReview(review);
+      setNewReview(review.review);
+      document.getElementById("edit_modal").showModal();
+    } else {
+      toast.error("You are not authorized to edit this review.");
+    }
+  };
+
+  const handleDeleteReview = async (review) => {
+    if (user && user._id === review.user._id) {
+      await deleteReview(review._id, "Review Deleted Successfully");
+    } else {
+      toast.error("You are not authorized to delete this review.");
+    }
+  };
   return (
     <div>
-      <div className="my-6">
+      <div className="flex items-center justify-around mb-4 md:mb-6 flex-wrap">
         <div>
-          <h1 className="md:text-2xl text-sm font-[500] tracking-wider mb-7">
-            Comment & Answer
+          <h1 className="md:text-2xl text-xl mb-5 font-[500] tracking-wider">
+            Rating & Review
           </h1>
-          <p>
-            {comments?.length} Comment{comments?.length !== 1 && "s"}
-          </p>
+          {/* <p className="flex items-center">
+            <CiStar size={19} />
+            <CiStar size={19} />
+            <CiStar size={19} />
+            <CiStar size={19} />
+            <CiStar size={19} />
+            <span className="text-lg tracking-wider ml-3">
+              Based on {reviews.length} Reviews
+            </span>
+          </p> */}
         </div>
+        <button
+          className="font-[500] text-sm tracking-wider my-2 uppercase px-5 md:px-8 border-[1px] rounded-md border-black py-2 md:py-4 hover:bg-primary hover:border-primary hover:text-white transition duration-500"
+          onClick={openModal}
+        >
+          Write a review
+        </button>
       </div>
       <hr />
-      <div className="flex gap-5">
-        <div className="mt-5">
-          <PrimaryButton
-            onClick={() => document.getElementById("my_modal_2").showModal()}
-            value={editComment ? "Update" : "Write Comment"}
-          />
-        </div>
-      </div>
-      <div className="mt-8 h-full w-full">
-        {comments?.length > 0 ? (
-          comments?.map((comment) => (
-            <div key={comment._id} className="mb-4 p-4 border rounded">
-              <div className="flex items-center gap-4">
+      <div>
+        {reviews?.length > 0 ? (
+          reviews?.map((review) => (
+            <div key={review?._id} className="flex  gap-5 mb-8 mt-6">
+              {review?.user?.avatar ? (
                 <img
-                  src={
-                    comment?.user?.avatar
-                      ? `${SERVER}${comment.user.avatar.secure_url}`
-                      : "/avatar.png"
-                  }
+                  src={`${SERVER}${review?.user?.avatar?.secure_url}`}
                   alt=""
-                  className="md:w-14 md:h-14 h-10 w-10 rounded-full"
+                  className="w-14 h-14 rounded-full"
                 />
-                <div>
-                  <h4 className="font-bold">{comment?.user.name}</h4>
-                  <p>{new Date(comment?.createdAt).toLocaleDateString()}</p>
-                </div>
-              </div>
-              {comment?.image?.secure_url ? (
+              ) : (
                 <img
-                  src={`${SERVER}${comment?.image?.secure_url}`}
+                  src="/avatar.png"
                   alt=""
-                  className="md:w-40 md:h-40 w-28 h-28 my-3"
+                  className="w-14 h-14 rounded-full"
                 />
-              ) : null}
-              <div className="flex items-center justify-between">
-                <p className="mt-4">{comment.comment}</p>
-                {user && user._id === comment.user._id && (
-                  <div>
+              )}
+              <div>
+                <h2 className="text-sm gap-1 text-orange-400 flex items-center">
+                  <FaStar /> <FaStar /> <FaStar /> <FaStar />
+                </h2>
+                <h2 className="tracking-wider font-bold text-[15px] my-1">
+                  {review?.user?.name} -
+                  <span className="text-[12px] text-gray-500 ml-2 font-normal">
+                    {new Date(review?.createdAt).toLocaleDateString()}
+                  </span>
+                </h2>
+                {review?.image?.secure_url ? (
+                  <img
+                    src={`${SERVER}${review?.image?.secure_url}`}
+                    alt=""
+                    className="w-40 h-40 my-3"
+                  />
+                ) : null}
+                <h1>{review?.review}</h1>
+                {user && user._id === review?.user._id && (
+                  <div className="mt-2">
                     <button
-                      className="text-blue-500 mr-4"
-                      onClick={() => openEditModal(comment)}
+                      className="text-blue-500 text-xl "
+                      onClick={() => openEditModal(review)}
                     >
                       <FiEdit />
                     </button>
                     <button
-                      className="text-red-500"
-                      onClick={() => handleDeleteCommentOrReply(comment)}
+                      className="text-red-500 ml-4 text-xl"
+                      onClick={() => handleDeleteReview(review)}
                     >
                       <RiDeleteBin6Line />
                     </button>
                   </div>
                 )}
               </div>
-              <div className="mt-4">
-                <button
-                  className="text-blue-500"
-                  onClick={() => openReplyModal(comment._id)}
-                >
-                  Reply
-                </button>
-              </div>
-              <h1>Hello Replpy</h1>
-              {/* Display Replies */}
-              {repliesMap[comment?._id]?.length > 0 ? (
-                <div className="mt-4 ml-10">
-                  {repliesMap[comment._id].map((reply) => (
-                    <div key={reply._id} className="p-4 border rounded mb-4">
-                      <div className="flex items-center gap-4">
-                        <img
-                          src={
-                            reply?.user?.avatar
-                              ? `${SERVER}${reply.user.avatar.secure_url}`
-                              : "/avatar.png"
-                          }
-                          alt=""
-                          className="md:w-12 md:h-12 h-8 w-8 rounded-full"
-                        />
-                        <div>
-                          <h4 className="font-bold">{reply?.user.name}</h4>
-                          <p>
-                            {new Date(reply?.createdAt).toLocaleDateString()}
-                          </p>
-                        </div>
-                      </div>
-                      {reply?.image?.secure_url ? (
-                        <img
-                          src={`${SERVER}${reply?.image?.secure_url}`}
-                          alt=""
-                          className="md:w-32 md:h-32 w-24 h-24 my-3"
-                        />
-                      ) : null}
-                      <p className="mt-4">{reply.comment}</p>
-                      {user && user._id === reply.user._id && (
-                        <div>
-                          <button
-                            className="text-blue-500 mr-4"
-                            onClick={() => openEditReplyModal(reply)}
-                          >
-                            <FiEdit />
-                          </button>
-                          <button
-                            className="text-red-500"
-                            onClick={() => handleDeleteCommentOrReply(reply)}
-                          >
-                            <RiDeleteBin6Line />
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <h1>Reply not found</h1>
-              )}
-              <h1>Hello</h1>
             </div>
           ))
         ) : (
-          <p>No comments yet</p>
+          <div>
+            <h1 className="text-center">No reviews</h1>
+          </div>
         )}
       </div>
-
-      {/* Add Comment Modal */}
       <dialog id="my_modal_2" className="modal">
         <div className="modal-box">
-          <h2 className="text-xl font-bold mb-4">
-            {editComment ? "Edit Comment" : "Add Comment"}
-          </h2>
+          <h3 className="font-bold text-lg">Write a Review</h3>
           <textarea
-            value={newComments}
-            onChange={(e) => setNewComments(e.target.value)}
-            className="textarea textarea-bordered w-full mb-4"
-            rows="4"
-            placeholder="Write your comment here..."
-          ></textarea>
+            className="textarea textarea-bordered w-full mt-4"
+            placeholder="Your review"
+            value={newReview}
+            onChange={(e) => setNewReview(e.target.value)}
+          />
           <InputFileUpload
-            setFile={setImages}
-            image={image}
-            id="edit_comment_image"
-            name="Edit Comment Image"
+            label="Profile Picture"
+            name="avatar"
+            setFile={setImage}
+            file={image}
           />
           <div className="modal-action">
-            <PrimaryButton onClick={handleAddComment} value="Save" />
+            <button className="btn" onClick={handleAddReview}>
+              Submit
+            </button>
             <button
-              className="btn btn-primary"
+              className="btn"
               onClick={() => document.getElementById("my_modal_2").close()}
             >
-              Cancel
+              Close
             </button>
           </div>
         </div>
       </dialog>
-
-      {/* Add Reply Modal */}
-      <dialog id="my_reply_modal" className="modal">
+      <dialog id="edit_modal" className="modal">
         <div className="modal-box">
-          <h2 className="text-xl font-bold mb-4">
-            {editReply ? "Edit Reply" : "Add Reply"}
-          </h2>
+          <h3 className="font-bold text-lg">Edit Review</h3>
           <textarea
-            value={newReply}
-            onChange={(e) => setNewReply(e.target.value)}
-            className="textarea textarea-bordered w-full mb-4"
-            rows="4"
-            placeholder="Write your reply here..."
-          ></textarea>
+            className="textarea textarea-bordered w-full mt-4"
+            placeholder="Update your review"
+            value={newReview}
+            onChange={(e) => setNewReview(e.target.value)}
+          />
           <InputFileUpload
-            setFile={setImages}
-            image={image}
-            id="edit_reply_image"
-            name="Edit Reply Image"
+            label="Profile Picture"
+            name="avatar"
+            setFile={setImage}
+            file={image}
           />
           <div className="modal-action">
-            <PrimaryButton onClick={handleAddReply} value="Save" />
+            <button className="btn" onClick={handleEditReview}>
+              Update
+            </button>
             <button
-              className="btn btn-primary"
-              onClick={() => document.getElementById("my_reply_modal").close()}
+              className="btn"
+              onClick={() => document.getElementById("edit_modal").close()}
             >
-              Cancel
+              Close
             </button>
           </div>
         </div>
@@ -350,4 +236,5 @@ const ProductComment = ({ productId }) => {
   );
 };
 
-export default ProductComment;
+export default ProductReview;
+s;

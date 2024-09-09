@@ -5,7 +5,6 @@ const useCartStore = create(
     persist(
         (set) => ({
             cart: [],
-
             addToCart: (product, variant, quantity = 1) => {
                 let productAdded = false;
                 set((state) => {
@@ -18,7 +17,6 @@ const useCartStore = create(
                     }
                     const { _id, name, user, coverPhoto, category, subCategory } = product;
                     const { price, discount, size, color, } = variant;
-
                     const newCart = [
                         ...state.cart,
                         {
@@ -39,7 +37,6 @@ const useCartStore = create(
                     productAdded = true;
                     return { cart: newCart };
                 });
-
                 return productAdded;
             },
             removeFromCart: (productId, size) => {

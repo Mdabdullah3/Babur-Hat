@@ -1,18 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
-import LatestOrders from "../../utils/constants";
 import useOrderStore from "../../store/orderStore";
 import useUserStore from "../../store/userStore";
+import AddReviewModal from "../AddReviewModal";
 const MyOrder = () => {
   const { user } = useUserStore();
   const { orders, fetchPaymentsByUser } = useOrderStore();
   useEffect(() => {
     fetchPaymentsByUser(user?._id);
   }, [fetchPaymentsByUser, user?._id]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  console.log(orders);
+  const handleReviewClick = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
   return (
     <section>
       <div>
@@ -99,7 +104,10 @@ const MyOrder = () => {
                             <h1>Quantity : {orderProduct?.quantity}</h1>
                           </div>
                         </div>
-                        <button className="btn btn-primary px-4 py-2 text-white">
+                        <button
+                          onClick={() => handleReviewClick(orderProduct)}
+                          className="btn btn-primary px-4 py-2 text-white"
+                        >
                           Review
                         </button>
                       </div>
@@ -121,6 +129,13 @@ const MyOrder = () => {
                 </div>
               </div>
             ))
+          )}
+          {isModalOpen && (
+            <AddReviewModal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              product={selectedProduct}
+            />
           )}
         </section>
       </div>
