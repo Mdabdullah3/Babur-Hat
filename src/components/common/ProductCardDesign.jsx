@@ -43,14 +43,13 @@ const ProductCardDesign = ({ product }) => {
 
         <h1 className="lg:text-xl text-[14px] font-bold">
           <span className="lg:text-sm text-[14px]">BDT</span>{" "}
-          {product?.productVariants[0]?.discount
+          {product?.productVariants[0]?.discount > 0
             ? product?.productVariants[0]?.discount
             : product?.productVariants[0]?.price}
           .00{" "}
           <del className="font-normal ml-2 lg:text-sm text-gray-400 text-[14px]">
-            {product?.productVariants[0]?.discount &&
+            {product?.productVariants[0]?.discount > 0 &&
               product?.productVariants[0]?.price}
-            .00
           </del>
         </h1>
       </Link>
