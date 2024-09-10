@@ -49,7 +49,7 @@ const ProductSummery = ({ deliveryCharge }) => {
               <div>
                 <h1 className=" tracking-wider font-[500] flex items-center">
                   <FaBangladeshiTakaSign />
-                  {order?.price}.00
+                  {parseFloat(order?.price * order?.quantity).toFixed(2)}
                 </h1>
               </div>
             </div>

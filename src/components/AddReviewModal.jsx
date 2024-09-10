@@ -20,7 +20,7 @@ const AddReviewModal = ({ isOpen, onClose, product }) => {
 
   const handleAddReview = async () => {
     const formData = {
-      product: product?._id,
+      product: product?.product,
       userId: user?._id,
       review: newReview,
       image: image,
@@ -28,15 +28,15 @@ const AddReviewModal = ({ isOpen, onClose, product }) => {
     };
 
     await addReview(formData, "Review Added Successfully");
-    document.getElementById("my_modal_2").close();
     setNewReview("");
+    onClose();
     setImage(null);
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed z-50 inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-6 rounded-md md:w-[500px]">
         <h2 className="text-xl font-bold mb-4">
           Add Review for {product?.name}

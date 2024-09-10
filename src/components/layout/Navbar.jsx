@@ -122,24 +122,16 @@ const Navbar = () => {
                     <img
                       tabIndex={0}
                       role="button"
-                      src={`${SERVER}${user?.avatar?.secure_url}`}
+                      src={
+                        user?.avatar?.public_id
+                          ? `${SERVER}${user?.avatar?.secure_url}` 
+                          : user?.avatar?.secure_url 
+                      }
                       alt="User Avatar"
                       className="md:w-12 w-10 h-10 md:h-12 rounded-full cursor-pointer transition-transform transform hover:scale-105 hover:shadow-lg"
                     />
                   </Link>
                 </div>
-              ) : user?.avatar ? (
-                <div className="relative">
-                <Link href="/profile">
-                  <img
-                    tabIndex={0}
-                    role="button"
-                    src={`${SERVER}${user?.avatar}`}
-                    alt="User Avatar"
-                    className="md:w-12 w-10 h-10 md:h-12 rounded-full cursor-pointer transition-transform transform hover:scale-105 hover:shadow-lg"
-                  />
-                </Link>
-              </div>
               ) : (
                 <Link href="/auth/login">
                   <h1 className="lg:text-3xl text-xl">

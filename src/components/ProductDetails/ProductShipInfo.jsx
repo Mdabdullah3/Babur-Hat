@@ -167,9 +167,9 @@ const ProductShipInfo = ({
             </button>
           </div>
         )}
-        {wishlist?.find((item) => item._id === product._id) ? (
+        {wishlist?.find((item) => item?._id === product?._id) ? (
           <h1
-            onClick={() => handleRemoveFromWishlist(product._id)}
+            onClick={() => handleRemoveFromWishlist(product?._id)}
             className="tooltip tooltip-left border rounded-full py-3 px-5 mx-auto border-primary text-primary cursor-pointer"
             data-tip="Remove From Wishlist"
           >

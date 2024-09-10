@@ -36,7 +36,6 @@ const Cart = () => {
     };
     fetchData();
   }, []);
-  console.log(productsData);
   useEffect(() => {
     setIsClient(true);
     const savedCart = JSON.parse(localStorage.getItem("cart-storage"))?.state
@@ -71,20 +70,17 @@ const Cart = () => {
     removeFromCart(id, size);
   };
 
-  const handleUpdateQuantity = (id, quantity) => {
-    updateQuantity(id, quantity);
+  const handleUpdateQuantity = (id, size, quantity) => {
+    updateQuantity(id, size, quantity);
   };
 
   const handleClearCart = () => {
     clearCart();
     setDiscount(0);
   };
-  console.log(cart);
   const handleApplyCoupon = async () => {
     try {
-      const response = await axios.get(
-        `${API_URL}/vouchers`
-      );
+      const response = await axios.get(`${API_URL}/vouchers`);
       const vouchers = response?.data?.data;
       const validVoucher = vouchers.find(
         (voucher) =>
@@ -266,13 +262,16 @@ const Cart = () => {
                         BDT
                       </h1>
                     </div>
-
                     <div className="w-28 mt-2 lg:block hidden">
                       <div className="relative flex flex-row w-32 h-12 bg-transparent rounded-lg">
                         <button
                           className="w-20 h-full bg-gray-200 cursor-pointer hover:text-gray-700 hover:bg-gray-400"
                           onClick={() =>
-                            handleUpdateQuantity(item._id, item.quantity - 1)
+                            handleUpdateQuantity(
+                              item?._id,
+                              item?.size,
+                              item?.quantity - 1
+                            )
                           }
                         >
                           <span className="m-auto text-2xl">-</span>
@@ -286,7 +285,11 @@ const Cart = () => {
                         <button
                           className="w-20 h-full bg-gray-200 cursor-pointer hover:text-gray-700 hover:bg-gray-400"
                           onClick={() =>
-                            handleUpdateQuantity(item._id, item.quantity + 1)
+                            handleUpdateQuantity(
+                              item?._id,
+                              item?.size,
+                              item?.quantity + 1
+                            )
                           }
                         >
                           <span className="m-auto text-xl">+</span>

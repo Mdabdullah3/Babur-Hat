@@ -11,6 +11,7 @@ import { API_URL } from "../../config";
 import useUserStore from "../../store/userStore";
 import axios from "axios";
 import ProductSummery from "./ProductSummery";
+import useCategoryStore from "../../store/CategoriesStore";
 
 const ShippingForm = () => {
   const [selectedDistrict, setSelectedDistrict] = useState(null);
@@ -18,7 +19,7 @@ const ShippingForm = () => {
   const [bdDistricts, setBdDistricts] = useState([]);
   const [bdCities, setBdCities] = useState([]);
   const [cityOptions, setCityOptions] = useState([]);
-  const { user } = useUserStore();
+  const { user, fetchUser } = useUserStore();
   const [selectedMethod, setSelectedMethod] = useState("cod");
   const [isClient, setIsClient] = useState(false);
   const { cart, clearCart } = useCartStore();
@@ -26,7 +27,9 @@ const ShippingForm = () => {
   const [productsData, setProductsData] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { categories, fetchCategories } = useCategoryStore();
 
+  // Product Check
   useEffect(() => {
     const url = `${API_URL}/products?_limit=10000&_fields=_id,productVariants`;
     const fetchData = async () => {
@@ -36,6 +39,7 @@ const ShippingForm = () => {
     };
     fetchData();
   }, []);
+  // Shipping Form
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -52,6 +56,86 @@ const ShippingForm = () => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
 
+  const groupedCartProductsByCategory = cart.map((product) => {
+    const matchedCategory = categories?.find(
+      (cat) => cat?._id === product?.category
+    );
+    const matchedSubCategory = matchedCategory?.subCategories?.find(
+      (subCat) => subCat?._id === product?.subCategory
+    );
+
+    // Financial fields from subcategory (if exists)
+    const subCategoryVat = matchedSubCategory?.vat;
+    const subCategoryCommission = matchedSubCategory?.commission;
+    const subCategoryTransactionCost = matchedSubCategory?.transactionCost;
+    const subCategoryShippingCharge = matchedSubCategory?.shippingCharge;
+
+    // Financial fields from category (fallback if subcategory fields missing)
+    const categoryVat = matchedCategory?.vat;
+    const categoryCommission = matchedCategory?.commission;
+    const categoryTransactionCost = matchedCategory?.transactionCost;
+    const categoryShippingCharge = matchedCategory?.shippingCharge;
+
+    // Use subcategory values if available, else fallback to category
+    const finalVat = subCategoryVat || categoryVat || 0;
+    const finalCommission = subCategoryCommission || categoryCommission || 0;
+    const finalTransactionCost =
+      subCategoryTransactionCost || categoryTransactionCost || 0;
+    const finalShippingCharge =
+      subCategoryShippingCharge || categoryShippingCharge || 0;
+
+    // Define types (e.g., default to "percentage" or "fixed")
+    const finalVatType =
+      matchedSubCategory?.vatType || matchedCategory?.vatType || "percentage"; // Default to percentage
+    const finalCommissionType =
+      matchedSubCategory?.commissionType ||
+      matchedCategory?.commissionType ||
+      "percentage";
+    const finalTransactionCostType =
+      matchedSubCategory?.transactionCostType ||
+      matchedCategory?.transactionCostType ||
+      "fixed";
+    const finalShippingChargeType =
+      matchedSubCategory?.shippingChargeType ||
+      matchedCategory?.shippingChargeType ||
+      "fixed";
+
+    // Calculate price adjustments (example: if percentage, apply percentage logic)
+    const price = parseFloat(product.price) * parseFloat(product.quantity);
+
+    const vatAmount =
+      finalVatType === "percentage" ? (price * finalVat) / 100 : finalVat;
+    const commissionAmount =
+      finalCommissionType === "percentage"
+        ? (price * finalCommission) / 100
+        : finalCommission;
+    const transactionCostAmount =
+      finalTransactionCostType === "percentage"
+        ? (price * finalTransactionCost) / 100
+        : finalTransactionCost;
+    const shippingChargeAmount =
+      finalShippingChargeType === "percentage"
+        ? (price * finalShippingCharge) / 100
+        : finalShippingCharge;
+    const profit =
+      price -
+      (parseFloat(vatAmount) +
+        parseFloat(commissionAmount) +
+        parseFloat(transactionCostAmount) +
+        parseFloat(shippingChargeAmount));
+    // Update the product with calculated values
+    return {
+      ...product,
+      vatAmount,
+      commissionAmount,
+      transactionCostAmount,
+      shippingChargeAmount,
+      profit,
+    };
+  });
+
+  console.log(groupedCartProductsByCategory);
+  // Load District & Cities
   useEffect(() => {
     const fetchDistricts = async () => {
       const response = await fetch("bd-districts.json");
@@ -64,11 +148,17 @@ const ShippingForm = () => {
       const data = await response.json();
       setBdCities(data?.upazilas || []);
     };
+    const loadUser = async () => {
+      await fetchUser();
+      setLoading(false);
+    };
 
+    loadUser();
     fetchDistricts();
     fetchCities();
-  }, []);
+  }, [fetchUser]);
 
+  // Load Dynamic Delevery Fees
   useEffect(() => {
     const url = `${API_URL}/delivery-fees?_limit=64`;
     fetch(url)
@@ -88,6 +178,7 @@ const ShippingForm = () => {
   }, [selectedDistrict]);
 
   useEffect(() => {
+    fetchCategories();
     if (selectedDistrict) {
       const filteredCities = bdCities.filter(
         (city) => city.district_id === selectedDistrict.value
@@ -96,7 +187,7 @@ const ShippingForm = () => {
         filteredCities.map((city) => ({ value: city.id, label: city.name }))
       );
     }
-  }, [selectedDistrict, bdCities]);
+  }, [selectedDistrict, fetchCategories, bdCities]);
 
   const handleDistrictChange = (selectedOption) => {
     setSelectedDistrict(selectedOption);
@@ -112,6 +203,7 @@ const ShippingForm = () => {
     setSelectedMethod(method);
   };
 
+  //Handle Product Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (cart.length === 0) {
@@ -138,7 +230,8 @@ const ShippingForm = () => {
       user: user?._id,
       product: item?._id,
       price: item?.price,
-      variantId: item?.variantId,
+      variantId: item?.userId,
+      vendorId: item?.vendorId,
       currency: "BDT",
       transactionId: item?.variantId,
       paymentType: selectedMethod === "cod" ? "cash-on-delivery" : "card",
@@ -186,7 +279,10 @@ const ShippingForm = () => {
   if (!isClient) {
     return null;
   }
-
+  // if (loading) {
+  //   return <Loading />;
+  // }
+  // Checking Product Is Avaiable in Stock or Invalid Product
   const checkProductStock = () => {
     for (const item of cart) {
       const product = productsData?.find((p) =>
@@ -337,7 +433,6 @@ const ShippingForm = () => {
               </h1>
             </div>
             <h1 className="border border-gray-100 my-3"> </h1>
-
             <p className="text-center mt-4">
               You will get the delivery{" "}
               <span className="font-semibold text-green-700">
@@ -390,7 +485,10 @@ const ShippingForm = () => {
           </section>
 
           {error && <p className="text-red-500 text-center my-2">{error}</p>}
-          <PrimaryButton type="submit" value="Place Order" />
+          <PrimaryButton
+            type="submit"
+            value={loading ? "Loading..." : "Submit"}
+          />
         </form>
       </section>
       <section className="w-full">

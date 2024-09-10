@@ -108,12 +108,12 @@ const ProductReview = ({ productId, product }) => {
             </span>
           </p> */}
         </div>
-        <button
+        {/* <button
           className="font-[500] text-sm tracking-wider my-2 uppercase px-5 md:px-8 border-[1px] rounded-md border-black py-2 md:py-4 hover:bg-primary hover:border-primary hover:text-white transition duration-500"
           onClick={openModal}
         >
           Write a review
-        </button>
+        </button> */}
       </div>
       <hr />
       <div>
@@ -237,4 +237,3 @@ const ProductReview = ({ productId, product }) => {
 };
 
 export default ProductReview;
-s;

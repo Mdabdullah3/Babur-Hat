@@ -47,6 +47,15 @@ const useCartStore = create(
                 }));
             },
             clearCart: () => set({ cart: [] }),
+            updateQuantity: (productId, size, quantity) => {
+                set((state) => ({
+                    cart: state.cart.map((item) =>
+                        item._id === productId && item.size === size
+                            ? { ...item, quantity: Math.max(1, quantity) }
+                            : item
+                    ),
+                }));
+            },
         }),
         {
             name: "cart-storage",

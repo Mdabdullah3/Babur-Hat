@@ -41,9 +41,8 @@ const ProductDetails = ({ params }) => {
   const [selectedVariant, setSelectedVariant] = useState(
     product?.productVariants[0]
   );
-  console.log(selectedVariant);
   const handleAddToWishlist = () => {
-    const productAdded = addToWishlist(product);
+    const productAdded = addToWishlist(product, selectedVariant);
     if (!productAdded) {
       toast.error("Product already in wishlist");
     } else {
