@@ -134,7 +134,6 @@ const ShippingForm = () => {
     };
   });
 
-  console.log(groupedCartProductsByCategory);
   // Load District & Cities
   useEffect(() => {
     const fetchDistricts = async () => {
@@ -177,6 +176,7 @@ const ShippingForm = () => {
       });
   }, [selectedDistrict]);
 
+  console.log(groupedCartProductsByCategory);
   useEffect(() => {
     fetchCategories();
     if (selectedDistrict) {
@@ -206,69 +206,99 @@ const ShippingForm = () => {
   //Handle Product Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (cart.length === 0) {
-      toast.error(
-        "Please add some products to your cart, before placing an order"
-      );
+    setLoading(true);
+
+    // Clear any previous errors
+    setError("");
+
+    // Initialize an array to collect validation errors
+    let validationErrors = [];
+
+    // Validate fullName
+    if (form.fullName.length < 5) {
+      validationErrors.push("Name must be at least 5 characters long");
+    }
+
+    // Validate streetAddress
+    if (form.streetAddress.length < 8) {
+      validationErrors.push("Address must be at least 8 characters long");
+    }
+    if (form.postalCode.length < 4) {
+      validationErrors.push("Postal Code must be at least 4 characters long");
+    }
+    // If there are validation errors, show them using toast
+    if (validationErrors.length > 0) {
+      validationErrors.forEach((error) => toast.error(error));
+      setLoading(false); // Stop loading if validation fails
       return;
     }
-    setLoading(true);
+
+    // Check stock availability
     const stockError = checkProductStock();
     if (stockError) {
-      setError(stockError);
+      toast.error(stockError);
+      setLoading(false); // Stop loading if there's a stock error
       return;
     }
+
     // Validate phone number
     const phoneRegex = /^01[3-9]\d{8}$/;
     if (!phoneRegex.test(form.phone)) {
       toast.error("Invalid Phone Number");
+      setLoading(false); // Stop loading if phone number is invalid
       return;
     }
 
-    // Prepare the order products
-    const orders = cart?.map((item) => ({
-      user: user?._id,
-      product: item?._id,
-      price: item?.price,
-      variantId: item?.userId,
-      vendorId: item?.vendorId,
-      currency: "BDT",
-      transactionId: item?.variantId,
-      paymentType: selectedMethod === "cod" ? "cash-on-delivery" : "card",
-      status: "pending",
-      shippingInfo: {
-        name: form.fullName,
-        email: form.email,
-        phone: form.phone,
-        method: "Courier",
-        address1: form.streetAddress,
-        address2: "",
-        city: selectedCity?.label || "",
-        state: selectedDistrict?.label || "",
-        postcode: form.postalCode,
-        country: "Bangladesh",
-        deliveryFee: shippingData?.deliveryFee || 100,
-      },
-    }));
-
+    // Proceed with order submission if all validations pass
     try {
+      const orders = groupedCartProductsByCategory.map((item) => ({
+        user: user?._id,
+        product: item?._id,
+        price: item?.price,
+        variantId: item?.variantId,
+        quantity: item?.quantity,
+        vat: item?.vatAmount,
+        commission: item?.commissionAmount,
+        transactionCost: item?.transactionCostAmount,
+        shippingCharge: item?.shippingChargeAmount,
+        profit: item?.profit,
+        vendorPaid: "unpaid",
+        vendor: item?.userId,
+        currency: "BDT",
+        transactionId: item?.variantId,
+        paymentType: selectedMethod === "cod" ? "cash-on-delivery" : "card",
+        status: "pending",
+        shippingInfo: {
+          name: form.fullName,
+          email: form.email,
+          phone: form.phone,
+          method: "Courier",
+          address1: form.streetAddress,
+          address2: "",
+          city: selectedCity?.label || "",
+          state: selectedDistrict?.label || "",
+          postcode: form.postalCode,
+          country: "Bangladesh",
+          deliveryFee: shippingData?.deliveryFee || 100,
+        },
+      }));
+
       const response = await axios.post(`${API_URL}/orders`, orders, {
         withCredentials: true,
       });
-      console.log(response);
 
       if (response.status === 200 || response.status === 201) {
         toast.success(
           response.data.message || "Orders processed successfully!"
         );
-        setLoading(false);
         clearCart();
       } else {
-        throw new Error("Failed to process orders.");
+        toast.error(response.data.message || "Failed to process orders.");
       }
     } catch (error) {
-      console.error("An error occurred:", error);
       toast.error(error.message || "An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -327,6 +357,7 @@ const ShippingForm = () => {
               label="Email"
               id="email"
               name="email"
+              type="email"
               required
               value={form.email}
               onChange={handleInputChange}

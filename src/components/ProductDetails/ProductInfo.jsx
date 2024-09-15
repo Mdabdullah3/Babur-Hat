@@ -49,16 +49,15 @@ const ProductInfo = ({ product, setSelectedVariant, selectedVariant }) => {
         <p className="leading-6 lg:mt-4 mt-2 text-lg font-[600] tracking-wider text-primary">
           BDT{" "}
           <span className="lg:text-2xl text-xl">
-            {selectedVariant?.discount
-              ? selectedVariant?.discount
-              : selectedVariant?.price}
+            {product?.productVariants[0]?.discount > 0
+              ? product?.productVariants[0]?.discount
+              : product?.productVariants[0]?.price}
             .00
           </span>
-          {selectedVariant?.discount && selectedVariant.price > 0 && (
-            <span className="text-red-300 line-through ml-4 text-md font-normal">
-              {selectedVariant?.price}
-            </span>
-          )}
+          <del className="font-normal ml-2 lg:text-sm text-gray-400 text-[14px]">
+            {product?.productVariants[0]?.discount > 0 &&
+              product?.productVariants[0]?.price}
+          </del>
         </p>
       </div>
       <h2 className="flex items-center gap-3 tracking-wider lg:mt-3">

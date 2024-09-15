@@ -161,6 +161,8 @@ const Cart = () => {
     router.push("/shipping");
   };
 
+  console.log(cart)
+
   return (
     <div className="w-11/12 mx-auto lg:mt-10 mt-4 tracking-wider">
       <h1 className="lg:text-3xl text-lg font-bold">

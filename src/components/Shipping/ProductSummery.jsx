@@ -38,18 +38,18 @@ const ProductSummery = ({ deliveryCharge }) => {
                 <div className=" tracking-wider">
                   <h1 className="text-md font-[500] flex gap-4 items-center">
                     {order?.name.slice(0, 22)}...
-                    <span className=" text-md text-gray-500 flex items-center font-bold gap-1">
-                      <RxCross2 size={13} /> {order?.quantity}
-                    </span>
                   </h1>
                 </div>
               </div>
               <h1 className="uppercase font-semibold">{order?.size}</h1>
 
-              <div>
+              <div className="flex items-center gap-3">
+                <span className=" text-lg flex items-center gap-1">
+                  {order?.quantity} <RxCross2 size={20} />
+                </span>
                 <h1 className=" tracking-wider font-[500] flex items-center">
                   <FaBangladeshiTakaSign />
-                  {parseFloat(order?.price * order?.quantity).toFixed(2)}
+                  {parseFloat(order?.price)}
                 </h1>
               </div>
             </div>
