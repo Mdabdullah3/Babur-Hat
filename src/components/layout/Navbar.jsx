@@ -123,9 +123,10 @@ const Navbar = () => {
                       tabIndex={0}
                       role="button"
                       src={
-                        user?.avatar?.public_id
-                          ? `${SERVER}${user?.avatar?.secure_url}` 
-                          : user?.avatar?.secure_url 
+                        user?.avatar?.public_id &&
+                        user?.avatar?.secure_url.startsWith("/")
+                          ? `${SERVER}${user?.avatar?.secure_url}`
+                          : user?.avatar?.secure_url
                       }
                       alt="User Avatar"
                       className="md:w-12 w-10 h-10 md:h-12 rounded-full cursor-pointer transition-transform transform hover:scale-105 hover:shadow-lg"

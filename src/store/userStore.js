@@ -85,6 +85,21 @@ const useUserStore = create((set, get) => ({
         }
     },
 
+
+    fetchVendorAllUser: async () => {
+        set({ loading: true, error: null, });
+        try {
+            const response = await axios.get(`${API_URL}/users?_filter[role]=vendor`, {
+                withCredentials: true
+            });
+            set({
+                users: response.data.data,
+                loading: false,
+            });
+        } catch (error) {
+            set({ error: error.message, loading: false });
+        }
+    },
     register: async (formData, router) => {
         set({ loading: true, error: null });
         try {
