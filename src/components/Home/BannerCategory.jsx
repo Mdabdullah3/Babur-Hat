@@ -1,11 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import Link from "next/link";
-import useCategoryStore from "../../store/CategoriesStore";
 import { TbCategory2 } from "react-icons/tb";
+import { SERVER } from "../../config";
 
-const BannerCategory = () => {
-  const { categories } = useCategoryStore();
+const BannerCategory = ({ categories }) => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
+  const homeCategories = categories?.filter((cat) => cat.isHomeShown);
 
   return (
     <div className="bg-white h-full rounded-2xl px-6 text-md pb-2 border-[1px] border-gray-300 shadow-md">
@@ -15,7 +16,7 @@ const BannerCategory = () => {
           Categories
         </h1>
       </Link>
-      {categories?.map((cat, index) => (
+      {homeCategories?.map((cat, index) => (
         <div
           key={index}
           className="relative"
@@ -27,11 +28,16 @@ const BannerCategory = () => {
             className="flex items-center gap-3 mt-2 tracking-wider
             text-gray-600"
           >
-            <h1>{cat?.name}</h1>
+            <img
+              src={`${SERVER}${cat?.iconImage?.secure_url}`}
+              className="w-4 h-4 rounded-full"
+              alt=""
+            />
+            <h1 className="capitalize">{cat?.name}</h1>
           </Link>
 
           {/* Hovered Subcategories Card */}
-          {hoveredCategory === cat && cat.subCategories && (
+          {hoveredCategory === cat && cat.subCategories.length > 0 && (
             <div className="absolute -top-2 left-full bg-white border border-gray-300 shadow-md rounded-lg p-4 w-64 z-10">
               <ul>
                 {cat.subCategories.map((subCat) => (
