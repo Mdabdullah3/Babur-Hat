@@ -12,7 +12,6 @@ import { FiShare2, FiCopy } from "react-icons/fi";
 import useCartStore from "../../store/cartStore";
 import { toast } from "react-toastify";
 import { FaFacebook } from "react-icons/fa";
-
 const ProductShipInfo = ({
   product,
   selectedVariant,

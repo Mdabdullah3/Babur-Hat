@@ -20,7 +20,7 @@ const AddReviewModal = ({ isOpen, onClose, product }) => {
 
   const handleAddReview = async () => {
     const formData = {
-      product: product?.product,
+      product: product?.product?._id,
       userId: user?._id,
       review: newReview,
       image: image,
