@@ -4,9 +4,15 @@ import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import Image from "next/image";
 import { BestDell } from "../../../utils/constants";
+import useEventStore from "../../../store/eventStore";
+import { useEffect } from "react";
 const DellSnap = () => {
+  const { eventProducts, fetchAllEventsProducts } = useEventStore();
+  useEffect(() => {
+    fetchAllEventsProducts();
+  }, [fetchAllEventsProducts]);
+  console.log(eventProducts);
   return (
     <div className="bg-[#FFF5EF] px-4 py-6  rounded-2xl w-80 mt-4">
       <h1 className="text-2xl font-bold text-primary">Welcome Dell</h1>
