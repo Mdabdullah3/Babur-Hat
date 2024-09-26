@@ -14,6 +14,9 @@ const DellSnap = () => {
     fetchAllEventsProducts();
   }, [fetchAllEventsProducts]);
   console.log(eventProducts);
+  const products = eventProducts.filter((product) => product.product !== null);
+
+  console.log(products);
   return (
     <div className="bg-[#FFF5EF] px-4 py-6  rounded-2xl w-80 mt-4">
       <h1 className="text-2xl font-bold text-primary">Welcome Dell</h1>
@@ -32,13 +35,27 @@ const DellSnap = () => {
           modules={[Autoplay, Navigation]}
           className="mySwi"
         >
-          {eventProducts?.map((item) => (
+          {products?.map((item) => (
             <SwiperSlide key={item.id}>
               <div className="">
-                <img src={`${SERVER}${item?.product?.coverPhoto?.secure_url}`} alt="dell image" />
+                <img
+                  src={`${SERVER}${item?.product?.coverPhoto?.secure_url}`}
+                  alt="dell image"
+                  className="w-52 h-52 rounded-md mx-auto"
+                />
                 <h1 className="text-xl font-bold text-primary text-center mt-2">
-                
-                </h1>?
+                  BDT
+                  {item?.product?.productVariants[0]?.discount > 0
+                    ? item?.product?.productVariants[0]?.discount
+                    : item?.product?.productVariants[0]?.price}
+                  .00
+                  <del className="ml-2 font-normal text-gray-400 text-lg">
+                    BDT
+                    {item?.product?.productVariants[0]?.discount &&
+                      item?.product?.productVariants[0]?.price}
+                    .00
+                  </del>
+                </h1>
               </div>
             </SwiperSlide>
           ))}

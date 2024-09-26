@@ -27,18 +27,18 @@ const ProductCardDesign = ({ product }) => {
       key={product._id}
     >
       <Link
-        href={`/products/${product._id}`}
+        href={`/products/${product?._id}`}
         className="lg:mb-4  cursor-pointer "
       >
         <div className="">
           <img
             className="md:w-64 w-64 h-40 md:h-52 rounded-2xl"
-            src={`${SERVER}${product.coverPhoto.secure_url}`}
+            src={`${SERVER}${product?.coverPhoto?.secure_url}`}
             alt=""
           />
         </div>
         <h1 className="text-[14px]  my-1 capitalize">
-          {product.name.slice(0, 20)}...
+          {product?.name?.slice(0, 20)}...
         </h1>
 
         <h1 className="lg:text-xl text-[14px] font-bold">
