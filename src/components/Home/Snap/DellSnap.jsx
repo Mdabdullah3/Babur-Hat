@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import { BestDell } from "../../../utils/constants";
 import useEventStore from "../../../store/eventStore";
 import { useEffect } from "react";
+import { SERVER } from "../../../config";
 const DellSnap = () => {
   const { eventProducts, fetchAllEventsProducts } = useEventStore();
   useEffect(() => {
@@ -31,16 +32,13 @@ const DellSnap = () => {
           modules={[Autoplay, Navigation]}
           className="mySwi"
         >
-          {BestDell?.map((item) => (
+          {eventProducts?.map((item) => (
             <SwiperSlide key={item.id}>
               <div className="">
-                <img src={item.img} alt="dell image" />
+                <img src={`${SERVER}${item?.product?.coverPhoto?.secure_url}`} alt="dell image" />
                 <h1 className="text-xl font-bold text-primary text-center mt-2">
-                  Bdt{item.price}.00
-                  <del className="ml-2 font-normal text-gray-400 text-lg">
-                    Bdt{423}.00
-                  </del>
-                </h1>
+                
+                </h1>?
               </div>
             </SwiperSlide>
           ))}
