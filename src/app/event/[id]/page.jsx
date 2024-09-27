@@ -11,6 +11,7 @@ const page = ({ params }) => {
   useEffect(() => {
     fetchEventById(id);
   }, [fetchEventById, id]);
+
   console.log(event);
   return (
     <main>
@@ -25,9 +26,11 @@ const page = ({ params }) => {
           </div>
         </section>
         <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-8">
-          {event?.eventProducts?.map((product) => (
-            <ProductCardDesign key={product._id} product={product} />
-          ))}
+          {event?.eventProducts
+            ?.filter((obj) => obj.product !== null)
+            .map((product) => (
+              <ProductCardDesign key={product._id} product={product} />
+            ))}
         </section>
       </section>
       <Footer />
