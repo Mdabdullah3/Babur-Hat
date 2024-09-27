@@ -4,7 +4,8 @@ import { API_URL } from "../config";
 const useEventStore = create((set) => ({
     events: [],
     eventProducts: [],
-    packageProducts:[],
+    event: null,
+    packageProducts: [],
     loading: false,
     error: null,
     fetchEvents: async () => {

@@ -11,12 +11,10 @@ const page = ({ params }) => {
   useEffect(() => {
     fetchEventById(id);
   }, [fetchEventById, id]);
-
-  console.log(event);
   return (
     <main>
       <Navbar />
-      <section className="w-11/12 mx-auto">
+      <section className="">
         <section>
           <div className=" relative">
             <img src="/cover.jpg" alt="" />
@@ -25,11 +23,14 @@ const page = ({ params }) => {
             </h1>
           </div>
         </section>
-        <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-8">
+        <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-8 w-11/12 mx-auto mb-10">
           {event?.eventProducts
             ?.filter((obj) => obj.product !== null)
             .map((product) => (
-              <ProductCardDesign key={product._id} product={product} />
+              <ProductCardDesign
+                key={product?._id}
+                product={product?.product}
+              />
             ))}
         </section>
       </section>

@@ -1,10 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import React from "react";
-import { FaStar } from "react-icons/fa";
-import { LiaCartPlusSolid } from "react-icons/lia";
-import useCartStore from "../../store/cartStore";
-import { toast } from "react-toastify";
 import { SERVER } from "../../config";
 const ProductCardDesign = ({ product }) => {
   // const { addToCart } = useCartStore();
@@ -49,6 +45,7 @@ const ProductCardDesign = ({ product }) => {
               : product?.productVariants[0]?.price}
             .00{" "}
             <del className="font-normal ml-2 lg:text-sm text-gray-400 text-[14px]">
+              BDT
               {product?.productVariants[0]?.discount > 0 &&
                 product?.productVariants[0]?.price}
             </del>
