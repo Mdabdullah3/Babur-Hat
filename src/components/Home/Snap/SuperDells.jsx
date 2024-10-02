@@ -19,7 +19,8 @@ const SuperDells = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  
+
+  console.log(packageProducts);
   return (
     <div className="bg-rose-200/60 px-6 py-4 rounded-2xl w-96">
       <h1 className="text-2xl text-primary font-bold mb-4">Super Dells</h1>
