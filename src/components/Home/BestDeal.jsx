@@ -5,15 +5,15 @@ import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
+import useEventStore from "../../store/eventStore";
+import { SERVER } from "../../config";
+import Link from "next/link";
 const BestDeal = () => {
-  const [bestDeal, setBestDeal] = useState([]);
+  const { packageProducts, fetchPackageProducts } = useEventStore();
 
   useEffect(() => {
-    const url = "https://fakestoreapiserver.reactbd.com/tech";
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => setBestDeal(data));
-  }, []);
+    fetchPackageProducts();
+  }, [fetchPackageProducts]);
 
   return (
     <div className="lg:w-11/12 w-[95%] mx-auto mt-4 lg:mt-16 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500   rounded-2xl lg:p-4 p-3">
@@ -52,29 +52,41 @@ const BestDeal = () => {
           modules={[Autoplay, Navigation]}
           className="mySwiper"
         >
-          {bestDeal?.map((item, index) => (
+          {packageProducts?.map((item, index) => (
             <SwiperSlide key={index}>
-              <div className="slide-content bg-white lg:mx-3 mr-1.5 rounded-2xl md:h-[360px] pb-4">
+              <Link href={`/products/${item?.product?._id}`}
+                className="slide-content bg-white lg:mx-3 mr-1.5 rounded-2xl
+              pb-4"
+              >
                 <img
-                  src={item?.image}
-                  className="rounded-2xl w-full cursor-pointer"
+                  src={`${SERVER}${item?.product?.coverPhoto?.secure_url}`}
+                  className="w-full cursor-pointer rounded-t-2xl"
                   alt="Best Deal Image"
                 />
-                <div className="-mt-4 px-4">
-                  <h1 className="lg:text-md text-[12px">{item?.title}</h1>
-                  <del className="my-3 text-gray-400 text-sm">BDT 423.00</del>
-                  <h1 className="font-bold text-sm mb-2">
-                    BDT {item?.price}.00
+                <div className="px-4">
+                  <h1 className="md:text-md sm:text-[12px] capitalize font-medium mt-2">
+                    {item?.product?.name?.slice(0, 20)}..
                   </h1>
-                  <div className="flex mt-1 items-center justify-between">
+                  <h1 className="text-md  text-primary text-center mt-2">
+                    BDT
+                    {item?.product?.productVariants[0]?.discount > 0
+                      ? item?.product?.productVariants[0]?.discount
+                      : item?.product?.productVariants[0]?.price}
+                    <del className="ml-2 font-normal text-gray-400 text-sm">
+                      BDT
+                      {item?.product?.productVariants[0]?.discount &&
+                        item?.product?.productVariants[0]?.price}
+                    </del>
+                  </h1>
+                  {/* <div className="flex mt-1 items-center justify-between">
                     <progress
                       className="progress progress-primary w-24"
                       value="80"
                       max="100"
                     ></progress>
-                  </div>
+                  </div> */}
                 </div>
-              </div>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

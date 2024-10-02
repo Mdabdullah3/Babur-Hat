@@ -8,6 +8,7 @@ import { BestDell } from "../../../utils/constants";
 import useEventStore from "../../../store/eventStore";
 import { useEffect } from "react";
 import { SERVER } from "../../../config";
+import Link from "next/link";
 const DellSnap = () => {
   const { eventProducts, fetchAllEventsProducts } = useEventStore();
   useEffect(() => {
@@ -37,7 +38,7 @@ const DellSnap = () => {
         >
           {products?.map((item) => (
             <SwiperSlide key={item.id}>
-              <div className="">
+              <Link href={`/products/${item?.product?._id}`} className="">
                 <img
                   src={`${SERVER}${item?.product?.coverPhoto?.secure_url}`}
                   alt="dell image"
@@ -56,7 +57,7 @@ const DellSnap = () => {
                     .00
                   </del>
                 </h1>
-              </div>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

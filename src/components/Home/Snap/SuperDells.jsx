@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import useEventStore from "../../../store/eventStore";
 import { SERVER } from "../../../config";
+import Link from "next/link";
 const SuperDells = () => {
   const { packageProducts, fetchPackageProducts } = useEventStore();
   const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ const SuperDells = () => {
   return (
     <div className="bg-rose-200/60 px-6 py-4 rounded-2xl w-96">
       <h1 className="text-2xl text-primary font-bold mb-4">Super Dells</h1>
-      <div className="bg-white rounded-2xl pb-2">
+      <div className="bg-white rounded-2xl py-4">
         <img
           src={`${SERVER}${packageProducts[0]?.product?.coverPhoto?.secure_url}`}
           className="rounded-2xl mx-auto w-60"
@@ -47,7 +48,7 @@ const SuperDells = () => {
         <div className="flex items-center justify-center gap-3">
           {packageProducts?.slice(0, 2).map((item) => (
             <>
-              <div>
+              <Link href={`/products/${item?.product?._id}`} key={item?._id}>
                 <img
                   src={`${SERVER}${item?.product?.coverPhoto?.secure_url}`}
                   alt="sd"
@@ -64,7 +65,7 @@ const SuperDells = () => {
                       item?.product?.productVariants[0]?.price}
                   </del>
                 </h1>
-              </div>
+              </Link>
             </>
           ))}
         </div>
