@@ -14,7 +14,7 @@ const ShopComponent = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [selectedSize, setSelectecdSize] = useState(null);
-  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [priceRange, setPriceRange] = useState([0, 10000]);
   const { products, fetchAllProducts } = useProductStore();
   const { categories, fetchCategories } = useCategoryStore();
   const [searchTerm, setSearchTerm] = useState("");
@@ -60,6 +60,7 @@ const ShopComponent = () => {
       let matchesSize = true;
       let matchesPrice = true;
       let matchesSearchTerm = true;
+
       if (selectedCategory) {
         matchesCategory = product.category === selectedCategory;
       }
@@ -68,13 +69,18 @@ const ShopComponent = () => {
         matchesSubCategory = product.subCategory === selectedSubCategory;
       }
 
+      // Checking size in productVariants
       if (selectedSize) {
-        matchesSize = product.size === selectedSize;
+        matchesSize = product.productVariants.some(
+          (variant) => variant.size === selectedSize
+        );
       }
 
-      if (priceRange[0] !== 0 || priceRange[1] !== 1000) {
-        matchesPrice =
-          product.price >= priceRange[0] && product.price <= priceRange[1];
+      if (priceRange[0] !== 0 || priceRange[1] !== 10000) {
+        matchesPrice = product.productVariants.some(
+          (variant) =>
+            variant.price >= priceRange[0] && variant.price <= priceRange[1]
+        );
       }
 
       if (searchTerm) {
@@ -95,7 +101,6 @@ const ShopComponent = () => {
     return filteredProducts;
   };
 
-  console.log(priceRange, filterProducts());
   const filterProduct = filterProducts();
 
   const handleResetFilters = () => {
@@ -132,31 +137,31 @@ const ShopComponent = () => {
                             <li key={category._id}>
                               <label
                                 htmlFor={`Filter${category.name}`}
-                                className="inline-flex items-center gap-2"
+                                className="inline-flex items-center gap-2 capitalize"
                               >
                                 <input
                                   type="radio"
                                   id={`Filter${category.name}`}
-                                  className="size-4 radio-primary radio"
+                                  className="size-4 radio-primary radio capitalize"
                                   checked={selectedCategory === category._id}
                                   onChange={() =>
                                     handleCategoryChange(category._id)
                                   }
                                 />
-                                <span className="text-sm font-medium tracking-wider">
+                                <span className="text-sm font-medium tracking-wider capitalize">
                                   {category.name} (
                                   {category.subCategories.length})
                                 </span>
                               </label>
                               {selectedCategory === category._id &&
                                 category.subCategories.length > 0 && (
-                                  <ul className="ml-4 space-y-2">
+                                  <ul className="ml-4 space-y-2 capitalize">
                                     {category.subCategories.map(
                                       (subCategory) => (
                                         <li key={subCategory._id}>
                                           <label
                                             htmlFor={`FilterSub${subCategory.name}`}
-                                            className="inline-flex items-center gap-2"
+                                            className="inline-flex items-center gap-2 uppercase"
                                           >
                                             <input
                                               type="radio"
@@ -192,10 +197,10 @@ const ShopComponent = () => {
                           <div
                             onClick={() => handleSizeChange(item)}
                             key={index}
-                            className="mx-auto w-full cursor-pointer text-center"
+                            className="mx-auto w-full cursor-pointer text-center "
                           >
                             <h1
-                              className={`text-sm font-medium border border-gray-400 p-4 tracking-wider ${
+                              className={`text-sm font-medium border border-gray-400 p-4 tracking-wider uppercase ${
                                 item === selectedSize ? "text-primary" : ""
                               }`}
                             >
@@ -210,12 +215,12 @@ const ShopComponent = () => {
                         <input
                           type="range"
                           min={0}
-                          max="1000"
+                          max="10000"
                           className="range range-xs range-primary"
                         />
                         <p className="tracking-wider mt-2 flex justify-between">
                           <span>Price - $0</span>
-                          <span>$1000</span>
+                          <span>{priceRange}</span>
                         </p>
                       </div>
                     </ShopMenu>
@@ -244,7 +249,7 @@ const ShopComponent = () => {
               <div className="space-y-5">
                 <ShopMenu title="Categories">
                   <div className="mt-5">
-                    <ul className="space-y-3">
+                    <ul className="space-y-3 capitalize">
                       {categories?.map((category) => (
                         <li key={category._id}>
                           <label
@@ -309,7 +314,7 @@ const ShopComponent = () => {
                         className="mx-auto w-full text-center cursor-pointer"
                       >
                         <h1
-                          className={`text-sm font-medium border-gray-400 border p-3 rounded-lg tracking-wider ${
+                          className={`text-sm font-medium border-gray-400 border p-3 rounded-lg tracking-wider uppercase ${
                             item === selectedSize ? "text-primary" : ""
                           }`}
                         >
@@ -324,7 +329,7 @@ const ShopComponent = () => {
                     <input
                       type="range"
                       min={0}
-                      max={Math.max(...products.map((p) => p.price), 1000)}
+                      max={Math.max(...products.map((p) => p.price), 10000)}
                       className="range range-xs range-primary"
                       value={priceRange[1]}
                       onChange={handlePriceChange}

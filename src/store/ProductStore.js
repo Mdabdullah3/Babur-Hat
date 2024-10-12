@@ -15,7 +15,7 @@ const useProductStore = create((set) => ({
     selectedSubCategory: null,
     selectedSize: null,
     minPrice: 0,
-    maxPrice: 1000,
+    maxPrice: 10000,
 
     setPage: (page) => set({ page }),
     setLimit: (limit) => set({ limit }),
@@ -53,7 +53,7 @@ const useProductStore = create((set) => ({
             set({ error: error.response?.data?.message || error.message, loading: false });
         }
     },
-
+  
     fetchSuggestions: async (query) => {
         set({ loading: true });
         try {
@@ -92,7 +92,7 @@ const useProductStore = create((set) => ({
     fetchAllProducts: async () => {
         set({ loading: true });
         try {
-            const response = await axios.get(`${API_URL}/products?_limit=40&_fields=productVariants,category,subCategory,name,_id,coverPhoto`);
+            const response = await axios.get(`${API_URL}/products?_limit=400&_fields=productVariants,category,subCategory,name,_id,coverPhoto`);
             set({ products: response.data.data, loading: false });
         } catch (error) {
             set({ error: error.response?.data?.message || error.message, loading: false });

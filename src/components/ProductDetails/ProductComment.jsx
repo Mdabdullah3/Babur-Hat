@@ -18,6 +18,8 @@ const ProductComment = ({ productId }) => {
   const [editComment, setEditComment] = useState(null);
   const [commentId, setCommentId] = useState(null);
   const [editReply, setEditReply] = useState(null);
+  const [loading, setLoading] = useState(false); // Loading state for disabling button
+
   const {
     addReview,
     replys,
@@ -36,9 +38,15 @@ const ProductComment = ({ productId }) => {
   }, [fetchUser, fetchReviewsByProduct, fetchAllReplies, productId]);
 
   const handleAddComment = async () => {
+    if (!user) {
+      return toast.error("Please Login First");
+    }
     const message = editComment
       ? "Comment Updated Successfully"
       : "Comment Added Successfully";
+
+    setLoading(true); // Start loading
+
     if (editComment) {
       await updateReview(
         editComment._id,
@@ -59,15 +67,25 @@ const ProductComment = ({ productId }) => {
       };
       await addReview(formdata, message);
     }
+
     setNewComments("");
     setImages(null);
+    setLoading(false); // Stop loading
     document.getElementById(editComment ? "edit_modal" : "my_modal_2").close();
   };
 
   const handleAddReply = async () => {
+    if (!user) {
+      toast.error("Please Login First");
+      return;
+    }
+
+    setLoading(true); // Start loading for reply
+
     const message = editReply
       ? "Reply Updated Successfully"
       : "Reply Added Successfully";
+
     if (editReply) {
       await updateReview(
         editReply._id,
@@ -88,9 +106,12 @@ const ProductComment = ({ productId }) => {
         replyTo: commentId,
       };
       await addReview(formdata, message);
+      await fetchAllReplies(productId); // Automatically fetch replies after adding
     }
+
     setNewReply("");
     setImages(null);
+    setLoading(false); // Stop loading
     document.getElementById("my_reply_modal").close();
   };
 
@@ -117,6 +138,8 @@ const ProductComment = ({ productId }) => {
     if (user && user._id === item.user._id) {
       const message = "Deleted Successfully";
       await deleteReview(item._id, message);
+      await fetchReviewsByProduct(productId);
+      await fetchAllReplies(productId);
     }
   };
 
@@ -252,27 +275,25 @@ const ProductComment = ({ productId }) => {
                           className="md:w-32 md:h-32 w-24 h-24 my-3"
                         />
                       ) : null}
-                      <p className="mt-4 capitalize">{reply.comment}</p>
-                      {user && user._id === reply.user._id && (
-                        <div>
-                          <button
-                            className="text-blue-500 mr-4"
-                            onClick={() => openEditReplyModal(reply)}
-                          >
-                            <FiEdit />
-                          </button>
-                          <button
-                            className="text-red-500"
-                            onClick={() => handleDeleteCommentOrReply(reply)}
-                          >
-                            <RiDeleteBin6Line />
-                          </button>
-                        </div>
-                      )}
-
-                      {index < repliesMap[comment._id].length - 1 && (
-                        <hr className="border-gray-300 my-4" />
-                      )}
+                      <div className="flex items-center justify-between">
+                        <p className="my-4">{reply.comment}</p>
+                        {user && user._id === reply.user._id && (
+                          <div>
+                            <button
+                              className="text-blue-500 mr-4"
+                              onClick={() => openEditReplyModal(reply)}
+                            >
+                              <FiEdit />
+                            </button>
+                            <button
+                              className="text-red-500"
+                              onClick={() => handleDeleteCommentOrReply(reply)}
+                            >
+                              <RiDeleteBin6Line />
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -280,70 +301,66 @@ const ProductComment = ({ productId }) => {
             </div>
           ))
         ) : (
-          <p>No comments yet</p>
+          <p>No comments yet.</p>
         )}
       </div>
-
       {/* Add Comment Modal */}
       <dialog id="my_modal_2" className="modal">
-        <div className="modal-box">
-          <h2 className="text-xl font-bold mb-4">
+        <form method="dialog" className="modal-box">
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+            ✕
+          </button>
+          <h3 className="font-bold text-lg">
             {editComment ? "Edit Comment" : "Add Comment"}
-          </h2>
+          </h3>
           <textarea
             value={newComments}
             onChange={(e) => setNewComments(e.target.value)}
-            className="textarea textarea-bordered w-full mb-4"
-            rows="4"
-            placeholder="Write your comment here..."
-          ></textarea>
-          <InputFileUpload
-            setFile={setImages}
-            image={image}
-            id="edit_comment_image"
-            name="Edit Comment Image"
+            placeholder="Write your comment here"
+            className="textarea textarea-bordered w-full mt-3"
           />
-          <div className="modal-action">
-            <PrimaryButton onClick={handleAddComment} value="Save" />
-            <button
-              className="btn btn-primary/60 text-white"
-              onClick={() => document.getElementById("my_modal_2").close()}
-            >
-              Cancel
-            </button>
+          <div className="mt-4">
+            <InputFileUpload image={image} setImage={setImages} />
           </div>
-        </div>
+          <div className="mt-4 flex justify-end">
+            <PrimaryButton
+              value={
+                loading ? "Submitting..." : editComment ? "Update" : "Submit"
+              }
+              disabled={loading} // Disable button when loading
+              onClick={handleAddComment}
+            />
+          </div>
+        </form>
       </dialog>
-
       {/* Add Reply Modal */}
       <dialog id="my_reply_modal" className="modal">
-        <div className="modal-box">
-          <h2 className="text-xl font-bold mb-4">
+        <form method="dialog" className="modal-box">
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+            ✕
+          </button>
+          <h3 className="font-bold text-lg">
             {editReply ? "Edit Reply" : "Add Reply"}
-          </h2>
+          </h3>
           <textarea
             value={newReply}
             onChange={(e) => setNewReply(e.target.value)}
-            className="textarea textarea-bordered w-full mb-4"
-            rows="4"
-            placeholder="Write your reply here..."
-          ></textarea>
-          <InputFileUpload
-            setFile={setImages}
-            image={image}
-            id="edit_reply_image"
-            name="Edit Reply Image"
+            placeholder="Write your reply here"
+            className="textarea textarea-bordered w-full mt-3"
           />
-          <div className="modal-action">
-            <PrimaryButton onClick={handleAddReply} value="Save" />
-            <button
-              className="btn btn-primary"
-              onClick={() => document.getElementById("my_reply_modal").close()}
-            >
-              Cancel
-            </button>
+          <div className="mt-4">
+            <InputFileUpload image={image} setImage={setImages} />
           </div>
-        </div>
+          <div className="mt-4 flex justify-end">
+            <PrimaryButton
+              value={
+                loading ? "Submitting..." : editReply ? "Update" : "Submit"
+              }
+              disabled={loading} // Disable button when loading
+              onClick={handleAddReply}
+            />
+          </div>
+        </form>
       </dialog>
     </div>
   );
