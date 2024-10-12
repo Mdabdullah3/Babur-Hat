@@ -54,39 +54,41 @@ const BestDeal = () => {
         >
           {packageProducts?.map((item, index) => (
             <SwiperSlide key={index}>
-              <Link href={`/products/${item?.product?._id}`}
+              <div
                 className="slide-content bg-white lg:mx-3 mr-1.5 rounded-2xl
               pb-4"
               >
-                <img
-                  src={`${SERVER}${item?.product?.coverPhoto?.secure_url}`}
-                  className="w-full cursor-pointer rounded-t-2xl"
-                  alt="Best Deal Image"
-                />
-                <div className="px-4">
-                  <h1 className="md:text-md sm:text-[12px] capitalize font-medium mt-2">
-                    {item?.product?.name?.slice(0, 20)}..
-                  </h1>
-                  <h1 className="text-md  text-primary text-center mt-2">
-                    BDT
-                    {item?.product?.productVariants[0]?.discount > 0
-                      ? item?.product?.productVariants[0]?.discount
-                      : item?.product?.productVariants[0]?.price}
-                    <del className="ml-2 font-normal text-gray-400 text-sm">
+                <Link href={`/products/${item?.product?._id}`}>
+                  <img
+                    src={`${SERVER}${item?.product?.coverPhoto?.secure_url}`}
+                    className="w-full cursor-pointer rounded-t-2xl"
+                    alt="Best Deal Image"
+                  />
+                  <div className="px-4">
+                    <h1 className="md:text-md sm:text-[12px] capitalize font-medium mt-2">
+                      {item?.product?.name?.slice(0, 20)}..
+                    </h1>
+                    <h1 className="text-md  text-primary text-center mt-2">
                       BDT
-                      {item?.product?.productVariants[0]?.discount &&
-                        item?.product?.productVariants[0]?.price}
-                    </del>
-                  </h1>
-                  {/* <div className="flex mt-1 items-center justify-between">
+                      {item?.product?.productVariants[0]?.discount > 0
+                        ? item?.product?.productVariants[0]?.discount
+                        : item?.product?.productVariants[0]?.price}
+                      <del className="ml-2 font-normal text-gray-400 text-sm">
+                        BDT
+                        {item?.product?.productVariants[0]?.discount &&
+                          item?.product?.productVariants[0]?.price}
+                      </del>
+                    </h1>
+                    {/* <div className="flex mt-1 items-center justify-between">
                     <progress
                       className="progress progress-primary w-24"
                       value="80"
                       max="100"
                     ></progress>
                   </div> */}
-                </div>
-              </Link>
+                  </div>
+                </Link>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
