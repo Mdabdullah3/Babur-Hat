@@ -12,6 +12,8 @@ import useUserStore from "../../store/userStore";
 import axios from "axios";
 import ProductSummery from "./ProductSummery";
 import useCategoryStore from "../../store/CategoriesStore";
+import Loading from "../common/Loading";
+import { useRouter } from "next/navigation";
 
 const ShippingForm = () => {
   const [selectedDistrict, setSelectedDistrict] = useState(null);
@@ -28,9 +30,15 @@ const ShippingForm = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { categories, fetchCategories } = useCategoryStore();
+  const router = useRouter();
 
   // Product Check
   useEffect(() => {
+  
+    if (!user) {
+      router.push("/auth/login");
+    }
+
     const url = `${API_URL}/products?_limit=10000&_fields=_id,productVariants`;
     const fetchData = async () => {
       const response = await fetch(url);
@@ -38,7 +46,7 @@ const ShippingForm = () => {
       setProductsData(data.data);
     };
     fetchData();
-  }, []);
+  }, [user, router]);
   // Shipping Form
   const [form, setForm] = useState({
     fullName: "",
@@ -334,7 +342,9 @@ const ShippingForm = () => {
     }
     return null;
   };
-
+  if (!user) {
+      return <Loading />;
+    }
   return (
     <section className="flex gap-12 items-start">
       <section className="w-full">
