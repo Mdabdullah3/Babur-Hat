@@ -25,7 +25,7 @@ const ProductImages = ({ product }) => {
         <SwiperSlide>
           <div className="-z-10">
             <img
-              src={`${SERVER}${product?.coverPhoto.secure_url}`}
+              src={`${SERVER}${product?.coverPhoto?.secure_url}`}
               alt="Product Image"
               className="h-[31rem] w-[31rem] rounded-md"
             />
@@ -43,7 +43,7 @@ const ProductImages = ({ product }) => {
             </div>
           </SwiperSlide>
         )}
-        {product?.images.map((img, index) => (
+        {product?.images?.map((img, index) => (
           <SwiperSlide key={index}>
             <div className="-z-10">
               <img

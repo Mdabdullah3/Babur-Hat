@@ -12,7 +12,7 @@ const ProductInfoTab = ({
   handleDetailClick,
   product,
 }) => {
-  const reviews = product?.reviews?.filter((review) => review.review);
+  const reviews = product?.reviews?.filter((review) => review?.review);
   const [activeMenu, setActiveMenu] = useState("Review's");
   const menu = ["Review's", "Comment"];
   return (

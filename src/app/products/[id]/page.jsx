@@ -17,6 +17,7 @@ import { FaHeart } from "react-icons/fa";
 import { GoHeart } from "react-icons/go";
 import Report from "../../../components/Report";
 import useCartStore from "../../../store/cartStore";
+
 const ProductDetails = ({ params }) => {
   const [openDetails, setOpenDetails] = useState(
     productInformation[0]?.Description
@@ -38,9 +39,17 @@ const ProductDetails = ({ params }) => {
   }, [id, fetchProductByIdOrSlug]);
 
   const { addToWishlist, wishlist, removeFromWishlist } = useWishlistStore();
-  const [selectedVariant, setSelectedVariant] = useState(
-    product?.productVariants[0]
-  );
+  const [selectedVariant, setSelectedVariant] = useState(null);
+
+  useEffect(() => {
+    if (
+      product &&
+      product?.productVariants &&
+      product?.productVariants?.length > 0
+    ) {
+      setSelectedVariant(product?.productVariants[0]);
+    }
+  }, [product]);
   const handleAddToWishlist = () => {
     const productAdded = addToWishlist(product, selectedVariant);
     if (!productAdded) {
@@ -110,7 +119,7 @@ const ProductDetails = ({ params }) => {
             className="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
           >
             Report
-          </button>{" "}
+          </button>
         </div>
       </div>
       <div className="">

@@ -20,7 +20,7 @@ const ProductCardDesign = ({ product }) => {
   return (
     <section
       className="relative hover:shadow-md px-2 py-4 transition duration-300 rounded-2xl hover:bg-white"
-      key={product._id}
+      key={product?._id}
     >
       <Link
         href={`/products/${product?._id}`}
@@ -37,7 +37,7 @@ const ProductCardDesign = ({ product }) => {
           {product?.name?.slice(0, 20)}...
         </h1>
 
-        {product?.productVariants && (
+        {product?.productVariants ? (
           <h1 className="lg:text-xl text-[14px] font-bold">
             <span className="lg:text-sm text-[14px]">BDT</span>{" "}
             {product?.productVariants[0]?.discount > 0
@@ -46,10 +46,13 @@ const ProductCardDesign = ({ product }) => {
             .00{" "}
             <del className="font-normal ml-2 lg:text-sm text-gray-400 text-[14px]">
               BDT
-              {product?.productVariants[0]?.discount > 0 &&
-                product?.productVariants[0]?.price}
+              {product?.productVariants[0]?.discount > 0
+                ? product?.productVariants[0]?.price
+                : ""}
             </del>
           </h1>
+        ) : (
+          ""
         )}
       </Link>
       {/* <div

@@ -13,7 +13,7 @@ const ProductInfo = ({ product, setSelectedVariant, selectedVariant }) => {
       const defaultSize = product?.productVariants[0]?.size;
       setSelectedSize(defaultSize);
       setSelectedVariant(
-        product?.productVariants?.find((v) => v.size === defaultSize)
+        product?.productVariants?.find((v) => v?.size === defaultSize)
       );
     }
   }, [product, setSelectedVariant]);
@@ -49,15 +49,16 @@ const ProductInfo = ({ product, setSelectedVariant, selectedVariant }) => {
         <p className="leading-6 lg:mt-4 mt-2 text-lg font-[600] tracking-wider text-primary">
           BDT{" "}
           <span className="lg:text-2xl text-xl">
-            {product?.productVariants[0]?.discount > 0
-              ? product?.productVariants[0]?.discount
-              : product?.productVariants[0]?.price}
+            {product?.productVariants?.[0]?.discount > 0
+              ? product?.productVariants?.[0]?.discount
+              : product?.productVariants?.[0]?.price}
             .00
           </span>
-          <del className="font-normal ml-2 lg:text-sm text-gray-400 text-[14px]">
-            {product?.productVariants[0]?.discount > 0 &&
-              product?.productVariants[0]?.price}
-          </del>
+          {product?.productVariants?.[0]?.discount > 0 && (
+            <del className="font-normal ml-2 lg:text-sm text-gray-400 text-[14px]">
+              {product?.productVariants?.[0]?.price}
+            </del>
+          )}
         </p>
       </div>
       <h2 className="flex items-center gap-3 tracking-wider lg:mt-3">
@@ -69,17 +70,17 @@ const ProductInfo = ({ product, setSelectedVariant, selectedVariant }) => {
       </h1>
 
       <div className="flex flex-wrap gap-2 mt-4">
-        {product?.productVariants.map((variant) => (
+        {product?.productVariants?.map((variant) => (
           <button
-            key={variant.size}
+            key={variant?.size}
             className={`px-4 py-2 border uppercase rounded-md ${
-              selectedSize === variant.size
+              selectedSize === variant?.size
                 ? "bg-primary text-white"
                 : "bg-white text-primary border-primary"
             } hover:bg-primary hover:text-white`}
-            onClick={() => handleSizeClick(variant.size)}
+            onClick={() => handleSizeClick(variant?.size)}
           >
-            {variant.size}
+            {variant?.size}
           </button>
         ))}
       </div>
@@ -89,12 +90,12 @@ const ProductInfo = ({ product, setSelectedVariant, selectedVariant }) => {
           <span className="mr-4">
             <LiaShippingFastSolid size={20} />
           </span>
-          <span>
+          {/* <span>
             Free Shipping & Returns:
             <span className="text-gray-500 lg:ml-3 ml-1 font-normal">
               On all orders over <span className="text-black">$200.00</span>
             </span>
-          </span>
+          </span> */}
         </h1>
         <div className="bg-gray-200 mt-4 px-5 py-3 flex flex-col items-center justify-center rounded-md">
           <img
@@ -111,3 +112,4 @@ const ProductInfo = ({ product, setSelectedVariant, selectedVariant }) => {
 };
 
 export default ProductInfo;
+
