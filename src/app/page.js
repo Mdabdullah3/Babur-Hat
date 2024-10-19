@@ -8,11 +8,13 @@ import DeafultProducts from "../components/Home/DeafultProducts"
 import TopRated from "../components/Home/TopRated"
 import Navbar from "../components/layout/Navbar"
 import Footer from "../components/layout/Footer"
+import PopupAd from "../components/PopupAd"
 const Home = () => {
   return (
     <div>
       <Navbar />
       <Banner />
+      <PopupAd />
       <Event />
       <Category />
       <RecomendedProducts />

@@ -39,40 +39,17 @@ const SingleVendor = ({ vendorId }) => {
           <hr />
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-8 mt-10">
-            {product?.map((product) => (
-              <ProductCardDesign product={product} key={product?._id} />
-            ))}
+            {product?.length > 0 ? (
+              product?.map((product) => (
+                <ProductCardDesign product={product} key={product?._id} />
+              ))
+            ) : (
+              <p className="text-center text-xl font-red-500">
+                No products found
+              </p>
+            )}
           </div>
         </section>
-        <div className="flex items-center justify-center mt-5">
-          <div className="join">
-            <input
-              className="join-item btn btn-square"
-              type="radio"
-              name="options"
-              aria-label="1"
-              defaultChecked
-            />
-            <input
-              className="join-item btn btn-square"
-              type="radio"
-              name="options"
-              aria-label="2"
-            />
-            <input
-              className="join-item btn btn-square"
-              type="radio"
-              name="options"
-              aria-label="3"
-            />
-            <input
-              className="join-item btn btn-square"
-              type="radio"
-              name="options"
-              aria-label="4"
-            />
-          </div>
-        </div>
       </div>
     </section>
   );

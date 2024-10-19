@@ -49,7 +49,7 @@ const Banner = () => {
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper"
           >
-            {banner.map((item, index) => (
+            {banner?.map((item, index) => (
               <SwiperSlide key={index}>
                 <div className="-z-10">
                   {/* Desktop Image */}
