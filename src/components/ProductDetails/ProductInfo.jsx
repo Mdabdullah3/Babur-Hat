@@ -42,7 +42,7 @@ const ProductInfo = ({ product, setSelectedVariant, selectedVariant }) => {
       </div>
       <h2 className="text-md text-orange-500 flex items-center mt-2">
         <span className="text-black tracking-wider ml-2">
-          ({product?.numReviews?.length} reviews)
+          ({product?.reviews?.length || 0} reviews)
         </span>
       </h2>
       <div className="flex items-center justify-between ">
@@ -87,9 +87,9 @@ const ProductInfo = ({ product, setSelectedVariant, selectedVariant }) => {
 
       <div>
         <h1 className="flex items-center lg:text-md text-[13px] font-[500] mt-5 tracking-wider mb-4">
-          <span className="mr-4">
+          {/* <span className="mr-4">
             <LiaShippingFastSolid size={20} />
-          </span>
+          </span> */}
           {/* <span>
             Free Shipping & Returns:
             <span className="text-gray-500 lg:ml-3 ml-1 font-normal">
@@ -112,4 +112,3 @@ const ProductInfo = ({ product, setSelectedVariant, selectedVariant }) => {
 };
 
 export default ProductInfo;
-

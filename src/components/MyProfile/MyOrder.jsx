@@ -108,12 +108,21 @@ const MyOrder = () => {
                             <h1>Quantity: {item?.quantity}</h1>
                           </div>
                         </div>
-                        <button
-                          onClick={() => handleReviewClick(item)}
-                          className="btn btn-primary px-4 py-2 text-white"
-                        >
-                          Review
-                        </button>
+                        {item?.status === "completed" && (
+                          <button
+                            onClick={() => handleReviewClick(item)}
+                            className="btn btn-primary px-4 py-2 text-white"
+                          >
+                            Review
+                          </button>
+                        )}
+                        {item?.status == "cancelled" ? (
+                          <h1 className="bg-primary px-4 py-2 text-white">
+                            Cancelled
+                          </h1>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
                   </div>

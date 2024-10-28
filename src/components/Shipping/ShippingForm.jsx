@@ -34,10 +34,9 @@ const ShippingForm = () => {
 
   // Product Check
   useEffect(() => {
-  
-    if (!user) {
-      router.push("/auth/login");
-    }
+    // if (!user) {
+    //   router.push("/auth/login");
+    // }
 
     const url = `${API_URL}/products?_limit=10000&_fields=_id,productVariants`;
     const fetchData = async () => {
@@ -184,7 +183,6 @@ const ShippingForm = () => {
       });
   }, [selectedDistrict]);
 
-  console.log(groupedCartProductsByCategory);
   useEffect(() => {
     fetchCategories();
     if (selectedDistrict) {
@@ -296,9 +294,12 @@ const ShippingForm = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
+        router.push("/order-complete");
         toast.success(
           response.data.message || "Orders processed successfully!"
         );
+        setLoading(false);
+
         clearCart();
       } else {
         toast.error(response.data.message || "Failed to process orders.");
@@ -343,8 +344,8 @@ const ShippingForm = () => {
     return null;
   };
   if (!user) {
-      return <Loading />;
-    }
+    return <Loading />;
+  }
   return (
     <section className="flex gap-12 items-start">
       <section className="w-full">

@@ -14,7 +14,7 @@ const useOrderStore = create((set) => ({
     fetchAllOrders: async () => {
         set({ loading: true });
         try {
-            const response = await axios.get(`${API_URL}/orders`, { withCredentials: true });
+            const response = await axios.get(`${API_URL}/orders?_sort=-createdAt`, { withCredentials: true });
             set({ orders: response.data, loading: false });
         } catch (error) {
             set({ error: error.response?.data?.message || 'Error fetching orders', loading: false });
@@ -47,7 +47,7 @@ const useOrderStore = create((set) => ({
     fetchUserOrders: async (userId) => {
         set({ loading: true });
         try {
-            const response = await axios.get(`${API_URL}/users/${userId}/orders`, { withCredentials: true });
+            const response = await axios.get(`${API_URL}/users/${userId}/orders?_sort=-createdAt`, { withCredentials: true });
             set({ userOrders: response.data, loading: false });
         } catch (error) {
             set({ error: error.response?.data?.message || 'Error fetching user orders', loading: false });
@@ -58,7 +58,7 @@ const useOrderStore = create((set) => ({
     fetchLoggedInUserOrders: async () => {
         set({ loading: true });
         try {
-            const response = await axios.get(`${API_URL}/users/me/orders`, { withCredentials: true });
+            const response = await axios.get(`${API_URL}/users/me/orders?_sort=-createdAt`, { withCredentials: true });
             set({ loggedInUserOrders: response?.data?.data, loading: false });
         } catch (error) {
             set({ error: error.response?.data?.message || 'Error fetching logged-in user orders', loading: false });
