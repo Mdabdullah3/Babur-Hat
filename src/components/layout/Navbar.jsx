@@ -204,11 +204,11 @@ const Navbar = () => {
                 <h1 className="lg:text-3xl text-2xl">
                   <PiShoppingCartSimpleBold />
                 </h1>
-                <div className="hidden md:block">
-                  <h1 className="bg-white px-3 rounded-full py-0 text-black">
+                <div className="">
+                  <h1 className="bg-white md:px-3 px-2 mt-2 md:mt-0 rounded-full py-0 text-black">
                     {cart?.length || 0}
                   </h1>
-                  <h1>Cart</h1>
+                  <h1 className="hidden md:block">Cart</h1>
                 </div>
               </div>
             </Link>
