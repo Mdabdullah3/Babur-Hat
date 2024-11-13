@@ -154,7 +154,7 @@ const ProductDetails = ({ params }) => {
       </div>
       <div className="flex lg:hidden border-t gap-4 border-gray-200 p-2 bg-white sticky bottom-0 w-full justify-between items-center ">
         <button
-          onclick={handleAddToCart}
+          onClick={handleAddToCart}
           className="w-full  py-3 rounded-full border hover:border-black border-primary bg-primary text-white tracking-wider  hover:bg-black hover:text-white transition duration-500 font-bold"
         >
           Add To Cart
