@@ -31,8 +31,8 @@ const useAuthStore = create(
                 set({ isLoading: true });
                 try {
                     const response = await axios.post(`${API_URL}/auth/register`, formData);
-                    if (response.status === 201) {
-                        toast.success('Registration successful! Please check your email for verification.');
+                    if (response.status) {
+                        toast.success('Registration successfull!, Please Login to continue.');
                     } else {
                         toast.error('Registration failed. Please try again.');
                     }

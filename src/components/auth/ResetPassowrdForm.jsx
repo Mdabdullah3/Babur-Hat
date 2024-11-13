@@ -1,25 +1,19 @@
 "use client";
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import InputField from "../common/InputField";
 import { API_URL } from "../../config";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-const ResetPasswordForm = () => {
+const ResetPassword = () => {
   const [password, setPassword] = useState("");
+  const [resetToken, setResetToken] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
-
-  useEffect(() => {
-    if (!token) {
-      toast.error("Invalid or missing token");
-      router.push("/auth/login");
-    }
-  }, [token, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +21,7 @@ const ResetPasswordForm = () => {
 
     try {
       await axios.patch(`${API_URL}/auth/reset-password`, {
-        resetToken: token,
+        resetToken,
         password,
         confirmPassword,
       });
@@ -43,41 +37,55 @@ const ResetPasswordForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4">
-      <h2 className="text-2xl font-semibold mb-4">Reset Password</h2>
-      <InputField
-        label="New Password"
-        id="password"
-        name="password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Enter your new password"
-        required
-      />
-      <InputField
-        label="Confirm New Password"
-        id="confirmPassword"
-        name="confirmPassword"
-        type="password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        placeholder="Confirm your new password"
-        required
-      />
-      <button type="submit" className="btn btn-primary mt-4" disabled={loading}>
-        {loading ? "Submitting..." : "Submit"}
-      </button>
-    </form>
+    <section>
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 space-y-3">
+        <h2 className="text-2xl font-semibold mb-4">Reset Password</h2>
+        <InputField
+          label="Enter Reset Token"
+          id="resetToken"
+          name="resetToken"
+          type="text"
+          value={resetToken}
+          onChange={(e) => setResetToken(e.target.value)}
+          placeholder="Enter your reset token"
+          required
+        />
+        <InputField
+          label="New Password"
+          id="password"
+          name="password"
+          type={showPassword ? "text" : "password"}
+          showPassword={showPassword}
+          toggleShowPassword={() => setShowPassword(!showPassword)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter your new password"
+          required
+        />
+        <InputField
+          label="Confirm New Password"
+          id="confirmPassword"
+          name="confirmPassword"
+          type={showConfirmPassword ? "text" : "password"}
+          showPassword={showConfirmPassword}
+          toggleShowPassword={() =>
+            setShowConfirmPassword(!showConfirmPassword)
+          }
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="Confirm your new password"
+          required
+        />
+        <button
+          type="submit"
+          className="btn btn-primary mt-4 text-white w-full"
+          disabled={loading}
+        >
+          {loading ? "Submitting..." : "Submit"}
+        </button>
+      </form>
+    </section>
   );
 };
 
-const ResetPasswordPage = () => {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ResetPasswordForm />
-    </Suspense>
-  );
-};
-
-export default ResetPasswordPage;
+export default ResetPassword;

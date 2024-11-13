@@ -20,7 +20,7 @@ const ForgotPasswordForm = () => {
         email,
       });
       toast.success("Success! Check your email for further instructions.");
-      router.push(`/auth/reset-password?token=${response.data.resetToken}`);
+      router.push(`/auth/reset-password`);
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -40,7 +40,7 @@ const ForgotPasswordForm = () => {
         placeholder="Enter your email"
         required
       />
-      <button type="submit" className="btn btn-primary mt-4" disabled={loading}>
+      <button type="submit" className="btn btn-primary mt-4 text-white" disabled={loading}>
         {loading ? "Submitting..." : "Submit"}
       </button>
     </form>
