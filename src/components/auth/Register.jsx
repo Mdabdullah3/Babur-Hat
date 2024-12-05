@@ -70,13 +70,11 @@ const Register = () => {
   const handleRemoveAvatar = () => {
     setForm({ ...form, avatar: null });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
     await register(form, router);
   };
-
   return (
     <div className="w-full">
       <div className="flex justify-center">
