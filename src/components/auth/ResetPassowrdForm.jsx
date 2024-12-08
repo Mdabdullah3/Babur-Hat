@@ -35,7 +35,6 @@ const ResetPassword = () => {
       setLoading(false);
     }
   };
-
   return (
     <section>
       <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 space-y-3">
