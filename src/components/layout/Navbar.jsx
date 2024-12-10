@@ -8,7 +8,7 @@ import Link from "next/link";
 import useCartStore from "../../store/cartStore";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { usePathname, useRouter } from "next/navigation";
-import { SERVER } from "../../config";
+import { API_URL, SERVER } from "../../config";
 import useUserStore from "../../store/userStore";
 import { category } from "../../utils/constants";
 import useProductStore from "../../store/ProductStore";
@@ -18,6 +18,7 @@ const Navbar = () => {
   //   user: state.user,
   //   logout: state.logout,
   // }));
+  const [logo, setLogo] = useState([]);
   const { user, fetchUser, logout } = useUserStore();
   useEffect(() => {
     fetchUser();
@@ -31,7 +32,18 @@ const Navbar = () => {
     logout();
     router.push("/auth/login");
   };
-
+  useEffect(() => {
+    const fetchLogoData = async () => {
+      const response = await fetch(`${API_URL}/others`);
+      const data = await response.json();
+      const filterLogo = data?.data?.filter(
+        (item) => item?.logo === "LogoImage"
+      );
+      setLogo(filterLogo);
+    };
+    fetchLogoData();
+  }, []);
+  console.log(logo);
   const { suggestions, fetchSuggestions, setSearchTerm } = useProductStore();
   const [searchValue, setSearchValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
