@@ -37,13 +37,12 @@ const Navbar = () => {
       const response = await fetch(`${API_URL}/others`);
       const data = await response.json();
       const filterLogo = data?.data?.filter(
-        (item) => item?.logo === "LogoImage"
+        (item) => item?.banner === "LogoImage"
       );
       setLogo(filterLogo);
     };
     fetchLogoData();
   }, []);
-  console.log(logo);
   const { suggestions, fetchSuggestions, setSearchTerm } = useProductStore();
   const [searchValue, setSearchValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -83,9 +82,14 @@ const Navbar = () => {
             </label>
             <Link href="/">
               <div className="text-3xl font-bold cursor-pointer">
-                <h1 className="lg:text-3xl text-xl font-bold cursor-pointer">
-                  Babur Hut
-                </h1>
+                {logo?.map((item) => (
+                  <img
+                    key={item?._id}
+                    src={`${SERVER}${item?.logo?.secure_url}`}
+                    alt="logo"
+                    className="w-20"
+                  />
+                ))}
               </div>
             </Link>
           </div>

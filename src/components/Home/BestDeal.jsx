@@ -56,13 +56,13 @@ const BestDeal = () => {
           {packageProducts?.map((item, index) => (
             <SwiperSlide key={index}>
               <div
-                className="slide-content bg-white lg:mx-3 mr-1.5 rounded-2xl
+                className="slide-content bg-white lg:mx-1.5 mr-1.5 rounded-2xl
               pb-4"
               >
                 <Link href={`/products/${item?.product?._id}`}>
                   <img
                     src={`${SERVER}${item?.product?.coverPhoto?.secure_url}`}
-                    className="w-full cursor-pointer rounded-t-2xl"
+                    className="w-full h-80 cursor-pointer rounded-t-2xl"
                     alt="Best Deal Image"
                   />
                   <div className="px-4">
