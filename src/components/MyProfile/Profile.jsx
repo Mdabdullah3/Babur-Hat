@@ -74,10 +74,7 @@ const Profile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     updateUser(formData);
-    console.log(formData);
   };
-
-  console.log(avatar);
 
   return (
     <form onSubmit={handleSubmit} className="mx-4">

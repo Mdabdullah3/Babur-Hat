@@ -10,9 +10,7 @@ const SingleVendor = ({ vendorId }) => {
   useEffect(() => {
     fetchProductByIdForUser(vendorId);
   }, [fetchProductByIdForUser, vendorId]);
-  console.log(vendorId);
   const user = product?.length > 0 ? product[0].user : null;
-  console.log(user);
   return (
     <section>
       <img src="/cover.jpg" alt="" />

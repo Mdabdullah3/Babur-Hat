@@ -42,10 +42,6 @@ const TopRated = () => {
             const averageRating = totalRatings / 5; // Assuming 5 is the maximum rating
             return { user, averageRating };
           } catch (error) {
-            console.error(
-              `Failed to fetch products for user ${user._id}:`,
-              error
-            );
             return { user, averageRating: 0 };
           }
         });

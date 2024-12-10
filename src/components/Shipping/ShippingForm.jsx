@@ -178,7 +178,6 @@ const ShippingForm = () => {
         setShippingData(deliveryCharge || null);
       })
       .catch((error) => {
-        console.error("Error fetching delivery fees:", error);
         setShippingData(null);
       });
   }, [selectedDistrict]);

@@ -14,10 +14,7 @@ const DellSnap = () => {
   useEffect(() => {
     fetchAllEventsProducts();
   }, [fetchAllEventsProducts]);
-  console.log(eventProducts);
   const products = eventProducts.filter((product) => product.product !== null);
-
-  console.log(products);
   return (
     <div className="bg-[#FFF5EF] px-4 py-6  rounded-2xl w-80 mt-4">
       <h1 className="text-2xl font-bold text-primary">Welcome Dell</h1>

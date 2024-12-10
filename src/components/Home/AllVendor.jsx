@@ -4,6 +4,7 @@ import { FaStar } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Loading from "../../components/common/Loading";
+import { toast } from "react-toastify";
 const AllVendor = () => {
   const { users, fetchVendorAllUser } = useUserStore();
   const { fetchProductByIdForUser } = useProductStore();
@@ -34,7 +35,7 @@ const AllVendor = () => {
             const averageRating = totalRatings / 5; // Assuming 5 is the maximum rating
             return { user, averageRating };
           } catch (error) {
-            console.error(
+            toast.error(
               `Failed to fetch products for user ${user._id}:`,
               error
             );

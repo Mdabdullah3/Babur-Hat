@@ -15,6 +15,7 @@ const BestDeal = () => {
     fetchPackageProducts();
   }, [fetchPackageProducts]);
 
+  console.log(packageProducts);
   return (
     <div className="lg:w-11/12 w-[95%] mx-auto mt-4 lg:mt-16 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500   rounded-2xl lg:p-4 p-3">
       <h1 className="lg:text-2xl text-lg font-bold lg:ml-4 lg:mb-8 mb-4 text-white">

@@ -16,7 +16,6 @@ const Category = () => {
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
-  console.log(categories);
   return (
     <div className="w-11/12 mx-auto">
       <h1 className="lg:text-2xl text-lg font-bold my-2 lg:my-4 mb-3 lg:mb-10">

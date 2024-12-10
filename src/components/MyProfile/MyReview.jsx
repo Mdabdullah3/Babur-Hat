@@ -5,6 +5,7 @@ import useReviewStore from "../../store/reviewStore";
 import useUserStore from "../../store/userStore";
 import { SERVER } from "../../config";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { toast } from "react-toastify";
 
 const MyReview = () => {
   const { user, fetchUser } = useUserStore();
@@ -20,7 +21,7 @@ const MyReview = () => {
     try {
       await deleteReview(id, "Review deleted successfully");
     } catch (error) {
-      console.error("Error deleting review:", error);
+      toast.error("Error deleting review:", error);
     }
   };
   return (

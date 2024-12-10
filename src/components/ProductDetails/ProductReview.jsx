@@ -54,7 +54,6 @@ const ProductReview = ({ productId, product }) => {
       review: newReview,
       image: image || editReview.image,
     };
-    console.log(updatedReviewData);
 
     if (editReview) {
       await updateReview(
