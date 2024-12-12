@@ -72,6 +72,7 @@ const Navbar = () => {
   }, []);
 
   if (!isClient) return null;
+  console.log(user);
   return (
     <nav className="relative">
       <div className="bg-black text-white py-4">
@@ -87,7 +88,7 @@ const Navbar = () => {
                     key={item?._id}
                     src={`${SERVER}${item?.logo?.secure_url}`}
                     alt="logo"
-                    className="w-20"
+                    className="w-40"
                   />
                 ))}
               </div>
