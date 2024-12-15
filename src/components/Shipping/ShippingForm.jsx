@@ -63,7 +63,7 @@ const ShippingForm = () => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
 
-  const groupedCartProductsByCategory = cart.map((product) => {
+  const groupedCartProductsByCategory = cart?.map((product) => {
     const matchedCategory = categories?.find(
       (cat) => cat?._id === product?.category
     );
@@ -212,99 +212,98 @@ const ShippingForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(""); // Clear previous errors
 
-    // Clear any previous errors
-    setError("");
+    // Validate form inputs
+    const validationErrors = [];
+    if (form.fullName.length < 5)
+      validationErrors.push("Name must be at least 5 characters long.");
+    if (form.streetAddress.length < 8)
+      validationErrors.push("Address must be at least 8 characters long.");
+    if (form.postalCode.length < 4)
+      validationErrors.push("Postal Code must be at least 4 characters long.");
+    if (!/^01[3-9]\d{8}$/.test(form.phone))
+      validationErrors.push("Invalid phone number.");
+    if (!selectedCity?.label || !selectedDistrict?.label)
+      validationErrors.push("City and District are required.");
 
-    // Initialize an array to collect validation errors
-    let validationErrors = [];
-
-    // Validate fullName
-    if (form.fullName.length < 5) {
-      validationErrors.push("Name must be at least 5 characters long");
-    }
-
-    // Validate streetAddress
-    if (form.streetAddress.length < 8) {
-      validationErrors.push("Address must be at least 8 characters long");
-    }
-    if (form.postalCode.length < 4) {
-      validationErrors.push("Postal Code must be at least 4 characters long");
-    }
-    // If there are validation errors, show them using toast
     if (validationErrors.length > 0) {
-      validationErrors.forEach((error) => toast.error(error));
-      setLoading(false); // Stop loading if validation fails
+      toast.error(validationErrors.join(", "));
+      setLoading(false);
       return;
     }
-
-    // Check stock availability
+    // Check product stock
     const stockError = checkProductStock();
     if (stockError) {
       toast.error(stockError);
-      setLoading(false); // Stop loading if there's a stock error
+      setLoading(false);
       return;
     }
+    // Prepare order data
+    const orders = groupedCartProductsByCategory?.map((item) => ({
+      user: user?._id,
+      product: item?._id,
+      price: item?.price,
+      variantId: item?.variantId,
+      quantity: item?.quantity,
+      vat: item?.vatAmount,
+      commission: item?.commissionAmount,
+      transactionCost: item?.transactionCostAmount,
+      shippingCharge: item?.shippingChargeAmount,
+      profit: item?.profit,
+      vendorPaid: "unpaid",
+      vendor: item?.userId,
+      currency: "BDT",
+      transactionId: item?.variantId,
+      paymentType:
+        selectedMethod === "cod" ? "cash-on-delivery" : "Online Payment",
+      status: "pending",
+      shippingInfo: {
+        name: form.fullName,
+        email: form.email,
+        phone: form.phone,
+        method: "Courier",
+        address1: form.streetAddress,
+        address2: "",
+        city: selectedCity?.label || "",
+        state: selectedDistrict?.label || "",
+        postcode: form.postalCode,
+        country: "Bangladesh",
+        deliveryFee: shippingData?.deliveryFee || 100,
+      },
+    }));
 
-    // Validate phone number
-    const phoneRegex = /^01[3-9]\d{8}$/;
-    if (!phoneRegex.test(form.phone)) {
-      toast.error("Invalid Phone Number");
-      setLoading(false); // Stop loading if phone number is invalid
-      return;
-    }
-
-    // Proceed with order submission if all validations pass
     try {
-      const orders = groupedCartProductsByCategory.map((item) => ({
-        user: user?._id,
-        product: item?._id,
-        price: item?.price,
-        variantId: item?.variantId,
-        quantity: item?.quantity,
-        vat: item?.vatAmount,
-        commission: item?.commissionAmount,
-        transactionCost: item?.transactionCostAmount,
-        shippingCharge: item?.shippingChargeAmount,
-        profit: item?.profit,
-        vendorPaid: "unpaid",
-        vendor: item?.userId,
-        currency: "BDT",
-        transactionId: item?.variantId,
-        paymentType: selectedMethod === "cod" ? "cash-on-delivery" : "card",
-        status: "pending",
-        shippingInfo: {
-          name: form.fullName,
-          email: form.email,
-          phone: form.phone,
-          method: "Courier",
-          address1: form.streetAddress,
-          address2: "",
-          city: selectedCity?.label || "",
-          state: selectedDistrict?.label || "",
-          postcode: form.postalCode,
-          country: "Bangladesh",
-          deliveryFee: shippingData?.deliveryFee || 100,
-        },
-      }));
-
-      const response = await axios.post(`${API_URL}/orders`, orders, {
-        withCredentials: true,
-      });
-
-      if (response.status === 200 || response.status === 201) {
-        router.push("/order-complete");
-        toast.success(
-          response.data.message || "Orders processed successfully!"
-        );
-        setLoading(false);
-
-        clearCart();
+      if (selectedMethod === "cod") {
+        const response = await axios.post(`${API_URL}/orders`, orders, {
+          withCredentials: true,
+        });
+        if ([200, 201].includes(response.status)) {
+          toast.success("Orders processed successfully!");
+          clearCart();
+          router.push("/order-complete");
+        } else {
+          toast.error(response.data.message || "Failed to process orders.");
+        }
       } else {
-        toast.error(response.data.message || "Failed to process orders.");
+        const response = await axios.post(
+          `${API_URL}/payments/checkout`,
+          orders,
+          { withCredentials: true }
+        );
+        const gatewayUrl = response?.data?.gatewayUrl;
+        if (gatewayUrl) {
+          toast.success("Redirecting to payment gateway...");
+          window.location.href = gatewayUrl;
+        } else {
+          throw new Error("Failed to get payment gateway URL.");
+        }
       }
     } catch (error) {
-      toast.error(error.message || "An error occurred. Please try again.");
+      toast.error(
+        error.response?.data?.message || "An error occurred. Please try again."
+      );
+      console.error("Error during submission:", error);
     } finally {
       setLoading(false);
     }
@@ -342,14 +341,14 @@ const ShippingForm = () => {
     }
     return null;
   };
-  if (!user) {
-    return <Loading />;
-  }
+  // if (!user) {
+  //   return <Loading />;
+  // }
   return (
     <section className="flex gap-12 items-start">
       <section className="w-full">
         <h1 className="font-bold capitalize text-2xl tracking-wider">
-          Billing details
+          Billing Details
         </h1>
         <form className="mt-10" onSubmit={handleSubmit}>
           {/* Billing input fields */}
@@ -500,7 +499,7 @@ const ShippingForm = () => {
                   <img
                     className="w-40 bg-white shadow-md px-6 py-4"
                     src="/COD.png"
-                    alt=""
+                    alt="Cash On Delivery"
                   />
                 </label>
               </div>
@@ -518,7 +517,7 @@ const ShippingForm = () => {
                   <img
                     className="w-40 bg-white shadow-md px-6 py-4"
                     src="/card-pay.png"
-                    alt=""
+                    alt="Online Payment"
                   />
                 </label>
               </div>
