@@ -272,7 +272,6 @@ const ShippingForm = () => {
         deliveryFee: shippingData?.deliveryFee || 100,
       },
     }));
-
     try {
       if (selectedMethod === "cod") {
         const response = await axios.post(`${API_URL}/orders`, orders, {
