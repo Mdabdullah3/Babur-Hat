@@ -339,7 +339,6 @@ const Navbar = () => {
                   />
                   <h1 className="capitalize">{cat?.name}</h1>
                 </Link>
-
                 {/* Hovered Subcategories Card */}
                 {hoveredCategory === cat && cat.subCategories.length > 0 && (
                   <div className="absolute -top-1 left-full bg-white border border-gray-300 shadow-md rounded-lg p-2 w-36 z-10">
