@@ -162,7 +162,8 @@ const Cart = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto lg:mt-10 mt-4 tracking-wider">
+    <section>
+      <div className="w-11/12 mx-auto lg:mt-10 mt-4 tracking-wider">
       <h1 className="lg:text-3xl text-lg font-bold">
         Shopping Cart ({cart?.length})
       </h1>
@@ -401,6 +402,7 @@ const Cart = () => {
                 <button
                   onClick={handleClearCart}
                   className="text-[14px] font-bold uppercase border-white border-[1px] text-primary w-full mt-4 py-2 bg-white rounded-full hover:bg-transparent hover:text-white transition duration-500"
+                  
                 >
                   Clear Cart
                 </button>
@@ -445,6 +447,7 @@ const Cart = () => {
         </div>
       )}
     </div>
+    </section>
   );
 };
 
