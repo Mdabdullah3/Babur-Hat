@@ -12,6 +12,8 @@ import { API_URL, SERVER } from "../../config";
 import useUserStore from "../../store/userStore";
 import { category } from "../../utils/constants";
 import useProductStore from "../../store/ProductStore";
+import useCategoryStore from "../../store/CategoriesStore";
+import { TbCategory2 } from "react-icons/tb";
 
 const Navbar = () => {
   // const { user, logout } = useAuthStore((state) => ({
@@ -46,6 +48,8 @@ const Navbar = () => {
   const { suggestions, fetchSuggestions, setSearchTerm } = useProductStore();
   const [searchValue, setSearchValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+  const { categories } = useCategoryStore();
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -72,7 +76,7 @@ const Navbar = () => {
   }, []);
 
   if (!isClient) return null;
-  console.log(user);
+
   return (
     <nav className="relative">
       <div className="bg-black text-white py-4">
@@ -242,9 +246,7 @@ const Navbar = () => {
               <li className={`cursor-pointer ${isActive("/")}`}>Home</li>
             </Link>
             <Link href="/event">
-              <li className={`cursor-pointer ${isActive("/event")}`}>
-                Recent Events
-              </li>
+              <li className={`cursor-pointer ${isActive("/event")}`}>Events</li>
             </Link>
             <Link href="/products">
               <li className={`cursor-pointer ${isActive("/products")}`}>
@@ -310,18 +312,51 @@ const Navbar = () => {
         <div className="drawer-content"></div>
         <div className="drawer-side z-50">
           <label htmlFor="my-drawer" className="drawer-overlay"></label>
-          <ul className="menu p-4  min-h-full bg-base-200 text-base-content z-50">
-            {category?.map((cat, index) => (
-              <Link
-                href="/shop"
+
+          <ul className="menu p-6 w-60  min-h-full bg-base-200 text-base-content z-50">
+            <Link href="/categories">
+              <h1 className="flex gap-2 items-center text-lg font-bold my-2">
+                <TbCategory2 />
+                Categories
+              </h1>
+            </Link>
+            {categories?.map((cat, index) => (
+              <div
                 key={index}
-                className="flex items-center gap-3 mt-4 tracking-wider text-gray-600"
+                className="relative"
+                onMouseEnter={() => setHoveredCategory(cat)}
+                onMouseLeave={() => setHoveredCategory(null)}
               >
-                <h1 className="bg-gray-200 px-1 py-1 rounded-full">
-                  {cat?.icon}
-                </h1>
-                <h1>{cat?.name}</h1>
-              </Link>
+                <Link
+                  href={`/shop?category=${cat._id}`}
+                  className="flex items-center gap-3 mt-2 tracking-wider
+            text-gray-600"
+                >
+                  <img
+                    src={`${SERVER}${cat?.iconImage?.secure_url}`}
+                    className="w-4 h-4 rounded-full"
+                    alt=""
+                  />
+                  <h1 className="capitalize">{cat?.name}</h1>
+                </Link>
+
+                {/* Hovered Subcategories Card */}
+                {hoveredCategory === cat && cat.subCategories.length > 0 && (
+                  <div className="absolute -top-1 left-full bg-white border border-gray-300 shadow-md rounded-lg p-2 w-36 z-10">
+                    <ul>
+                      {cat.subCategories.map((subCat) => (
+                        <Link
+                          href={`/shop?sub-category=${subCat?._id}`}
+                          key={subCat?._id}
+                          className="text-gray-700 mb-2 capitalize"
+                        >
+                          <li>{subCat?.name}</li>
+                        </Link>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
             ))}
           </ul>
         </div>
