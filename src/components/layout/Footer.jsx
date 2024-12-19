@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import Link from "next/link";
 import {
   AiOutlineInstagram,
   AiOutlineLinkedin,
@@ -16,13 +17,50 @@ const Footer = () => {
     "baburhut@gmail.com",
   ];
   const information = [
-    "Privacy Policy",
-    "Refund Policy",
-    "Shipping Policy",
-    "Terms of Service",
-    "Blogs",
-  ];
-  const account = ["Search ", "About Us", "Faq", "Contact", "Size Chart"];
+    {
+      id:1,
+      name: 'Privacy Policy',
+      link: "/privacy-policy"
+    },
+    {
+      id:2,
+      name: "Refund Policy",
+      link: "/refund-policy"
+    },
+    {
+      id:3,
+      name: "Shipping Policy",
+      link: "/shipping-policy"
+    },
+    {
+      id:4,
+      name: "Terms and Conditions",
+      link: "/terms-and-condition"
+    }
+  ]
+
+  const account = [
+    {
+      id: 1,
+      name: "About Us",
+      link: "/about-us"
+    },
+    {
+      id: 2,
+      name: "Faq",
+      link: "/faq"
+    },
+    {
+      id: 3,
+      name: "Contact",
+      link: "/contact"
+    },
+    {
+      id:4,
+      name: "Size Charts",
+      link: "/size-charts"
+    }
+  ]
   const links = [
     "Accessories",
     "Laptops",
@@ -54,25 +92,26 @@ const Footer = () => {
         <div className="flex flex-col">
           <h5 className="text-white font-bold underline">Information</h5>
           {information &&
-            information.map((item) => (
-              <p
-                key={item}
+            information?.map((item) => (
+              <Link 
+                href={item.link}
+                key={item.id}
                 className="text-white font-light  py-1 cursor-pointer ease-out transition-all hover:text-[1.01rem] hover:translate-x-1"
               >
-                {item}
-              </p>
+                {item.name}
+              </Link>
             ))}
         </div>
         <div className="flex flex-col">
           <h5 className="text-white font-bold underline">Account</h5>
           {account &&
             account.map((item) => (
-              <p
-                key={item}
+              <Link href={item.link}
+                key={item.id}
                 className="text-white font-light  py-1 cursor-pointer ease-out transition-all hover:text-[1.01rem] hover:translate-x-1"
               >
-                {item}
-              </p>
+                {item.name}
+              </Link>
             ))}
         </div>
         <div className="flex flex-col">
@@ -91,7 +130,7 @@ const Footer = () => {
           <h5>Our App</h5>
           <p>
             Download Our App and get extra <br />
-            15% Discount on your first Order.
+            5% Discount on your first Order.
           </p>
           <div className=" flex items-center justify-center">
             <img
@@ -105,7 +144,7 @@ const Footer = () => {
       <footer className="py-3 bg-primary">
         <div className="w-full">
           <p className="text-center mb-0 text-white">
-            &copy;{new Date().getFullYear()}; Powered By Developers
+            &copy;{new Date().getFullYear()}; Developed By <a href="https://abdullah-io.netlify.app/">Md Abdullah</a>
           </p>
         </div>
       </footer>
