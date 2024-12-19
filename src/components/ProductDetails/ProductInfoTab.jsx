@@ -52,7 +52,10 @@ const ProductInfoTab = ({
         <hr />
         <div className="mt-8">
           {openDetails === Details[0].Description && (
-            <div dangerouslySetInnerHTML={{ __html: product?.description }} />
+            <div
+              className="capitalize"
+              dangerouslySetInnerHTML={{ __html: product?.description }}
+            />
           )}
           {JSON.stringify(openDetails) ===
             JSON.stringify(Details[0].reviews) && (
