@@ -3,8 +3,8 @@ import RegisterForm from "../../../components/auth/Register";
 import Footer from "../../../components/layout/Footer";
 import Navbar from "../../../components/layout/Navbar";
 export const metadata = {
-  title: "Register - Babur Hat",
-  description: "Register section of Babur Hat",
+  title: "Register - Ready How",
+  description: "Register section of Ready How",
 };
 const Register = () => {
   return (

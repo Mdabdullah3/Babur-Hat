@@ -4,8 +4,8 @@ import Footer from "../../../components/layout/Footer";
 import LoginForm from "../../../components/auth/LoginForm";
 import Link from "next/link";
 export const metadata = {
-  title: "Login - Babur Hat",
-  description: "Login section of Babur Hat",
+  title: "Login - Ready How",
+  description: "Login section of Ready How",
 };
 const Login = () => {
   return (

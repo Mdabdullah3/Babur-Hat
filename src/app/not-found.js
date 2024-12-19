@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
 export const metadata = {
-    title: "Not Found - Babur Hat",
-    description: "Not Found section of Babur Hat",
+    title: "Not Found - Ready How",
+    description: "Not Found section of Ready How",
 }
 const NotFound = () => {
     return (

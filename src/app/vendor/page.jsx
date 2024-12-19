@@ -4,8 +4,8 @@ import Navbar from "../../components/layout/Navbar";
 import TopRated from "../../components/Home/TopRated";
 import Footer from "../../components/layout/Footer";
 export const metadata = {
-  title: "Vendor - Babur Hat",
-  description: "Vendor section of Babur Hat",
+  title: "Vendor - Ready How",
+  description: "Vendor section of Ready How",
 };
 const VendorShop = () => {
   return (

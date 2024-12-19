@@ -3,8 +3,8 @@ import DeafultProducts from "../../components/Home/DeafultProducts";
 import Footer from "../../components/layout/Footer";
 import Navbar from "../../components/layout/Navbar";
 export const metadata = {
-  title: "New Arrival - Babur Hat",
-  description: "New Arrival section of Babur Hat",
+  title: "New Arrival - Ready How",
+  description: "New Arrival section of Ready How",
 };
 const Products = () => {
   return (

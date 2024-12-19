@@ -4,8 +4,8 @@ import BestDealProducts from "../../components/BestDeal";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 export const metadata = {
-  title: "Best Deal - Babur Hat",
-  description: "Best Deal section of Babur Hat",
+  title: "Best Deal - Ready How",
+  description: "Best Deal section of Ready How",
 };
 const BestDeal = () => {
   return (

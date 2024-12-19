@@ -3,8 +3,8 @@ import Cart from "../../components/Cart/Cart";
 import Navbar from "../../components/layout/Navbar";
 import DeafultProducts from "../../components/Home/DeafultProducts";
 export const metadata = {
-  title: "Cart - Babur Hat",
-  description: "Cart section of Babur Hat",
+  title: "Cart - Ready How",
+  description: "Cart section of Ready How",
 };
 const page = () => {
   return (

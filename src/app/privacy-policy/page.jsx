@@ -1,12 +1,14 @@
-import React from "react";
 import Navbar from "../../components/layout/Navbar";
-
+export const metadata = {
+  title: "Privacy Policy - Ready How",
+  description: "Privacy Policy section of Ready How",
+};
 const PrivacyPolicy = () => {
   return (
     <main>
-        <nav>
-            <Navbar />
-        </nav>
+      <nav>
+        <Navbar />
+      </nav>
       <div className="bg-gray-50 min-h-screen py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <header className="mb-10">

@@ -4,8 +4,8 @@ import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 
 export const metadata = {
-  title: "Report - Babur Hat",
-  description: "Report section of Babur Hat",
+  title: "Report - Ready How",
+  description: "Report section of Ready How",
 };
 const ReportPage = () => {
   return (

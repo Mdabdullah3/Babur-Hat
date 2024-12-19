@@ -4,7 +4,7 @@ import DeafultProducts from "../../components/Home/DeafultProducts";
 import WhishlistCard from "../../components/Wishlist/WishlistCard";
 export const metadata = {
   title: "wishlist ",
-  description: "wishlist section of Babur Hat",
+  description: "wishlist section of Ready How",
 };
 const Wishlist = () => {
   return (

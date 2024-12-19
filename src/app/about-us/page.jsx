@@ -1,4 +1,7 @@
-import React from "react";
+export const metadata = {
+  title: "About Us - Ready How",
+  description: "About Us section of Ready How",
+};
 import Navbar from "../../components/layout/Navbar";
 
 export default function About() {

@@ -2,8 +2,8 @@ import React from "react";
 import Navbar from "../../components/layout/Navbar";
 import ProfileMenu from "../../components/MyProfile/ProfileMenu";
 export const metadata = {
-  title: "Profile - Babur Hat",
-  description: "Profile section of Babur Hat",
+  title: "Profile - Ready How",
+  description: "Profile section of Ready How",
 };
 const ProfilePage = () => {
   return (

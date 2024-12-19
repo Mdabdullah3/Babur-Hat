@@ -2,8 +2,8 @@ import Footer from "../../../components/layout/Footer";
 import Navbar from "../../../components/layout/Navbar";
 import SingleVendor from "../../../components/SingleVendor";
 export const metadata = {
-  title: "Vendor Profile - Babur Hat",
-  description: "Single Vendor section of Babur Hat",
+  title: "Vendor Profile - Ready How",
+  description: "Single Vendor section of Ready How",
 };
 const page = ({ params }) => {
   const { id } = params;

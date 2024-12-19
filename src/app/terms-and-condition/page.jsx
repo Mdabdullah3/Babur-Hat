@@ -1,6 +1,8 @@
-import React from "react";
 import Navbar from "../../components/layout/Navbar";
-
+export const metadata = {
+  title: "Terms and Conditions - Ready How",
+  description: "Terms and Conditions section of Ready How",
+};
 const TermsAndConditions = () => {
   return (
     <section>

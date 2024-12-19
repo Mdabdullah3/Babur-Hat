@@ -4,8 +4,8 @@ import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 
 export const metadata = {
-  title: "Shipping - Babur Hat",
-  description: "Shipping section of Babur Hat",
+  title: "Shipping - Ready How",
+  description: "Shipping section of Ready How",
 };
 const Shipping = () => {
   return (

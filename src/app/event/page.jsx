@@ -4,8 +4,8 @@ import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import EventProducts from "../../components/Event";
 export const metadata = {
-  title: "Event - Babur Hat",
-  description: "Event section of Babur Hat",
+  title: "Event - Ready How",
+  description: "Event section of Ready How",
 };
 const Event = () => {
   return (
