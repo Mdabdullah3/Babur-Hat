@@ -40,12 +40,12 @@ const Cart = () => {
   useEffect(() => {
     setIsClient(true);
     const savedCart = JSON.parse(localStorage.getItem("cart-storage"))?.state
-      .cart;
+      ?.cart;
     if (savedCart) {
       const discountAmount = savedCart.reduce((total, item) => {
-        if (item.couponApplied) {
+        if (item?.couponApplied) {
           const discountValue =
-            (item.originalPrice - item.price) * item.quantity;
+            (item?.originalPrice - item?.price) * item?.quantity;
           return total + discountValue;
         }
         return total;
@@ -205,7 +205,7 @@ const Cart = () => {
                             </div>
                             <div>
                               <h1 className="flex items-center gap-1">
-                              <FaBangladeshiTakaSign />
+                                <FaBangladeshiTakaSign />
 
                                 {(
                                   item.price * parseInt(item?.quantity)

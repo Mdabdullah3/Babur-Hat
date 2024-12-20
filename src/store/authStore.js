@@ -30,11 +30,7 @@ const useAuthStore = create(
                 set({ isLoading: true });
                 try {
                     const response = await axios.post(`${API_URL}/auth/register`, formData);
-                    if (response.status) {
-                        toast.success('Registration successfull!, Please Login to continue.');
-                    } else {
-                        toast.error('Registration failed. Please try again.');
-                    }
+                    toast.success('Registration successfull!, Please Login to continue.');
                     set({ isLoading: false });
                 } catch (error) {
                     toast.error(error.response?.data?.message || 'Registration failed. Please try again.');

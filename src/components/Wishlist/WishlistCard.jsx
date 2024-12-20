@@ -53,12 +53,12 @@ const WishlistCard = () => {
                     <div className="lg:flex items-center w-11/12 justify-between mt-6">
                       <div className=" relative flex items-center justify-between">
                         <img
-                          src={`${SERVER}${item?.coverPhoto.secure_url}`}
+                          src={`${SERVER}${item?.coverPhoto?.secure_url}`}
                           className="w-24 h-24 rounded-sm"
                           alt="whislist image"
                         />
                         <h1
-                          onClick={() => handleRemoveFromWishlist(item._id)}
+                          onClick={() => handleRemoveFromWishlist(item?._id)}
                           className="tooltip tooltip-top text-primary cursor-pointer font-bold absolute top-1/3 -left-5"
                           data-tip="Remove"
                         >
@@ -71,7 +71,9 @@ const WishlistCard = () => {
 
                           <div className="flex items-center justify-between lg:hidden mt-2">
                             <div>
-                              <h1 className="text-[14px]">${item.price}.00</h1>
+                              <h1 className="text-[14px]">
+                                ${item?.productVariants[0]?.price}.00
+                              </h1>
                             </div>
 
                             <div className="">
@@ -87,15 +89,19 @@ const WishlistCard = () => {
                       </div>
                       <div className="flex-col items-center w-52 lg:block hidden">
                         <h1 className="font-bold uppercase tracking-wider">
-                          {item.productName}
+                          {item.name}
                         </h1>
                       </div>
 
                       <div className="lg:block hidden">
-                        <h1>${item.sellPrice}.00</h1>
+                        <h1>{item.productVariants[0]?.price}.00</h1>
                       </div>
                       <div className="lg:block hidden">
-                        <h1>In Stock</h1>
+                        <h1>
+                          {item.productVariants[0]?.quantity > 0
+                            ? "In stock"
+                            : "Out of stock"}
+                        </h1>
                       </div>
                       <div className=" lg:block hidden">
                         <button
