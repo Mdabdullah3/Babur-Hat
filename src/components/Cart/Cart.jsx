@@ -105,7 +105,6 @@ const Cart = () => {
             }
           }
         });
-
         setDiscount(discountAmount);
         setCouponApplied(true);
         setError("");
