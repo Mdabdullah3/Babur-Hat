@@ -117,8 +117,7 @@ const Cart = () => {
       setError("An error occurred while applying the coupon.");
     }
   };
-
-  const calculateTotal = () => {
+    const calculateTotal = () => {
     const subtotal = cart.reduce(
       (total, item) => total + item.price * item.quantity,
       0
