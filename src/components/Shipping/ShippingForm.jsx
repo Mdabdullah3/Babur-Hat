@@ -272,6 +272,40 @@ const ShippingForm = () => {
         deliveryFee: shippingData?.deliveryFee || 100,
       },
     }));
+    const OnlinePaymentsOrdersData = {
+      products: groupedCartProductsByCategory?.map((item) => ({
+        product: item?._id,
+        price: item?.price,
+        quantity: item?.quantity,
+        vendor: item?.userId,
+        status: "pending",
+        vendorPayment: {
+          vat: item?.vatAmount,
+          commission: item?.commissionAmount,
+          transactionCost: item?.transactionCostAmount,
+          shippingCharge: item?.shippingChargeAmount,
+          profit: item?.profit,
+        },
+        vendorPaymentStatus: item?.vendorPaid === "unpaid",
+      })),
+      status: "pending",
+      currency: "BDT",
+      paymentType: selectedMethod === "Online Payment",
+      user: user?._id,
+      shippingInfo: {
+        name: form.fullName,
+        email: form.email,
+        phone: form.phone,
+        method: "Courier",
+        address1: form.streetAddress,
+        address2: "",
+        city: selectedCity?.label || "",
+        state: selectedDistrict?.label || "",
+        postCode: form.postalCode,
+        country: "Bangladesh",
+        deliveryFee: shippingData?.deliveryFee || 100,
+      },
+    };
     try {
       if (selectedMethod === "cod") {
         const response = await axios.post(`${API_URL}/orders`, orders, {
@@ -287,9 +321,10 @@ const ShippingForm = () => {
       } else {
         const response = await axios.post(
           `${API_URL}/payments/checkout`,
-          orders,
+          OnlinePaymentsOrdersData,
           { withCredentials: true }
         );
+        console.log(response?.data);
         const gatewayUrl = response?.data?.gatewayUrl;
         if (gatewayUrl) {
           toast.success("Redirecting to payment gateway...");
