@@ -226,7 +226,6 @@ const ShippingForm = () => {
       validationErrors.push("Invalid phone number.");
     if (!selectedCity?.label || !selectedDistrict?.label)
       validationErrors.push("City and District are required.");
-
     if (validationErrors.length > 0) {
       toast.error(validationErrors.join(", "));
       setLoading(false);
