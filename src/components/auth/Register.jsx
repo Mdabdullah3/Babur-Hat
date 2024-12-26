@@ -186,7 +186,6 @@ const Register = () => {
             name="avatar"
             onChange={handleAvatarChange}
             accept="image/*"
-            required
             error={errors.avatar}
           />
         )}
