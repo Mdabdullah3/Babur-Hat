@@ -271,6 +271,44 @@ const ShippingForm = () => {
         deliveryFee: shippingData?.deliveryFee || 100,
       },
     }));
+    const orderData = {
+      "products": [
+        {
+          "product": "675ff3153b48cef96b91be25",
+          "price": 43,
+          "quantity": 3,
+          "vendor": "675fe0173b48cef96b91a459",
+          "status": "pending",
+          "vendorPayment": {
+            "vat": 4,
+            "commission": 3,
+            "payableAmount": 200,
+            "profit": 50
+          },
+          "vendorPaymentStatus": "non-paid"
+        },
+      ],
+      "status": "pending",
+      "currency": "BDT",
+      "paymentType": "cash",
+      "user": "675fe0173b48cef96b91a459",
+      "shippingInfo": {
+        "name": "Riajul Islam",
+        "email": "riajul@gmail.com",
+        "phone": "01957500605",
+        "method": "Courier",
+        "address1": "shipping address",
+        "address2": "",
+        "city": "Dhaka",
+        "state": "Dhaka",
+        "postCode": 1000,
+        "country": "Bangladesh",
+        "deliveryFee": 50
+      },
+      "orderCost": 516,
+      "profit": 100,
+      "brand": "BrandName"
+    }
     const OnlinePaymentsOrdersData = {
       products: groupedCartProductsByCategory?.map((item) => ({
         product: item?._id,
@@ -320,7 +358,7 @@ const ShippingForm = () => {
       } else {
         const response = await axios.post(
           `${API_URL}/payments/checkout`,
-          OnlinePaymentsOrdersData,
+          orderData,
           { withCredentials: true }
         );
         console.log(response?.data);
