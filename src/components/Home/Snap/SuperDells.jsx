@@ -22,13 +22,9 @@ const SuperDells = () => {
     (item) => item?.product && Object.keys(item?.product).length > 0
   );
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className="bg-rose-200/60 px-6 py-4 rounded-2xl w-96">
-      <h1 className="text-2xl text-primary font-bold mb-4">Super Dells</h1>
+      <h1 className="text-2xl text-primary font-bold mb-4">Super Deals</h1>
       <div className="bg-white rounded-2xl py-4">
         {filteredProducts?.length > 0 && (
           <Link
@@ -38,7 +34,7 @@ const SuperDells = () => {
             <img
               src={`${SERVER}${filteredProducts[0]?.product?.coverPhoto?.secure_url}`}
               className="rounded-2xl mx-auto w-60 h-60"
-              alt="Super Dells"
+              alt="Super Deals"
             />
             <h1 className="text-xl font-bold text-primary text-center mt-2">
               BDT
