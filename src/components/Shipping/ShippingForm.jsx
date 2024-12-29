@@ -608,7 +608,6 @@ const ShippingForm = () => {
 
           {error && <p className="text-red-500 text-center my-2">{error}</p>}
           <PrimaryButton
-            isDisabled={cart === 0}
             type="submit"
             value={loading ? "Loading..." : "Submit"}
           />
