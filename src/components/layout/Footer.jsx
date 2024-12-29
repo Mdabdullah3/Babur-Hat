@@ -5,16 +5,15 @@ import {
   AiOutlineInstagram,
   AiOutlineLinkedin,
   AiOutlineTwitter,
-  AiOutlineGithub,
   AiOutlineFacebook,
 } from "react-icons/ai";
 const Footer = () => {
   const contact = [
-    "DemoStore",
-    "Boss Pg, Hyderabad",
-    "Telengana",
-    "+91 80089252100",
-    "baburhut@gmail.com",
+    "Ready How",
+    "Gulsar Road, Dhaka",
+    "Bangladesh",
+    "+880 01335 00000",
+    "readyhow@gmail.com",
   ];
   const information = [
     {

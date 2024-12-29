@@ -80,7 +80,7 @@ const Navbar = () => {
 
   return (
     <nav className="relative">
-      <div className="bg-[#ec2027] text-white py-4">
+      <div className="bg-primary text-white py-4">
         <div className="lg:w-11/12 w-[95%] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <label htmlFor="my-drawer" className="md:hidden cursor-pointer">
@@ -111,13 +111,13 @@ const Navbar = () => {
             <div className="relative">
               <label className="input input-bordered rounded-full flex items-center gap-2 h-[52px] mx-auto">
                 <input
-                  className="grow w-[23rem] text-[#ec2027]"
+                  className="grow w-[23rem] text-primary"
                   placeholder="Search products..."
                   value={searchValue}
                   onChange={handleSearchChange}
                   onKeyDown={(e) => e.key === "Enter" && handleSearchSubmit()}
                 />
-                <div className="bg-[#ec2027] px-6 py-2 rounded-full">
+                <div className="bg-primary px-6 py-2 rounded-full">
                   <FiSearch className="text-white" size={29} />
                 </div>
               </label>
@@ -126,7 +126,7 @@ const Navbar = () => {
                   {suggestions?.map((suggestion, index) => (
                     <li
                       key={suggestion._id}
-                      className={`p-2 px-4 capitalize hover:bg-gray-100 cursor-pointer text-[#ec2027] ${
+                      className={`p-2 px-4 capitalize hover:bg-gray-100 cursor-pointer text-primary ${
                         index !== suggestions.length - 1
                           ? "border-b border-gray-300"
                           : ""
@@ -186,7 +186,7 @@ const Navbar = () => {
                     </div>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content z-50 menu shadow bg-[#ec2027] cursor-pointer text-white rounded-box lg:w-52 w-28 flex flex-col gap-3 text-md tracking-wider mt-2 md:mt-0 py-4 lg:px-6 px-3 md:-ml-0 -ml-16 text-[12px] md:text-sm"
+                      className="dropdown-content z-50 menu shadow bg-primary cursor-pointer text-white rounded-box lg:w-52 w-28 flex flex-col gap-3 text-md tracking-wider mt-2 md:mt-0 py-4 lg:px-6 px-3 md:-ml-0 -ml-16 text-[12px] md:text-sm"
                     >
                       <Link href="/profile">
                         <h1 className="block">My Profile</h1>
@@ -215,7 +215,7 @@ const Navbar = () => {
                     </div>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content z-50 menu shadow bg-[#ec2027] cursor-pointer text-white rounded-box w-52 flex flex-col gap-3 text-md tracking-wider py-4 px-6"
+                      className="dropdown-content z-50 menu shadow bg-primary cursor-pointer text-white rounded-box w-52 flex flex-col gap-3 text-md tracking-wider py-4 px-6"
                     >
                       <Link href="/auth/login">
                         <h1 className="block">Login</h1>
@@ -235,7 +235,7 @@ const Navbar = () => {
                   <PiShoppingCartSimpleBold />
                 </h1>
                 <div className="">
-                  <h1 className="bg-white md:px-3 px-2 mt-2 md:mt-0 rounded-full py-0 text-[#ec2027]">
+                  <h1 className="bg-white md:px-3 px-2 mt-2 md:mt-0 rounded-full py-0 text-primary">
                     {cart?.length || 0}
                   </h1>
                   <h1 className="hidden md:block">Cart</h1>
@@ -281,14 +281,14 @@ const Navbar = () => {
           <div className="relative">
             <label className="input input-bordered rounded-full flex items-center gap-2 lg:h-[52px] h-[44px] mx-auto">
               <input
-                className="grow w-[23rem] text-[#ec2027]"
+                className="grow w-[23rem] text-primary"
                 placeholder="Search products..."
                 value={searchValue}
                 onChange={handleSearchChange}
                 onKeyDown={(e) => e.key === "Enter" && handleSearchSubmit()}
               />
 
-              <div className="bg-[#ec2027] px-4 py-2 rounded-full">
+              <div className="bg-primary px-4 py-2 rounded-full">
                 <FiSearch className="text-white text-xl lg:text-2xl" />
               </div>
             </label>
@@ -297,7 +297,7 @@ const Navbar = () => {
                 {suggestions?.map((suggestion, index) => (
                   <li
                     key={suggestion._id}
-                    className={`p-2 px-4 capitalize hover:bg-gray-100 cursor-pointer text-[#ec2027] ${
+                    className={`p-2 px-4 capitalize hover:bg-gray-100 cursor-pointer text-primary ${
                       index !== suggestions.length - 1
                         ? "border-b border-gray-300"
                         : ""

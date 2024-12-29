@@ -14,9 +14,9 @@ const AuthSnap = () => {
         <div className="flex gap-3 justify-center">
           {user ? (
             <div className="">
-              <Link href="/profile" className="flex justify-center">
-                <button className="px-4 text-lg font-bold tracking-wider transition duration-300 py-2 bg-white rounded-full hover:bg-secondary hover:text-white border-[1px] border-secondary">
-                  Profile
+              <Link href="/shop" className="flex justify-center">
+                <button className="px-6 text-lg font-bold tracking-wider transition duration-300 py-2 bg-primary rounded-full hover:bg-secondary hover:text-white text-white border-[1px] hover:border-secondary border-primary">
+                  Shop
                 </button>
               </Link>
             </div>
@@ -29,7 +29,7 @@ const AuthSnap = () => {
           )}
         </div>
         {user ? (
-          <div className="mt-5 flex gap-2">
+          <div className="mt-7 flex gap-2 mb-1">
             <Link href="/profile">
               <button className="px-4 text-md font-bold tracking-wider transition duration-300 py-2 bg-white rounded-full hover:bg-secondary hover:text-white border-[1px] border-secondary">
                 My Orders

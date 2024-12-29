@@ -8,6 +8,8 @@ import "swiper/css/navigation";
 import useEventStore from "../../store/eventStore";
 import { SERVER } from "../../config";
 import Link from "next/link";
+import BannerCategory from "./BannerCategory";
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
 const BestDeal = () => {
   const { packageProducts, fetchPackageProducts } = useEventStore();
 
@@ -17,7 +19,7 @@ const BestDeal = () => {
 
   console.log(packageProducts);
   return (
-    <div className="lg:w-11/12 w-[95%] mx-auto mt-4 lg:mt-16 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500   rounded-2xl lg:p-4 p-3">
+    <div className="lg:w-11/12 w-[95%] mx-auto mt-4 lg:mt-16 bg-gradient-to-r from-primary via-red-400 to-primary   rounded-2xl lg:p-4 p-3">
       <h1 className="lg:text-2xl text-lg font-bold lg:ml-4 lg:mb-8 mb-4 text-white">
         Best Deal
       </h1>
@@ -62,31 +64,28 @@ const BestDeal = () => {
                 <Link href={`/products/${item?.product?._id}`}>
                   <img
                     src={`${SERVER}${item?.product?.coverPhoto?.secure_url}`}
-                    className="w-full h-80 cursor-pointer rounded-t-2xl"
+                    className="w-full h-60 cursor-pointer rounded-t-2xl"
                     alt="Best Deal Image"
                   />
                   <div className="px-4">
-                    <h1 className="md:text-md sm:text-[12px] capitalize font-medium mt-2">
+                    <h1 className="md:text-md sm:text-[12px] capitalize font-medium mt-2 text-center">
                       {item?.product?.name?.slice(0, 20)}..
                     </h1>
-                    <h1 className="text-md  text-primary text-center mt-2">
-                      BDT
-                      {item?.product?.productVariants[0]?.discount > 0
-                        ? item?.product?.productVariants[0]?.discount
-                        : item?.product?.productVariants[0]?.price}
-                      <del className="ml-2 font-normal text-gray-400 text-sm">
-                        BDT
-                        {item?.product?.productVariants[0]?.discount &&
-                          item?.product?.productVariants[0]?.price}
+                    <div className="text-md justify-center text-primary text-center mt-2 flex items-center">
+                      <FaBangladeshiTakaSign />
+                      <span className="font-bold">
+                        {item?.product?.productVariants[0]?.discount > 0
+                          ? item?.product?.productVariants[0]?.discount
+                          : item?.product?.productVariants[0]?.price}
+                      </span>
+                      <del className="ml-2 font-normal flex items-center text-gray-400 text-sm">
+                        <FaBangladeshiTakaSign />
+                        <span className="font-bold">
+                          {item?.product?.productVariants[0]?.discount &&
+                            item?.product?.productVariants[0]?.price}
+                        </span>
                       </del>
-                    </h1>
-                    {/* <div className="flex mt-1 items-center justify-between">
-                    <progress
-                      className="progress progress-primary w-24"
-                      value="80"
-                      max="100"
-                    ></progress>
-                  </div> */}
+                    </div>
                   </div>
                 </Link>
               </div>
