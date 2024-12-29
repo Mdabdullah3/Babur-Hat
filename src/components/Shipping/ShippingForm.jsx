@@ -46,22 +46,6 @@ const ShippingForm = () => {
     };
     fetchData();
   }, [user, router]);
-  // Shipping Form
-  const [form, setForm] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    streetAddress: "",
-    postalCode: "",
-    district: selectedDistrict,
-    city: selectedCity,
-    paymentMethod: selectedMethod,
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prevForm) => ({ ...prevForm, [name]: value }));
-  };
 
   const groupedCartProductsByCategory = cart?.map((product) => {
     const matchedCategory = categories?.find(
@@ -140,7 +124,36 @@ const ShippingForm = () => {
       profit,
     };
   });
+  // Shipping Form
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    streetAddress: "",
+    postalCode: "",
+    district: selectedDistrict,
+    city: selectedCity,
+    paymentMethod: selectedMethod,
+  });
 
+  useEffect(() => {
+    if (user) {
+      setForm((prev) => ({
+        ...prev,
+        fullName: user?.name || "",
+        email: user?.email || "",
+      }));
+    }
+  }, [user]);
+
+  // Handle changes in inputs
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   // Load District & Cities
   useEffect(() => {
     const fetchDistricts = async () => {
@@ -220,8 +233,8 @@ const ShippingForm = () => {
       validationErrors.push("Name must be at least 5 characters long.");
     if (form.streetAddress.length < 8)
       validationErrors.push("Address must be at least 8 characters long.");
-    if (form.postalCode.length < 4)
-      validationErrors.push("Postal Code must be at least 4 characters long.");
+    // if (form.postalCode.length < 4)
+    //   validationErrors.push("Postal Code must be at least 4 characters long.");
     if (!/^01[3-9]\d{8}$/.test(form.phone))
       validationErrors.push("Invalid phone number.");
     if (!selectedCity?.label || !selectedDistrict?.label)
@@ -253,7 +266,7 @@ const ShippingForm = () => {
       vendorPaid: "unpaid",
       vendor: item?.userId,
       currency: "BDT",
-      transactionId: item?.variantId,
+      transactionId: item?._id,
       paymentType:
         selectedMethod === "cod" ? "cash-on-delivery" : "Online Payment",
       status: "pending",
@@ -272,43 +285,43 @@ const ShippingForm = () => {
       },
     }));
     const orderData = {
-      "products": [
+      products: [
         {
-          "product": "675ff3153b48cef96b91be25",
-          "price": 43,
-          "quantity": 3,
-          "vendor": "675fe0173b48cef96b91a459",
-          "status": "pending",
-          "vendorPayment": {
-            "vat": 4,
-            "commission": 3,
-            "payableAmount": 200,
-            "profit": 50
+          product: "675ff3153b48cef96b91be25",
+          price: 43,
+          quantity: 3,
+          vendor: "675fe0173b48cef96b91a459",
+          status: "pending",
+          vendorPayment: {
+            vat: 4,
+            commission: 3,
+            payableAmount: 200,
+            profit: 50,
           },
-          "vendorPaymentStatus": "non-paid"
+          vendorPaymentStatus: "non-paid",
         },
       ],
-      "status": "pending",
-      "currency": "BDT",
-      "paymentType": "cash",
-      "user": "675fe0173b48cef96b91a459",
-      "shippingInfo": {
-        "name": "Riajul Islam",
-        "email": "riajul@gmail.com",
-        "phone": "01957500605",
-        "method": "Courier",
-        "address1": "shipping address",
-        "address2": "",
-        "city": "Dhaka",
-        "state": "Dhaka",
-        "postCode": 1000,
-        "country": "Bangladesh",
-        "deliveryFee": 50
+      status: "pending",
+      currency: "BDT",
+      paymentType: "cash",
+      user: "675fe0173b48cef96b91a459",
+      shippingInfo: {
+        name: "Riajul Islam",
+        email: "riajul@gmail.com",
+        phone: "01957500605",
+        method: "Courier",
+        address1: "shipping address",
+        address2: "",
+        city: "Dhaka",
+        state: "Dhaka",
+        postCode: 1000,
+        country: "Bangladesh",
+        deliveryFee: 50,
       },
-      "orderCost": 516,
-      "profit": 100,
-      "brand": "BrandName"
-    }
+      orderCost: 516,
+      profit: 100,
+      brand: "BrandName",
+    };
     const OnlinePaymentsOrdersData = {
       products: groupedCartProductsByCategory?.map((item) => ({
         product: item?._id,
@@ -349,9 +362,9 @@ const ShippingForm = () => {
           withCredentials: true,
         });
         if ([200, 201].includes(response.status)) {
+          router.push("/order-complete");
           toast.success("Orders processed successfully!");
           clearCart();
-          router.push("/order-complete");
         } else {
           toast.error(response.data.message || "Failed to process orders.");
         }
@@ -361,7 +374,6 @@ const ShippingForm = () => {
           orderData,
           { withCredentials: true }
         );
-        console.log(response?.data);
         const gatewayUrl = response?.data?.gatewayUrl;
         if (gatewayUrl) {
           toast.success("Redirecting to payment gateway...");
@@ -511,7 +523,6 @@ const ShippingForm = () => {
               name="postalCode"
               id="postalCode"
               placeholder="Postcode"
-              required
               value={form.postalCode}
               onChange={handleInputChange}
             />
@@ -597,6 +608,7 @@ const ShippingForm = () => {
 
           {error && <p className="text-red-500 text-center my-2">{error}</p>}
           <PrimaryButton
+            isDisabled={cart === 0}
             type="submit"
             value={loading ? "Loading..." : "Submit"}
           />
