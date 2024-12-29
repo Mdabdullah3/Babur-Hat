@@ -74,7 +74,6 @@ const Cart = () => {
   const handleUpdateQuantity = (id, size, quantity) => {
     updateQuantity(id, size, quantity);
   };
-
   const handleClearCart = () => {
     clearCart();
     setDiscount(0);
@@ -83,9 +82,16 @@ const Cart = () => {
     try {
       const response = await axios.get(`${API_URL}/vouchers`);
       const vouchers = response?.data?.data;
+
+      if (!vouchers) {
+        setError("No vouchers available.");
+        return;
+      }
+
       const validVoucher = vouchers.find(
         (voucher) =>
-          voucher.redeemCode === coupon && voucher.status === "active"
+          voucher.redeemCode.toLowerCase() === coupon.toLowerCase() &&
+          voucher.status === "active"
       );
 
       if (validVoucher) {
@@ -101,10 +107,11 @@ const Cart = () => {
                 item.originalPrice -
                 (item.originalPrice * validVoucher.discount) / 100;
               discountAmount += (item.originalPrice - newPrice) * item.quantity;
-              updatePrice(item._id, newPrice);
+              updatePrice(item._id, item.size, newPrice); 
             }
           }
         });
+
         setDiscount(discountAmount);
         setCouponApplied(true);
         setError("");
@@ -114,10 +121,12 @@ const Cart = () => {
         setError("Invalid or expired coupon code.");
       }
     } catch (error) {
+      console.error("Error applying coupon:", error);
       setError("An error occurred while applying the coupon.");
     }
   };
-    const calculateTotal = () => {
+
+  const calculateTotal = () => {
     const subtotal = cart.reduce(
       (total, item) => total + item.price * item.quantity,
       0
@@ -336,7 +345,7 @@ const Cart = () => {
                     <h1 className="mt-1 tracking-wider  text-sm flex gap-10 items-start">
                       Shipping Fee:
                       <span className="flex items-center">
-                        <FaBangladeshiTakaSign /> 60
+                        <FaBangladeshiTakaSign /> 100
                       </span>
                     </h1>
                     <div className="mt-2">
@@ -382,7 +391,7 @@ const Cart = () => {
                 <h1 className="mt-4 tracking-wider uppercase text-sm flex gap-10 items-start">
                   Shipping Fee:
                   <span className="flex items-center">
-                    <FaBangladeshiTakaSign /> 60
+                    <FaBangladeshiTakaSign /> 100
                   </span>
                 </h1>
                 <div className="mt-10">

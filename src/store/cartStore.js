@@ -56,6 +56,15 @@ const useCartStore = create(
                     ),
                 }));
             },
+            updatePrice: (productId, size, newPrice) => {
+                set((state) => ({
+                    cart: state.cart.map((item) =>
+                        item._id === productId && item.size === size
+                            ? { ...item, price: newPrice, couponApplied: true }
+                            : item
+                    ),
+                }));
+            },
         }),
         {
             name: "cart-storage",
