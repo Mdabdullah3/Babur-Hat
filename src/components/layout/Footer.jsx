@@ -10,56 +10,56 @@ import {
 const Footer = () => {
   const contact = [
     "Ready How",
-    "Gulsar Road, Dhaka",
+    "House 198-200, Avenue 3, Mirpur DOHS, Dhaka",
     "Bangladesh",
-    "+880 01335 00000",
-    "readyhow@gmail.com",
+    "+880 017 4861 4424",
+    "info@readyhow.com",
   ];
   const information = [
     {
-      id:1,
-      name: 'Privacy Policy',
-      link: "/privacy-policy"
+      id: 1,
+      name: "Privacy Policy",
+      link: "/privacy-policy",
     },
     {
-      id:2,
+      id: 2,
       name: "Refund Policy",
-      link: "/refund-policy"
+      link: "/refund-policy",
     },
     {
-      id:3,
+      id: 3,
       name: "Shipping Policy",
-      link: "/shipping-policy"
+      link: "/shipping-policy",
     },
     {
-      id:4,
+      id: 4,
       name: "Terms and Conditions",
-      link: "/terms-and-condition"
-    }
-  ]
+      link: "/terms-and-condition",
+    },
+  ];
 
   const account = [
     {
       id: 1,
       name: "About Us",
-      link: "/about-us"
+      link: "/about-us",
     },
     {
       id: 2,
       name: "Faq",
-      link: "/faq"
+      link: "/faq",
     },
     {
       id: 3,
       name: "Contact",
-      link: "/contact"
+      link: "/contact",
     },
     {
-      id:4,
+      id: 4,
       name: "Size Charts",
-      link: "/size-charts"
-    }
-  ]
+      link: "/size-charts",
+    },
+  ];
   const links = [
     "Accessories",
     "Laptops",
@@ -82,17 +82,19 @@ const Footer = () => {
               </p>
             ))}
           <div className="flex justify-between 800px:w-full w-3/5 m-auto items-center text-white cursor-pointer">
-            <AiOutlineInstagram size={30} />
-            <AiOutlineLinkedin size={30} />
-            <AiOutlineFacebook size={30} />
-            <AiOutlineTwitter size={30} />
+            {/* <AiOutlineInstagram size={30} />
+            <AiOutlineLinkedin size={30} /> */}
+            <a href="https://www.facebook.com/people/Ready-How/61569352619463">
+              <AiOutlineFacebook size={30} />
+            </a>
+            {/* <AiOutlineTwitter size={30} /> */}
           </div>
         </div>
         <div className="flex flex-col">
           <h5 className="text-white font-bold underline">Information</h5>
           {information &&
             information?.map((item) => (
-              <Link 
+              <Link
                 href={item.link}
                 key={item.id}
                 className="text-white font-light  py-1 cursor-pointer ease-out transition-all hover:text-[1.01rem] hover:translate-x-1"
@@ -105,7 +107,8 @@ const Footer = () => {
           <h5 className="text-white font-bold underline">Account</h5>
           {account &&
             account.map((item) => (
-              <Link href={item.link}
+              <Link
+                href={item.link}
                 key={item.id}
                 className="text-white font-light  py-1 cursor-pointer ease-out transition-all hover:text-[1.01rem] hover:translate-x-1"
               >
@@ -143,7 +146,8 @@ const Footer = () => {
       <footer className="py-3 bg-primary">
         <div className="w-full">
           <p className="text-center mb-0 text-white">
-            &copy;{new Date().getFullYear()}; Developed By <a href="https://abdullah-io.netlify.app/">Md Abdullah</a>
+            &copy;{new Date().getFullYear()}; Developed By{" "}
+            <a href="https://abdullah-io.netlify.app/">Md Abdullah</a>
           </p>
         </div>
       </footer>
