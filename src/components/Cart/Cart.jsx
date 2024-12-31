@@ -107,7 +107,7 @@ const Cart = () => {
                 item.originalPrice -
                 (item.originalPrice * validVoucher.discount) / 100;
               discountAmount += (item.originalPrice - newPrice) * item.quantity;
-              updatePrice(item._id, item.size, newPrice); 
+              updatePrice(item._id, item.size, newPrice);
             }
           }
         });
@@ -351,7 +351,7 @@ const Cart = () => {
                     <div className="mt-2">
                       <div className="border-b-[0.5px] border-white"> </div>
                       <h1 className="font-bold tracking-widest text-sm uppercase mt-1 flex justify-between items-center">
-                        Total{" "}
+                        Total
                         <span className="text-lg flex items-center">
                           <FaBangladeshiTakaSign />
                           {(calculateTotal() + 60).toFixed(2)} BDT
