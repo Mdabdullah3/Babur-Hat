@@ -125,9 +125,9 @@ const Navbar = () => {
                 <ul className="absolute top-full left-0 right-0 mt-2 bg-white shadow-lg rounded-lg overflow-hidden z-50">
                   {suggestions?.map((suggestion, index) => (
                     <li
-                      key={suggestion._id}
+                      key={suggestion?._id}
                       className={`p-2 px-4 capitalize hover:bg-gray-100 cursor-pointer text-primary ${
-                        index !== suggestions.length - 1
+                        index !== suggestions?.length - 1
                           ? "border-b border-gray-300"
                           : ""
                       }`}
@@ -137,7 +137,7 @@ const Navbar = () => {
                         setSearchValue(suggestion?.name);
                       }}
                     >
-                      {suggestion.name}
+                      {suggestion?.name}
                     </li>
                   ))}
                 </ul>
@@ -154,7 +154,7 @@ const Navbar = () => {
                       role="button"
                       src={
                         user?.avatar?.public_id &&
-                        user?.avatar?.secure_url.startsWith("/")
+                        user?.avatar?.secure_url?.startsWith("/")
                           ? `${SERVER}${user?.avatar?.secure_url}`
                           : user?.avatar?.secure_url
                       }
@@ -296,19 +296,19 @@ const Navbar = () => {
               <ul className="absolute top-full left-0 right-0 mt-2 bg-white shadow-lg rounded-lg overflow-hidden z-50">
                 {suggestions?.map((suggestion, index) => (
                   <li
-                    key={suggestion._id}
+                    key={suggestion?._id}
                     className={`p-2 px-4 capitalize hover:bg-gray-100 cursor-pointer text-primary ${
-                      index !== suggestions.length - 1
+                      index !== suggestions?.length - 1
                         ? "border-b border-gray-300"
                         : ""
                     }`}
                     onClick={() => {
-                      router.push(`/products/${suggestion._id}`);
+                      router.push(`/products/${suggestion?._id}`);
                       setShowSuggestions(false);
                       setSearchValue(suggestion?.name);
                     }}
                   >
-                    {suggestion.name}
+                    {suggestion?.name}
                   </li>
                 ))}
               </ul>
@@ -337,7 +337,7 @@ const Navbar = () => {
                 onMouseLeave={() => setHoveredCategory(null)}
               >
                 <Link
-                  href={`/shop?category=${cat._id}`}
+                  href={`/shop?category=${cat?._id}`}
                   className="flex items-center gap-3 mt-2 tracking-wider
             text-gray-600"
                 >
@@ -349,10 +349,10 @@ const Navbar = () => {
                   <h1 className="capitalize">{cat?.name}</h1>
                 </Link>
                 {/* Hovered Subcategories Card */}
-                {hoveredCategory === cat && cat.subCategories.length > 0 && (
+                {hoveredCategory === cat && cat?.subCategories?.length > 0 && (
                   <div className="absolute -top-1 left-full bg-white border border-gray-300 shadow-md rounded-lg p-2 w-36 z-10">
                     <ul>
-                      {cat.subCategories.map((subCat) => (
+                      {cat?.subCategories?.map((subCat) => (
                         <Link
                           href={`/shop?sub-category=${subCat?._id}`}
                           key={subCat?._id}
