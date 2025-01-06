@@ -9,12 +9,16 @@ const PopupAd = () => {
 
   useEffect(() => {
     const fetchBannerData = async () => {
-      const response = await fetch(`${API_URL}/others`);
-      const data = await response.json();
-      const filterBanner = data?.data?.filter(
-        (item) => item?.banner === "PopUp"
-      );
-      setImages(filterBanner);
+      try {
+        const response = await fetch(`${API_URL}/others`);
+        const data = await response.json();
+        const filterBanner = data?.data?.filter(
+          (item) => item?.banner === "PopUp"
+        );
+        setImages(filterBanner || []); 
+      } catch (error) {
+        console.error("Error fetching banner data:", error);
+      }
     };
     fetchBannerData();
   }, []);
@@ -32,16 +36,16 @@ const PopupAd = () => {
     sessionStorage.setItem("popupAdClosed", "true");
   };
 
-  if (!isVisible || images.length === 0) {
-    return null;
+  if (!isVisible || images?.length === 0) {
+    return null; 
   }
 
-  const desktopImage = images[0]?.popupImage?.secure_url;
-  const mobileImage = images[0]?.popupImageMobile?.secure_url;
+  const desktopImage = images[0]?.popupImage?.secure_url || "";
+  const mobileImage = images[0]?.popupImageMobile?.secure_url || "";
 
   return (
     <div>
-      {images?.length > 0 ? (
+      {images?.length > 0 && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="rounded-lg shadow-lg text-center relative bg-white">
             {/* Desktop Image */}
@@ -68,8 +72,6 @@ const PopupAd = () => {
             </button>
           </div>
         </div>
-      ) : (
-        ""
       )}
     </div>
   );
