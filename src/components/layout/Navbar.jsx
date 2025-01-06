@@ -88,7 +88,7 @@ const Navbar = () => {
             </label>
             <Link href="/">
               <div className="text-3xl font-bold cursor-pointer">
-                {logo.length > 0 ? (
+                {logo?.length > 0 ? (
                   logo?.map((item) => (
                     <img
                       key={item?._id}
