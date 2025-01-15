@@ -9,6 +9,7 @@ import TopRated from "../components/Home/TopRated"
 import Navbar from "../components/layout/Navbar"
 import Footer from "../components/layout/Footer"
 import PopupAd from "../components/PopupAd"
+import Footers from '../components/layout/Footers';
 const Home = () => {
   return (
     <div>
@@ -22,6 +23,7 @@ const Home = () => {
       <DeafultProducts />
       <TopRated />
       <Footer />
+      <Footers />
     </div>
   );
 };
