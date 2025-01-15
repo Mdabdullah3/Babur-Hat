@@ -39,9 +39,16 @@ const Footer = () => {
             <p className="mx-auto mt-6 max-w-md text-center leading-relaxed  lg:text-left">
               House 198-200, Avenue 3, Mirpur DOHS, Dhaka
             </p>
-            <p>+8801748614424</p>
-            <p className="pb-2">info@readyhow.com</p>
-            <a href="https://www.facebook.com/people/Ready-How/61569352619463">
+            <p className="mx-auto mt-6 max-w-md text-center leading-relaxed  lg:text-left">
+              +8801748614424
+            </p>
+            <p className="pb-2 mx-auto mt-6 max-w-md text-center leading-relaxed  lg:text-left">
+              info@readyhow.com
+            </p>
+            <a
+              className="mx-auto mt-6 max-w-md text-center leading-relaxed  lg:text-left"
+              href="https://www.facebook.com/people/Ready-How/61569352619463"
+            >
               <FaFacebook size={30} />
             </a>
           </div>
