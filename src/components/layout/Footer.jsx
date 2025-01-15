@@ -34,7 +34,7 @@ const Footer = () => {
       <div className="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24">
         <div className="lg:flex lg:items-end lg:justify-between">
           <div>
-            <h1 className="text-xl font-bold text-center lg:text-left">
+            <h1 className="text-xl font-bold text-center lg:text-left mb-1">
               Contact Us
             </h1>
 
