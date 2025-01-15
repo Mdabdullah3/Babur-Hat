@@ -1,4 +1,8 @@
 import Navbar from "../../components/layout/Navbar";
+export const metadata = {
+  title: "About Us - Ready How",
+  description: "About Us of Ready How",
+};
 const About = () => {
   return (
     <section>
