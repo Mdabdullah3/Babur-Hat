@@ -1,12 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import Link from "next/link";
-import {
-  AiOutlineInstagram,
-  AiOutlineLinkedin,
-  AiOutlineTwitter,
-  AiOutlineFacebook,
-} from "react-icons/ai";
+import { AiOutlineFacebook } from "react-icons/ai";
 const Footer = () => {
   const contact = [
     "Ready How",
@@ -24,7 +19,7 @@ const Footer = () => {
     {
       id: 2,
       name: "Refund Policy",
-      link: "/refund-policy",
+      link: "/return-and-refund-policy",
     },
     {
       id: 3,
@@ -44,29 +39,8 @@ const Footer = () => {
       name: "About Us",
       link: "/about-us",
     },
-    {
-      id: 2,
-      name: "Faq",
-      link: "/faq",
-    },
-    {
-      id: 3,
-      name: "Contact",
-      link: "/contact",
-    },
-    {
-      id: 4,
-      name: "Size Charts",
-      link: "/size-charts",
-    },
   ];
-  const links = [
-    "Accessories",
-    "Laptops",
-    "Headphones",
-    "Smart Watches",
-    "Tablets",
-  ];
+
   return (
     <div className="bg-primary mt-20">
       <footer className="py-8  md:text-center grid grid-cols-2 gap-10 bg-primary w-11/12 mx-auto md:grid-cols-5">
@@ -116,38 +90,11 @@ const Footer = () => {
               </Link>
             ))}
         </div>
-        <div className="flex flex-col">
-          <h5 className="text-white font-bold underline">Quick Links</h5>
-          {links &&
-            links.map((item) => (
-              <p
-                key={item}
-                className="text-white font-light cursor-pointer py-1 ease-out transition-all hover:text-[1.01rem] hover:translate-x-1 "
-              >
-                {item}
-              </p>
-            ))}
-        </div>
-        <div className="flex flex-col flex-wrap text-white font-light  cursor-pointer hover:underline">
-          <h5>Our App</h5>
-          <p>
-            Download Our App and get extra <br />
-            5% Discount on your first Order.
-          </p>
-          <div className=" flex items-center justify-center">
-            <img
-              src="/pngegg.png"
-              className="h-[100px] cursor-pointer "
-              alt=""
-            />
-          </div>
-        </div>
       </footer>
       <footer className="py-3 bg-primary">
         <div className="w-full">
           <p className="text-center mb-0 text-white">
-            &copy;{new Date().getFullYear()}; Developed By{" "}
-            <a href="https://abdullah-io.netlify.app/">Md Abdullah</a>
+            &copy;{new Date().getFullYear()}; Developed By Bit Encrypt It
           </p>
         </div>
       </footer>
