@@ -20,8 +20,8 @@ const ProductSummery = ({ deliveryCharge }) => {
     0
   );
   return (
-    <div className="w-full">
-      <h1 className="font-bold capitalize text-2xl tracking-wider mb-10">
+    <div className="w-full mt-2 md:mt-0">
+      <h1 className="font-bold capitalize md:text-2xl text-xl tracking-wider my-3 md:mb-10">
         Order Summary
       </h1>
       <div className="w-11/12">

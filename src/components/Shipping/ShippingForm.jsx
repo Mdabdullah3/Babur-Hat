@@ -428,12 +428,12 @@ const ShippingForm = () => {
   //   return <Loading />;
   // }
   return (
-    <section className="flex gap-12 items-start">
+    <section className="flex md:flex-row lg:gap-12 items-start flex-col-reverse">
       <section className="w-full">
-        <h1 className="font-bold capitalize text-2xl tracking-wider">
+        <h1 className="font-bold capitalize md:text-2xl my-2 md:my-0 text-xl tracking-wider">
           Billing Details
         </h1>
-        <form className="mt-10" onSubmit={handleSubmit}>
+        <form className="md:mt-10" onSubmit={handleSubmit}>
           {/* Billing input fields */}
           <InputField
             label="Full Name"
@@ -444,7 +444,7 @@ const ShippingForm = () => {
             onChange={handleInputChange}
             placeholder="Full Name"
           />
-          <div className="flex items-center gap-5 my-3">
+          <div className="md:flex items-center gap-5 my-3">
             <InputField
               label="Email"
               id="email"

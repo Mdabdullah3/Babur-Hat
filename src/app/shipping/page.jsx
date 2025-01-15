@@ -11,9 +11,11 @@ const Shipping = () => {
   return (
     <div>
       <Navbar />
-      <section className="w-11/12 mx-auto mt-10">
-        <h1 className="text-3xl font-bold tracking-widest ">Checkout</h1>
-        <div className="mt-14 px-10">
+      <section className="md:w-11/12 w-full mx-auto md:mt-10 mt-3">
+        <h1 className="md:text-3xl text-2xl font-bold tracking-widest text-center md:text-start ">
+          Checkout
+        </h1>
+        <div className="md:mt-14 mt-2 px-10">
           <ShippingForm />
         </div>
       </section>
