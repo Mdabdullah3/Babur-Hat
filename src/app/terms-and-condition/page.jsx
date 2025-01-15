@@ -22,9 +22,9 @@ const TermsAndCondition = () => {
           carefully before proceeding.
         </p>
 
-        <div class="space-y-6">
-          <section>
-            <h2 class="text-2xl font-semibold text-gray-800">
+        <div class="space-y-6 ">
+          <section className="space-y-3">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-2">
               General Overview
             </h2>
             <p class="text-gray-700">
@@ -76,7 +76,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               Account Registration and Management
             </h2>
@@ -132,7 +132,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               Products and Vendors
             </h2>
@@ -182,7 +182,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               Pricing and Payment
             </h2>
@@ -233,7 +233,7 @@ const TermsAndCondition = () => {
               determined by your payment provider.
             </p>
           </section>
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               Shipping and Delivery
             </h2>
@@ -275,7 +275,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               Returns, Refunds, and Exchanges
             </h2>
@@ -315,7 +315,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               Promotions and Offers
             </h2>
@@ -354,7 +354,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">User Conduct</h2>
             <p class="text-gray-700">
               <strong>8.1 Prohibited Activities</strong>
@@ -381,7 +381,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               Vendor and Product Responsibility
             </h2>
@@ -393,7 +393,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               Limitation of Liability
             </h2>
@@ -419,7 +419,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               Governing Law and Dispute Resolution
             </h2>
@@ -429,7 +429,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               Contact Information
             </h2>
@@ -458,7 +458,7 @@ const TermsAndCondition = () => {
         </p>
 
         <div class="space-y-6">
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">সাধারণ বিবরণ</h2>
             <p class="text-gray-700">
               <strong>১.১ রেডি হাউ সম্পর্কে</strong>
@@ -510,7 +510,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               অ্যাকাউন্ট নিবন্ধন ও পরিচালনা
             </h2>
@@ -570,7 +570,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               পণ্য ও বিক্রেতা
             </h2>
@@ -616,7 +616,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               মূল্য নির্ধারণ ও পেমেন্ট
             </h2>
@@ -668,7 +668,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               শিপিং ও ডেলিভারি
             </h2>
@@ -709,7 +709,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               রিটার্ন, রিফান্ড এবং এক্সচেঞ্জ
             </h2>
@@ -750,7 +750,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               প্রোমোশন এবং অফার
             </h2>
@@ -793,7 +793,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               ব্যবহারকারীর আচরণ
             </h2>
@@ -821,7 +821,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               বিক্রেতা ও পণ্যের দায়িত্ব
             </h2>
@@ -833,7 +833,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               দায়বদ্ধতার সীমাবদ্ধতা
             </h2>
@@ -858,7 +858,7 @@ const TermsAndCondition = () => {
             </p>
           </section>
 
-          <section>
+          <section className=" space-y-3">
             <h2 class="text-2xl font-semibold text-gray-800">
               প্রচলিত আইন এবং বিরোধ নিষ্পত্তি
             </h2>

@@ -1,8 +1,10 @@
-import React from "react";
-
+import Navbar from "../../components/layout/Navbar";
 const About = () => {
   return (
     <section>
+      <nav>
+        <Navbar />
+      </nav>
       <div className="bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 py-16">
           {/* About Section */}
