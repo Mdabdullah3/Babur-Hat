@@ -34,19 +34,21 @@ const Footer = () => {
       <div className="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24">
         <div className="lg:flex lg:items-end lg:justify-between">
           <div>
-            <h1 className="text-xl font-bold">Contact Us</h1>
+            <h1 className="text-xl font-bold text-center lg:text-left">
+              Contact Us
+            </h1>
 
-            <p className="mx-auto mt-6 max-w-md text-center leading-relaxed  lg:text-left">
+            <p className="mx-auto max-w-md text-center leading-relaxed  lg:text-left">
               House 198-200, Avenue 3, Mirpur DOHS, Dhaka
             </p>
-            <p className="mx-auto mt-6 max-w-md text-center leading-relaxed  lg:text-left">
+            <p className="mx-auto max-w-md text-center leading-relaxed  lg:text-left">
               +8801748614424
             </p>
-            <p className="pb-2 mx-auto mt-6 max-w-md text-center leading-relaxed  lg:text-left">
+            <p className="pb-2 mx-auto max-w-md text-center leading-relaxed  lg:text-left">
               info@readyhow.com
             </p>
             <a
-              className="mx-auto mt-6 max-w-md text-center leading-relaxed  lg:text-left"
+              className="flex justify-center lg:justify-start"
               href="https://www.facebook.com/people/Ready-How/61569352619463"
             >
               <FaFacebook size={30} />
