@@ -30,7 +30,7 @@ const Footer = () => {
     },
   ];
   return (
-    <footer className="bg-primary text-white">
+    <footer className="bg-primary text-white mt-10">
       <div className="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24">
         <div className="lg:flex lg:items-end lg:justify-between">
           <div>

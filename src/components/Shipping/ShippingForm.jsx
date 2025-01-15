@@ -227,6 +227,10 @@ const ShippingForm = () => {
     setLoading(true);
     setError(""); // Clear previous errors
 
+    if (!user) {
+      setLoading(false);
+      return toast.error("Please login first.");
+    }
     // Validate form inputs
     const validationErrors = [];
     if (form.fullName.length < 5)
@@ -361,10 +365,12 @@ const ShippingForm = () => {
         const response = await axios.post(`${API_URL}/orders`, orders, {
           withCredentials: true,
         });
-        if ([200, 201].includes(response.status)) {
-          router.push("/order-complete");
+        console.log(response);
+        if (response.data) {
           toast.success("Orders processed successfully!");
+          router.prefetch("/order-complete");
           clearCart();
+          router.push("/order-complete");
         } else {
           toast.error(response.data.message || "Failed to process orders.");
         }

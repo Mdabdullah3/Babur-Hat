@@ -66,7 +66,7 @@ const WishlistCard = () => {
                         </h1>
                         <div className="lg:hidden block">
                           <h1 className="  tracking-wider text-[14px]">
-                            {item?.name.slice(0, 30)}...
+                            {item?.name?.slice(0, 30)}...
                           </h1>
 
                           <div className="flex items-center justify-between lg:hidden mt-2">
@@ -89,16 +89,16 @@ const WishlistCard = () => {
                       </div>
                       <div className="flex-col items-center w-52 lg:block hidden">
                         <h1 className="font-bold uppercase tracking-wider">
-                          {item.name}
+                          {item?.name}
                         </h1>
                       </div>
 
                       <div className="lg:block hidden">
-                        <h1>{item.productVariants[0]?.price}.00</h1>
+                        <h1>{item?.productVariants[0]?.price}.00</h1>
                       </div>
                       <div className="lg:block hidden">
                         <h1>
-                          {item.productVariants[0]?.quantity > 0
+                          {item?.productVariants[0]?.quantity > 0
                             ? "In stock"
                             : "Out of stock"}
                         </h1>
