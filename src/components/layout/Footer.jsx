@@ -1,16 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
+import React from "react";
+import { FaFacebook } from "react-icons/fa";
 
-import Link from "next/link";
-import { AiOutlineFacebook } from "react-icons/ai";
 const Footer = () => {
-  const contact = [
-    "Ready How",
-    "House 198-200, Avenue 3, Mirpur DOHS, Dhaka",
-    "Bangladesh",
-    "+880 017 4861 4424",
-    "info@readyhow.com",
-  ];
   const information = [
+    {
+      id: 0,
+      name: "About Us",
+      link: "/about-us",
+    },
     {
       id: 1,
       name: "Privacy Policy",
@@ -32,73 +29,42 @@ const Footer = () => {
       link: "/terms-and-condition",
     },
   ];
-
-  const account = [
-    {
-      id: 1,
-      name: "About Us",
-      link: "/about-us",
-    },
-  ];
-
   return (
-    <div className="bg-primary mt-20">
-      <footer className="py-8  md:text-center grid grid-cols-2 gap-10 bg-primary w-11/12 mx-auto md:grid-cols-5">
-        <div>
-          <h5 className="text-white font-bold underline">Contact Us</h5>
-          {contact &&
-            contact.map((item) => (
-              <p
-                key={item}
-                className="text-white font-light py-1 cursor-pointer ease-out transition-all hover:text-[1.01rem] hover:translate-x-1"
-              >
-                {item}
-              </p>
-            ))}
-          <div className="flex justify-between 800px:w-full w-3/5 m-auto items-center text-white cursor-pointer">
-            {/* <AiOutlineInstagram size={30} />
-            <AiOutlineLinkedin size={30} /> */}
+    <footer className="bg-primary text-white">
+      <div className="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24">
+        <div className="lg:flex lg:items-end lg:justify-between">
+          <div>
+            <h1 className="text-xl font-bold">Contact Us</h1>
+
+            <p className="mx-auto mt-6 max-w-md text-center leading-relaxed  lg:text-left">
+              House 198-200, Avenue 3, Mirpur DOHS, Dhaka
+            </p>
+            <p>+8801748614424</p>
+            <p className="pb-2">info@readyhow.com</p>
             <a href="https://www.facebook.com/people/Ready-How/61569352619463">
-              <AiOutlineFacebook size={30} />
+              <FaFacebook size={30} />
             </a>
-            {/* <AiOutlineTwitter size={30} /> */}
           </div>
-        </div>
-        <div className="flex flex-col">
-          <h5 className="text-white font-bold underline">Information</h5>
-          {information &&
-            information?.map((item) => (
-              <Link
-                href={item.link}
-                key={item.id}
-                className="text-white font-light  py-1 cursor-pointer ease-out transition-all hover:text-[1.01rem] hover:translate-x-1"
-              >
-                {item.name}
-              </Link>
+
+          <ul className="mt-12 flex flex-wrap justify-center gap-3 md:gap-4 lg:mt-0 lg:justify-end lg:gap-4">
+            {information.map((info) => (
+              <li key={info.id}>
+                <a
+                  href={info.link}
+                  className="text-center text-sm font-semibold leading-7 text-white hover:text-gray-300 hover:underline"
+                >
+                  {info.name}
+                </a>
+              </li>
             ))}
+          </ul>
         </div>
-        <div className="flex flex-col">
-          <h5 className="text-white font-bold underline">Account</h5>
-          {account &&
-            account.map((item) => (
-              <Link
-                href={item.link}
-                key={item.id}
-                className="text-white font-light  py-1 cursor-pointer ease-out transition-all hover:text-[1.01rem] hover:translate-x-1"
-              >
-                {item.name}
-              </Link>
-            ))}
-        </div>
-      </footer>
-      <footer className="py-3 bg-primary">
-        <div className="w-full">
-          <p className="text-center mb-0 text-white">
-            &copy;{new Date().getFullYear()}; Developed By Bit Encrypt It
-          </p>
-        </div>
-      </footer>
-    </div>
+
+        <p className="mt-12 text-center text-sm  lg:text-right">
+          &copy;{new Date().getFullYear()}; Developed By Bit Encrypt It
+        </p>
+      </div>
+    </footer>
   );
 };
 
