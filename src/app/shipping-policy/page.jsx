@@ -1,4 +1,4 @@
-import Navbar from "@/components/layout/Navbar";
+import Navbar from "../../components/layout/Navbar";
 import React from "react";
 export const metadata = {
   title: "Shipping Policy - Ready How",

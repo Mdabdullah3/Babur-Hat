@@ -1,6 +1,8 @@
-import Navbar from "@/components/layout/Navbar";
-import React from "react";
-
+import Navbar from "../../components/layout/Navbar";
+export const metadata = {
+  title: "Terms and Conditions - Ready How",
+  description: "Terms and Conditions of Ready How",
+};
 const TermsAndCondition = () => {
   return (
     <main>

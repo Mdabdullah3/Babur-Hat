@@ -157,10 +157,10 @@ const Cart = () => {
   };
 
   const handleProceedToCheckout = () => {
-    if (!user) {
-      toast.error("Please login first");
-      return;
-    }
+    // if (!user) {
+    //   toast.error("Please login first");
+    //   return;
+    // }
     const stockError = checkProductStock();
     if (stockError) {
       setError(stockError);

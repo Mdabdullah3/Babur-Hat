@@ -1,7 +1,5 @@
 // pages/return-refund.js
-
-import Navbar from "@/components/layout/Navbar";
-import React from "react";
+import Navbar from "../../components/layout/Navbar";
 export const metadata = {
   title: "Return and Refund Policy - Ready How",
   description: "Return and Refund Policy of Ready How",
