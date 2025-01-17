@@ -72,7 +72,10 @@ const WishlistCard = () => {
                           <div className="flex items-center justify-between lg:hidden mt-2">
                             <div>
                               <h1 className="text-[14px]">
-                                ${item?.productVariants[0]?.price}.00
+                                <span className="text-2xl"> ৳</span>
+                                {(
+                                  item?.productVariants?.[0]?.price || 0
+                                ).toFixed(2)}
                               </h1>
                             </div>
 
@@ -94,11 +97,15 @@ const WishlistCard = () => {
                       </div>
 
                       <div className="lg:block hidden">
-                        <h1>{item?.productVariants[0]?.price}.00</h1>
+                        <h1>
+                          <span className="text-2xl"> ৳</span>
+                          {(item?.productVariants?.[0]?.price || 0).toFixed(2)}
+                        </h1>
                       </div>
                       <div className="lg:block hidden">
                         <h1>
-                          {item?.productVariants[0]?.quantity > 0
+                          {item?.productVariants?.length > 0 &&
+                          item?.productVariants[0]?.quantity > 0
                             ? "In stock"
                             : "Out of stock"}
                         </h1>

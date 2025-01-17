@@ -3,7 +3,7 @@ import Navbar from "../../components/layout/Navbar";
 import DeafultProducts from "../../components/Home/DeafultProducts";
 import WhishlistCard from "../../components/Wishlist/WishlistCard";
 export const metadata = {
-  title: "wishlist ",
+  title: "Wishlist - Ready How",
   description: "wishlist section of Ready How",
 };
 const Wishlist = () => {

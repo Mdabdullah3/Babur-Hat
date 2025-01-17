@@ -13,7 +13,7 @@ const Register = () => {
       <section className="bg-white lg:w-10/12 w-11/12 mx-auto lg:my-14 my-4">
         <div className="flex item-center justify-center">
           <img
-            src="https://images.pexels.com/photos/135620/pexels-photo-135620.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            src="/auth.png"
             className="w-6/12 rounded-tl-2xl rounded-bl-2xl hidden lg:block"
             alt=""
           />
