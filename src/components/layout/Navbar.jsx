@@ -244,12 +244,15 @@ const Navbar = () => {
                 </div>
               </div>
             </Link>
-            <Link href="/wishlist" className="flex items-center cursor-pointer">
-              <h1 className="bg-white md:px-3 px-2 mt-2 md:mt-0 rounded-full py-0 text-primary">
-                {wishlist?.length || 0}
-              </h1>
+            <Link
+              href="/wishlist"
+              className="flex gap-1 items-center cursor-pointer"
+            >
               <h1 className="md:text-2xl text-xl hidden md:block">
                 <FaHeart />
+              </h1>
+              <h1 className="bg-white md:px-2 px-2 md:mt-0 rounded-full py-0 text-primary">
+                {wishlist?.length || 0}
               </h1>
             </Link>
           </div>
