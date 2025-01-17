@@ -14,12 +14,11 @@ const EventCard = ({ id }) => {
     <div>
       <section className="">
         <section>
-          <div className=" relative">
-            <img src="/cover.jpg" alt="" />
-            <h1 className="text-2xl font-bold mb-5 absolute top-16 left-10">
+          <section className="md:w-11/12 w-full mx-auto">
+            <h1 className="md:text-2xl font-bold md:my-10 my-6">
               Event Products
             </h1>
-          </div>
+          </section>
         </section>
         <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-8 w-11/12 mx-auto mb-10">
           {event?.eventProducts

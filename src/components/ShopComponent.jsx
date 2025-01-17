@@ -10,6 +10,7 @@ import ProductCardDesign from "./common/ProductCardDesign";
 import Footer from "./layout/Footer";
 import useCategoryStore from "../store/CategoriesStore";
 import { size } from "../utils/constants";
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
 const ShopComponent = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
@@ -219,8 +220,13 @@ const ShopComponent = () => {
                           className="range range-xs range-primary"
                         />
                         <p className="tracking-wider mt-2 flex justify-between">
-                          <span>Price - $0</span>
-                          <span>{priceRange}</span>
+                          <span className="flex items-center">
+                            Price - <FaBangladeshiTakaSign />0
+                          </span>
+                          <span className="flex items-center">
+                            <FaBangladeshiTakaSign />
+                            {priceRange}
+                          </span>
                         </p>
                       </div>
                     </ShopMenu>
@@ -335,8 +341,14 @@ const ShopComponent = () => {
                       onChange={handlePriceChange}
                     />
                     <p className="tracking-wider mt-2 flex justify-between">
-                      <span>Price - ${priceRange[0]}</span>
-                      <span>${priceRange[1]}</span>
+                      <span className="flex items-center">
+                        Price - <FaBangladeshiTakaSign />
+                        {priceRange[0]}
+                      </span>
+                      <span className="flex items-center">
+                        <FaBangladeshiTakaSign />
+                        {priceRange[1]}
+                      </span>
                     </p>
                   </div>
                 </ShopMenu>

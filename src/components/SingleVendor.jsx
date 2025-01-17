@@ -13,7 +13,6 @@ const SingleVendor = ({ vendorId }) => {
   const user = product?.length > 0 ? product[0].user : null;
   return (
     <section>
-      <img src="/cover.jpg" alt="" />
       <div className="w-11/12 mx-auto mt-6">
         <div className="flex items-center gap-4">
           <img

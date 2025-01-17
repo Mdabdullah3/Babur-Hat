@@ -12,14 +12,6 @@ const VendorShop = () => {
     <main>
       <Navbar />
       <section>
-        <div className=" relative">
-          <img src="/cover.jpg" alt="" />
-          <h1 className="text-2xl font-bold mb-5 absolute top-16 left-10">
-            Vendors
-          </h1>
-        </div>
-      </section>
-      <section>
         <TopRated />
       </section>
       <Footer />

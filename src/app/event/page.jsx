@@ -12,12 +12,9 @@ const Event = () => {
     <main>
       <Navbar />
       <section>
-        <div className=" relative">
-          <img src="/cover.jpg" alt="" />
-          <h1 className="text-2xl font-bold mb-5 absolute top-16 left-10">
-            Events
-          </h1>
-        </div>
+        <section className="md:w-11/12 w-full mx-auto">
+          <h1 className="md:text-2xl font-bold md:my-10 my-6">Our Events</h1>
+        </section>
         <EventProducts />
       </section>
       <Footer />
