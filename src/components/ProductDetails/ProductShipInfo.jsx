@@ -90,7 +90,6 @@ const ProductShipInfo = ({
           <FaBangladeshiTakaSign size={21} /> 60
         </span>
       </h1>
-      <h1>Estimated delivery on Jul 18 </h1>
       <h1 className="mt-2 font-bold">Cash on Delivery Available</h1>
       <hr className="my-4" />
       <label htmlFor="" className="w-full text-md font-semibold mt-2">

@@ -368,9 +368,8 @@ const ShippingForm = () => {
         console.log(response);
         if (response.data) {
           toast.success("Orders processed successfully!");
-          router.prefetch("/order-complete");
+          window.location.href = "/order-complete";
           clearCart();
-          router.push("/order-complete");
         } else {
           toast.error(response.data.message || "Failed to process orders.");
         }

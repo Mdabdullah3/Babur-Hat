@@ -14,6 +14,7 @@ import { category } from "../../utils/constants";
 import useProductStore from "../../store/ProductStore";
 import useCategoryStore from "../../store/CategoriesStore";
 import { TbCategory2 } from "react-icons/tb";
+import useWishlistStore from "../../store/wishlistStore";
 
 const Navbar = () => {
   // const { user, logout } = useAuthStore((state) => ({
@@ -26,6 +27,7 @@ const Navbar = () => {
     fetchUser();
   }, [fetchUser, user]);
   const { cart } = useCartStore();
+  const { wishlist } = useWishlistStore();
   const router = useRouter();
   const pathname = usePathname();
   const isActive = (path) =>
@@ -242,7 +244,10 @@ const Navbar = () => {
                 </div>
               </div>
             </Link>
-            <Link href="/wishlist">
+            <Link href="/wishlist" className="flex items-center cursor-pointer">
+              <h1 className="bg-white md:px-3 px-2 mt-2 md:mt-0 rounded-full py-0 text-primary">
+                {wishlist?.length || 0}
+              </h1>
               <h1 className="md:text-2xl text-xl hidden md:block">
                 <FaHeart />
               </h1>
