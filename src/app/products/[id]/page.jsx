@@ -81,6 +81,11 @@ const ProductDetails = ({ params }) => {
   const closeReportModal = () => {
     setReportModalOpen(false);
   };
+  useEffect(() => {
+    if (product) {
+      addRecentlyViewed(product);
+    }
+  }, [product, addRecentlyViewed]);
 
   return (
     <section className="">
