@@ -11,6 +11,7 @@ import Footer from "./layout/Footer";
 import useCategoryStore from "../store/CategoriesStore";
 import { size } from "../utils/constants";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import useUserStore from "../store/userStore";
 const ShopComponent = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
@@ -18,6 +19,8 @@ const ShopComponent = () => {
   const [priceRange, setPriceRange] = useState([0, 10000]);
   const { products, fetchAllProducts } = useProductStore();
   const { categories, fetchCategories } = useCategoryStore();
+  const { users, fetchVendorAllUser } = useUserStore();
+  const [selectedBrand, setSelectedBrand] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
@@ -26,6 +29,7 @@ const ShopComponent = () => {
   useEffect(() => {
     fetchAllProducts();
     fetchCategories();
+    fetchVendorAllUser();
     if (subCategory) {
       setSelectedSubCategory(subCategory);
     }
@@ -35,7 +39,14 @@ const ShopComponent = () => {
     if (search) {
       setSearchTerm(search);
     }
-  }, [fetchAllProducts, search, fetchCategories, category, subCategory]);
+  }, [
+    fetchAllProducts,
+    search,
+    fetchCategories,
+    category,
+    subCategory,
+    fetchVendorAllUser,
+  ]);
 
   const handleCategoryChange = (categoryId) => {
     setSelectedCategory(categoryId);
@@ -50,6 +61,10 @@ const ShopComponent = () => {
     setSelectecdSize(size);
   };
 
+  const handleBrandChange = (brandId) => {
+    setSelectedBrand(brandId);
+  };
+
   const handlePriceChange = (event) => {
     const value = Number(event.target.value);
     setPriceRange([0, value]);
@@ -59,13 +74,16 @@ const ShopComponent = () => {
       let matchesCategory = true;
       let matchesSubCategory = true;
       let matchesSize = true;
+      let matchesBrand = true;
       let matchesPrice = true;
       let matchesSearchTerm = true;
 
+      // Checking category
       if (selectedCategory) {
         matchesCategory = product.category === selectedCategory;
       }
 
+      // Checking subCategory
       if (selectedSubCategory) {
         matchesSubCategory = product.subCategory === selectedSubCategory;
       }
@@ -77,6 +95,12 @@ const ShopComponent = () => {
         );
       }
 
+      // Checking brand
+      if (selectedBrand) {
+        matchesBrand = product.user?._id === selectedBrand;
+      }
+
+      // Checking price
       if (priceRange[0] !== 0 || priceRange[1] !== 10000) {
         matchesPrice = product.productVariants.some(
           (variant) =>
@@ -84,6 +108,7 @@ const ShopComponent = () => {
         );
       }
 
+      // Checking search
       if (searchTerm) {
         matchesSearchTerm = product.name
           .toLowerCase()
@@ -95,6 +120,7 @@ const ShopComponent = () => {
         matchesSubCategory &&
         matchesSize &&
         matchesPrice &&
+        matchesBrand &&
         matchesSearchTerm
       );
     });
@@ -230,6 +256,27 @@ const ShopComponent = () => {
                         </p>
                       </div>
                     </ShopMenu>
+                    <ShopMenu title="Brand">
+                      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2 mt-6 w-full">
+                        {users?.map((brand) => (
+                          <div
+                            onClick={() => handleBrandChange(brand?._id)}
+                            key={brand?._id}
+                            className="mx-auto w-full cursor-pointer text-center "
+                          >
+                            <h1
+                              className={`text-sm font-medium border border-gray-400 p-4 tracking-wider uppercase ${
+                                brand?._id === selectedBrand
+                                  ? "text-primary"
+                                  : ""
+                              }`}
+                            >
+                              {brand?.name}
+                            </h1>
+                          </div>
+                        ))}
+                      </div>
+                    </ShopMenu>
                   </div>
                   <div className="mt-10">
                     <button
@@ -350,6 +397,26 @@ const ShopComponent = () => {
                         {priceRange[1]}
                       </span>
                     </p>
+                  </div>
+                </ShopMenu>
+
+                <ShopMenu title="Brand">
+                  <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2 mt-6 w-full">
+                    {users?.map((brand) => (
+                      <div
+                        onClick={() => handleBrandChange(brand)}
+                        key={brand?._id}
+                        className="mx-auto w-full text-center cursor-pointer"
+                      >
+                        <h1
+                          className={`text-sm font-medium border-gray-400 border p-3 rounded-lg tracking-wider uppercase ${
+                            brand?.name === brand?.name ? "text-primary" : ""
+                          }`}
+                        >
+                          {brand?.name}
+                        </h1>
+                      </div>
+                    ))}
                   </div>
                 </ShopMenu>
               </div>

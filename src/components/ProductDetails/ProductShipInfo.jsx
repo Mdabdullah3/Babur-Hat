@@ -74,7 +74,15 @@ const ProductShipInfo = ({
 
     window.open(shareUrl, "_blank");
   };
-
+  const getFutureDate = (days) => {
+    const today = new Date(); // Get today's date
+    today.setDate(today.getDate() + days); // Add 'days' to today
+    return today.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
   return (
     <div className="shadow-lg hidden lg:block px-5 py-4 bg-white col-span-2 rounded-2xl border border-gray-300">
       <h1 className="flex items-center justify-between font-bold">
@@ -87,9 +95,10 @@ const ProductShipInfo = ({
       <h1 className="font-bold mb-2 flex items-center justify-between">
         Standard Delivery{" "}
         <span className="flex items-center gap-1 font-normal">
-          <FaBangladeshiTakaSign size={21} /> 60
+          <FaBangladeshiTakaSign size={21} /> 100
         </span>
       </h1>
+      <h1>Estimated delivery on {getFutureDate(7)} </h1>
       <h1 className="mt-2 font-bold">Cash on Delivery Available</h1>
       <hr className="my-4" />
       <label htmlFor="" className="w-full text-md font-semibold mt-2">

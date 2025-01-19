@@ -30,7 +30,7 @@ const useProductStore = create((set) => ({
         set({ loading: true });
         const { page, limit, searchTerm, sort, selectedCategory, selectedSubCategory, selectedSize, minPrice, maxPrice } = useProductStore.getState();
         try {
-            const response = await axios.get(`${API_URL}/products`, {
+            const response = await axios.get(`${API_URL}/products?_filter[status]=approved`, {
                 params: {
                     _page: page,
                     _limit: limit,
@@ -41,6 +41,7 @@ const useProductStore = create((set) => ({
                     size: selectedSize,
                     price_gte: minPrice,
                     price_lte: maxPrice,
+                    
                 },
             });
             set({
@@ -53,7 +54,7 @@ const useProductStore = create((set) => ({
             set({ error: error.response?.data?.message || error.message, loading: false });
         }
     },
-  
+
     fetchSuggestions: async (query) => {
         set({ loading: true });
         try {

@@ -328,7 +328,8 @@ const Cart = () => {
                 )}
                 {couponApplied && (
                   <p className="text-green-500 text-center mt-2">
-                    Coupon applied! You get a {discount.toFixed(2)}% discount.
+                    Coupon applied! You get a {discount.toFixed(2)} BDT
+                    discount.
                   </p>
                 )}
                 <div className="flex lg:hidden justify-center my-3 bg-red-500 px-2 text-white py-3 rounded-xl">
@@ -354,7 +355,7 @@ const Cart = () => {
                         Total
                         <span className="text-lg flex items-center">
                           <FaBangladeshiTakaSign />
-                          {(calculateTotal() + 60).toFixed(2)} BDT
+                          {(calculateTotal() + 100).toFixed(2)} BDT
                         </span>
                       </h1>
                     </div>
@@ -400,7 +401,7 @@ const Cart = () => {
                     Total{" "}
                     <span className="text-xl flex items-center">
                       <FaBangladeshiTakaSign size={32} />
-                      {(calculateTotal() + 60).toFixed(2)} BDT
+                      {(calculateTotal() + 100).toFixed(2)} BDT
                     </span>
                   </h1>
                   {/* <Link href="/shipping"> */}
