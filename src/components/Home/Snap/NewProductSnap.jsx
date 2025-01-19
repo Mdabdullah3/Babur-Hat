@@ -25,7 +25,7 @@ const NewProductSnap = () => {
                   className="w-[140px] h-[130px] rounded-2xl"
                 />
                 <h1>
-                  BDT{" "}
+                  ৳{" "}
                   <span className="text-2xl font-bold mt-2">
                     {item?.productVariants[0]?.discount > 0
                       ? item?.productVariants[0]?.discount

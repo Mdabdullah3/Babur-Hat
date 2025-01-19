@@ -47,8 +47,8 @@ const ProductCard = ({ product }) => {
           </span>
         </h1>
         <h1 className="lg:text-xl text-[14px] font-bold">
-          <span className="lg:text-sm text-[14px]">BDT</span>{" "}
-          {product.sellPrice}.00{" "}
+          <span className="lg:text-sm text-[14px]">৳</span> {product.sellPrice}
+          .00{" "}
           <del className="font-normal ml-2 lg:text-sm text-gray-400 text-[14px]">
             535.00
           </del>

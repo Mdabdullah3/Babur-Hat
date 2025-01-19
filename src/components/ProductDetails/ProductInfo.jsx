@@ -26,11 +26,11 @@ const ProductInfo = ({ product, setSelectedVariant, selectedVariant }) => {
     <div className="col-span-3 lg:mt-0 mt-4">
       {/* Stock Status */}
       {selectedVariant?.quantity > 0 ? (
-        <h2 className="bg-primary px-3 font-bold text-white tracking-wider w-12 py-1 rounded-sm">
+        <h2 className="bg-primary text-center font-bold text-white tracking-wider w-20 py-1 rounded-sm">
           In Stock
         </h2>
       ) : (
-        <h2 className="bg-red-500 px-3 font-bold text-white tracking-wider w-28 py-2 rounded-sm">
+        <h2 className="bg-red-500 text-center font-bold text-white tracking-wider w-28 py-2 rounded-sm">
           Out of Stock
         </h2>
       )}
@@ -52,8 +52,8 @@ const ProductInfo = ({ product, setSelectedVariant, selectedVariant }) => {
       {/* Price and Discount */}
       <div className="flex items-center justify-between ">
         <p className="leading-6 lg:mt-4 mt-2 text-lg font-[600] tracking-wider text-primary">
-          BDT{" "}
           <span className="lg:text-2xl text-xl">
+            ৳
             {selectedVariant?.discount > 0
               ? selectedVariant?.discount
               : selectedVariant?.price}
@@ -61,15 +61,18 @@ const ProductInfo = ({ product, setSelectedVariant, selectedVariant }) => {
           </span>
           {selectedVariant?.discount > 0 && (
             <del className="font-normal ml-2 lg:text-sm text-gray-400 text-[14px]">
-              {selectedVariant?.price}
+              ৳ {selectedVariant?.price}
             </del>
           )}
         </p>
       </div>
 
-      {/* Colors Info */}
-      <h2 className="flex items-center gap-3 tracking-wider lg:mt-3">
-        {selectedVariant?.colors && selectedVariant?.color}
+      {/* Viewing Info */}
+      <h2 className="flex items-center gap-3 tracking-wider lg:mt-3 capitalize">
+        Colors :{" "}
+        <span className="font-semibold">
+          {selectedVariant?.color && selectedVariant?.color}
+        </span>
       </h2>
 
       {/* Size Selection */}

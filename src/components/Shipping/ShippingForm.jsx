@@ -269,7 +269,7 @@ const ShippingForm = () => {
       profit: item?.profit,
       vendorPaid: "unpaid",
       vendor: item?.userId,
-      currency: "BDT",
+      currency: "৳",
       transactionId: item?._id,
       paymentType:
         selectedMethod === "cod" ? "cash-on-delivery" : "Online Payment",
@@ -306,7 +306,7 @@ const ShippingForm = () => {
         },
       ],
       status: "pending",
-      currency: "BDT",
+      currency: "৳",
       paymentType: "cash",
       user: "675fe0173b48cef96b91a459",
       shippingInfo: {
@@ -343,7 +343,7 @@ const ShippingForm = () => {
         vendorPaymentStatus: item?.vendorPaid === "unpaid",
       })),
       status: "pending",
-      currency: "BDT",
+      currency: "৳",
       paymentType: selectedMethod === "Online Payment",
       user: user?._id,
       shippingInfo: {

@@ -25,12 +25,12 @@ const PlusSnap = () => {
               className="w-[140px] h-[130px] rounded-2xl"
             />
             <h1 className="text-md  text-primary text-center mt-2">
-              BDT
+              ৳
               {item?.productVariants[0]?.discount > 0
                 ? item?.productVariants[0]?.discount
                 : item?.productVariants[0]?.price}
               <del className="ml-2 font-normal text-gray-400 text-sm">
-                BDT
+                ৳
                 {item?.productVariants[0]?.discount &&
                   item?.productVariants[0]?.price}
               </del>

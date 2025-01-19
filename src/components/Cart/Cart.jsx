@@ -212,8 +212,7 @@ const Cart = () => {
                             </div>
                             <div>
                               <h1 className="flex items-center gap-1">
-                                <FaBangladeshiTakaSign />
-
+                                ৳
                                 {(
                                   item.price * parseInt(item?.quantity)
                                 ).toFixed(2)}
@@ -270,9 +269,9 @@ const Cart = () => {
                         <h1 className="text-gray-500">
                           ({item?.quantity} x {item?.originalPrice}) ={""}
                           <span className="font-semibold text-black">
+                            ৳
                             {(item.price * parseInt(item?.quantity)).toFixed(2)}
                           </span>
-                          BDT
                         </h1>
                       </div>
                       <div className="w-28 mt-2 lg:block hidden">
@@ -328,8 +327,7 @@ const Cart = () => {
                 )}
                 {couponApplied && (
                   <p className="text-green-500 text-center mt-2">
-                    Coupon applied! You get a {discount.toFixed(2)} BDT
-                    discount.
+                    Coupon applied! You get a {discount.toFixed(2)} ৳ discount.
                   </p>
                 )}
                 <div className="flex lg:hidden justify-center my-3 bg-red-500 px-2 text-white py-3 rounded-xl">
@@ -338,24 +336,20 @@ const Cart = () => {
                     <h1 className="text-sm tracking-wider mt-1 flex items-center">
                       SubTotal :
                       <span className="ml-10 flex font-[500] text-sm items-center">
-                        <FaBangladeshiTakaSign />
-                        {calculateTotal().toFixed(2)}
+                        ৳{calculateTotal().toFixed(2)}
                         .00
                       </span>
                     </h1>
                     <h1 className="mt-1 tracking-wider  text-sm flex gap-10 items-start">
                       Shipping Fee:
-                      <span className="flex items-center">
-                        <FaBangladeshiTakaSign /> 100
-                      </span>
+                      <span className="flex items-center">৳ 100</span>
                     </h1>
                     <div className="mt-2">
                       <div className="border-b-[0.5px] border-white"> </div>
                       <h1 className="font-bold tracking-widest text-sm uppercase mt-1 flex justify-between items-center">
                         Total
                         <span className="text-lg flex items-center">
-                          <FaBangladeshiTakaSign />
-                          {(calculateTotal() + 100).toFixed(2)} BDT
+                          ৳{(calculateTotal() + 100).toFixed(2)}
                         </span>
                       </h1>
                     </div>
@@ -385,23 +379,20 @@ const Cart = () => {
                 <h1 className="text-sm tracking-wider mt-5 uppercase flex items-center">
                   SubTotal :
                   <span className="ml-10 flex font-[500] text-lg items-center">
-                    <FaBangladeshiTakaSign />
-                    {calculateTotal().toFixed(2)} BDT
+                    ৳{calculateTotal().toFixed(2)}
                   </span>
                 </h1>
                 <h1 className="mt-4 tracking-wider uppercase text-sm flex gap-10 items-start">
                   Shipping Fee:
-                  <span className="flex items-center">
-                    <FaBangladeshiTakaSign /> 100
-                  </span>
+                  <span className="flex items-center">৳ 100</span>
                 </h1>
                 <div className="mt-10">
                   <div className="border-b-[0.5px] border-white"> </div>
                   <h1 className="font-bold tracking-widest text-md uppercase mt-4 flex justify-between items-center">
                     Total{" "}
                     <span className="text-xl flex items-center">
-                      <FaBangladeshiTakaSign size={32} />
-                      {(calculateTotal() + 100).toFixed(2)} BDT
+                    ৳
+                      {(calculateTotal() + 100).toFixed(2)} 
                     </span>
                   </h1>
                   {/* <Link href="/shipping"> */}

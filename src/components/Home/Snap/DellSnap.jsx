@@ -42,13 +42,13 @@ const DellSnap = () => {
                   className="w-52 h-52 rounded-md mx-auto"
                 />
                 <h1 className="text-xl font-bold text-primary text-center mt-2">
-                  BDT
+                  ৳
                   {item?.product?.productVariants[0]?.discount > 0
                     ? item?.product?.productVariants[0]?.discount
                     : item?.product?.productVariants[0]?.price}
                   .00
                   <del className="ml-2 font-normal text-gray-400 text-lg">
-                    BDT
+                    ৳
                     {item?.product?.productVariants[0]?.discount &&
                       item?.product?.productVariants[0]?.price}
                     .00

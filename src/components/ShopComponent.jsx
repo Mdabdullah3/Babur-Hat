@@ -228,7 +228,9 @@ const ShopComponent = () => {
                           >
                             <h1
                               className={`text-sm font-medium border border-gray-400 p-4 tracking-wider uppercase ${
-                                item === selectedSize ? "text-primary" : ""
+                                item === selectedSize
+                                  ? "bg-primary border-primary text-white"
+                                  : ""
                               }`}
                             >
                               {item}
@@ -257,7 +259,7 @@ const ShopComponent = () => {
                       </div>
                     </ShopMenu>
                     <ShopMenu title="Brand">
-                      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2 mt-6 w-full">
+                      <div className="flex flex-wrap gap-2 mt-6 w-full">
                         {users?.map((brand) => (
                           <div
                             onClick={() => handleBrandChange(brand?._id)}
@@ -265,9 +267,9 @@ const ShopComponent = () => {
                             className="mx-auto w-full cursor-pointer text-center "
                           >
                             <h1
-                              className={`text-sm font-medium border border-gray-400 p-4 tracking-wider uppercase ${
+                              className={`text-sm font-medium border border-gray-400 p-4 tracking-wider capitalize ${
                                 brand?._id === selectedBrand
-                                  ? "text-primary"
+                                  ? "bg-primary border-primary text-white"
                                   : ""
                               }`}
                             >
@@ -368,7 +370,9 @@ const ShopComponent = () => {
                       >
                         <h1
                           className={`text-sm font-medium border-gray-400 border p-3 rounded-lg tracking-wider uppercase ${
-                            item === selectedSize ? "text-primary" : ""
+                            item === selectedSize
+                              ? "bg-primary border-primary text-white"
+                              : ""
                           }`}
                         >
                           {item}
@@ -401,7 +405,7 @@ const ShopComponent = () => {
                 </ShopMenu>
 
                 <ShopMenu title="Brand">
-                  <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2 mt-6 w-full">
+                  <div className="grid grid-cols-2 gap-2 mt-6 w-full">
                     {users?.map((brand) => (
                       <div
                         onClick={() => handleBrandChange(brand)}
@@ -410,7 +414,9 @@ const ShopComponent = () => {
                       >
                         <h1
                           className={`text-sm font-medium border-gray-400 border p-3 rounded-lg tracking-wider uppercase ${
-                            brand?.name === brand?.name ? "text-primary" : ""
+                            brand?._id === selectedBrand
+                              ? "bg-primary border-primary text-white"
+                              : ""
                           }`}
                         >
                           {brand?.name}

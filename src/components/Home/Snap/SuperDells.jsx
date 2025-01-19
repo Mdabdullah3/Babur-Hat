@@ -37,13 +37,13 @@ const SuperDells = () => {
               alt="Super Deals"
             />
             <h1 className="text-xl font-bold text-primary text-center mt-2">
-              BDT
+              ৳
               {filteredProducts[0]?.product?.productVariants[0]?.discount > 0
                 ? filteredProducts[0]?.product?.productVariants[0]?.discount
                 : filteredProducts[0]?.product?.productVariants[0]?.price}
               .00
               <del className="ml-2 font-normal text-gray-400 text-lg">
-                BDT
+                ৳
                 {filteredProducts[0]?.product?.productVariants[0]?.discount &&
                   filteredProducts[0]?.product?.productVariants[0]?.price}
                 .00
@@ -61,12 +61,12 @@ const SuperDells = () => {
                   className="w-36 h-36 rounded-md"
                 />
                 <h1 className="text-md text-primary text-center mt-2">
-                  BDT
+                  ৳
                   {item?.product?.productVariants[0]?.discount > 0
                     ? item?.product?.productVariants[0]?.discount
                     : item?.product?.productVariants[0]?.price}
                   <del className="ml-2 font-normal text-gray-400 text-sm">
-                    BDT
+                    ৳
                     {item?.product?.productVariants[0]?.discount &&
                       item?.product?.productVariants[0]?.price}
                   </del>

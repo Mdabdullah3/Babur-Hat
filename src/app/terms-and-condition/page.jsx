@@ -228,7 +228,7 @@ const TermsAndCondition = () => {
             <p class="text-gray-700">
               <strong>4.6 Currency</strong>
               <br />
-              All transactions are conducted in Bangladeshi Taka (BDT). Currency
+              All transactions are conducted in Bangladeshi Taka (৳). Currency
               conversion fees may apply for international payments, as
               determined by your payment provider.
             </p>
@@ -662,9 +662,9 @@ const TermsAndCondition = () => {
             <p class="text-gray-700">
               <strong>৪.৬ মুদ্রা</strong>
               <br />
-              সব লেনদেন বাংলাদেশি টাকা (BDT)-তে সম্পন্ন হয়। আন্তর্জাতিক
-              পেমেন্টের ক্ষেত্রে আপনার পেমেন্ট প্রদানকারীর নির্ধারিত মুদ্রা
-              রূপান্তর ফি প্রযোজ্য হতে পারে।
+              সব লেনদেন বাংলাদেশি টাকা (৳)-তে সম্পন্ন হয়। আন্তর্জাতিক পেমেন্টের
+              ক্ষেত্রে আপনার পেমেন্ট প্রদানকারীর নির্ধারিত মুদ্রা রূপান্তর ফি
+              প্রযোজ্য হতে পারে।
             </p>
           </section>
 

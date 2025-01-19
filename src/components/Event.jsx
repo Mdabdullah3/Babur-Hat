@@ -21,8 +21,8 @@ const EventProducts = () => {
             className="bg-white shadow-lg rounded-lg overflow-hidden transform transition hover:scale-105 duration-300"
           >
             <img
-              src={`${SERVER}${event.image.secure_url}`}
-              alt={event.name}
+              src={`${SERVER}${event?.image?.secure_url}`}
+              alt={event?.name}
               className="h-52 w-full"
             />
             <div className="p-4">
@@ -35,12 +35,12 @@ const EventProducts = () => {
               </p>
               <p className="text-gray-600 mt-4">{event.description}</p>
               <div className="flex items-center justify-between mt-6">
-                <span className="text-lg font-semibold text-indigo-600">
+                <span className="text-lg font-semibold text-primary">
                   {event.eventProducts.length} Products
                 </span>
                 <Link
                   href={`/event/${event?._id}`}
-                  className="bg-indigo-600 text-white py-2 px-4 rounded-lg shadow hover:bg-indigo-500 focus:outline-none"
+                  className="bg-primary text-white py-2 px-4 rounded-lg shadow hover:bg-primary/70 focus:outline-none"
                 >
                   View Event
                 </Link>
