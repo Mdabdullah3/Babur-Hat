@@ -135,8 +135,12 @@ const ShopComponent = () => {
     setSelectedSubCategory(null);
     setSelectecdSize(null);
     setPriceRange([0, 1000]);
+    setSelectedBrand(null);
     fetchAllProducts();
+    filterProducts();
   };
+
+  console.log("filterProduct", filterProduct, "Products", products);
   return (
     <div>
       <Navbar />
@@ -403,12 +407,11 @@ const ShopComponent = () => {
                     </p>
                   </div>
                 </ShopMenu>
-
                 <ShopMenu title="Brand">
                   <div className="grid grid-cols-2 gap-2 mt-6 w-full">
                     {users?.map((brand) => (
                       <div
-                        onClick={() => handleBrandChange(brand)}
+                        onClick={() => handleBrandChange(brand?._id)}
                         key={brand?._id}
                         className="mx-auto w-full text-center cursor-pointer"
                       >
