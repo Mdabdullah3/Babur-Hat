@@ -15,19 +15,19 @@ const useWishlistStore = create(
                     }
                     const { _id, name, user, coverPhoto } = product;
                     const { price, discount, size, color, } = variant;
-                    const newWishlist = [...state.wishlist, 
-                        {
-                            _id,
-                            userId: user._id,
-                            variantId: variant?._id,
-                            name,
-                            size,
-                            color,
-                            originalPrice: discount ? discount : price,
-                            price: discount ? discount : price,
-                            quantity,
-                            coverPhoto,
-                        },
+                    const newWishlist = [...state.wishlist,
+                    {
+                        _id,
+                        userId: user._id,
+                        variant: variant,
+                        name,
+                        size,
+                        color,
+                        originalPrice: discount ? discount : price,
+                        price: discount ? discount : price,
+                        quantity,
+                        coverPhoto,
+                    },
                     ];
                     productAdded = true;
                     return { wishlist: newWishlist };

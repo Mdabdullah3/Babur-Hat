@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import useWishlistStore from "../../store/wishlistStore";
 import useCartStore from "../../store/cartStore";
 import { SERVER } from "../../config";
+import Link from "next/link";
 
 const WishlistCard = () => {
   const { wishlist, removeFromWishlist } = useWishlistStore();
@@ -73,19 +74,17 @@ const WishlistCard = () => {
                             <div>
                               <h1 className="text-[14px]">
                                 <span className="text-2xl"> ৳</span>
-                                {(
-                                  item?.productVariants?.[0]?.price || 0
-                                ).toFixed(2)}
+                                {item?.price}
                               </h1>
                             </div>
 
                             <div className="">
-                              <button
-                                onClick={() => handleAddToCart(item)}
+                              <Link
+                                href={`/products/${item?._id}`}
                                 className="bg-primary text-white px-4 lg:px-10 lg:py-3 py-2 rounded-sm font-[500] tracking-wider border-[1px] border-primary hover:bg-transparent hover:text-primary text-[12px] lg:text-sm transition duration-500"
                               >
-                                Add To Cart
-                              </button>
+                                Details
+                              </Link>
                             </div>
                           </div>
                         </div>
@@ -99,24 +98,21 @@ const WishlistCard = () => {
                       <div className="lg:block hidden">
                         <h1>
                           <span className="text-2xl"> ৳</span>
-                          {(item?.productVariants?.[0]?.price || 0).toFixed(2)}
+                          {item?.price}
                         </h1>
                       </div>
                       <div className="lg:block hidden">
                         <h1>
-                          {item?.productVariants?.length > 0 &&
-                          item?.productVariants[0]?.quantity > 0
-                            ? "In stock"
-                            : "Out of stock"}
+                          {item?.quantity > 0 ? "In stock" : "Out of stock"}
                         </h1>
                       </div>
                       <div className=" lg:block hidden">
-                        <button
-                          onClick={() => handleAddToCart(item)}
+                        <Link
+                          href={`/products/${item?._id}`}
                           className="bg-primary text-white px-10 py-3 rounded-sm font-[500] tracking-wider border-[1px] border-primary hover:bg-transparent hover:text-primary transition duration-500"
                         >
-                          Add To Cart
-                        </button>
+                          Details
+                        </Link>
                       </div>
                     </div>
                   </div>

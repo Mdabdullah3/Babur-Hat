@@ -41,7 +41,7 @@ const useProductStore = create((set) => ({
                     size: selectedSize,
                     price_gte: minPrice,
                     price_lte: maxPrice,
-                    
+
                 },
             });
             set({
@@ -93,7 +93,7 @@ const useProductStore = create((set) => ({
     fetchAllProducts: async () => {
         set({ loading: true });
         try {
-            const response = await axios.get(`${API_URL}/products?_limit=400&_fields=productVariants,category,subCategory,name,_id,coverPhoto,user`);
+            const response = await axios.get(`${API_URL}/products?_limit=400&_fields=productVariants,category,subCategory,name,_id,coverPhoto,user&_filter[status]=approved`);
             set({ products: response.data.data, loading: false });
         } catch (error) {
             set({ error: error.response?.data?.message || error.message, loading: false });
