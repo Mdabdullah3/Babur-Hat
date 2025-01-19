@@ -69,7 +69,34 @@ const ShopComponent = () => {
     const value = Number(event.target.value);
     setPriceRange([0, value]);
   };
+  const handleResetFilters = () => {
+    // Reset all filter states
+    setSelectedCategory(null);
+    setSelectedSubCategory(null);
+    setSelectecdSize(null);
+    setPriceRange([0, 10000]);
+    setSelectedBrand(null);
+    setSearchTerm("");
+
+    // Clear the filtered products
+    fetchAllProducts(); // Fetch all products again to ensure a fresh start
+  };
+
   const filterProducts = () => {
+    // Return all products if no filters are applied
+    if (
+      !selectedCategory &&
+      !selectedSubCategory &&
+      !selectedSize &&
+      priceRange[0] === 0 &&
+      priceRange[1] === 10000 &&
+      !selectedBrand &&
+      !searchTerm
+    ) {
+      return products;
+    }
+
+    // Filter logic
     const filteredProducts = products?.filter((product) => {
       let matchesCategory = true;
       let matchesSubCategory = true;
@@ -129,16 +156,6 @@ const ShopComponent = () => {
   };
 
   const filterProduct = filterProducts();
-
-  const handleResetFilters = () => {
-    setSelectedCategory(null);
-    setSelectedSubCategory(null);
-    setSelectecdSize(null);
-    setPriceRange([0, 1000]);
-    setSelectedBrand(null);
-    fetchAllProducts();
-    filterProducts();
-  };
 
   console.log("filterProduct", filterProduct, "Products", products);
   return (
@@ -263,7 +280,7 @@ const ShopComponent = () => {
                       </div>
                     </ShopMenu>
                     <ShopMenu title="Brand">
-                      <div className="flex flex-wrap gap-2 mt-6 w-full">
+                      <div className="grid grid-cols-2 gap-2 mt-6 w-full">
                         {users?.map((brand) => (
                           <div
                             onClick={() => handleBrandChange(brand?._id)}

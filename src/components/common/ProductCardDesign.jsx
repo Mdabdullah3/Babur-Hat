@@ -39,7 +39,7 @@ const ProductCardDesign = ({ product }) => {
 
         {product?.productVariants ? (
           <h1 className="lg:text-xl text-[14px] font-bold">
-            <span className="text-2xl font-bold"> ৳</span>
+            ৳
             {product?.productVariants[0]?.discount > 0
               ? product?.productVariants[0]?.discount
               : product?.productVariants[0]?.price}
