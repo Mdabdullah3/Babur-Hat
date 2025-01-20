@@ -68,10 +68,6 @@ const Footer = () => {
             ))}
           </ul>
         </div>
-
-        <p className="mt-12 text-center text-sm  lg:text-right">
-          &copy;{new Date().getFullYear()}; Developed By Bit Encrypt It
-        </p>
       </div>
     </footer>
   );
