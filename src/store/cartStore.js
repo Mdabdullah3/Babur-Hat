@@ -23,7 +23,7 @@ const useCartStore = create(
                             _id,
                             category,
                             subCategory,
-                            userId: user._id,
+                            userId: user?._id,
                             variantId: variant?._id,
                             name,
                             size,

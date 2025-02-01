@@ -8,7 +8,7 @@ const useWishlistStore = create(
             addToWishlist: (product, variant, quantity = 1) => {
                 let productAdded = false;
                 set((state) => {
-                    const productExists = state.wishlist.find((item) => item._id === product._id);
+                    const productExists = state.wishlist.find((item) => item?._id === product?._id);
                     if (productExists) {
                         productAdded = false;
                         return state;
@@ -18,7 +18,7 @@ const useWishlistStore = create(
                     const newWishlist = [...state.wishlist,
                     {
                         _id,
-                        userId: user._id,
+                        userId: user?._id,
                         variant: variant,
                         name,
                         size,
