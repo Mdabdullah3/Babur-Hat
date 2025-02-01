@@ -8,7 +8,7 @@ const useCartStore = create(
             addToCart: (product, variant, quantity = 1) => {
                 let productAdded = false;
                 set((state) => {
-                    const productExists = state?.cart.find(
+                    const productExists = state?.cart?.find(
                         (item) => item?._id === product?._id && item?.size === variant?.size
                     );
                     if (productExists) {

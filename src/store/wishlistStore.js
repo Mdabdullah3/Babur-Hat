@@ -15,7 +15,7 @@ const useWishlistStore = create(
                     }
                     const { _id, name, user, coverPhoto } = product;
                     const { price, discount, size, color, } = variant;
-                    const newWishlist = [...state.wishlist,
+                    const newWishlist = [...state?.wishlist,
                     {
                         _id,
                         userId: user?._id,
@@ -35,7 +35,7 @@ const useWishlistStore = create(
                 return productAdded;
             },
             removeFromWishlist: (id) => set((state) => {
-                const newWishlist = state.wishlist.filter((item) => item._id !== id);
+                const newWishlist = state.wishlist.filter((item) => item?._id !== id);
                 return { wishlist: newWishlist };
             }),
             clearWishlist: () => set({ wishlist: [] })
