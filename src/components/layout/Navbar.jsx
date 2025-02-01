@@ -251,7 +251,7 @@ const Navbar = () => {
               <h1 className="md:text-2xl text-xl hidden md:block">
                 <FaHeart />
               </h1>
-              <h1 className="bg-white md:px-2 px-2 md:mt-0 rounded-full py-0 text-primary">
+              <h1 className="bg-white hidden md:block md:px-2 px-2 md:mt-0 rounded-full py-0 text-primary">
                 {wishlist?.length || 0}
               </h1>
             </Link>
