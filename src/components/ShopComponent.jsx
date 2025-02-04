@@ -135,6 +135,12 @@ const ShopComponent = () => {
         );
       }
 
+      const closeDrawer = () => {
+        const drawerCheckbox = document.getElementById("my-drawer");
+        if (drawerCheckbox) {
+          drawerCheckbox.checked = false;
+        }
+      };
       // Checking search
       if (searchTerm) {
         matchesSearchTerm = product.name
@@ -157,7 +163,6 @@ const ShopComponent = () => {
 
   const filterProduct = filterProducts();
 
-  console.log("filterProduct", filterProduct, "Products", products);
   return (
     <div>
       <Navbar />
@@ -182,7 +187,7 @@ const ShopComponent = () => {
                       <div className="mt-5">
                         <ul className="space-y-3">
                           {categories?.map((category) => (
-                            <li key={category._id}>
+                            <li key={category._id} onClick={closeDrawer}>
                               <label
                                 htmlFor={`Filter${category.name}`}
                                 className="inline-flex items-center gap-2 capitalize"
@@ -247,7 +252,7 @@ const ShopComponent = () => {
                             key={index}
                             className="mx-auto w-full cursor-pointer text-center "
                           >
-                            <h1
+                            <h1 onClick={closeDrawer}
                               className={`text-sm font-medium border border-gray-400 p-4 tracking-wider uppercase ${
                                 item === selectedSize
                                   ? "bg-primary border-primary text-white"
@@ -287,7 +292,7 @@ const ShopComponent = () => {
                             key={brand?._id}
                             className="mx-auto w-full cursor-pointer text-center "
                           >
-                            <h1
+                            <h1 onClick={closeDrawer}
                               className={`text-sm font-medium border border-gray-400 p-4 tracking-wider capitalize ${
                                 brand?._id === selectedBrand
                                   ? "bg-primary border-primary text-white"

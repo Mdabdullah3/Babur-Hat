@@ -48,6 +48,12 @@ const Navbar = () => {
     };
     fetchLogoData();
   }, []);
+  const closeDrawer = () => {
+    const drawerCheckbox = document.getElementById("my-drawer");
+    if (drawerCheckbox) {
+      drawerCheckbox.checked = false;
+    }
+  };
   const { suggestions, fetchSuggestions, setSearchTerm } = useProductStore();
   const [searchValue, setSearchValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -324,14 +330,14 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="drawer z-50">
+      <div className="drawer z-[999]">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content"></div>
         <div className="drawer-side z-50">
           <label htmlFor="my-drawer" className="drawer-overlay"></label>
 
           <ul className="menu p-6 w-60  min-h-full bg-base-200 text-base-content z-50">
-            <Link href="/categories">
+            <Link href="/categories" onClick={closeDrawer}>
               <h1 className="flex gap-2 items-center text-lg font-bold my-2">
                 <TbCategory2 />
                 Categories
@@ -346,6 +352,7 @@ const Navbar = () => {
               >
                 <Link
                   href={`/shop?category=${cat?._id}`}
+                  onClick={closeDrawer}
                   className="flex items-center gap-3 mt-2 tracking-wider
             text-gray-600"
                 >
@@ -362,6 +369,7 @@ const Navbar = () => {
                     <ul>
                       {cat?.subCategories?.map((subCat) => (
                         <Link
+                          onClick={closeDrawer}
                           href={`/shop?sub-category=${subCat?._id}`}
                           key={subCat?._id}
                           className="text-gray-700 mb-2 capitalize"

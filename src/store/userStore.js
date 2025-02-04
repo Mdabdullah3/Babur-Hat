@@ -73,7 +73,7 @@ const useUserStore = create((set, get) => ({
             if (response.status === 200) {
                 await get().fetchUser();
                 toast.success('Login successful');
-                set({ isSurveyModalOpen: true });
+                // set({ isSurveyModalOpen: true });
                 router.push('/');
             } else {
                 toast.error('Login failed. Please try again.');
