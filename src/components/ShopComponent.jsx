@@ -135,12 +135,7 @@ const ShopComponent = () => {
         );
       }
 
-      const closeDrawer = () => {
-        const drawerCheckbox = document.getElementById("my-drawer");
-        if (drawerCheckbox) {
-          drawerCheckbox.checked = false;
-        }
-      };
+     
       // Checking search
       if (searchTerm) {
         matchesSearchTerm = product.name
@@ -162,7 +157,12 @@ const ShopComponent = () => {
   };
 
   const filterProduct = filterProducts();
-
+  const closeDrawer = () => {
+    const drawerCheckbox = document.getElementById("my-drawer-2");
+    if (drawerCheckbox) {
+      drawerCheckbox.checked = false;
+    }
+  };
   return (
     <div>
       <Navbar />
@@ -170,7 +170,7 @@ const ShopComponent = () => {
         <div className="drawer drawer-start lg:hidden block">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content mt-2 mx-4">
-            <label htmlFor="my-drawer-2" className="text-2xl font-bold">
+            <label htmlFor="my-drawer-2" className="text-2xl font-bold cursor-pointer">
               <CiMenuBurger />
             </label>
           </div>
